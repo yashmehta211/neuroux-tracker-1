@@ -1754,6 +1754,17 @@ document.querySelectorAll('.modal-overlay').forEach(o => {
 });
 
 init();
+
+function saveSettings() {
+  const token = document.getElementById('s_hstoken').value.trim();
+  const worker = document.getElementById('s_worker').value.trim();
+  if (!token || !worker) { alert('Please fill in both fields.'); return; }
+  localStorage.setItem('neuroux_hs_token', token);
+  localStorage.setItem('neuroux_worker_url', worker);
+  closeModal('settingsModal');
+  setHsStatus('syncing', 'Connecting...');
+  setTimeout(() => syncHubSpot(), 500);
+}
 </script>
 
 <!-- SETTINGS MODAL -->
