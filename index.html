@@ -3,288 +3,515 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroUX Command Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>NeuroUX · Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 :root {
-  --ink: #0c0f1a; --ink-mid: #2d3347; --ink-soft: #5a6175; --ink-muted: #8f96a8;
-  --bg: #f5f4f0; --surface: #fdfcf9; --surface2: #f0efe9; --border: #e2e0d6; --border-mid: #ccc9bc;
-  --red: #c13a2c; --red-bg: #fdf2f1; --red-border: #f2c4bf;
-  --amber: #b85c00; --amber-bg: #fdf6ed; --amber-border: #f0d4a8;
-  --green: #1a6644; --green-bg: #edf8f2; --green-border: #a8d9be;
-  --blue: #1c4fb5; --blue-bg: #eef3fc; --blue-border: #b8cef5;
-  --purple: #5b21b6; --purple-bg: #f5f3ff; --purple-border: #c4b5fd;
-  --gmail: #ea4335; --gmail-bg: #fef2f2; --gmail-border: #fca5a5;
-  --otter: #6366f1; --otter-bg: #eef2ff; --otter-border: #a5b4fc;
-  --shadow-sm: 0 1px 3px rgba(12,15,26,0.06); --shadow-md: 0 4px 16px rgba(12,15,26,0.08); --shadow-lg: 0 16px 48px rgba(12,15,26,0.14);
+  --bg:       #0e0f11;
+  --bg2:      #141518;
+  --bg3:      #1a1c21;
+  --bg4:      #212328;
+  --line:     #2a2d35;
+  --line2:    #353840;
+  --text:     #e8e9ec;
+  --muted:    #6b7080;
+  --dim:      #40444f;
+  --gold:     #c8963e;
+  --gold2:    #e8b04a;
+  --gold-bg:  rgba(200,150,62,0.08);
+  --gold-bd:  rgba(200,150,62,0.22);
+  --red:      #e05252;
+  --red-bg:   rgba(224,82,82,0.07);
+  --red-bd:   rgba(224,82,82,0.22);
+  --grn:      #3dba7a;
+  --grn-bg:   rgba(61,186,122,0.07);
+  --grn-bd:   rgba(61,186,122,0.22);
+  --blu:      #4e8ef7;
+  --blu-bg:   rgba(78,142,247,0.07);
+  --blu-bd:   rgba(78,142,247,0.22);
+  --prp:      #9b72f0;
+  --prp-bg:   rgba(155,114,240,0.07);
+  --prp-bd:   rgba(155,114,240,0.22);
+  --amb:      #f0a040;
+  --amb-bg:   rgba(240,160,64,0.07);
+  --amb-bd:   rgba(240,160,64,0.22);
+  --ott:      #6476f5;
+  --ott-bg:   rgba(100,118,245,0.08);
+  --ott-bd:   rgba(100,118,245,0.25);
+  --gml:      #e8483a;
+  --gml-bg:   rgba(232,72,58,0.07);
+  --gml-bd:   rgba(232,72,58,0.22);
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 400; min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-/* TOPBAR */
-.topbar { background: var(--ink); color: #fff; height: 56px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(12,15,26,0.3); gap: 16px; }
-.brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.brand-name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; }
-.brand-div { width: 1px; height: 16px; background: rgba(255,255,255,0.2); }
-.brand-sub { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase; }
-.top-stats { display: flex; align-items: center; gap: 16px; }
-.ts { text-align: center; }
-.ts-n { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 700; line-height: 1; }
-.ts-n.r { color: #f87171; } .ts-n.a { color: #fbbf24; } .ts-n.g { color: #4ade80; } .ts-n.b { color: #93c5fd; } .ts-n.v { color: #a5b4fc; }
-.ts-l { font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; }
-.ts-div { width: 1px; height: 24px; background: rgba(255,255,255,0.1); }
-.top-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-.cpill { display: flex; align-items: center; gap: 4px; padding: 4px 9px; border-radius: 20px; font-size: 9.5px; font-weight: 600; letter-spacing: 0.05em; border: 1px solid; cursor: pointer; transition: all 0.15s; text-transform: uppercase; }
-.cpill .cd { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-.cpill.hs { background: rgba(255,123,0,0.1); border-color: rgba(255,123,0,0.3); color: #fbbf24; }
-.cpill.hs.ok { background: rgba(74,222,128,0.1); border-color: rgba(74,222,128,0.3); color: #4ade80; }
-.cpill.gm { background: rgba(234,67,53,0.1); border-color: rgba(234,67,53,0.3); color: #f87171; }
-.cpill.gm.ok { background: rgba(74,222,128,0.1); border-color: rgba(74,222,128,0.3); color: #4ade80; }
-.cpill.ot { background: rgba(99,102,241,0.1); border-color: rgba(99,102,241,0.3); color: #a5b4fc; }
-.cpill.ot.ok { background: rgba(74,222,128,0.1); border-color: rgba(74,222,128,0.3); color: #4ade80; }
-.tbtn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 11.5px; font-weight: 500; padding: 6px 12px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-.tbtn:hover { background: rgba(255,255,255,0.14); }
-.tbtn.p { background: #fff; color: var(--ink); border-color: #fff; font-weight: 600; }
-.tbtn.p:hover { background: #e8e8e8; }
-#todayLbl { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
 
-/* LAYOUT */
-.layout { display: grid; grid-template-columns: 230px 1fr 300px; min-height: calc(100vh - 56px); }
+/* ─── SCANLINE overlay ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+}
 
-/* LEFT SIDEBAR */
-.lsb { background: var(--surface); border-right: 1px solid var(--border); padding: 18px 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
-.lsb-sec { padding: 0 14px; margin-bottom: 22px; }
-.lsb-lbl { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-.fb { width: 100%; background: none; border: none; border-radius: 6px; padding: 7px 9px; text-align: left; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; color: var(--ink-soft); transition: all 0.15s; display: flex; align-items: center; justify-content: space-between; }
-.fb:hover { background: var(--surface2); color: var(--ink); }
-.fb.act { background: var(--ink); color: #fff; font-weight: 500; }
-.fb .fc { font-family: 'DM Mono', monospace; font-size: 10px; opacity: 0.5; }
-.fb.act .fc { opacity: 0.6; }
-.fsep { height: 1px; background: var(--border); margin: 6px 0; }
-.pipe-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
-.pipe-v { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
-.pipe-s { font-size: 11px; color: var(--ink-muted); margin-top: 2px; }
+/* ─── TOPBAR ─── */
+.top {
+  height: 52px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  position: relative; z-index: 50;
+}
+.top::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.4;
+}
+.top-brand {
+  display: flex; align-items: center; gap: 10px;
+}
+.brand-logo {
+  width: 28px; height: 28px;
+  background: var(--gold);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.brand-logo-inner {
+  width: 12px; height: 12px;
+  background: var(--bg2);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.brand-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.04em; color: var(--text); }
+.brand-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 1px; }
+.top-stats {
+  display: flex; align-items: center; gap: 2px;
+}
+.tstat {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 14px; height: 52px;
+  border-left: 1px solid var(--line);
+  cursor: default;
+}
+.tstat:first-child { border-left: none; }
+.tstat-n {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px; font-weight: 500; line-height: 1;
+  transition: color 0.2s;
+}
+.tstat-n.red { color: var(--red); }
+.tstat-n.amb { color: var(--amb); }
+.tstat-n.grn { color: var(--grn); }
+.tstat-n.blu { color: var(--blu); }
+.tstat-n.ott { color: var(--ott); }
+.tstat-label { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.4; }
+.top-right { display: flex; align-items: center; gap: 6px; }
+.pill {
+  display: flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 2px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid; cursor: pointer; transition: all 0.15s;
+}
+.pill-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.pill.hs  { color: var(--amb); border-color: var(--amb-bd); background: var(--amb-bg); }
+.pill.hs.on  { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.pill.gm  { color: var(--gml); border-color: var(--gml-bd); background: var(--gml-bg); }
+.pill.gm.on  { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.pill.ot  { color: var(--ott); border-color: var(--ott-bd); background: var(--ott-bg); }
+.pill.ot.on  { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.tbtn {
+  background: var(--bg3); border: 1px solid var(--line2);
+  color: var(--muted); font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.15s;
+}
+.tbtn:hover { color: var(--text); border-color: var(--line2); background: var(--bg4); }
+.tbtn.add {
+  background: var(--gold); color: var(--bg); border-color: var(--gold);
+  font-weight: 500;
+}
+.tbtn.add:hover { background: var(--gold2); border-color: var(--gold2); }
+#dateLbl { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--dim); letter-spacing: 0.06em; }
 
-/* MAIN */
-.main { padding: 22px 24px; min-width: 0; }
-.main-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-.main-ttl { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
-.main-sub { font-size: 11.5px; color: var(--ink-muted); margin-top: 2px; }
-.srch { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 9px 14px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--ink); outline: none; transition: border-color 0.15s; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
-.srch:focus { border-color: var(--ink-mid); box-shadow: 0 0 0 3px rgba(12,15,26,0.07); }
-.srch::placeholder { color: var(--ink-muted); }
-.leads { display: flex; flex-direction: column; gap: 7px; }
+/* ─── LAYOUT ─── */
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 290px;
+  height: calc(100vh - 52px);
+  overflow: hidden;
+}
 
-/* COMMAND CARDS */
-.cc { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.18s; cursor: pointer; position: relative; animation: su 0.22s ease both; }
-.cc::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; border-radius:10px 0 0 10px; }
-.cc.urgent::before { background:var(--red); } .cc.due::before { background:var(--amber); } .cc.replied::before { background:var(--green); }
-.cc.scheduled::before { background:var(--blue); } .cc.new::before { background:var(--purple); } .cc.won::before { background:var(--green); }
-.cc.lost::before { background:var(--ink-muted); } .cc.sequence::before { background:var(--green); } .cc.pending::before { background:var(--border-mid); }
-.cc:hover { border-color:var(--border-mid); box-shadow:var(--shadow-md); transform:translateY(-1px); }
-.cc.sel { border-color:var(--ink-mid) !important; box-shadow:var(--shadow-md) !important; }
-.cc-body { padding: 13px 15px 11px 17px; }
-.cc-r1 { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:7px; }
-.cc-name { font-size: 13.5px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
-.cc-org { font-size: 11px; color: var(--ink-muted); margin-top: 1px; }
-.cc-rv { display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; }
-.sp { font-size: 9.5px; font-weight: 600; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; white-space: nowrap; }
-.sp.urgent { background:var(--red-bg); color:var(--red); border:1px solid var(--red-border); }
-.sp.due { background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-border); }
-.sp.replied { background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); }
-.sp.scheduled { background:var(--blue-bg); color:var(--blue); border:1px solid var(--blue-border); }
-.sp.new { background:var(--purple-bg); color:var(--purple); border:1px solid var(--purple-border); }
-.sp.won { background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); }
-.sp.lost { background:var(--surface2); color:var(--ink-muted); border:1px solid var(--border); }
-.sp.snoozed { background:var(--surface2); color:var(--ink-soft); border:1px solid var(--border); }
-.sp.sequence { background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); }
-.sp.pending { background:var(--surface2); color:var(--ink-soft); border:1px solid var(--border); }
-.cv { font-family:'DM Mono',monospace; font-size:11.5px; color:var(--ink-soft); }
-.tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:9px; }
-.tag { font-size:9px; font-weight:600; letter-spacing:0.04em; padding:2px 6px; border-radius:3px; text-transform:uppercase; }
-.tp { background:var(--blue-bg); color:var(--blue); border:1px solid var(--blue-border); }
-.ts { background:var(--surface2); color:var(--ink-soft); border:1px solid var(--border); }
-.ths { background:#fff3e0; color:#e65100; border:1px solid #ffcc80; }
-.tseq { background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); }
-.tgm { background:var(--gmail-bg); color:var(--gmail); border:1px solid var(--gmail-border); }
-.tot { background:var(--otter-bg); color:var(--otter); border:1px solid var(--otter-border); }
-.tinv { background:#f0fdf4; color:#166534; border:1px solid #a8d9be; }
-.cf { display:flex; align-items:center; justify-content:space-between; padding-top:9px; border-top:1px solid var(--border); gap:10px; }
-.ct { font-size:11px; color:var(--ink-muted); flex:1; line-height:1.4; }
-.ct strong { color:var(--ink-soft); font-weight:600; }
-.cas { display:flex; gap:4px; flex-shrink:0; }
-.bx { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:4px 8px; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:500; color:var(--ink-soft); cursor:pointer; transition:all 0.15s; white-space:nowrap; }
-.bx:hover { background:var(--ink); color:#fff; border-color:var(--ink); }
-.bx.p { background:var(--ink); color:#fff; border-color:var(--ink); }
-.bx.p:hover { background:var(--ink-mid); }
-.bx.g { background:var(--green-bg); color:var(--green); border-color:var(--green-border); }
-.bx.r { background:var(--red-bg); color:var(--red); border-color:var(--red-border); }
-.bx.r:hover { background:var(--red); color:#fff; }
-.bx.gm { background:var(--gmail-bg); color:var(--gmail); border-color:var(--gmail-border); }
-/* Gmail reply + otter strips */
-.grb { background:var(--green-bg); border-bottom:1px solid var(--green-border); padding:5px 17px; font-size:11px; color:var(--green); font-weight:500; display:flex; align-items:center; gap:6px; }
-.ostrip { background:var(--otter-bg); border-bottom:1px solid var(--otter-border); padding:7px 17px; }
-.ostrip-t { font-size:10.5px; font-weight:600; color:var(--otter); margin-bottom:2px; }
-.ostrip-b { font-size:10.5px; color:var(--ink-soft); }
+/* ─── LEFT SIDEBAR ─── */
+.lsb {
+  background: var(--bg2);
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column;
+  overflow-y: auto; overflow-x: hidden;
+}
+.lsb::-webkit-scrollbar { width: 3px; }
+.lsb::-webkit-scrollbar-track { background: transparent; }
+.lsb::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
+.lsb-section { padding: 16px 0 8px; }
+.lsb-head {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim);
+  padding: 0 14px 8px; display: flex; align-items: center; gap: 6px;
+}
+.lsb-head::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.flt {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 14px; width: 100%; background: none; border: none;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--muted);
+  cursor: pointer; transition: all 0.12s; text-align: left;
+  border-left: 2px solid transparent;
+}
+.flt:hover { color: var(--text); background: var(--bg3); }
+.flt.on { color: var(--gold); border-left-color: var(--gold); background: var(--gold-bg); font-weight: 500; }
+.flt .fc {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  color: var(--dim); background: var(--bg3); padding: 1px 6px; border-radius: 1px;
+  min-width: 24px; text-align: center;
+}
+.flt.on .fc { color: var(--gold); background: var(--gold-bg); }
+.fsep { height: 1px; background: var(--line); margin: 6px 14px; }
+.pipe-block {
+  margin: 10px 12px 16px;
+  background: var(--bg3); border: 1px solid var(--line);
+  padding: 12px; border-radius: 2px; position: relative; overflow: hidden;
+}
+.pipe-block::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+}
+.pipe-label { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+.pipe-val { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 500; color: var(--gold); line-height: 1; letter-spacing: -0.02em; }
+.pipe-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
-/* RIGHT PANEL */
-.rp { background:var(--surface); border-left:1px solid var(--border); display:flex; flex-direction:column; position:sticky; top:56px; height:calc(100vh - 56px); overflow:hidden; }
-.ptabs { display:flex; border-bottom:1px solid var(--border); background:var(--surface); }
-.ptab { flex:1; padding:11px 6px; font-size:10px; font-weight:500; color:var(--ink-muted); text-align:center; cursor:pointer; border:none; border-bottom:2px solid transparent; background:none; font-family:'DM Sans',sans-serif; letter-spacing:0.05em; text-transform:uppercase; transition:all 0.15s; }
-.ptab:hover { color:var(--ink); }
-.ptab.act { color:var(--ink); border-bottom-color:var(--ink); font-weight:600; }
-.pc { flex:1; padding:14px; overflow-y:auto; }
-.ps-ttl { font-size:9.5px; font-weight:700; letter-spacing:0.12em; color:var(--ink-muted); text-transform:uppercase; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid var(--border); }
-.dsg { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-bottom:14px; }
-.ds { background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:9px 11px; }
-.ds-l { font-size:9px; font-weight:700; letter-spacing:0.1em; color:var(--ink-muted); text-transform:uppercase; margin-bottom:3px; }
-.ds-v { font-family:'Fraunces',serif; font-size:17px; font-weight:700; color:var(--ink); line-height:1; }
-.ai { display:flex; gap:9px; padding:7px 0; border-bottom:1px solid var(--border); font-size:11px; }
-.ai:last-child { border-bottom:none; }
-.ai-d { font-family:'DM Mono',monospace; font-size:9.5px; color:var(--ink-muted); flex-shrink:0; width:68px; padding-top:1px; }
-.ai-t { color:var(--ink-soft); line-height:1.5; }
-.on { background:var(--otter-bg); border:1px solid var(--otter-border); border-radius:6px; padding:9px 11px; margin-bottom:7px; }
-.on-h { font-size:9.5px; font-weight:700; color:var(--otter); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; display:flex; justify-content:space-between; }
-.on-t { font-size:11.5px; color:var(--ink-soft); line-height:1.6; }
-.on-a { margin-top:5px; display:flex; gap:4px; }
-.inv-item { display:flex; align-items:center; justify-content:space-between; padding:8px 10px; background:var(--surface2); border:1px solid var(--border); border-radius:5px; margin-bottom:5px; }
-.inv-n { font-size:12px; font-weight:500; color:var(--ink); }
-.inv-d { font-size:10px; color:var(--ink-muted); font-family:'DM Mono',monospace; }
-/* Email composer */
-.ec { background:var(--surface2); border:1px solid var(--border); border-radius:7px; padding:12px; }
-.ec-subj { font-weight:600; font-size:12.5px; color:var(--ink); padding-bottom:7px; border-bottom:1px solid var(--border); margin-bottom:7px; outline:none; }
-.ec-body { font-size:12px; color:var(--ink-soft); line-height:1.7; white-space:pre-wrap; outline:none; min-height:140px; }
-.ea { display:flex; gap:5px; margin-top:9px; flex-wrap:wrap; }
+/* ─── MAIN ─── */
+.main {
+  display: flex; flex-direction: column;
+  background: var(--bg); overflow: hidden;
+}
+.main-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.main-ttl {
+  font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
+  color: var(--text); letter-spacing: -0.01em;
+}
+.main-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 3px; letter-spacing: 0.04em; }
+.srch-wrap { padding: 10px 20px; border-bottom: 1px solid var(--line); flex-shrink: 0; position: relative; }
+.srch-wrap::before { content: '//'; position: absolute; left: 32px; top: 50%; transform: translateY(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--dim); pointer-events: none; }
+.srch {
+  width: 100%; background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 2px; padding: 8px 12px 8px 32px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text);
+  outline: none; transition: border-color 0.15s;
+}
+.srch:focus { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-bg); }
+.srch::placeholder { color: var(--dim); }
+.leads-wrap { flex: 1; overflow-y: auto; padding: 10px 14px; }
+.leads-wrap::-webkit-scrollbar { width: 3px; }
+.leads-wrap::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
+.leads-grid { display: flex; flex-direction: column; gap: 6px; }
 
-/* MODALS */
-.mo { display:none; position:fixed; inset:0; background:rgba(12,15,26,0.5); z-index:200; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(3px); }
-.mo.open { display:flex; }
-.md { background:var(--surface); border-radius:12px; width:100%; max-width:520px; max-height:88vh; overflow-y:auto; box-shadow:var(--shadow-lg); border:1px solid var(--border); animation:mi 0.2s ease both; }
-.md-h { padding:20px 24px 14px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
-.md-t { font-family:'Fraunces',serif; font-size:17px; font-weight:700; color:var(--ink); letter-spacing:-0.01em; }
-.mc { background:none; border:none; font-size:17px; cursor:pointer; color:var(--ink-muted); padding:2px 5px; border-radius:4px; transition:all 0.15s; }
-.mc:hover { background:var(--surface2); color:var(--ink); }
-.mb { padding:18px 24px 24px; }
-.ff { margin-bottom:13px; }
-.ff label { display:block; font-size:10px; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:4px; }
-.ff input, .ff select, .ff textarea { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:8px 11px; font-family:'DM Sans',sans-serif; font-size:13px; color:var(--ink); outline:none; transition:border-color 0.15s; }
-.ff input:focus, .ff select:focus, .ff textarea:focus { border-color:var(--ink-mid); background:#fff; box-shadow:0 0 0 3px rgba(12,15,26,0.06); }
-.ff textarea { resize:vertical; min-height:66px; line-height:1.6; }
-.fr { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
-.fa { display:flex; gap:8px; justify-content:flex-end; margin-top:16px; padding-top:13px; border-top:1px solid var(--border); }
-.bp { background:var(--ink); color:#fff; border:none; border-radius:6px; padding:9px 20px; font-family:'DM Sans',sans-serif; font-size:12.5px; font-weight:600; cursor:pointer; transition:all 0.15s; }
-.bp:hover { background:var(--ink-mid); }
-.bc { background:none; border:1px solid var(--border); border-radius:6px; padding:9px 15px; font-family:'DM Sans',sans-serif; font-size:12.5px; color:var(--ink-soft); cursor:pointer; transition:all 0.15s; }
-.bc:hover { background:var(--surface2); }
-.cbr { display:flex; align-items:center; gap:7px; margin-bottom:6px; }
-.cbr input[type=checkbox] { accent-color:var(--ink); width:13px; height:13px; cursor:pointer; }
-.cbr label { font-size:12.5px; color:var(--ink-soft); cursor:pointer; }
-.sg { display:grid; grid-template-columns:repeat(5,1fr); gap:5px; margin-top:7px; }
-.so { background:var(--surface2); border:1px solid var(--border); border-radius:5px; padding:6px 4px; font-size:11px; font-weight:500; color:var(--ink-soft); cursor:pointer; transition:all 0.15s; text-align:center; font-family:'DM Sans',sans-serif; }
-.so:hover { background:var(--ink); color:#fff; border-color:var(--ink); }
-.dl { font-size:9.5px; font-weight:700; letter-spacing:0.1em; color:var(--ink-muted); text-transform:uppercase; display:flex; align-items:center; gap:8px; margin:13px 0 9px; }
-.dl::after { content:''; flex:1; height:1px; background:var(--border); }
-.cpb { background:var(--ink); color:#fff; border:none; border-radius:6px; padding:6px 13px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; cursor:pointer; transition:all 0.15s; }
-.cpb:hover { background:var(--ink-mid); }
-.cpb.copied { background:var(--green); }
-.uz { border:2px dashed var(--border); border-radius:7px; padding:18px; text-align:center; cursor:pointer; transition:all 0.15s; }
-.uz:hover { border-color:var(--ink-mid); background:var(--surface2); }
-.infobox { background:var(--blue-bg); border:1px solid var(--blue-border); border-radius:6px; padding:9px 11px; font-size:11.5px; color:var(--blue); line-height:1.6; margin-bottom:11px; }
-.whbox { background:var(--surface2); border:1px solid var(--border); border-radius:5px; padding:8px 11px; font-family:'DM Mono',monospace; font-size:10.5px; color:var(--ink-soft); word-break:break-all; margin:7px 0; }
-.gcb { background:var(--gmail-bg); border:1px solid var(--gmail-border); border-radius:7px; padding:14px; display:flex; align-items:center; gap:11px; cursor:pointer; transition:all 0.15s; margin-bottom:9px; }
-.gcb:hover { border-color:var(--gmail); }
-.ocb { background:var(--otter-bg); border:1px solid var(--otter-border); border-radius:7px; padding:14px; display:flex; align-items:center; gap:11px; cursor:pointer; transition:all 0.15s; }
-.ocb:hover { border-color:var(--otter); }
-.cbt { font-size:12.5px; color:var(--ink-soft); }
-.cbt strong { color:var(--ink); display:block; margin-bottom:2px; }
-.es { text-align:center; padding:50px 30px; color:var(--ink-muted); }
-.es .ei { font-size:28px; margin-bottom:10px; }
-.es h3 { font-family:'Fraunces',serif; font-size:17px; color:var(--ink-soft); margin-bottom:5px; }
-.es p { font-size:12.5px; line-height:1.6; }
-.notif { position:fixed; bottom:20px; right:20px; border-radius:8px; padding:10px 15px; font-size:12px; font-weight:500; z-index:999; box-shadow:var(--shadow-md); animation:su 0.2s ease both; max-width:280px; pointer-events:none; }
-@keyframes su { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-@keyframes mi { from{opacity:0;transform:scale(0.975) translateY(5px)} to{opacity:1;transform:scale(1) translateY(0)} }
-@keyframes seqp { 0%,100%{opacity:1} 50%{opacity:0.6} }
+/* ─── LEAD CARD ─── */
+.lcard {
+  background: var(--bg2); border: 1px solid var(--line);
+  border-radius: 2px; cursor: pointer; position: relative; overflow: hidden;
+  transition: border-color 0.15s, background 0.15s;
+  animation: fadein 0.2s ease both;
+}
+.lcard::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+}
+.lcard.urgent::before { background: var(--red); }
+.lcard.due::before { background: var(--amb); }
+.lcard.replied::before { background: var(--grn); }
+.lcard.scheduled::before { background: var(--blu); }
+.lcard.new::before { background: var(--prp); }
+.lcard.won::before { background: var(--grn); }
+.lcard.lost::before { background: var(--dim); }
+.lcard.sequence::before { background: var(--grn); }
+.lcard.pending::before { background: var(--line2); }
+.lcard.snoozed::before { background: var(--line2); }
+.lcard:hover { border-color: var(--line2); background: var(--bg3); }
+.lcard.sel { border-color: var(--gold) !important; background: var(--bg3); }
+.lcard.sel::after { content: ''; position: absolute; top: 0; right: 0; width: 0; height: 0; border-style: solid; border-width: 0 10px 10px 0; border-color: transparent var(--gold) transparent transparent; }
+/* Gmail reply bar */
+.gbar { background: var(--grn-bg); border-bottom: 1px solid var(--grn-bd); padding: 4px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--grn); letter-spacing: 0.06em; display: flex; align-items: center; gap: 6px; }
+/* Otter bar */
+.obar { background: var(--ott-bg); border-bottom: 1px solid var(--ott-bd); padding: 5px 14px; }
+.obar-t { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--ott); letter-spacing: 0.06em; margin-bottom: 1px; }
+.obar-b { font-size: 10px; color: var(--muted); }
+.lcard-body { padding: 10px 14px 9px 16px; }
+.lcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.lcard-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
+.lcard-org { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 0.02em; }
+.lcard-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.badge {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 1px; border: 1px solid; white-space: nowrap;
+}
+.badge.urgent { color: var(--red); border-color: var(--red-bd); background: var(--red-bg); }
+.badge.due { color: var(--amb); border-color: var(--amb-bd); background: var(--amb-bg); }
+.badge.replied { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.badge.scheduled { color: var(--blu); border-color: var(--blu-bd); background: var(--blu-bg); }
+.badge.new { color: var(--prp); border-color: var(--prp-bd); background: var(--prp-bg); }
+.badge.won { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.badge.lost { color: var(--muted); border-color: var(--line); background: var(--bg3); }
+.badge.snoozed { color: var(--muted); border-color: var(--line); background: var(--bg3); }
+.badge.pending { color: var(--muted); border-color: var(--line); background: var(--bg3); }
+.badge.sequence { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.lcard-val { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gold); }
+.chips { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
+.chip {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 2px 5px; border-radius: 1px; border: 1px solid;
+}
+.chip-p { color: var(--blu); border-color: var(--blu-bd); background: var(--blu-bg); }
+.chip-s { color: var(--dim); border-color: var(--line); background: var(--bg3); }
+.chip-hs { color: #ff7a00; border-color: rgba(255,122,0,0.25); background: rgba(255,122,0,0.06); }
+.chip-seq { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.chip-gm { color: var(--gml); border-color: var(--gml-bd); background: var(--gml-bg); }
+.chip-ot { color: var(--ott); border-color: var(--ott-bd); background: var(--ott-bg); }
+.chip-inv { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.lcard-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 8px; border-top: 1px solid var(--line); gap: 8px;
+}
+.lcard-time { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); flex: 1; line-height: 1.5; }
+.lcard-time .hi { font-weight: 500; }
+.lcard-time .hi.r { color: var(--red); }
+.lcard-time .hi.a { color: var(--amb); }
+.lcard-time .hi.g { color: var(--grn); }
+.lcard-actions { display: flex; gap: 3px; }
+.ab {
+  background: var(--bg3); border: 1px solid var(--line);
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); padding: 4px 8px; border-radius: 1px;
+  cursor: pointer; transition: all 0.12s; white-space: nowrap;
+}
+.ab:hover { color: var(--text); border-color: var(--line2); }
+.ab.p { background: var(--gold-bg); border-color: var(--gold-bd); color: var(--gold); }
+.ab.p:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+.ab.r { color: var(--red); border-color: var(--red-bd); background: var(--red-bg); }
+.ab.r:hover { background: var(--red); color: #fff; }
+.ab.g { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+
+/* ─── RIGHT PANEL ─── */
+.rp {
+  background: var(--bg2); border-left: 1px solid var(--line);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.ptabs { display: flex; border-bottom: 1px solid var(--line); flex-shrink: 0; }
+.ptab {
+  flex: 1; padding: 0 6px; height: 42px; background: none; border: none;
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim);
+  cursor: pointer; transition: all 0.12s; border-bottom: 2px solid transparent;
+  position: relative;
+}
+.ptab:hover { color: var(--text); background: var(--bg3); }
+.ptab.on { color: var(--gold); border-bottom-color: var(--gold); }
+.pc { flex: 1; overflow-y: auto; padding: 14px; }
+.pc::-webkit-scrollbar { width: 3px; }
+.pc::-webkit-scrollbar-thumb { background: var(--line2); }
+.ph { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
+.psg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
+.pst { background: var(--bg3); border: 1px solid var(--line); padding: 9px 10px; border-radius: 2px; }
+.pst-l { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+.pst-v { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 500; color: var(--text); line-height: 1; }
+.act-item { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 11px; }
+.act-item:last-child { border-bottom: none; }
+.act-d { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--dim); flex-shrink: 0; width: 68px; }
+.act-t { color: var(--muted); line-height: 1.5; }
+.on-card { background: var(--ott-bg); border: 1px solid var(--ott-bd); border-radius: 2px; padding: 9px 10px; margin-bottom: 6px; }
+.on-head { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--ott); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; display: flex; justify-content: space-between; }
+.on-body { font-size: 11px; color: var(--muted); line-height: 1.6; }
+.on-acts { margin-top: 5px; display: flex; gap: 4px; }
+.inv-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 9px; background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; margin-bottom: 5px; }
+.inv-n { font-size: 11.5px; font-weight: 500; color: var(--text); }
+.inv-d { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 1px; }
+.inv-amt { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gold); }
+/* Email */
+.ecomp { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 12px; }
+.ecomp-subj { font-weight: 500; font-size: 12px; color: var(--text); padding-bottom: 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; outline: none; }
+.ecomp-body { font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: var(--muted); line-height: 1.8; white-space: pre-wrap; outline: none; min-height: 130px; }
+.ea { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
+.snz-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 4px; margin-top: 7px; }
+.snz-opt { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 6px 3px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); cursor: pointer; transition: all 0.12s; text-align: center; letter-spacing: 0.04em; }
+.snz-opt:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+
+/* ─── MODALS ─── */
+.mo { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
+.mo.open { display: flex; }
+.md { background: var(--bg2); border: 1px solid var(--line2); border-radius: 2px; width: 100%; max-width: 500px; max-height: 88vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(0,0,0,0.7); animation: modIn 0.18s ease both; position: relative; }
+.md::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
+.md::-webkit-scrollbar { width: 3px; } .md::-webkit-scrollbar-thumb { background: var(--line2); }
+.md-top { padding: 18px 22px 14px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+.md-ttl { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
+.mclose { background: none; border: none; font-size: 16px; cursor: pointer; color: var(--dim); padding: 2px 6px; border-radius: 2px; transition: all 0.12s; }
+.mclose:hover { color: var(--text); background: var(--bg3); }
+.mb { padding: 18px 22px 22px; }
+.ff { margin-bottom: 12px; }
+.ff label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 5px; }
+.ff input, .ff select, .ff textarea { width: 100%; background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 8px 11px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text); outline: none; transition: border-color 0.15s; }
+.ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-bg); }
+.ff select option { background: var(--bg2); }
+.ff textarea { resize: vertical; min-height: 64px; line-height: 1.6; font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; }
+.fr { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.frow { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+.frow input[type=checkbox] { accent-color: var(--gold); width: 13px; height: 13px; cursor: pointer; }
+.frow label { font-size: 12px; color: var(--muted); cursor: pointer; }
+.prods-box { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 9px 11px; }
+.fa { display: flex; gap: 7px; justify-content: flex-end; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.fpri { background: var(--gold); color: var(--bg); border: 1px solid var(--gold); border-radius: 2px; padding: 8px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
+.fpri:hover { background: var(--gold2); border-color: var(--gold2); }
+.fcan { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 2px; padding: 8px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
+.fcan:hover { color: var(--text); border-color: var(--line2); }
+.dl { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: flex; align-items: center; gap: 8px; margin: 14px 0 10px; }
+.dl::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.infobox { background: var(--blu-bg); border: 1px solid var(--blu-bd); border-radius: 2px; padding: 9px 11px; font-size: 11.5px; color: var(--blu); line-height: 1.6; margin-bottom: 11px; }
+.wh-box { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 8px 11px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); word-break: break-all; margin: 7px 0; }
+.conn-box { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 12px 14px; display: flex; align-items: center; gap: 11px; cursor: pointer; transition: all 0.15s; margin-bottom: 8px; }
+.conn-box:hover { border-color: var(--gold); background: var(--bg4); }
+.conn-box .cico { font-size: 20px; flex-shrink: 0; }
+.conn-box .ctxt { font-size: 12px; color: var(--muted); }
+.conn-box .ctxt strong { color: var(--text); display: block; margin-bottom: 2px; font-size: 12.5px; }
+.cpbtn { background: var(--gold); color: var(--bg); border: none; border-radius: 2px; padding: 6px 13px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
+.cpbtn:hover { background: var(--gold2); }
+.cpbtn.done { background: var(--grn); }
+.uzone { border: 1px dashed var(--line2); border-radius: 2px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.uzone:hover { border-color: var(--gold); background: var(--gold-bg); }
+/* Empty */
+.empty { text-align: center; padding: 50px 20px; }
+.empty-i { font-size: 26px; margin-bottom: 10px; }
+.empty-t { font-family: 'Syne', sans-serif; font-size: 16px; color: var(--muted); margin-bottom: 6px; }
+.empty-s { font-size: 12px; color: var(--dim); line-height: 1.6; }
+/* Notif */
+.notif { position: fixed; bottom: 18px; right: 18px; border-radius: 2px; padding: 9px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.04em; z-index: 999; box-shadow: 0 8px 32px rgba(0,0,0,0.5); animation: fadein 0.2s ease both; pointer-events: none; border-left: 2px solid; max-width: 280px; }
+/* Anim */
+@keyframes fadein { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+@keyframes modIn { from{opacity:0;transform:scale(0.97) translateY(4px)} to{opacity:1;transform:scale(1) translateY(0)} }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="brand">
-    <div class="brand-name">NeuroUX</div>
-    <div class="brand-div"></div>
-    <div class="brand-sub">Command Center</div>
+<!-- TOPBAR -->
+<div class="top">
+  <div class="top-brand">
+    <div class="brand-logo"><div class="brand-logo-inner"></div></div>
+    <div>
+      <div class="brand-text">NEUROUX</div>
+      <div class="brand-sub">Command Center</div>
+    </div>
   </div>
+
   <div class="top-stats">
-    <div class="ts"><div class="ts-n r" id="tsO">0</div><div class="ts-l">Overdue</div></div>
-    <div class="ts-div"></div>
-    <div class="ts"><div class="ts-n a" id="tsD">0</div><div class="ts-l">Due Today</div></div>
-    <div class="ts-div"></div>
-    <div class="ts"><div class="ts-n g" id="tsR">0</div><div class="ts-l">Replied</div></div>
-    <div class="ts-div"></div>
-    <div class="ts"><div class="ts-n b" id="tsP">$0</div><div class="ts-l">Pipeline</div></div>
-    <div class="ts-div"></div>
-    <div class="ts"><div class="ts-n v" id="tsU">0</div><div class="ts-l">Unmatched</div></div>
+    <div class="tstat">
+      <div><div class="tstat-n red" id="tsO">0</div></div>
+      <div class="tstat-label">Over<br>due</div>
+    </div>
+    <div class="tstat">
+      <div><div class="tstat-n amb" id="tsD">0</div></div>
+      <div class="tstat-label">Due<br>Today</div>
+    </div>
+    <div class="tstat">
+      <div><div class="tstat-n grn" id="tsR">0</div></div>
+      <div class="tstat-label">Re<br>plied</div>
+    </div>
+    <div class="tstat">
+      <div><div class="tstat-n blu" id="tsP">$0</div></div>
+      <div class="tstat-label">Pipe<br>line</div>
+    </div>
+    <div class="tstat">
+      <div><div class="tstat-n ott" id="tsU">0</div></div>
+      <div class="tstat-label">Un<br>matched</div>
+    </div>
   </div>
+
   <div class="top-right">
-    <span id="todayLbl"></span>
-    <div class="cpill hs" id="hsPill" onclick="syncHubSpot()"><span class="cd"></span><span id="hsT">HubSpot</span></div>
-    <div class="cpill gm" id="gmPill" onclick="connectGmail()"><span class="cd"></span><span id="gmT">Gmail</span></div>
-    <div class="cpill ot" id="otPill" onclick="openM('otterM')"><span class="cd"></span><span id="otT">Otter</span></div>
-    <button class="tbtn" onclick="openM('settingsM')">&#9881;</button>
-    <button class="tbtn p" onclick="openAddM()">+ Add Lead</button>
+    <span id="dateLbl"></span>
+    <div class="pill hs" id="hsPill" onclick="syncHS()"><span class="pill-dot"></span><span id="hsT">HubSpot</span></div>
+    <div class="pill gm" id="gmPill" onclick="connectGmail()"><span class="pill-dot"></span><span id="gmT">Gmail</span></div>
+    <div class="pill ot" id="otPill" onclick="openM('otterM')"><span class="pill-dot"></span><span id="otT">Otter</span></div>
+    <button class="tbtn" onclick="openM('settingsM')">⚙</button>
+    <button class="tbtn add" onclick="openAddM()">+ Lead</button>
   </div>
 </div>
 
 <div class="layout">
+
+<!-- LEFT SIDEBAR -->
 <div class="lsb">
-  <div class="lsb-sec">
-    <div class="lsb-lbl">Filter</div>
-    <button class="fb act" data-f="all" onclick="setF('all')">All Active <span class="fc" id="cAll">0</span></button>
-    <button class="fb" data-f="urgent" onclick="setF('urgent')">🔴 Overdue <span class="fc" id="cUrgent">0</span></button>
-    <button class="fb" data-f="due" onclick="setF('due')">🟡 Due Today <span class="fc" id="cDue">0</span></button>
-    <button class="fb" data-f="replied" onclick="setF('replied')">🟢 Replied <span class="fc" id="cReplied">0</span></button>
-    <button class="fb" data-f="scheduled" onclick="setF('scheduled')">📅 Call Scheduled <span class="fc" id="cScheduled">0</span></button>
-    <button class="fb" data-f="new" onclick="setF('new')">✨ New Lead <span class="fc" id="cNew">0</span></button>
-    <button class="fb" data-f="sequence" onclick="setF('sequence')">📧 Sequence Running <span class="fc" id="cSequence">0</span></button>
-    <button class="fb" data-f="snoozed" onclick="setF('snoozed')">💤 Snoozed <span class="fc" id="cSnoozed">0</span></button>
+  <div class="lsb-section">
+    <div class="lsb-head">Filters</div>
+    <button class="flt on" data-f="all" onclick="setF('all')">All Active <span class="fc" id="cAll">0</span></button>
+    <button class="flt" data-f="urgent" onclick="setF('urgent')">🔴 Overdue <span class="fc" id="cUrgent">0</span></button>
+    <button class="flt" data-f="due" onclick="setF('due')">🟡 Due Today <span class="fc" id="cDue">0</span></button>
+    <button class="flt" data-f="replied" onclick="setF('replied')">🟢 Replied <span class="fc" id="cReplied">0</span></button>
+    <button class="flt" data-f="scheduled" onclick="setF('scheduled')">📅 Scheduled <span class="fc" id="cScheduled">0</span></button>
+    <button class="flt" data-f="new" onclick="setF('new')">✨ New Lead <span class="fc" id="cNew">0</span></button>
+    <button class="flt" data-f="sequence" onclick="setF('sequence')">📧 Sequence <span class="fc" id="cSequence">0</span></button>
+    <button class="flt" data-f="snoozed" onclick="setF('snoozed')">💤 Snoozed <span class="fc" id="cSnoozed">0</span></button>
     <div class="fsep"></div>
-    <button class="fb" data-f="won" onclick="setF('won')">✅ Won <span class="fc" id="cWon">0</span></button>
-    <button class="fb" data-f="lost" onclick="setF('lost')">❌ Lost <span class="fc" id="cLost">0</span></button>
+    <button class="flt" data-f="won" onclick="setF('won')">✅ Won <span class="fc" id="cWon">0</span></button>
+    <button class="flt" data-f="lost" onclick="setF('lost')">❌ Lost <span class="fc" id="cLost">0</span></button>
     <div class="fsep"></div>
-    <button class="fb" data-f="no_response" onclick="setF('no_response')" style="color:var(--red);font-weight:600;">📋 No Response <span class="fc" id="cNr">0</span></button>
-    <button class="fb" data-f="unmatched" onclick="setF('unmatched')" style="color:var(--otter);font-weight:600;">🎙 Unmatched Calls <span class="fc" id="cUnmatched">0</span></button>
+    <button class="flt" data-f="no_response" onclick="setF('no_response')" style="color:var(--red);">📋 No Response <span class="fc" id="cNr">0</span></button>
+    <button class="flt" data-f="unmatched" onclick="setF('unmatched')" style="color:var(--ott);">🎙 Unmatched Calls <span class="fc" id="cUnm">0</span></button>
   </div>
-  <div class="lsb-sec">
-    <div class="lsb-lbl">Pipeline</div>
-    <div class="pipe-box">
-      <div class="pipe-v" id="pipeV">$0</div>
-      <div class="pipe-s" id="pipeS">0 active leads</div>
-    </div>
+  <div class="pipe-block">
+    <div class="pipe-label">Active Pipeline</div>
+    <div class="pipe-val" id="pipeV">$0</div>
+    <div class="pipe-sub" id="pipeS">0 leads</div>
   </div>
 </div>
 
+<!-- MAIN -->
 <div class="main">
-  <div class="main-top">
+  <div class="main-header">
     <div>
       <div class="main-ttl" id="mainTtl">All Active Leads</div>
-      <div class="main-sub">Sorted by urgency</div>
+      <div class="main-count" id="mainSub">Sorted by urgency</div>
     </div>
-    <button id="expBtn" style="display:none;background:var(--ink);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:600;cursor:pointer;" onclick="exportCSV()">Export CSV</button>
+    <button id="expBtn" style="display:none;" class="tbtn" onclick="exportCSV()">↓ Export CSV</button>
   </div>
-  <input class="srch" type="text" placeholder="Search name, org, or product..." id="srchInp" oninput="renderLeads()">
-  <div id="leadsList" class="leads"></div>
+  <div class="srch-wrap">
+    <input class="srch" type="text" placeholder="search name, org, product..." id="srchI" oninput="renderLeads()">
+  </div>
+  <div class="leads-wrap">
+    <div class="leads-grid" id="leadsList"></div>
+  </div>
 </div>
 
+<!-- RIGHT PANEL -->
 <div class="rp">
   <div class="ptabs">
-    <button class="ptab act" onclick="switchP('detail')" id="pt_detail">Detail</button>
-    <button class="ptab" onclick="switchP('email')" id="pt_email">Email</button>
-    <button class="ptab" onclick="switchP('calls')" id="pt_calls">Calls</button>
-    <button class="ptab" onclick="switchP('invoices')" id="pt_invoices">Invoices</button>
+    <button class="ptab on" id="pt_detail" onclick="switchP('detail')">Detail</button>
+    <button class="ptab" id="pt_email" onclick="switchP('email')">Email</button>
+    <button class="ptab" id="pt_calls" onclick="switchP('calls')">Calls</button>
+    <button class="ptab" id="pt_invoices" onclick="switchP('invoices')">Invoices</button>
   </div>
   <div class="pc" id="panelC">
-    <div class="es"><div class="ei">👈</div><h3>Select a lead</h3><p>Click any lead to view details, draft emails, and manage invoices.</p></div>
+    <div class="empty"><div class="empty-i">◈</div><div class="empty-t">No lead selected</div><div class="empty-s">Click any lead card to view details, compose emails, and manage invoices.</div></div>
   </div>
 </div>
 </div>
@@ -292,7 +519,7 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-se
 <!-- ADD/EDIT MODAL -->
 <div class="mo" id="addM">
   <div class="md">
-    <div class="md-h"><div class="md-t" id="addMT">Add New Lead</div><button class="mc" onclick="closeM('addM')">&#10005;</button></div>
+    <div class="md-top"><div class="md-ttl" id="addMT">Add New Lead</div><button class="mclose" onclick="closeM('addM')">✕</button></div>
     <div class="mb">
       <div class="fr">
         <div class="ff"><label>Contact Name *</label><input type="text" id="f_name" placeholder="Dr. Sarah Johnson"></div>
@@ -304,13 +531,13 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-se
       </div>
       <div class="ff">
         <label>Products Quoted</label>
-        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:9px 11px;">
-          <div class="cbr"><input type="checkbox" id="p1"><label for="p1">Mobile Cognitive Tests</label></div>
-          <div class="cbr"><input type="checkbox" id="p2"><label for="p2">EMA Platform</label></div>
-          <div class="cbr"><input type="checkbox" id="p3"><label for="p3">Mobile Sensing App (NeuroLogger)</label></div>
-          <div class="cbr"><input type="checkbox" id="p4"><label for="p4">Psychomotor Vigilance Test (PVT)</label></div>
-          <div class="cbr"><input type="checkbox" id="p5"><label for="p5">Wearables Dashboard</label></div>
-          <div class="cbr"><input type="checkbox" id="p6"><label for="p6">Support, Training & Customization</label></div>
+        <div class="prods-box">
+          <div class="frow"><input type="checkbox" id="p1"><label for="p1">Mobile Cognitive Tests</label></div>
+          <div class="frow"><input type="checkbox" id="p2"><label for="p2">EMA Platform</label></div>
+          <div class="frow"><input type="checkbox" id="p3"><label for="p3">Mobile Sensing App (NeuroLogger)</label></div>
+          <div class="frow"><input type="checkbox" id="p4"><label for="p4">Psychomotor Vigilance Test (PVT)</label></div>
+          <div class="frow"><input type="checkbox" id="p5"><label for="p5">Wearables Dashboard</label></div>
+          <div class="frow"><input type="checkbox" id="p6"><label for="p6">Support, Training & Customization</label></div>
         </div>
       </div>
       <div class="fr">
@@ -321,258 +548,190 @@ body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-se
             <option value="call_done">Call Done</option><option value="negotiating">Negotiating</option>
           </select>
         </div>
-        <div class="ff"><label>Last Contact *</label><input type="date" id="f_lastContact"></div>
+        <div class="ff"><label>Last Contact *</label><input type="date" id="f_date"></div>
       </div>
-      <div class="ff"><label>Notes</label><textarea id="f_notes" placeholder="Any context..."></textarea></div>
-      <div class="fa"><button class="bc" onclick="closeM('addM')">Cancel</button><button class="bp" id="saveLBtn" onclick="saveLead()">Add Lead</button></div>
+      <div class="ff"><label>Notes</label><textarea id="f_notes" placeholder="Context, requirements..."></textarea></div>
+      <div class="fa"><button class="fcan" onclick="closeM('addM')">Cancel</button><button class="fpri" id="saveLB" onclick="saveLead()">Add Lead</button></div>
     </div>
   </div>
 </div>
 
-<!-- SNOOZE MODAL -->
+<!-- SNOOZE -->
 <div class="mo" id="snoozeM">
-  <div class="md" style="max-width:360px;">
-    <div class="md-h"><div class="md-t" id="snoozeT">Snooze Lead</div><button class="mc" onclick="closeM('snoozeM')">&#10005;</button></div>
+  <div class="md" style="max-width:340px;">
+    <div class="md-top"><div class="md-ttl" id="snzTitle">Snooze Lead</div><button class="mclose" onclick="closeM('snoozeM')">✕</button></div>
     <div class="mb">
-      <div style="font-size:12.5px;color:var(--ink-muted);margin-bottom:11px;">Remind me again in:</div>
-      <div class="sg">
-        <div class="so" onclick="doSnooze(1)">1 day</div><div class="so" onclick="doSnooze(3)">3 days</div>
-        <div class="so" onclick="doSnooze(5)">5 days</div><div class="so" onclick="doSnooze(7)">1 week</div>
-        <div class="so" onclick="doSnooze(14)">2 weeks</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:11px;letter-spacing:0.04em;">Remind again in:</div>
+      <div class="snz-grid">
+        <div class="snz-opt" onclick="doSnz(1)">1d</div><div class="snz-opt" onclick="doSnz(3)">3d</div>
+        <div class="snz-opt" onclick="doSnz(5)">5d</div><div class="snz-opt" onclick="doSnz(7)">7d</div>
+        <div class="snz-opt" onclick="doSnz(14)">14d</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- INVOICE MODAL -->
+<!-- INVOICE -->
 <div class="mo" id="invM">
-  <div class="md" style="max-width:440px;">
-    <div class="md-h"><div class="md-t" id="invMT">Add Invoice</div><button class="mc" onclick="closeM('invM')">&#10005;</button></div>
+  <div class="md" style="max-width:420px;">
+    <div class="md-top"><div class="md-ttl" id="invMT">Add Invoice</div><button class="mclose" onclick="closeM('invM')">✕</button></div>
     <div class="mb">
-      <div class="ff"><label>Invoice ID / Reference</label><input type="text" id="iv_id" placeholder="e.g. INV-2024-001"></div>
-      <div class="ff"><label>Description</label><input type="text" id="iv_desc" placeholder="e.g. EMA Platform License Q1"></div>
+      <div class="ff"><label>Invoice ID / Reference</label><input type="text" id="iv_id" placeholder="INV-2024-001"></div>
+      <div class="ff"><label>Description</label><input type="text" id="iv_desc" placeholder="EMA Platform License Q1"></div>
       <div class="fr">
         <div class="ff"><label>Amount ($)</label><input type="number" id="iv_amt" placeholder="0"></div>
         <div class="ff"><label>Date</label><input type="date" id="iv_date"></div>
       </div>
       <div class="ff">
         <label>Attach Files (optional)</label>
-        <div class="uz" onclick="document.getElementById('iv_file').click()">
-          <input type="file" id="iv_file" accept=".pdf,.doc,.docx,.png,.jpg" multiple style="display:none" onchange="handleFiles(this)">
-          <div style="font-size:22px;margin-bottom:5px;">📎</div>
-          <div style="font-size:11.5px;color:var(--ink-soft);">Click to upload PDF, DOC, or images</div>
+        <div class="uzone" onclick="document.getElementById('iv_file').click()">
+          <input type="file" id="iv_file" multiple accept=".pdf,.doc,.docx,.png,.jpg" style="display:none" onchange="handleFiles(this)">
+          <div style="font-size:20px;margin-bottom:5px;">📎</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);">Click to upload PDF, DOC, or images</div>
         </div>
-        <div id="iv_filelist" style="margin-top:7px;"></div>
+        <div id="iv_flist" style="margin-top:6px;"></div>
       </div>
-      <div class="fa"><button class="bc" onclick="closeM('invM')">Cancel</button><button class="bp" onclick="saveInvoice()">Add Invoice</button></div>
+      <div class="fa"><button class="fcan" onclick="closeM('invM')">Cancel</button><button class="fpri" onclick="saveInv()">Add Invoice</button></div>
     </div>
   </div>
 </div>
 
-<!-- SETTINGS MODAL -->
+<!-- SETTINGS -->
 <div class="mo" id="settingsM">
   <div class="md">
-    <div class="md-h"><div class="md-t">Connection Settings</div><button class="mc" onclick="closeM('settingsM')">&#10005;</button></div>
+    <div class="md-top"><div class="md-ttl">Settings</div><button class="mclose" onclick="closeM('settingsM')">✕</button></div>
     <div class="mb">
-      <p style="font-size:12.5px;color:var(--ink-muted);margin-bottom:16px;line-height:1.6;">Credentials stored securely in your browser only.</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:16px;line-height:1.7;letter-spacing:0.04em;">// Credentials stored in browser only. Never transmitted.</p>
       <div class="ff"><label>HubSpot API Token</label><input type="password" id="s_hs" placeholder="pat-na2-..."></div>
       <div class="ff"><label>Cloudflare Worker URL</label><input type="text" id="s_wk" placeholder="https://your-worker.workers.dev"></div>
-      <div class="dl">Gmail</div>
-      <div class="gcb" onclick="connectGmail()">
-        <div style="font-size:22px;">📧</div>
-        <div class="cbt"><strong id="gmConnT">Connect Gmail</strong><span id="gmConnD">Click to sign in with Google</span></div>
+      <div class="dl">Gmail OAuth</div>
+      <div class="conn-box" onclick="connectGmail()">
+        <div class="cico">📧</div>
+        <div class="ctxt"><strong id="gmConnT">Connect Gmail</strong><span id="gmConnD">Sign in with Google to enable reply detection</span></div>
       </div>
       <div class="dl">Otter via Zapier</div>
-      <div class="ocb" onclick="openM('otterM');closeM('settingsM')">
-        <div style="font-size:22px;">🎙</div>
-        <div class="cbt"><strong>Set Up Otter</strong><span>Get your Zapier webhook URL</span></div>
+      <div class="conn-box" onclick="openM('otterM');closeM('settingsM')">
+        <div class="cico">🎙</div>
+        <div class="ctxt"><strong>Set Up Otter</strong><span>Configure Zapier webhook for call sync</span></div>
       </div>
-      <div class="fa"><button class="bc" onclick="closeM('settingsM')">Cancel</button><button class="bp" onclick="saveSettings()">Save & Connect</button></div>
+      <div class="fa"><button class="fcan" onclick="closeM('settingsM')">Cancel</button><button class="fpri" onclick="saveSettings()">Save & Connect</button></div>
     </div>
   </div>
 </div>
 
-<!-- OTTER MODAL -->
+<!-- OTTER -->
 <div class="mo" id="otterM">
   <div class="md">
-    <div class="md-h"><div class="md-t">Connect Otter via Zapier</div><button class="mc" onclick="closeM('otterM')">&#10005;</button></div>
+    <div class="md-top"><div class="md-ttl">Otter via Zapier</div><button class="mclose" onclick="closeM('otterM')">✕</button></div>
     <div class="mb">
-      <div class="infobox">After every call, Otter sends the summary to Zapier, which forwards it here. Claude matches it to the right lead automatically.</div>
-      <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;color:var(--ink-muted);text-transform:uppercase;margin-bottom:6px;">Your Webhook URL</div>
-      <div class="whbox" id="wh_url">https://neuroux-tracker-1.vercel.app/api/otter</div>
-      <button class="cpb" id="cpwBtn" onclick="cpWh()">Copy URL</button>
+      <div class="infobox">After each call, Otter sends the summary to Zapier which forwards it here. The tracker extracts the lead name from the summary text and auto-assigns it.</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Webhook URL</div>
+      <div class="wh-box" id="whUrl">https://neuroux-tracker-1.vercel.app/api/otter</div>
+      <button class="cpbtn" id="cpwB" onclick="cpWh()">Copy URL</button>
       <div class="dl" style="margin-top:14px;">Zapier Setup</div>
-      <div style="font-size:12px;color:var(--ink-soft);line-height:1.9;">
-        1. Go to <strong>zapier.com</strong> → Create Zap<br>
-        2. Trigger: <strong>Otter</strong> → New Recording<br>
-        3. Connect your Otter account<br>
-        4. Action: <strong>Webhooks by Zapier</strong> → POST<br>
-        5. URL: paste the webhook URL above<br>
-        6. Payload: JSON with fields <strong>title, summary, action_items, created_at</strong><br>
-        7. Turn on your Zap
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);line-height:2;letter-spacing:0.02em;">
+        1. zapier.com → Create Zap<br>
+        2. Trigger: <span style="color:var(--ott)">Otter</span> → New Recording<br>
+        3. Action: <span style="color:var(--gold)">Webhooks by Zapier</span> → POST<br>
+        4. URL: paste webhook above<br>
+        5. Payload type: <span style="color:var(--text)">JSON</span><br>
+        6. Fields: <span style="color:var(--text)">title, summary, action_items, created_at</span><br>
+        7. Turn on Zap ✓
       </div>
-      <div class="fa"><button class="bp" onclick="markOtterOn()">Mark as Connected</button></div>
+      <div class="fa"><button class="fpri" onclick="markOtterOn()">Mark as Connected</button></div>
     </div>
   </div>
 </div>
 
-<!-- ASSIGN CALL MODAL -->
+<!-- ASSIGN CALL -->
 <div class="mo" id="assignM">
-  <div class="md" style="max-width:420px;">
-    <div class="md-h"><div class="md-t">Assign Call to Lead</div><button class="mc" onclick="closeM('assignM')">&#10005;</button></div>
+  <div class="md" style="max-width:400px;">
+    <div class="md-top"><div class="md-ttl">Assign Call</div><button class="mclose" onclick="closeM('assignM')">✕</button></div>
     <div class="mb">
-      <div id="assignInfo" style="background:var(--otter-bg);border:1px solid var(--otter-border);border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--ink-soft);line-height:1.6;"></div>
+      <div id="assignInfo" style="background:var(--ott-bg);border:1px solid var(--ott-bd);border-radius:2px;padding:9px 11px;margin-bottom:12px;font-size:11px;color:var(--muted);line-height:1.6;font-family:'IBM Plex Mono',monospace;"></div>
       <div class="ff"><label>Assign to Lead</label><select id="assignSel"></select></div>
-      <div class="fa"><button class="bc" onclick="closeM('assignM')">Cancel</button><button class="bp" onclick="doAssign()">Assign</button></div>
+      <div class="fa"><button class="fcan" onclick="closeM('assignM')">Cancel</button><button class="fpri" onclick="doAssign()">Assign</button></div>
     </div>
   </div>
 </div>
 
 <script>
-const SK = 'neuroux_cc_v2', CK = 'neuroux_calls_v2';
-const GMAIL_CLIENT_ID = '845125273179-5uqdk4tpvutv0t0n8808r5bbtu6doev1.apps.googleusercontent.com';
-const VERCEL_URL = 'https://neuroux-tracker-1.vercel.app';
-const PRODS = ['Mobile Cognitive Tests','EMA Platform','Mobile Sensing App','PVT','Wearables Dashboard','Support & Training'];
-const FU = {new:1,emailed:3,quote_sent:3,call_scheduled:0,call_done:3,negotiating:5,replied:5,snoozed:null};
-const HS_MAP = {appointmentscheduled:'call_scheduled',qualifiedtobuy:'call_done',presentationscheduled:'quote_sent',decisionmakerboughtin:'negotiating',contractsent:'negotiating',closedwon:'won',closedlost:'lost'};
+// ═══ CONFIG ═══
+const SK='nx_cc_v3', CK='nx_calls_v3';
+const GMAIL_CLIENT_ID='845125273179-5uqdk4tpvutv0t0n8808r5bbtu6doev1.apps.googleusercontent.com';
+const VERCEL_URL='https://neuroux-tracker-1.vercel.app';
+const PRODS=['Mobile Cognitive Tests','EMA Platform','Mobile Sensing App','PVT','Wearables Dashboard','Support & Training'];
+const FU={new:1,emailed:3,quote_sent:3,call_scheduled:0,call_done:3,negotiating:5,replied:5,snoozed:null};
+const HS_STAGE={appointmentscheduled:'call_scheduled',qualifiedtobuy:'call_done',presentationscheduled:'quote_sent',decisionmakerboughtin:'negotiating',contractsent:'negotiating',closedwon:'won',closedlost:'lost'};
 
-let leads=[], calls=[], curF='all', selId=null, panel='detail', editId=null, snoozeId=null, invId=null, invFiles=[], assignIdx=null;
+let leads=[], calls=[], curF='all', selId=null, panel='detail', editId=null, snzId=null, invLId=null, invFiles=[], assignIdx=null;
 let gmOk=false, otOk=false;
 
+// ═══ INIT ═══
 document.addEventListener('DOMContentLoaded', ()=>{
-  document.getElementById('todayLbl').textContent = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-  document.getElementById('f_lastContact').value = today();
-  document.getElementById('iv_date').value = today();
+  document.getElementById('dateLbl').textContent = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  document.getElementById('f_date').value=tod();
+  document.getElementById('iv_date').value=tod();
   try{const r=localStorage.getItem(SK);if(r)leads=JSON.parse(r)||[];}catch(e){leads=[];}
   try{const r=localStorage.getItem(CK);if(r)calls=JSON.parse(r)||[];}catch(e){calls=[];}
-  gmOk=!!localStorage.getItem('nx_gm_token');
+  gmOk=!!localStorage.getItem('nx_gm_tok');
   otOk=localStorage.getItem('nx_ot')==='1';
   updPills();
-  // Pre-fill settings
-  document.getElementById('s_hs').value=localStorage.getItem('neuroux_hs_token')||'';
-  document.getElementById('s_wk').value=localStorage.getItem('neuroux_worker_url')||'';
-  const hs=localStorage.getItem('neuroux_hs_token'), wk=localStorage.getItem('neuroux_worker_url');
+  document.getElementById('s_hs').value=localStorage.getItem('nx_hs_tok')||'';
+  document.getElementById('s_wk').value=localStorage.getItem('nx_wk_url')||'';
+  const hs=localStorage.getItem('nx_hs_tok'),wk=localStorage.getItem('nx_wk_url');
   if(!hs||!wk){openM('settingsM');renderAll();return;}
   renderAll();
-  setTimeout(syncHubSpot, 700);
-  // Gmail callback
+  setTimeout(syncHS,600);
+  // Gmail OAuth callback
   const h=window.location.hash;
-  if(h.includes('access_token')){
-    const p=new URLSearchParams(h.slice(1));
-    const t=p.get('access_token');
-    if(t){localStorage.setItem('nx_gm_token',t);gmOk=true;updPills();window.history.replaceState(null,'',location.pathname);notify('Gmail connected!','g');}
-  }
-  // Auto-check Gmail replies every 5 min
-  if(gmOk) setInterval(checkGmail, 300000);
+  if(h.includes('access_token')){const p=new URLSearchParams(h.slice(1));const t=p.get('access_token');if(t){localStorage.setItem('nx_gm_tok',t);gmOk=true;updPills();window.history.replaceState(null,'',location.pathname);notif('Gmail connected','grn');}};
 });
 
-// HubSpot
-async function hsGet(path){
-  const wk=localStorage.getItem('neuroux_worker_url')||'';
-  const tk=localStorage.getItem('neuroux_hs_token')||'';
-  const r=await fetch(wk+'/hubspot'+path,{headers:{'Authorization':'Bearer '+tk}});
-  if(!r.ok)throw new Error('HS '+r.status);
-  return r.json();
-}
-async function syncHubSpot(){
-  const tk=localStorage.getItem('neuroux_hs_token'),wk=localStorage.getItem('neuroux_worker_url');
-  if(!tk||!wk)return;
-  setPill('hs','sync','Syncing...');
+// ═══ HUBSPOT ═══
+async function hsGet(path){const wk=localStorage.getItem('nx_wk_url')||'';const tk=localStorage.getItem('nx_hs_tok')||'';const r=await fetch(wk+'/hubspot'+path,{headers:{'Authorization':'Bearer '+tk}});if(!r.ok)throw new Error('HS '+r.status);return r.json();}
+async function syncHS(){
+  const tk=localStorage.getItem('nx_hs_tok'),wk=localStorage.getItem('nx_wk_url');if(!tk||!wk)return;
+  setPill('hs','sync','Syncing…');
   try{
     let deals=[],after='';
-    do{
-      const q='?limit=50&properties=dealname,amount,dealstage,hs_lastmodifieddate&associations=contacts'+(after?'&after='+after:'');
-      const d=await hsGet('/crm/v3/objects/deals'+q);
-      deals=deals.concat(d.results||[]);
-      after=d.paging?.next?.after||'';
-    }while(after);
-    let s=0,u=0;
+    do{const q='?limit=50&properties=dealname,amount,dealstage,hs_lastmodifieddate&associations=contacts'+(after?'&after='+after:'');const d=await hsGet('/crm/v3/objects/deals'+q);deals=deals.concat(d.results||[]);after=d.paging?.next?.after||'';}while(after);
     for(const deal of deals){
-      const p=deal.properties||{};
-      const stage=p.dealstage||'',ist=HS_MAP[stage]||'emailed',closed=stage==='closedwon'||stage==='closedlost';
+      const p=deal.properties||{};const stage=p.dealstage||'';const ist=HS_STAGE[stage]||'emailed';const closed=stage==='closedwon'||stage==='closedlost';
       let name=p.dealname||'Unknown',email='',org='';
       const ac=deal.associations?.contacts?.results||[];
       if(ac.length>0){try{const c=await hsGet('/crm/v3/objects/contacts/'+ac[0].id+'?properties=firstname,lastname,email,company');const cp=c.properties||{};const fn=cp.firstname||'',ln=cp.lastname||'';if(fn||ln)name=(fn+' '+ln).trim();email=cp.email||'';org=cp.company||'';}catch(e){}}
-      const lm=p.hs_lastmodifieddate?p.hs_lastmodifieddate.split('T')[0]:today();
+      const lm=p.hs_lastmodifieddate?p.hs_lastmodifieddate.split('T')[0]:tod();
       const ex=leads.find(l=>l.hsId===deal.id);
-      if(ex){if(HS_MAP[stage]&&ex.stage!==ist){ex.stage=ist;if(closed)ex.status=stage==='closedwon'?'won':'lost';u++;}ex.value=parseFloat(p.amount)||ex.value||0;ex.name=name;ex.org=org;ex.email=email;}
-      else{leads.unshift({id:'hs_'+deal.id,hsId:deal.id,name,org,email,value:parseFloat(p.amount)||0,products:[],stage:ist,lastContact:lm,followUpCount:0,status:closed?(stage==='closedwon'?'won':'lost'):null,snoozeUntil:null,sequenceRunning:false,sequenceStartDate:null,notes:'',invoices:[],otterNotes:[],gmailReplied:false,fromHubSpot:true,activity:[{date:today(),text:'Imported from HubSpot'}]});s++;}
+      if(ex){if(HS_STAGE[stage]&&ex.stage!==ist){ex.stage=ist;if(closed)ex.status=stage==='closedwon'?'won':'lost';}ex.value=parseFloat(p.amount)||ex.value||0;ex.name=name;ex.org=org;ex.email=email;}
+      else{leads.unshift({id:'hs_'+deal.id,hsId:deal.id,name,org,email,value:parseFloat(p.amount)||0,products:[],stage:ist,lastContact:lm,followUpCount:0,status:closed?(stage==='closedwon'?'won':'lost'):null,snoozeUntil:null,sequenceRunning:false,sequenceStartDate:null,notes:'',invoices:[],otterNotes:[],gmailReplied:false,fromHS:true,activity:[{date:tod(),text:'Imported from HubSpot'}]});}
     }
-    save();renderAll();
-    setPill('hs','ok','HubSpot');
-  }catch(e){console.error(e);setPill('hs','err','Sync Failed');}
+    save();renderAll();setPill('hs','ok','HubSpot');
+  }catch(e){console.error(e);setPill('hs','err','Failed');}
 }
-function setPill(p,state,t){
-  const el=document.getElementById(p+'Pill'),te=document.getElementById(p.charAt(0)+(p==='hs'?'sT':p==='gm'?'mT':'tT'));
-  if(!el||!te)return;
-  el.className='cpill '+p+(state==='ok'?' ok':'');
-  te.textContent=t;
-}
-function updPills(){
-  if(gmOk){document.getElementById('gmPill').className='cpill gm ok';document.getElementById('gmT').textContent='Gmail';document.getElementById('gmConnT').textContent='Gmail Connected';document.getElementById('gmConnD').textContent='Click to reconnect';}
-  if(otOk){document.getElementById('otPill').className='cpill ot ok';document.getElementById('otT').textContent='Otter';}
-}
+function setPill(p,state,t){const el=document.getElementById(p+'Pill');const te=document.getElementById(p+'T');if(!el||!te)return;const base='pill '+p;el.className=base+(state==='ok'?' on':'');te.textContent=t;}
+function updPills(){if(gmOk){document.getElementById('gmPill').className='pill gm on';document.getElementById('gmT').textContent='Gmail ✓';document.getElementById('gmConnT').textContent='Gmail Connected';document.getElementById('gmConnD').textContent='Click to reconnect';}if(otOk){document.getElementById('otPill').className='pill ot on';document.getElementById('otT').textContent='Otter ✓';}}
 
-// Gmail
-function connectGmail(){
-  const sc='https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send';
-  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+GMAIL_CLIENT_ID+'&redirect_uri='+encodeURIComponent(VERCEL_URL)+'&response_type=token&scope='+encodeURIComponent(sc)+'&prompt=consent';
-}
-async function checkGmail(){
-  const tk=localStorage.getItem('nx_gm_token');if(!tk)return;
-  try{
-    for(const l of leads.filter(x=>x.email&&!['won','lost'].includes(cstat(x))).slice(0,20)){
-      const r=await fetch('https://www.googleapis.com/gmail/v1/users/me/messages?q='+encodeURIComponent('from:'+l.email+' is:unread')+'&maxResults=1',{headers:{'Authorization':'Bearer '+tk}});
-      if(r.status===401){localStorage.removeItem('nx_gm_token');gmOk=false;updPills();return;}
-      const d=await r.json();
-      if(d.messages?.length>0&&!l.gmailReplied){l.gmailReplied=true;l.status='replied';l.lastContact=today();addAct(l,'Gmail: Reply detected from '+l.email);}
-    }
-    save();renderAll();
-  }catch(e){console.error('Gmail:',e);}
-}
-async function sendGmail(leadId){
-  const tk=localStorage.getItem('nx_gm_token');if(!tk){alert('Connect Gmail first via Settings.');return;}
-  const l=leads.find(x=>x.id===leadId);if(!l?.email){alert('No email for this lead.');return;}
-  const subj=document.getElementById('ec_subj')?.textContent||'';
-  const body=document.getElementById('ec_body')?.textContent||'';
-  try{
-    const raw=btoa(unescape(encodeURIComponent('To: '+l.email+'\r\nSubject: '+subj+'\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n'+body))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-    const r=await fetch('https://www.googleapis.com/gmail/v1/users/me/messages/send',{method:'POST',headers:{'Authorization':'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({raw})});
-    if(r.ok){l.lastContact=today();l.followUpCount=(l.followUpCount||0)+1;l.gmailReplied=false;addAct(l,'Email sent via Gmail: '+subj);save();renderAll();notify('Email sent to '+l.email,'g');}
-    else{const e=await r.json();alert('Failed: '+(e.error?.message||'Unknown'));}
-  }catch(e){alert('Error: '+e.message);}
-}
+// ═══ GMAIL ═══
+function connectGmail(){const sc='https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send';window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+GMAIL_CLIENT_ID+'&redirect_uri='+encodeURIComponent(VERCEL_URL)+'&response_type=token&scope='+encodeURIComponent(sc)+'&prompt=consent';}
+async function checkGmail(){const tk=localStorage.getItem('nx_gm_tok');if(!tk)return;try{for(const l of leads.filter(x=>x.email&&!['won','lost'].includes(cstat(x))).slice(0,20)){const r=await fetch('https://www.googleapis.com/gmail/v1/users/me/messages?q='+encodeURIComponent('from:'+l.email+' is:unread')+'&maxResults=1',{headers:{'Authorization':'Bearer '+tk}});if(r.status===401){localStorage.removeItem('nx_gm_tok');gmOk=false;updPills();return;}const d=await r.json();if(d.messages?.length>0&&!l.gmailReplied){l.gmailReplied=true;l.status='replied';l.lastContact=tod();act(l,'Gmail reply from '+l.email);}}}catch(e){}save();renderAll();}
+async function sendGmail(lid){const tk=localStorage.getItem('nx_gm_tok');if(!tk){alert('Connect Gmail first.');return;}const l=leads.find(x=>x.id===lid);if(!l?.email){alert('No email for this lead.');return;}const s=document.getElementById('ec_s')?.textContent||'';const b=document.getElementById('ec_b')?.textContent||'';try{const raw=btoa(unescape(encodeURIComponent('To: '+l.email+'\r\nSubject: '+s+'\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n'+b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');const r=await fetch('https://www.googleapis.com/gmail/v1/users/me/messages/send',{method:'POST',headers:{'Authorization':'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({raw})});if(r.ok){l.lastContact=tod();l.followUpCount=(l.followUpCount||0)+1;l.gmailReplied=false;act(l,'Email sent: '+s);save();renderAll();notif('Sent to '+l.email,'grn');}else{const e=await r.json();alert('Send failed: '+(e.error?.message||'Unknown'));}}catch(e){alert('Error: '+e.message);}}
 
-// Otter
-function rcvOtter(d){
-  const {title,summary,action_items,created_at}=d;
-  const dt=created_at?created_at.split('T')[0]:today();
-  const note={id:uid(),title:title||'Call',summary:summary||'',actionItems:action_items||'',date:dt};
-  const ml=leads.find(l=>{const np=l.name.toLowerCase().split(' ').filter(p=>p.length>2);return np.some(p=>(summary||'').toLowerCase().includes(p));});
-  if(ml){ml.otterNotes=ml.otterNotes||[];ml.otterNotes.unshift({...note,assigned:true});ml.stage='call_done';ml.lastContact=dt;addAct(ml,'Otter: '+note.title);save();renderAll();notify('Call matched to '+ml.name,'o');}
-  else{calls.unshift(note);saveCalls();renderAll();notify('Unmatched call received','o');}
-}
-function cpWh(){const b=document.getElementById('cpwBtn');navigator.clipboard.writeText(document.getElementById('wh_url').textContent);b.textContent='Copied!';b.classList.add('copied');setTimeout(()=>{b.textContent='Copy URL';b.classList.remove('copied');},2000);}
-function markOtterOn(){localStorage.setItem('nx_ot','1');otOk=true;updPills();closeM('otterM');notify('Otter connected','o');}
-function openAssignM(i){assignIdx=i;const c=calls[i];if(!c)return;document.getElementById('assignInfo').innerHTML='<strong>'+esc(c.title)+'</strong><br>'+(c.summary||'').substring(0,200)+'...';const s=document.getElementById('assignSel');s.innerHTML=leads.filter(l=>!['won','lost'].includes(cstat(l))).map(l=>'<option value="'+l.id+'">'+l.name+(l.org?' - '+l.org:'')+'</option>').join('');openM('assignM');}
-function doAssign(){if(assignIdx===null)return;const c=calls[assignIdx],lid=document.getElementById('assignSel').value,l=leads.find(x=>x.id===lid);if(!l||!c)return;l.otterNotes=l.otterNotes||[];l.otterNotes.unshift({...c,assigned:true});l.stage='call_done';l.lastContact=c.date||today();addAct(l,'Otter: Call assigned - '+c.title);calls.splice(assignIdx,1);saveCalls();save();renderAll();closeM('assignM');notify('Call assigned to '+l.name,'g');}
+// ═══ OTTER ═══
+function rcvOtter(d){const{title,summary,action_items,created_at}=d;const dt=created_at?created_at.split('T')[0]:tod();const note={id:uid(),title:title||'Call',summary:summary||'',actionItems:action_items||'',date:dt};const ml=leads.find(l=>{const np=l.name.toLowerCase().split(' ').filter(p=>p.length>2);return np.some(p=>(summary||'').toLowerCase().includes(p));});if(ml){ml.otterNotes=ml.otterNotes||[];ml.otterNotes.unshift({...note,assigned:true});ml.stage='call_done';ml.lastContact=dt;act(ml,'Otter: '+note.title);save();renderAll();notif('Call matched → '+ml.name,'ott');}else{calls.unshift(note);saveC();renderAll();notif('Unmatched call received','ott');}}
+function cpWh(){const b=document.getElementById('cpwB');navigator.clipboard.writeText(document.getElementById('whUrl').textContent);b.textContent='Copied!';b.classList.add('done');setTimeout(()=>{b.textContent='Copy URL';b.classList.remove('done');},2000);}
+function markOtterOn(){localStorage.setItem('nx_ot','1');otOk=true;updPills();closeM('otterM');notif('Otter connected','ott');}
+function openAssM(i){assignIdx=i;const c=calls[i];if(!c)return;document.getElementById('assignInfo').innerHTML=c.title+'\n\n'+(c.summary||'').substring(0,200)+'...';const s=document.getElementById('assignSel');s.innerHTML=leads.filter(l=>!['won','lost'].includes(cstat(l))).map(l=>'<option value="'+l.id+'">'+l.name+(l.org?' — '+l.org:'')+'</option>').join('');openM('assignM');}
+function doAssign(){if(assignIdx===null)return;const c=calls[assignIdx],lid=document.getElementById('assignSel').value,l=leads.find(x=>x.id===lid);if(!l||!c)return;l.otterNotes=l.otterNotes||[];l.otterNotes.unshift({...c,assigned:true});l.stage='call_done';l.lastContact=c.date||tod();act(l,'Otter call assigned: '+c.title);calls.splice(assignIdx,1);saveC();save();renderAll();closeM('assignM');notif('Assigned → '+l.name,'grn');}
 
-// Status
-function cstat(l){
-  if(l.status==='won'||l.status==='lost')return l.status;
-  if(l.sequenceRunning)return 'sequence';
-  if(l.status==='snoozed'){if(l.snoozeUntil&&today()>=l.snoozeUntil)return getDue(l);return 'snoozed';}
-  if(l.stage==='new')return 'new';
-  if(l.stage==='call_scheduled')return 'scheduled';
-  if(l.status==='replied'||l.gmailReplied)return 'replied';
-  return getDue(l);
-}
-function getDue(l){const d=FU[l.stage]??3,diff=dDiff(l.lastContact,today());if(diff>d)return 'urgent';if(diff===d)return 'due';return 'pending';}
-function sLabel(s){return{urgent:'Overdue',due:'Due Today',replied:'Replied',scheduled:'Call Scheduled',new:'New Lead',won:'Won',lost:'Lost',snoozed:'Snoozed',pending:'On Track',sequence:'Sequence On'}[s]||s;}
-function sOrd(s){return{urgent:0,due:1,replied:2,scheduled:3,new:4,snoozed:5,pending:6,sequence:7,won:8,lost:9}[s]??99;}
-function dDiff(a,b){return Math.floor((new Date(b)-new Date(a))/86400000);}
+// ═══ STATUS ═══
+function cstat(l){if(l.status==='won'||l.status==='lost')return l.status;if(l.sequenceRunning)return 'sequence';if(l.status==='snoozed'){if(l.snoozeUntil&&tod()>=l.snoozeUntil)return getDue(l);return 'snoozed';}if(l.stage==='new')return 'new';if(l.stage==='call_scheduled')return 'scheduled';if(l.status==='replied'||l.gmailReplied)return 'replied';return getDue(l);}
+function getDue(l){const d=FU[l.stage]??3,diff=ddiff(l.lastContact,tod());if(diff>d)return 'urgent';if(diff===d)return 'due';return 'pending';}
+function slabel(s){return{urgent:'Overdue',due:'Due Today',replied:'Replied',scheduled:'Scheduled',new:'New',won:'Won',lost:'Lost',snoozed:'Snoozed',pending:'On Track',sequence:'Seq Running'}[s]||s;}
+function sord(s){return{urgent:0,due:1,replied:2,scheduled:3,new:4,snoozed:5,pending:6,sequence:7,won:8,lost:9}[s]??99;}
+function ddiff(a,b){return Math.floor((new Date(b)-new Date(a))/86400000);}
 
-// Render
+// ═══ RENDER ═══
 function renderAll(){renderStats();renderLeads();if(selId)renderPanel(selId,panel);}
 function renderStats(){
   const active=leads.filter(l=>!['won','lost'].includes(cstat(l)));
@@ -581,195 +740,194 @@ function renderStats(){
   document.getElementById('tsO').textContent=ov;document.getElementById('tsD').textContent=dt;document.getElementById('tsR').textContent=rp;
   document.getElementById('tsP').textContent=pip>=1e6?'$'+(pip/1e6).toFixed(1)+'M':pip>=1000?'$'+(pip/1000).toFixed(0)+'K':'$'+pip;
   document.getElementById('tsU').textContent=calls.length;
-  const c={all:active.filter(l=>!l.sequenceRunning).length,urgent:ov,due:dt,replied:rp,scheduled:leads.filter(l=>cstat(l)==='scheduled').length,new:leads.filter(l=>cstat(l)==='new').length,sequence:leads.filter(l=>l.sequenceRunning).length,snoozed:leads.filter(l=>cstat(l)==='snoozed').length,won:leads.filter(l=>cstat(l)==='won').length,lost:leads.filter(l=>cstat(l)==='lost').length};
-  ['All','Urgent','Due','Replied','Scheduled','New','Sequence','Snoozed','Won','Lost'].forEach(k=>{const el=document.getElementById('c'+k);if(el)el.textContent=c[k.toLowerCase()]||0;});
+  const cs={all:active.filter(l=>!l.sequenceRunning).length,urgent:ov,due:dt,replied:rp,scheduled:leads.filter(l=>cstat(l)==='scheduled').length,new:leads.filter(l=>cstat(l)==='new').length,sequence:leads.filter(l=>l.sequenceRunning).length,snoozed:leads.filter(l=>cstat(l)==='snoozed').length,won:leads.filter(l=>cstat(l)==='won').length,lost:leads.filter(l=>cstat(l)==='lost').length};
+  ['All','Urgent','Due','Replied','Scheduled','New','Sequence','Snoozed','Won','Lost'].forEach(k=>{const el=document.getElementById('c'+k);if(el)el.textContent=cs[k.toLowerCase()]||0;});
   document.getElementById('cNr').textContent=leads.filter(l=>isNR(l)).length;
-  document.getElementById('cUnmatched').textContent=calls.length;
+  document.getElementById('cUnm').textContent=calls.length;
   document.getElementById('pipeV').textContent='$'+pip.toLocaleString();
   document.getElementById('pipeS').textContent=active.length+' active lead'+(active.length!==1?'s':'');
 }
 function renderLeads(){
-  const q=(document.getElementById('srchInp').value||'').toLowerCase().trim();
+  const q=(document.getElementById('srchI').value||'').toLowerCase().trim();
   const titles={all:'All Active Leads',urgent:'Overdue',due:'Due Today',replied:'Replied',scheduled:'Call Scheduled',new:'New Leads',snoozed:'Snoozed',won:'Won',lost:'Lost',no_response:'No Response After Quote',sequence:'Sequence Running',unmatched:'Unmatched Calls'};
   document.getElementById('mainTtl').textContent=titles[curF]||'Leads';
   document.getElementById('expBtn').style.display=curF==='no_response'?'block':'none';
   const el=document.getElementById('leadsList');
   if(curF==='unmatched'){
-    if(!calls.length){el.innerHTML='<div class="es"><div class="ei">🎙</div><h3>No unmatched calls</h3><p>All Otter calls assigned.</p></div>';return;}
-    el.innerHTML=calls.map((c,i)=>`<div class="cc" style="cursor:default;"><div class="cc-body"><div class="cc-r1"><div><div class="cc-name">${esc(c.title)}</div></div><span class="sp scheduled">${c.date}</span></div><div style="font-size:11.5px;color:var(--ink-muted);margin-bottom:8px;">${esc((c.summary||'').substring(0,120))}...</div><div class="cf"><div class="ct"><strong>Unassigned</strong></div><div class="cas"><button class="bx p" onclick="openAssignM(${i})">Assign</button></div></div></div></div>`).join('');
+    if(!calls.length){el.innerHTML='<div class="empty"><div class="empty-i">🎙</div><div class="empty-t">No unmatched calls</div><div class="empty-s">All Otter calls have been assigned.</div></div>';return;}
+    el.innerHTML=calls.map((c,i)=>`<div class="lcard" style="cursor:default;"><div class="lcard-body"><div class="lcard-top"><div><div class="lcard-name">${esc(c.title)}</div><div class="lcard-org">${c.date}</div></div><span class="badge scheduled">unassigned</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:8px;line-height:1.6;">${esc((c.summary||'').substring(0,130))}...</div><div class="lcard-foot"><div class="lcard-time"></div><div class="lcard-actions"><button class="ab p" onclick="openAssM(${i})">Assign</button></div></div></div></div>`).join('');
     return;
   }
   let f=leads.filter(l=>{const s=cstat(l);if(curF==='all')return!['won','lost','snoozed'].includes(s)&&!l.sequenceRunning;if(curF==='no_response')return isNR(l);if(curF==='sequence')return l.sequenceRunning;return s===curF;});
   if(q)f=f.filter(l=>l.name.toLowerCase().includes(q)||(l.org||'').toLowerCase().includes(q)||(l.products||[]).join(' ').toLowerCase().includes(q));
-  f.sort((a,b)=>sOrd(cstat(a))-sOrd(cstat(b)));
-  if(!f.length){el.innerHTML='<div class="es"><div class="ei">📭</div><h3>Nothing here</h3><p>No leads match this filter.</p></div>';return;}
-  el.innerHTML=f.map((l,i)=>cardHTML(l,i)).join('');
+  f.sort((a,b)=>sord(cstat(a))-sord(cstat(b)));
+  if(!f.length){el.innerHTML='<div class="empty"><div class="empty-i">◈</div><div class="empty-t">Nothing here</div><div class="empty-s">No leads match this filter.</div></div>';return;}
+  el.innerHTML=f.map((l,i)=>cardH(l,i)).join('');
 }
-function cardHTML(l,i){
-  const s=cstat(l),diff=dDiff(l.lastContact,today()),dat=diff===0?'Today':diff===1?'Yesterday':diff+'d ago';
+function cardH(l,i){
+  const s=cstat(l),diff=ddiff(l.lastContact,tod()),dat=diff===0?'Today':diff===1?'Yesterday':diff+'d ago';
   let tl='';
-  if(s==='urgent')tl='<strong style="color:var(--red)">Overdue by '+(diff-(FU[l.stage]??3))+'d</strong> · '+dat;
-  else if(s==='due')tl='<strong style="color:var(--amber)">Follow up today</strong> · '+dat;
-  else if(s==='replied')tl='<strong style="color:var(--green)">'+(l.gmailReplied?'Gmail reply':'Replied')+'</strong> · '+dat;
-  else if(s==='scheduled')tl='<strong>Call scheduled</strong> · '+dat;
-  else if(s==='sequence'){const sd=l.sequenceStartDate?dDiff(l.sequenceStartDate,today()):0,nd=nextSeqDay(sd);tl='<strong style="color:var(--green)">Sequence running</strong>'+(nd?' · Next D'+nd:'');}
-  else if(s==='new')tl='<strong>New today</strong>';
-  else if(s==='snoozed')tl='Snoozed until <strong>'+l.snoozeUntil+'</strong>';
-  else{const nd=Math.max(0,(FU[l.stage]??3)-diff);tl='Next follow-up in <strong>'+nd+'d</strong> · '+dat;}
-  const prods=(l.products||[]).slice(0,2).map(p=>'<span class="tag tp">'+esc(p)+'</span>').join('');
-  const sl={new:'New',emailed:'Email Sent',quote_sent:'Quote Sent',call_scheduled:'Call Scheduled',call_done:'Call Done',negotiating:'Negotiating'};
-  const badges=(l.fromHubSpot?'<span class="tag ths">HubSpot</span>':'')+(l.sequenceRunning?'<span class="tag tseq">Seq</span>':'')+(l.gmailReplied?'<span class="tag tgm">Gmail Reply</span>':'')+((l.otterNotes?.length)?'<span class="tag tot">'+l.otterNotes.length+' Call'+(l.otterNotes.length>1?'s':'')+'</span>':'')+((l.invoices?.length)?'<span class="tag tinv">'+l.invoices.length+' Inv</span>':'');
+  if(s==='urgent')tl='<span class="hi r">Overdue '+(diff-(FU[l.stage]??3))+'d</span> · '+dat;
+  else if(s==='due')tl='<span class="hi a">Follow up today</span> · '+dat;
+  else if(s==='replied')tl='<span class="hi g">'+(l.gmailReplied?'Gmail reply':'Replied')+'</span> · '+dat;
+  else if(s==='scheduled')tl='<span class="hi">Call scheduled</span> · '+dat;
+  else if(s==='sequence'){const sd=l.sequenceStartDate?ddiff(l.sequenceStartDate,tod()):0;const nd=nxtSeq(sd);tl='<span class="hi g">Sequence running</span>'+(nd?' · Next D'+nd:'');}
+  else if(s==='new')tl='<span class="hi">New today</span>';
+  else if(s==='snoozed')tl='Snoozed → '+l.snoozeUntil;
+  else{const nd=Math.max(0,(FU[l.stage]??3)-diff);tl='Next follow-up <span class="hi">'+nd+'d</span> · '+dat;}
+  const prods=(l.products||[]).slice(0,2).map(p=>'<span class="chip chip-p">'+esc(p)+'</span>').join('');
+  const sl={new:'New',emailed:'Emailed',quote_sent:'Quote Sent',call_scheduled:'Call Scheduled',call_done:'Call Done',negotiating:'Negotiating'};
+  const bd=(l.fromHS?'<span class="chip chip-hs">HubSpot</span>':'')+(l.sequenceRunning?'<span class="chip chip-seq">Seq</span>':'')+(l.gmailReplied?'<span class="chip chip-gm">Replied</span>':'')+((l.otterNotes?.length)?'<span class="chip chip-ot">'+l.otterNotes.length+' Call'+(l.otterNotes.length>1?'s':'')+'</span>':'')+((l.invoices?.length)?'<span class="chip chip-inv">'+l.invoices.length+' Inv</span>':'');
   let ab='';
-  if(l.sequenceRunning)ab='<button class="bx" style="color:var(--green);background:var(--green-bg);border-color:var(--green-border);" onclick="event.stopPropagation();toggleSeq(\''+l.id+'\')">Seq ON</button>';
-  else if(s==='urgent'||s==='due')ab='<button class="bx p" onclick="event.stopPropagation();selLead(\''+l.id+'\',\'email\')">Draft</button><button class="bx" onclick="event.stopPropagation();openSnzM(\''+l.id+'\')">Snooze</button>';
-  else if(s==='replied')ab='<button class="bx p" onclick="event.stopPropagation();selLead(\''+l.id+'\',\'email\')">Draft</button>';
-  else if(s==='scheduled')ab='<button class="bx p" onclick="event.stopPropagation();markCallDone(\''+l.id+'\')">Call Done</button>';
-  else ab='<button class="bx" onclick="event.stopPropagation();selLead(\''+l.id+'\',\'email\')">Draft</button>';
-  ab+='<button class="bx" onclick="event.stopPropagation();openEditM(\''+l.id+'\')">Edit</button><button class="bx r" onclick="event.stopPropagation();delLead(\''+l.id+'\')">×</button>';
-  return `<div class="cc ${s}${selId===l.id?' sel':''}" style="animation-delay:${i*0.03}s" onclick="selLead('${l.id}','${panel}')">
-    ${l.gmailReplied?'<div class="grb">📧 Gmail reply from '+esc(l.email)+'</div>':''}
-    ${l.otterNotes?.length?'<div class="ostrip"><div class="ostrip-t">🎙 '+esc(l.otterNotes[0].title)+'</div><div class="ostrip-b">'+esc((l.otterNotes[0].summary||'').substring(0,100))+'...</div></div>':''}
-    <div class="cc-body">
-      <div class="cc-r1"><div><div class="cc-name">${esc(l.name)}</div><div class="cc-org">${esc(l.org||'')}</div></div><div class="cc-rv"><span class="sp ${s}">${sLabel(s)}</span>${l.value?'<span class="cv">$'+parseFloat(l.value).toLocaleString()+'</span>':''}</div></div>
-      <div class="tags">${prods}<span class="tag ts">${sl[l.stage]||l.stage}</span>${badges}</div>
-      <div class="cf"><div class="ct">${tl}</div><div class="cas">${ab}</div></div>
+  if(l.sequenceRunning)ab='<button class="ab g" onclick="event.stopPropagation();togSeq(\''+l.id+'\')">Seq ON</button>';
+  else if(s==='urgent'||s==='due')ab='<button class="ab p" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft</button><button class="ab" onclick="event.stopPropagation();openSnzM(\''+l.id+'\')">Snooze</button>';
+  else if(s==='replied')ab='<button class="ab p" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft</button>';
+  else if(s==='scheduled')ab='<button class="ab p" onclick="event.stopPropagation();markCallDone(\''+l.id+'\')">Call Done</button>';
+  else ab='<button class="ab" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft</button>';
+  ab+='<button class="ab" onclick="event.stopPropagation();openEditM(\''+l.id+'\')">Edit</button><button class="ab r" onclick="event.stopPropagation();delL(\''+l.id+'\')">×</button>';
+  return`<div class="lcard ${s}${selId===l.id?' sel':''}" style="animation-delay:${i*0.025}s" onclick="selL('${l.id}','${panel}')">
+    ${l.gmailReplied?'<div class="gbar">▶ GMAIL REPLY — '+esc(l.email)+'</div>':''}
+    ${l.otterNotes?.length?'<div class="obar"><div class="obar-t">🎙 '+esc(l.otterNotes[0].title)+' · '+l.otterNotes[0].date+'</div><div class="obar-b">'+esc((l.otterNotes[0].summary||'').substring(0,110))+'…</div></div>':''}
+    <div class="lcard-body">
+      <div class="lcard-top">
+        <div><div class="lcard-name">${esc(l.name)}</div><div class="lcard-org">${esc(l.org||'—')}</div></div>
+        <div class="lcard-right"><span class="badge ${s}">${slabel(s)}</span>${l.value?'<span class="lcard-val">$'+parseFloat(l.value).toLocaleString()+'</span>':''}</div>
+      </div>
+      <div class="chips">${prods}<span class="chip chip-s">${sl[l.stage]||l.stage}</span>${bd}</div>
+      <div class="lcard-foot"><div class="lcard-time">${tl}</div><div class="lcard-actions">${ab}</div></div>
     </div>
   </div>`;
 }
 
-// Panel
-function selLead(id,p){selId=id;panel=p||'detail';switchP(p||'detail',false);renderPanel(id,panel);renderLeads();}
-function switchP(p,r=true){panel=p;document.querySelectorAll('.ptab').forEach(t=>t.classList.toggle('act',t.id==='pt_'+p));if(r&&selId)renderPanel(selId,p);}
+// ═══ PANEL ═══
+function selL(id,p){selId=id;panel=p||'detail';switchP(p||'detail',false);renderPanel(id,panel);renderLeads();}
+function switchP(p,r=true){panel=p;document.querySelectorAll('.ptab').forEach(t=>t.classList.toggle('on',t.id==='pt_'+p));if(r&&selId)renderPanel(selId,p);}
 function renderPanel(id,p){
   const l=leads.find(x=>x.id===id);if(!l)return;
   const s=cstat(l),el=document.getElementById('panelC');
   if(p==='detail'){
-    const acts=(l.activity||[]).slice().reverse().slice(0,12).map(a=>'<div class="ai"><div class="ai-d">'+a.date+'</div><div class="ai-t">'+esc(a.text)+'</div></div>').join('');
-    el.innerHTML=`<div style="margin-bottom:14px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;"><div><div style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--ink);">${esc(l.name)}</div><div style="font-size:11px;color:var(--ink-muted);">${esc(l.org||'')}</div></div><span class="sp ${s}">${sLabel(s)}</span></div>
-      ${l.hsId?'<a href="https://app.hubspot.com/contacts/deals/'+l.hsId+'" target="_blank" style="font-size:11px;color:var(--blue);display:inline-block;margin-bottom:9px;">Open in HubSpot &#8599;</a>':''}
-      ${l.email?'<div style="font-size:11.5px;color:var(--ink-muted);margin-bottom:9px;">📧 <a href="mailto:'+l.email+'" style="color:var(--blue);">'+l.email+'</a></div>':''}
-      <div class="dsg">
-        <div class="ds"><div class="ds-l">Value</div><div class="ds-v">$${parseFloat(l.value||0).toLocaleString()}</div></div>
-        <div class="ds"><div class="ds-l">Follow-Ups</div><div class="ds-v">${l.followUpCount||0}</div></div>
-        <div class="ds"><div class="ds-l">Calls</div><div class="ds-v">${(l.otterNotes||[]).length}</div></div>
-        <div class="ds"><div class="ds-l">Invoices</div><div class="ds-v">${(l.invoices||[]).length}</div></div>
+    const alist=(l.activity||[]).slice().reverse().slice(0,12).map(a=>`<div class="act-item"><div class="act-d">${a.date}</div><div class="act-t">${esc(a.text)}</div></div>`).join('');
+    el.innerHTML=`
+      <div style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <div><div style="font-family:'Syne',serif;font-size:15px;font-weight:700;color:var(--text);">${esc(l.name)}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-top:2px;">${esc(l.org||'—')}</div></div>
+          <span class="badge ${s}">${slabel(s)}</span>
+        </div>
+        ${l.hsId?'<a href="https://app.hubspot.com/contacts/deals/'+l.hsId+'" target="_blank" style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;color:var(--gold);letter-spacing:0.06em;display:inline-block;margin-bottom:8px;text-decoration:none;">↗ OPEN IN HUBSPOT</a><br>':''}
+        ${l.email?'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--muted);margin-bottom:9px;">✉ <a href="mailto:'+l.email+'" style="color:var(--gold);text-decoration:none;">'+l.email+'</a></div>':''}
+        <div class="psg">
+          <div class="pst"><div class="pst-l">Value</div><div class="pst-v" style="color:var(--gold);">$${parseFloat(l.value||0).toLocaleString()}</div></div>
+          <div class="pst"><div class="pst-l">Follow-Ups</div><div class="pst-v">${l.followUpCount||0}</div></div>
+          <div class="pst"><div class="pst-l">Calls</div><div class="pst-v">${(l.otterNotes||[]).length}</div></div>
+          <div class="pst"><div class="pst-l">Invoices</div><div class="pst-v">${(l.invoices||[]).length}</div></div>
+        </div>
+        ${l.notes?'<div style="background:var(--amb-bg);border:1px solid var(--amb-bd);border-radius:2px;padding:9px 10px;font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.6;font-family:\'IBM Plex Mono\',monospace;letter-spacing:0.02em;">// '+esc(l.notes)+'</div>':''}
+        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+          <button class="ab p" onclick="switchP('email')">Draft Email</button>
+          <button class="ab ${l.sequenceRunning?'g':''}" onclick="togSeq('${l.id}')">${l.sequenceRunning?'Seq ON':'Seq Start'}</button>
+          <button class="ab" onclick="openInvM('${l.id}')">+ Invoice</button>
+          <button class="ab g" onclick="markWon('${l.id}')">Won</button>
+          <button class="ab r" onclick="markLost('${l.id}')">Lost</button>
+          <button class="ab" onclick="openEditM('${l.id}')">Edit</button>
+        </div>
       </div>
-      ${l.notes?'<div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:6px;padding:9px 11px;font-size:11.5px;color:var(--ink-soft);margin-bottom:10px;line-height:1.6;"><strong>Notes:</strong> '+esc(l.notes)+'</div>':''}
-      <div style="display:flex;gap:4px;flex-wrap:wrap;">
-        <button class="bx p" onclick="switchP('email')">Draft Email</button>
-        <button class="${l.sequenceRunning?'bx':'bx'}" style="${l.sequenceRunning?'background:var(--green-bg);color:var(--green);border-color:var(--green-border);':''}" onclick="toggleSeq('${l.id}')">${l.sequenceRunning?'Seq ON':'Start Seq'}</button>
-        <button class="bx" onclick="openInvM('${l.id}')">+ Invoice</button>
-        <button class="bx g" onclick="markWon('${l.id}')">Won</button>
-        <button class="bx r" onclick="markLost('${l.id}')">Lost</button>
-        <button class="bx" onclick="openEditM('${l.id}')">Edit</button>
-      </div>
-    </div>
-    <div class="ps-ttl">Activity Log</div>
-    ${acts||'<div style="font-size:11.5px;color:var(--ink-muted);">No activity yet.</div>'}`;
+      <div class="ph">Activity Log</div>
+      ${alist||'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--dim);">No activity recorded.</div>'}`;
   }
   else if(p==='email'){
-    const {subj,body}=buildDraft(l);
-    const gok=!!localStorage.getItem('nx_gm_token');
-    el.innerHTML=`<div>
-      <div class="ps-ttl">Email Draft — ${esc(l.name)}</div>
-      <div style="font-size:11px;color:var(--ink-muted);margin-bottom:10px;">${l.followUpCount||0} follow-ups · Last contact ${dDiff(l.lastContact,today())===0?'today':dDiff(l.lastContact,today())+'d ago'}</div>
-      <div class="ec">
-        <div class="ec-subj" id="ec_subj" contenteditable="true">${esc(subj)}</div>
-        <div class="ec-body" id="ec_body" contenteditable="true">${esc(body)}</div>
+    const {subj,body}=buildDraft(l);const gok=!!localStorage.getItem('nx_gm_tok');
+    el.innerHTML=`
+      <div class="ph">Email Draft — ${esc(l.name)}</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:10px;letter-spacing:0.04em;">${l.followUpCount||0} follow-ups sent · last contact ${ddiff(l.lastContact,tod())===0?'today':ddiff(l.lastContact,tod())+'d ago'}</div>
+      <div class="ecomp">
+        <div class="ecomp-subj" id="ec_s" contenteditable="true">${esc(subj)}</div>
+        <div class="ecomp-body" id="ec_b" contenteditable="true">${esc(body)}</div>
       </div>
       <div class="ea">
-        ${gok?'<button class="bx gm" onclick="sendGmail(\''+l.id+'\')">Send via Gmail</button>':'<button class="bx" onclick="connectGmail()">Connect Gmail</button>'}
-        <button class="cpb" id="cpEmailBtn" onclick="cpEmail()">Copy</button>
-        <button class="bx p" onclick="markSent('${l.id}')">Mark Sent</button>
+        ${gok?'<button class="ab g" onclick="sendGmail(\''+l.id+'\')">Send via Gmail</button>':'<button class="ab" onclick="connectGmail()">Connect Gmail</button>'}
+        <button class="cpbtn" id="cpEB" onclick="cpEmail()">Copy</button>
+        <button class="ab p" onclick="markSent('${l.id}')">Mark Sent</button>
       </div>
       <div class="dl">Snooze Instead</div>
-      <div class="sg">
-        <div class="so" onclick="snzP('${l.id}',1)">1d</div><div class="so" onclick="snzP('${l.id}',3)">3d</div>
-        <div class="so" onclick="snzP('${l.id}',5)">5d</div><div class="so" onclick="snzP('${l.id}',7)">1wk</div>
-        <div class="so" onclick="snzP('${l.id}',14)">2wk</div>
-      </div>
-    </div>`;
+      <div class="snz-grid">
+        <div class="snz-opt" onclick="snzP('${l.id}',1)">1d</div><div class="snz-opt" onclick="snzP('${l.id}',3)">3d</div>
+        <div class="snz-opt" onclick="snzP('${l.id}',5)">5d</div><div class="snz-opt" onclick="snzP('${l.id}',7)">7d</div>
+        <div class="snz-opt" onclick="snzP('${l.id}',14)">14d</div>
+      </div>`;
   }
   else if(p==='calls'){
-    const notes=l.otterNotes||[];
-    el.innerHTML=`<div>
-      <div class="ps-ttl">Call Summaries (${notes.length})</div>
-      ${!otOk?'<div class="infobox">Connect Otter via Zapier to auto-populate call summaries. <span style="cursor:pointer;text-decoration:underline;" onclick="openM(\'otterM\')">Set up</span></div>':''}
-      ${!notes.length?'<div style="font-size:12px;color:var(--ink-muted);">No call summaries yet.</div>':notes.map((n,i)=>`<div class="on"><div class="on-h"><span>🎙 ${esc(n.title)}</span><span>${n.date}</span></div><div class="on-t">${esc(n.summary||'')}</div>${n.actionItems?'<div style="margin-top:5px;font-size:10.5px;color:var(--otter);font-weight:700;">Action items:</div><div style="font-size:11px;color:var(--ink-soft);line-height:1.6;">'+esc(n.actionItems)+'</div>':''}<div class="on-a"><button class="bx p" onclick="switchP(\'email\')">Draft Follow-Up</button></div></div>`).join('')}
-    </div>`;
+    const ns=l.otterNotes||[];
+    el.innerHTML=`
+      <div class="ph">Call Summaries (${ns.length})</div>
+      ${!otOk?'<div class="infobox">Connect Otter via Zapier to auto-sync call summaries. <span style="cursor:pointer;color:var(--ott);text-decoration:underline;" onclick="openM(\'otterM\')">Set up →</span></div>':''}
+      ${!ns.length?'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--dim);">No call summaries yet.</div>':ns.map(n=>`<div class="on-card"><div class="on-head"><span>🎙 ${esc(n.title)}</span><span>${n.date}</span></div><div class="on-body">${esc(n.summary||'')}</div>${n.actionItems?'<div style="margin-top:5px;font-family:\'IBM Plex Mono\',monospace;font-size:8px;color:var(--ott);letter-spacing:0.1em;text-transform:uppercase;">Action items:</div><div style="font-size:11px;color:var(--muted);line-height:1.6;margin-top:3px;">'+esc(n.actionItems)+'</div>':''}<div class="on-acts"><button class="ab p" onclick="switchP(\'email\')">Draft Follow-Up</button></div></div>`).join('')}`;
   }
   else if(p==='invoices'){
     const invs=l.invoices||[];
-    el.innerHTML=`<div>
-      <div class="ps-ttl" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><span>Invoices (${invs.length})</span><button class="bx p" onclick="openInvM('${l.id}')">+ Add</button></div>
-      ${!invs.length?'<div style="font-size:12px;color:var(--ink-muted);">No invoices yet.</div>':invs.map((iv,i)=>`<div class="inv-item"><div><div class="inv-n">${esc(iv.id||'Invoice')} — ${esc(iv.desc||'')}</div><div class="inv-d">${iv.date||''}${iv.amount?' · $'+parseFloat(iv.amount).toLocaleString():''}</div></div><div style="display:flex;gap:4px;align-items:center;">${iv.files?.length?'<span style="font-size:10px;color:var(--ink-muted);">'+iv.files.length+' file'+(iv.files.length>1?'s':'')+'</span>':''}<button class="bx r" onclick="delInv('${l.id}',${i})">×</button></div></div>`).join('')}
-    </div>`;
+    el.innerHTML=`
+      <div class="ph" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>Invoices (${invs.length})</span>
+        <button class="ab p" onclick="openInvM('${l.id}')">+ Add</button>
+      </div>
+      ${!invs.length?'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--dim);">No invoices yet.</div>':invs.map((iv,i)=>`<div class="inv-row"><div><div class="inv-n">${esc(iv.id||'Invoice')} — ${esc(iv.desc||'')}</div><div class="inv-d">${iv.date||''}${iv.amount?' · $'+parseFloat(iv.amount).toLocaleString():''}</div></div><div style="display:flex;gap:4px;align-items:center;">${iv.files?.length?'<span style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;color:var(--muted);">'+iv.files.length+'f</span>':''}<span class="inv-amt">$${parseFloat(iv.amount||0).toLocaleString()}</span><button class="ab r" onclick="delInv('${l.id}',${i})">×</button></div></div>`).join('')}`;
   }
 }
-function cpEmail(){const s=document.getElementById('ec_subj')?.textContent||'',b=document.getElementById('ec_body')?.textContent||'';navigator.clipboard.writeText('Subject: '+s+'\n\n'+b).then(()=>{const btn=document.getElementById('cpEmailBtn');btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);});}
+function cpEmail(){const s=document.getElementById('ec_s')?.textContent||'',b=document.getElementById('ec_b')?.textContent||'';navigator.clipboard.writeText('Subject: '+s+'\n\n'+b).then(()=>{const btn=document.getElementById('cpEB');btn.textContent='Copied!';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done');},2000);});}
 
-// Email drafts
+// ═══ EMAIL DRAFTS ═══
 function buildDraft(l){
   const s=cstat(l),prods=(l.products||[]).join(', ')||'our platform',fn=l.name.split(' ').filter(Boolean).pop();
   let subj='',body='';
-  if(s==='new'||l.stage==='new'||l.stage==='emailed'){subj='NeuroUX - Following up on your inquiry';body='Hi '+fn+',\n\nThank you for your interest in NeuroUX! I wanted to follow up and share how we can support your research.\n\nWe specialize in '+prods+', and I would love to schedule a quick call to understand your needs.\n\nAre you available this week?\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
-  else if(l.stage==='quote_sent'&&(l.followUpCount||0)===0){subj='Re: NeuroUX Quote - Quick check-in';body='Hi '+fn+',\n\nI hope you are doing well. I wanted to follow up on the quote I sent for '+prods+'.\n\nDo you have any questions or would you like a quick call to walk through it?\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
-  else if(l.stage==='quote_sent'&&(l.followUpCount||0)>=1){subj='NeuroUX - Still here if you need us';body='Hi '+fn+',\n\nJust circling back on the NeuroUX quote for '+prods+'.\n\nIf timing is not right or you have concerns, please do let me know. Happy to revisit scope or pricing.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
-  else if(l.stage==='call_done'){const lc=l.otterNotes?.length?'\n\nFrom our call: '+l.otterNotes[0].summary.substring(0,120)+'...':'';subj='NeuroUX - Next steps after our call';body='Hi '+fn+',\n\nThank you for speaking with me.'+lc+'\n\nI have shared the quote for '+prods+'. Please take a look and let me know if you have any questions.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
-  else if(s==='replied'||l.stage==='negotiating'){subj='Re: NeuroUX - Following up on our discussion';body='Hi '+fn+',\n\nThank you for your response. '+(l.notes?'Regarding your query: '+l.notes.substring(0,80)+'...':'Let me know if you have any further questions.')+'\n\nLooking forward to moving this forward.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
-  else{subj='NeuroUX - Checking in';body='Hi '+fn+',\n\nI hope all is well. Just checking in on where things stand with NeuroUX.\n\nPlease do not hesitate to reach out if you have any questions.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  if(s==='new'||l.stage==='new'||l.stage==='emailed'){subj='NeuroUX — Following up on your inquiry';body='Hi '+fn+',\n\nThank you for your interest in NeuroUX. I wanted to follow up and share how we can support your research.\n\nWe specialise in '+prods+', and I would love to schedule a quick call to understand your specific needs.\n\nAre you available this week?\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  else if(l.stage==='quote_sent'&&(l.followUpCount||0)===0){subj='Re: NeuroUX Quote — Quick check-in';body='Hi '+fn+',\n\nI hope you are doing well. I wanted to follow up on the quote I sent over for '+prods+'.\n\nDo you have any questions, or would you like a quick call to walk through it?\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  else if(l.stage==='quote_sent'&&(l.followUpCount||0)>=1){subj='NeuroUX — Still here if you need us';body='Hi '+fn+',\n\nJust circling back on the NeuroUX proposal for '+prods+'.\n\nIf timing is not right or you have concerns, please do let me know. Happy to revisit the scope or pricing.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  else if(l.stage==='call_done'){const lc=l.otterNotes?.length?'\n\nFrom our call: '+l.otterNotes[0].summary.substring(0,120)+'…':'';subj='NeuroUX — Next steps after our call';body='Hi '+fn+',\n\nThank you for your time.'+lc+'\n\nI have shared a quote for '+prods+'. Please take a look and let me know if you have any questions.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  else if(s==='replied'||l.stage==='negotiating'){subj='Re: NeuroUX — Following up';body='Hi '+fn+',\n\nThank you for your response. '+(l.notes?'Regarding your query: '+l.notes.substring(0,80)+'…':'Let me know if you have any further questions.')+'\n\nLooking forward to moving forward.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  else{subj='NeuroUX — Checking in';body='Hi '+fn+',\n\nI hope all is well. Just checking in on where things stand with NeuroUX.\n\nPlease do not hesitate to reach out if you have any questions.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
   return{subj,body};
 }
 
-// Actions
-function markSent(id){const l=leads.find(x=>x.id===id);if(!l)return;l.lastContact=today();l.followUpCount=(l.followUpCount||0)+1;l.status=null;l.snoozeUntil=null;l.gmailReplied=false;addAct(l,'Follow-up #'+l.followUpCount+' sent');save();renderAll();notify('Follow-up logged','g');}
-function markCallDone(id){const l=leads.find(x=>x.id===id);if(!l)return;l.stage='call_done';l.lastContact=today();l.status=null;addAct(l,'Call done');save();renderAll();}
-function markWon(id){if(!confirm('Mark Won?'))return;const l=leads.find(x=>x.id===id);if(!l)return;l.status='won';addAct(l,'Won!');save();renderAll();}
-function markLost(id){if(!confirm('Mark Lost?'))return;const l=leads.find(x=>x.id===id);if(!l)return;l.status='lost';addAct(l,'Lost');save();renderAll();}
-function delLead(id){if(!confirm('Remove?'))return;leads=leads.filter(x=>x.id!==id);if(selId===id){selId=null;document.getElementById('panelC').innerHTML='<div class="es"><div class="ei">👈</div><h3>Select a lead</h3></div>';}save();renderAll();}
-function openSnzM(id){snoozeId=id;const l=leads.find(x=>x.id===id);document.getElementById('snoozeT').textContent='Snooze - '+(l?l.name:'');openM('snoozeM');}
-function doSnooze(d){if(!snoozeId)return;const l=leads.find(x=>x.id===snoozeId);if(!l)return;const dt=new Date();dt.setDate(dt.getDate()+d);l.snoozeUntil=dt.toISOString().split('T')[0];l.status='snoozed';addAct(l,'Snoozed '+d+'d');save();renderAll();closeM('snoozeM');}
-function snzP(id,d){snoozeId=id;doSnooze(d);}
-function toggleSeq(id){const l=leads.find(x=>x.id===id);if(!l)return;l.sequenceRunning=!l.sequenceRunning;if(l.sequenceRunning){l.sequenceStartDate=today();l.status=null;addAct(l,'Sequence started D3/D10/D16');}else{l.sequenceStartDate=null;l.status=null;addAct(l,'Sequence stopped');}save();renderAll();}
-function nextSeqDay(d){for(const x of[3,10,16])if(d<x)return x;return null;}
+// ═══ ACTIONS ═══
+function markSent(id){const l=leads.find(x=>x.id===id);if(!l)return;l.lastContact=tod();l.followUpCount=(l.followUpCount||0)+1;l.status=null;l.snoozeUntil=null;l.gmailReplied=false;act(l,'Follow-up #'+l.followUpCount+' sent');save();renderAll();notif('Follow-up logged','grn');}
+function markCallDone(id){const l=leads.find(x=>x.id===id);if(!l)return;l.stage='call_done';l.lastContact=tod();l.status=null;act(l,'Call completed');save();renderAll();}
+function markWon(id){if(!confirm('Mark as Won?'))return;const l=leads.find(x=>x.id===id);if(!l)return;l.status='won';act(l,'Deal Won');save();renderAll();}
+function markLost(id){if(!confirm('Mark as Lost?'))return;const l=leads.find(x=>x.id===id);if(!l)return;l.status='lost';act(l,'Deal Lost');save();renderAll();}
+function delL(id){if(!confirm('Remove lead?'))return;leads=leads.filter(x=>x.id!==id);if(selId===id){selId=null;document.getElementById('panelC').innerHTML='<div class="empty"><div class="empty-i">◈</div><div class="empty-t">No lead selected</div></div>';}save();renderAll();}
+function openSnzM(id){snzId=id;const l=leads.find(x=>x.id===id);document.getElementById('snzTitle').textContent='Snooze — '+(l?.name||'');openM('snoozeM');}
+function doSnz(d){if(!snzId)return;const l=leads.find(x=>x.id===snzId);if(!l)return;const dt=new Date();dt.setDate(dt.getDate()+d);l.snoozeUntil=dt.toISOString().split('T')[0];l.status='snoozed';act(l,'Snoozed '+d+'d → '+l.snoozeUntil);save();renderAll();closeM('snoozeM');}
+function snzP(id,d){snzId=id;doSnz(d);}
+function togSeq(id){const l=leads.find(x=>x.id===id);if(!l)return;l.sequenceRunning=!l.sequenceRunning;if(l.sequenceRunning){l.sequenceStartDate=tod();l.status=null;act(l,'Sequence started D3/D10/D16');}else{l.sequenceStartDate=null;l.status=null;act(l,'Sequence stopped');}save();renderAll();}
+function nxtSeq(d){for(const x of[3,10,16])if(d<x)return x;return null;}
 
-// Invoices
-function openInvM(id){invId=id;invFiles=[];document.getElementById('iv_id').value='';document.getElementById('iv_desc').value='';document.getElementById('iv_amt').value='';document.getElementById('iv_date').value=today();document.getElementById('iv_filelist').innerHTML='';const l=leads.find(x=>x.id===id);document.getElementById('invMT').textContent='Add Invoice'+(l?' - '+l.name:'');openM('invM');}
-function handleFiles(inp){invFiles=Array.from(inp.files);document.getElementById('iv_filelist').innerHTML=invFiles.map(f=>'<div style="font-size:11px;color:var(--ink-soft);padding:2px 0;">📎 '+f.name+' ('+Math.round(f.size/1024)+'KB)</div>').join('');}
-function saveInvoice(){if(!invId)return;const l=leads.find(x=>x.id===invId);if(!l)return;const inv={id:document.getElementById('iv_id').value.trim(),desc:document.getElementById('iv_desc').value.trim(),amount:document.getElementById('iv_amt').value,date:document.getElementById('iv_date').value,files:invFiles.map(f=>({name:f.name,size:f.size})),addedAt:today()};if(!inv.id&&!inv.desc){alert('Enter invoice ID or description.');return;}l.invoices=l.invoices||[];l.invoices.unshift(inv);addAct(l,'Invoice added: '+(inv.id||inv.desc));save();renderAll();closeM('invM');if(selId===invId)renderPanel(invId,'invoices');}
+// ═══ INVOICES ═══
+function openInvM(id){invLId=id;invFiles=[];document.getElementById('iv_id').value='';document.getElementById('iv_desc').value='';document.getElementById('iv_amt').value='';document.getElementById('iv_date').value=tod();document.getElementById('iv_flist').innerHTML='';const l=leads.find(x=>x.id===id);document.getElementById('invMT').textContent='Add Invoice'+(l?' — '+l.name:'');openM('invM');}
+function handleFiles(inp){invFiles=Array.from(inp.files);document.getElementById('iv_flist').innerHTML=invFiles.map(f=>'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;color:var(--muted);padding:2px 0;">📎 '+f.name+' ('+Math.round(f.size/1024)+'KB)</div>').join('');}
+function saveInv(){if(!invLId)return;const l=leads.find(x=>x.id===invLId);if(!l)return;const iv={id:document.getElementById('iv_id').value.trim(),desc:document.getElementById('iv_desc').value.trim(),amount:document.getElementById('iv_amt').value,date:document.getElementById('iv_date').value,files:invFiles.map(f=>({name:f.name,size:f.size})),added:tod()};if(!iv.id&&!iv.desc){alert('Enter invoice ID or description.');return;}l.invoices=l.invoices||[];l.invoices.unshift(iv);act(l,'Invoice added: '+(iv.id||iv.desc));save();renderAll();closeM('invM');if(selId===invLId)renderPanel(invLId,'invoices');}
 function delInv(lid,i){const l=leads.find(x=>x.id===lid);if(!l?.invoices)return;l.invoices.splice(i,1);save();renderAll();renderPanel(lid,'invoices');}
 
-// Add/Edit
-function openAddM(){editId=null;document.getElementById('addMT').textContent='Add New Lead';document.getElementById('saveLBtn').textContent='Add Lead';['f_name','f_org','f_email','f_value','f_notes'].forEach(id=>document.getElementById(id).value='');document.getElementById('f_stage').value='quote_sent';document.getElementById('f_lastContact').value=today();['p1','p2','p3','p4','p5','p6'].forEach(id=>document.getElementById(id).checked=false);openM('addM');}
-function openEditM(id){editId=id;const l=leads.find(x=>x.id===id);if(!l)return;document.getElementById('addMT').textContent='Edit Lead';document.getElementById('saveLBtn').textContent='Save';document.getElementById('f_name').value=l.name;document.getElementById('f_org').value=l.org||'';document.getElementById('f_email').value=l.email||'';document.getElementById('f_value').value=l.value||'';document.getElementById('f_notes').value=l.notes||'';document.getElementById('f_stage').value=l.stage;document.getElementById('f_lastContact').value=l.lastContact;const ps=PRODS;['p1','p2','p3','p4','p5','p6'].forEach((pid,i)=>document.getElementById(pid).checked=(l.products||[]).includes(ps[i]));openM('addM');}
-function saveLead(){
-  const name=document.getElementById('f_name').value.trim();if(!name){alert('Enter a name.');return;}
-  const prods=['p1','p2','p3','p4','p5','p6'].map((pid,i)=>document.getElementById(pid).checked?PRODS[i]:null).filter(Boolean);
-  if(editId){const l=leads.find(x=>x.id===editId);if(!l)return;const sc=l.stage!==document.getElementById('f_stage').value;l.name=name;l.org=document.getElementById('f_org').value.trim();l.email=document.getElementById('f_email').value.trim();l.value=parseFloat(document.getElementById('f_value').value)||0;l.notes=document.getElementById('f_notes').value.trim();l.stage=document.getElementById('f_stage').value;l.lastContact=document.getElementById('f_lastContact').value;l.products=prods;if(sc){l.status=null;addAct(l,'Stage: '+l.stage);}}
-  else{leads.unshift({id:uid(),hsId:null,name,org:document.getElementById('f_org').value.trim(),email:document.getElementById('f_email').value.trim(),value:parseFloat(document.getElementById('f_value').value)||0,notes:document.getElementById('f_notes').value.trim(),stage:document.getElementById('f_stage').value,lastContact:document.getElementById('f_lastContact').value,products:prods,followUpCount:0,status:null,snoozeUntil:null,sequenceRunning:false,sequenceStartDate:null,invoices:[],otterNotes:[],gmailReplied:false,fromHubSpot:false,activity:[{date:today(),text:'Added manually'}]});}
-  save();renderAll();closeM('addM');
-}
+// ═══ ADD/EDIT ═══
+function openAddM(){editId=null;document.getElementById('addMT').textContent='Add New Lead';document.getElementById('saveLB').textContent='Add Lead';['f_name','f_org','f_email','f_value','f_notes'].forEach(id=>document.getElementById(id).value='');document.getElementById('f_stage').value='quote_sent';document.getElementById('f_date').value=tod();['p1','p2','p3','p4','p5','p6'].forEach(id=>document.getElementById(id).checked=false);openM('addM');}
+function openEditM(id){editId=id;const l=leads.find(x=>x.id===id);if(!l)return;document.getElementById('addMT').textContent='Edit Lead';document.getElementById('saveLB').textContent='Save';document.getElementById('f_name').value=l.name;document.getElementById('f_org').value=l.org||'';document.getElementById('f_email').value=l.email||'';document.getElementById('f_value').value=l.value||'';document.getElementById('f_notes').value=l.notes||'';document.getElementById('f_stage').value=l.stage;document.getElementById('f_date').value=l.lastContact;['p1','p2','p3','p4','p5','p6'].forEach((pid,i)=>document.getElementById(pid).checked=(l.products||[]).includes(PRODS[i]));openM('addM');}
+function saveLead(){const name=document.getElementById('f_name').value.trim();if(!name){alert('Name required.');return;}const prods=['p1','p2','p3','p4','p5','p6'].map((pid,i)=>document.getElementById(pid).checked?PRODS[i]:null).filter(Boolean);if(editId){const l=leads.find(x=>x.id===editId);if(!l)return;const sc=l.stage!==document.getElementById('f_stage').value;l.name=name;l.org=document.getElementById('f_org').value.trim();l.email=document.getElementById('f_email').value.trim();l.value=parseFloat(document.getElementById('f_value').value)||0;l.notes=document.getElementById('f_notes').value.trim();l.stage=document.getElementById('f_stage').value;l.lastContact=document.getElementById('f_date').value;l.products=prods;if(sc){l.status=null;act(l,'Stage updated: '+l.stage);}}else{leads.unshift({id:uid(),hsId:null,name,org:document.getElementById('f_org').value.trim(),email:document.getElementById('f_email').value.trim(),value:parseFloat(document.getElementById('f_value').value)||0,notes:document.getElementById('f_notes').value.trim(),stage:document.getElementById('f_stage').value,lastContact:document.getElementById('f_date').value,products:prods,followUpCount:0,status:null,snoozeUntil:null,sequenceRunning:false,sequenceStartDate:null,invoices:[],otterNotes:[],gmailReplied:false,fromHS:false,activity:[{date:tod(),text:'Added manually'}]});}save();renderAll();closeM('addM');}
 
-// No response + export
+// ═══ NO RESPONSE & EXPORT ═══
 function isNR(l){const s=cstat(l);if(['won','lost','replied'].includes(s)||l.status==='replied')return false;return l.stage==='quote_sent'||(l.followUpCount||0)>=1;}
-function exportCSV(){const rows=leads.filter(l=>isNR(l)).map(l=>[l.name,l.org||'',l.email||'',(l.products||[]).join('|'),l.value||0,l.stage,l.lastContact,l.followUpCount||0,dDiff(l.lastContact,today()),l.fromHubSpot?'Yes':'No'].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));if(!rows.length){alert('No leads.');return;}const csv=[['Name','Org','Email','Products','Value','Stage','Last Contact','Follow-Ups','Days Since','HubSpot'].join(','),...rows].join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='NoResponse_'+today()+'.csv';a.click();}
+function exportCSV(){const rows=leads.filter(l=>isNR(l)).map(l=>[l.name,l.org||'',l.email||'',(l.products||[]).join('|'),l.value||0,l.stage,l.lastContact,l.followUpCount||0,ddiff(l.lastContact,tod()),l.fromHS?'Yes':'No'].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));if(!rows.length){alert('No leads.');return;}const csv=[['Name','Org','Email','Products','Value','Stage','Last Contact','Follow-Ups','Days Since','HubSpot'].join(','),...rows].join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='NoResponse_'+tod()+'.csv';a.click();}
 
-// Settings
-function saveSettings(){const hs=document.getElementById('s_hs').value.trim(),wk=document.getElementById('s_wk').value.trim();if(!hs||!wk){alert('Fill in both fields.');return;}localStorage.setItem('neuroux_hs_token',hs);localStorage.setItem('neuroux_worker_url',wk);closeM('settingsM');syncHubSpot();}
+// ═══ SETTINGS ═══
+function saveSettings(){const hs=document.getElementById('s_hs').value.trim(),wk=document.getElementById('s_wk').value.trim();if(!hs||!wk){alert('Fill in both fields.');return;}localStorage.setItem('nx_hs_tok',hs);localStorage.setItem('nx_wk_url',wk);closeM('settingsM');syncHS();}
 
-// Notifications
-function notify(msg,type){const colors={g:{bg:var_('--green-bg'),bd:var_('--green-border'),c:var_('--green')},o:{bg:var_('--otter-bg'),bd:var_('--otter-border'),c:var_('--otter')},r:{bg:var_('--red-bg'),bd:var_('--red-border'),c:var_('--red')}};const t=colors[type]||colors.g;const n=document.createElement('div');n.className='notif';n.style.background=t.bg;n.style.border='1px solid '+t.bd;n.style.color=t.c;n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),3200);}
-function var_(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+// ═══ NOTIFICATIONS ═══
+function notif(msg,type){const cols={grn:{bg:'rgba(61,186,122,0.1)',bc:'var(--grn)',c:'var(--grn)'},ott:{bg:'rgba(100,118,245,0.1)',bc:'var(--ott)',c:'var(--ott)'},amb:{bg:'rgba(240,160,64,0.1)',bc:'var(--amb)',c:'var(--amb)'},red:{bg:'rgba(224,82,82,0.1)',bc:'var(--red)',c:'var(--red)'}};const t=cols[type]||cols.grn;const n=document.createElement('div');n.className='notif';n.style.background=t.bg;n.style.borderLeftColor=t.bc;n.style.color=t.c;n.style.border='1px solid '+t.bc.replace('var(--',t.bc);n.textContent='// '+msg;document.body.appendChild(n);setTimeout(()=>n.remove(),3200);}
 
-// Utils
-function setF(f){curF=f;document.querySelectorAll('.fb').forEach(b=>b.classList.toggle('act',b.dataset.f===f));renderLeads();}
-function addAct(l,t){l.activity=l.activity||[];l.activity.push({date:today(),text:t});}
-function today(){return new Date().toISOString().split('T')[0];}
+// ═══ UTILS ═══
+function setF(f){curF=f;document.querySelectorAll('.flt').forEach(b=>b.classList.toggle('on',b.dataset.f===f));renderLeads();}
+function act(l,t){l.activity=l.activity||[];l.activity.push({date:tod(),text:t});}
+function tod(){return new Date().toISOString().split('T')[0];}
 function uid(){return 'l_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function save(){try{localStorage.setItem(SK,JSON.stringify(leads));}catch(e){}}
-function saveCalls(){try{localStorage.setItem(CK,JSON.stringify(calls));}catch(e){}}
+function saveC(){try{localStorage.setItem(CK,JSON.stringify(calls));}catch(e){}}
 function openM(id){document.getElementById(id)?.classList.add('open');}
 function closeM(id){document.getElementById(id)?.classList.remove('open');}
 document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
