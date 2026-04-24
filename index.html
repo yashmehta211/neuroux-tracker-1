@@ -4,241 +4,119 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NeuroUX · Command Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg:       #0e0f11;
-  --bg2:      #141518;
-  --bg3:      #1a1c21;
-  --bg4:      #212328;
-  --line:     #2a2d35;
-  --line2:    #353840;
-  --text:     #e8e9ec;
-  --muted:    #6b7080;
-  --dim:      #40444f;
-  --gold:     #c8963e;
-  --gold2:    #e8b04a;
-  --gold-bg:  rgba(200,150,62,0.08);
-  --gold-bd:  rgba(200,150,62,0.22);
-  --red:      #e05252;
-  --red-bg:   rgba(224,82,82,0.07);
-  --red-bd:   rgba(224,82,82,0.22);
-  --grn:      #3dba7a;
-  --grn-bg:   rgba(61,186,122,0.07);
-  --grn-bd:   rgba(61,186,122,0.22);
-  --blu:      #4e8ef7;
-  --blu-bg:   rgba(78,142,247,0.07);
-  --blu-bd:   rgba(78,142,247,0.22);
-  --prp:      #9b72f0;
-  --prp-bg:   rgba(155,114,240,0.07);
-  --prp-bd:   rgba(155,114,240,0.22);
-  --amb:      #f0a040;
-  --amb-bg:   rgba(240,160,64,0.07);
-  --amb-bd:   rgba(240,160,64,0.22);
-  --ott:      #6476f5;
-  --ott-bg:   rgba(100,118,245,0.08);
-  --ott-bd:   rgba(100,118,245,0.25);
-  --gml:      #e8483a;
-  --gml-bg:   rgba(232,72,58,0.07);
-  --gml-bd:   rgba(232,72,58,0.22);
+  --bg:      #f7f6f2;
+  --bg2:     #ffffff;
+  --bg3:     #f0efe9;
+  --bg4:     #eae9e2;
+  --line:    #e4e2da;
+  --line2:   #d4d2c8;
+  --text:    #1a1a20;
+  --mid:     #3a3a45;
+  --soft:    #6b6b7a;
+  --muted:   #9a9aaa;
+  --dim:     #bcbccc;
+  --gold:    #b8842a;
+  --gold2:   #d4a044;
+  --goldbg:  rgba(184,132,42,0.07);
+  --goldbd:  rgba(184,132,42,0.2);
+  --red:     #c94040;
+  --redbg:   rgba(201,64,64,0.06);
+  --redbd:   rgba(201,64,64,0.18);
+  --grn:     #2a8a5c;
+  --grnbg:   rgba(42,138,92,0.06);
+  --grnbd:   rgba(42,138,92,0.18);
+  --blu:     #3060c8;
+  --blubg:   rgba(48,96,200,0.06);
+  --blubd:   rgba(48,96,200,0.18);
+  --prp:     #7040c0;
+  --prpbg:   rgba(112,64,192,0.06);
+  --prpbd:   rgba(112,64,192,0.18);
+  --amb:     #c07010;
+  --ambbg:   rgba(192,112,16,0.06);
+  --ambbd:   rgba(192,112,16,0.18);
+  --ott:     #4455e0;
+  --ottbg:   rgba(68,85,224,0.06);
+  --ottbd:   rgba(68,85,224,0.18);
+  --gml:     #c83828;
+  --gmlbg:   rgba(200,56,40,0.06);
+  --gmlbd:   rgba(200,56,40,0.18);
+  --sh1: 0 1px 3px rgba(26,26,32,0.05), 0 1px 2px rgba(26,26,32,0.04);
+  --sh2: 0 4px 16px rgba(26,26,32,0.08);
+  --sh3: 0 20px 60px rgba(26,26,32,0.14);
 }
-
 html, body { height: 100%; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 13px;
-  -webkit-font-smoothing: antialiased;
-  overflow: hidden;
-}
+body { background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; -webkit-font-smoothing: antialiased; overflow: hidden; }
 
-/* ─── SCANLINE overlay ─── */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
-  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
-}
+/* ── TOPBAR ── */
+.top { height: 54px; background: var(--bg2); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 22px; gap: 14px; box-shadow: var(--sh1); }
+.brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.brand-hex { width: 30px; height: 30px; background: linear-gradient(135deg, var(--gold), var(--gold2)); clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); display: grid; place-items: center; }
+.brand-hex-i { width: 12px; height: 12px; background: #fff; clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); }
+.brand-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.06em; color: var(--text); }
+.brand-tag { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 1px; }
 
-/* ─── TOPBAR ─── */
-.top {
-  height: 52px;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 20px;
-  position: relative; z-index: 50;
-}
-.top::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.4;
-}
-.top-brand {
-  display: flex; align-items: center; gap: 10px;
-}
-.brand-logo {
-  width: 28px; height: 28px;
-  background: var(--gold);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.brand-logo-inner {
-  width: 12px; height: 12px;
-  background: var(--bg2);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-}
-.brand-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.04em; color: var(--text); }
-.brand-sub { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 1px; }
-.top-stats {
-  display: flex; align-items: center; gap: 2px;
-}
-.tstat {
-  display: flex; align-items: center; gap: 8px;
-  padding: 0 14px; height: 52px;
-  border-left: 1px solid var(--line);
-  cursor: default;
-}
-.tstat:first-child { border-left: none; }
-.tstat-n {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 20px; font-weight: 500; line-height: 1;
-  transition: color 0.2s;
-}
-.tstat-n.red { color: var(--red); }
-.tstat-n.amb { color: var(--amb); }
-.tstat-n.grn { color: var(--grn); }
-.tstat-n.blu { color: var(--blu); }
-.tstat-n.ott { color: var(--ott); }
-.tstat-label { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.4; }
-.top-right { display: flex; align-items: center; gap: 6px; }
-.pill {
-  display: flex; align-items: center; gap: 5px;
-  padding: 4px 10px; border-radius: 2px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  border: 1px solid; cursor: pointer; transition: all 0.15s;
-}
-.pill-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-.pill.hs  { color: var(--amb); border-color: var(--amb-bd); background: var(--amb-bg); }
-.pill.hs.on  { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
-.pill.gm  { color: var(--gml); border-color: var(--gml-bd); background: var(--gml-bg); }
-.pill.gm.on  { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
-.pill.ot  { color: var(--ott); border-color: var(--ott-bd); background: var(--ott-bg); }
-.pill.ot.on  { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
-.tbtn {
-  background: var(--bg3); border: 1px solid var(--line2);
-  color: var(--muted); font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.15s;
-}
-.tbtn:hover { color: var(--text); border-color: var(--line2); background: var(--bg4); }
-.tbtn.add {
-  background: var(--gold); color: var(--bg); border-color: var(--gold);
-  font-weight: 500;
-}
+.top-stats { display: flex; align-items: stretch; gap: 0; }
+.tstat { display: flex; align-items: center; gap: 9px; padding: 0 16px; border-left: 1px solid var(--line); }
+.tstat-n { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 500; line-height: 1; }
+.tstat-n.r { color: var(--red); } .tstat-n.a { color: var(--amb); } .tstat-n.g { color: var(--grn); } .tstat-n.b { color: var(--blu); } .tstat-n.o { color: var(--ott); }
+.tstat-l { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.5; }
+
+.top-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.cpill { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid; cursor: pointer; transition: all 0.15s; }
+.cpill .cd { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.cpill.hs { color: var(--amb); border-color: var(--ambbd); background: var(--ambbg); }
+.cpill.hs.on { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
+.cpill.gm { color: var(--gml); border-color: var(--gmlbd); background: var(--gmlbg); }
+.cpill.gm.on { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
+.cpill.ot { color: var(--ott); border-color: var(--ottbd); background: var(--ottbg); }
+.cpill.ot.on { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
+.tbtn { background: var(--bg3); border: 1px solid var(--line); color: var(--soft); font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.tbtn:hover { background: var(--bg4); color: var(--text); border-color: var(--line2); }
+.tbtn.add { background: var(--gold); color: #fff; border-color: var(--gold); font-weight: 600; }
 .tbtn.add:hover { background: var(--gold2); border-color: var(--gold2); }
-#dateLbl { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--dim); letter-spacing: 0.06em; }
+#dlbl { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted); letter-spacing: 0.04em; }
 
-/* ─── LAYOUT ─── */
-.layout {
-  display: grid;
-  grid-template-columns: 200px 1fr 290px;
-  height: calc(100vh - 52px);
-  overflow: hidden;
-}
+/* ── LAYOUT ── */
+.layout { display: grid; grid-template-columns: 210px 1fr 295px; height: calc(100vh - 54px); overflow: hidden; }
 
-/* ─── LEFT SIDEBAR ─── */
-.lsb {
-  background: var(--bg2);
-  border-right: 1px solid var(--line);
-  display: flex; flex-direction: column;
-  overflow-y: auto; overflow-x: hidden;
-}
-.lsb::-webkit-scrollbar { width: 3px; }
-.lsb::-webkit-scrollbar-track { background: transparent; }
-.lsb::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
-.lsb-section { padding: 16px 0 8px; }
-.lsb-head {
-  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim);
-  padding: 0 14px 8px; display: flex; align-items: center; gap: 6px;
-}
-.lsb-head::after { content: ''; flex: 1; height: 1px; background: var(--line); }
-.flt {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 7px 14px; width: 100%; background: none; border: none;
-  font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--muted);
-  cursor: pointer; transition: all 0.12s; text-align: left;
-  border-left: 2px solid transparent;
-}
-.flt:hover { color: var(--text); background: var(--bg3); }
-.flt.on { color: var(--gold); border-left-color: var(--gold); background: var(--gold-bg); font-weight: 500; }
-.flt .fc {
-  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-  color: var(--dim); background: var(--bg3); padding: 1px 6px; border-radius: 1px;
-  min-width: 24px; text-align: center;
-}
-.flt.on .fc { color: var(--gold); background: var(--gold-bg); }
-.fsep { height: 1px; background: var(--line); margin: 6px 14px; }
-.pipe-block {
-  margin: 10px 12px 16px;
-  background: var(--bg3); border: 1px solid var(--line);
-  padding: 12px; border-radius: 2px; position: relative; overflow: hidden;
-}
-.pipe-block::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--gold), var(--gold2));
-}
-.pipe-label { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
-.pipe-val { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 500; color: var(--gold); line-height: 1; letter-spacing: -0.02em; }
-.pipe-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+/* ── LEFT SIDEBAR ── */
+.lsb { background: var(--bg2); border-right: 1px solid var(--line); display: flex; flex-direction: column; overflow-y: auto; }
+.lsb::-webkit-scrollbar { width: 3px; } .lsb::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
+.lsb-sec { padding: 16px 0 6px; }
+.lsb-lbl { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); padding: 0 14px 8px; display: flex; align-items: center; gap: 7px; }
+.lsb-lbl::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.fb { width: 100%; background: none; border: none; border-left: 2px solid transparent; display: flex; align-items: center; justify-content: space-between; padding: 7px 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--soft); cursor: pointer; transition: all 0.12s; text-align: left; }
+.fb:hover { background: var(--bg3); color: var(--text); }
+.fb.on { color: var(--gold); border-left-color: var(--gold); background: var(--goldbg); font-weight: 500; }
+.fb .fc { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted); background: var(--bg3); padding: 1px 6px; border-radius: 10px; min-width: 22px; text-align: center; }
+.fb.on .fc { color: var(--gold); background: var(--goldbg); }
+.fsep { height: 1px; background: var(--line); margin: 5px 14px; }
+.pipe-card { margin: 10px 12px 14px; background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 100%); border-radius: 10px; padding: 14px; position: relative; overflow: hidden; }
+.pipe-card::after { content: ''; position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+.pipe-lbl { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 5px; }
+.pipe-val { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 500; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+.pipe-sub { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 4px; }
 
-/* ─── MAIN ─── */
-.main {
-  display: flex; flex-direction: column;
-  background: var(--bg); overflow: hidden;
-}
-.main-header {
-  padding: 16px 20px 12px;
-  border-bottom: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-shrink: 0;
-}
-.main-ttl {
-  font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
-  color: var(--text); letter-spacing: -0.01em;
-}
-.main-count { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 3px; letter-spacing: 0.04em; }
-.srch-wrap { padding: 10px 20px; border-bottom: 1px solid var(--line); flex-shrink: 0; position: relative; }
-.srch-wrap::before { content: '//'; position: absolute; left: 32px; top: 50%; transform: translateY(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--dim); pointer-events: none; }
-.srch {
-  width: 100%; background: var(--bg3); border: 1px solid var(--line);
-  border-radius: 2px; padding: 8px 12px 8px 32px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text);
-  outline: none; transition: border-color 0.15s;
-}
-.srch:focus { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-bg); }
-.srch::placeholder { color: var(--dim); }
-.leads-wrap { flex: 1; overflow-y: auto; padding: 10px 14px; }
-.leads-wrap::-webkit-scrollbar { width: 3px; }
-.leads-wrap::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
-.leads-grid { display: flex; flex-direction: column; gap: 6px; }
+/* ── MAIN ── */
+.main { display: flex; flex-direction: column; background: var(--bg); overflow: hidden; }
+.main-hd { padding: 16px 22px 13px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; background: var(--bg2); }
+.main-ttl { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+.main-sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.02em; }
+.srch-wrap { padding: 11px 16px; background: var(--bg2); border-bottom: 1px solid var(--line); flex-shrink: 0; }
+.srch { width: 100%; background: var(--bg3); border: 1.5px solid var(--line); border-radius: 8px; padding: 8px 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: var(--text); outline: none; transition: all 0.15s; }
+.srch:focus { border-color: var(--gold); background: var(--bg2); box-shadow: 0 0 0 3px var(--goldbg); }
+.srch::placeholder { color: var(--muted); }
+.leads-wrap { flex: 1; overflow-y: auto; padding: 12px 14px; }
+.leads-wrap::-webkit-scrollbar { width: 3px; } .leads-wrap::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
+.leads-grid { display: flex; flex-direction: column; gap: 7px; }
 
-/* ─── LEAD CARD ─── */
-.lcard {
-  background: var(--bg2); border: 1px solid var(--line);
-  border-radius: 2px; cursor: pointer; position: relative; overflow: hidden;
-  transition: border-color 0.15s, background 0.15s;
-  animation: fadein 0.2s ease both;
-}
-.lcard::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-}
+/* ── LEAD CARD ── */
+.lcard { background: var(--bg2); border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; overflow: hidden; position: relative; transition: all 0.16s; animation: su 0.22s ease both; box-shadow: var(--sh1); }
+.lcard::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 10px 0 0 10px; }
 .lcard.urgent::before { background: var(--red); }
 .lcard.due::before { background: var(--amb); }
 .lcard.replied::before { background: var(--grn); }
@@ -249,257 +127,203 @@ body::before {
 .lcard.sequence::before { background: var(--grn); }
 .lcard.pending::before { background: var(--line2); }
 .lcard.snoozed::before { background: var(--line2); }
-.lcard:hover { border-color: var(--line2); background: var(--bg3); }
-.lcard.sel { border-color: var(--gold) !important; background: var(--bg3); }
-.lcard.sel::after { content: ''; position: absolute; top: 0; right: 0; width: 0; height: 0; border-style: solid; border-width: 0 10px 10px 0; border-color: transparent var(--gold) transparent transparent; }
-/* Gmail reply bar */
-.gbar { background: var(--grn-bg); border-bottom: 1px solid var(--grn-bd); padding: 4px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--grn); letter-spacing: 0.06em; display: flex; align-items: center; gap: 6px; }
-/* Otter bar */
-.obar { background: var(--ott-bg); border-bottom: 1px solid var(--ott-bd); padding: 5px 14px; }
-.obar-t { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--ott); letter-spacing: 0.06em; margin-bottom: 1px; }
-.obar-b { font-size: 10px; color: var(--muted); }
-.lcard-body { padding: 10px 14px 9px 16px; }
-.lcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
-.lcard-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
-.lcard-org { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 0.02em; }
-.lcard-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
-.badge {
-  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 1px; border: 1px solid; white-space: nowrap;
-}
-.badge.urgent { color: var(--red); border-color: var(--red-bd); background: var(--red-bg); }
-.badge.due { color: var(--amb); border-color: var(--amb-bd); background: var(--amb-bg); }
-.badge.replied { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
-.badge.scheduled { color: var(--blu); border-color: var(--blu-bd); background: var(--blu-bg); }
-.badge.new { color: var(--prp); border-color: var(--prp-bd); background: var(--prp-bg); }
-.badge.won { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.lcard:hover { border-color: var(--line2); box-shadow: var(--sh2); transform: translateY(-1px); }
+.lcard.sel { border-color: var(--gold) !important; box-shadow: 0 0 0 3px var(--goldbg), var(--sh2) !important; }
+/* strips */
+.gbar { background: var(--grnbg); border-bottom: 1px solid var(--grnbd); padding: 5px 16px; font-size: 11px; color: var(--grn); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+.obar { background: var(--ottbg); border-bottom: 1px solid var(--ottbd); padding: 6px 16px; }
+.obar-t { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--ott); margin-bottom: 2px; font-weight: 500; }
+.obar-b { font-size: 11px; color: var(--soft); }
+.lcard-body { padding: 11px 14px 10px 17px; }
+.lcard-r1 { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.lname { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.01em; }
+.lorg { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.lrv { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+/* badges */
+.badge { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; border: 1px solid; white-space: nowrap; }
+.badge.urgent { color: var(--red); border-color: var(--redbd); background: var(--redbg); }
+.badge.due { color: var(--amb); border-color: var(--ambbd); background: var(--ambbg); }
+.badge.replied { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
+.badge.scheduled { color: var(--blu); border-color: var(--blubd); background: var(--blubg); }
+.badge.new { color: var(--prp); border-color: var(--prpbd); background: var(--prpbg); }
+.badge.won { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
 .badge.lost { color: var(--muted); border-color: var(--line); background: var(--bg3); }
 .badge.snoozed { color: var(--muted); border-color: var(--line); background: var(--bg3); }
 .badge.pending { color: var(--muted); border-color: var(--line); background: var(--bg3); }
-.badge.sequence { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
-.lcard-val { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gold); }
-.chips { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
-.chip {
-  font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.06em;
-  text-transform: uppercase; padding: 2px 5px; border-radius: 1px; border: 1px solid;
-}
-.chip-p { color: var(--blu); border-color: var(--blu-bd); background: var(--blu-bg); }
-.chip-s { color: var(--dim); border-color: var(--line); background: var(--bg3); }
-.chip-hs { color: #ff7a00; border-color: rgba(255,122,0,0.25); background: rgba(255,122,0,0.06); }
-.chip-seq { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
-.chip-gm { color: var(--gml); border-color: var(--gml-bd); background: var(--gml-bg); }
-.chip-ot { color: var(--ott); border-color: var(--ott-bd); background: var(--ott-bg); }
-.chip-inv { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
-.lcard-foot {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-top: 8px; border-top: 1px solid var(--line); gap: 8px;
-}
-.lcard-time { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); flex: 1; line-height: 1.5; }
-.lcard-time .hi { font-weight: 500; }
-.lcard-time .hi.r { color: var(--red); }
-.lcard-time .hi.a { color: var(--amb); }
-.lcard-time .hi.g { color: var(--grn); }
-.lcard-actions { display: flex; gap: 3px; }
-.ab {
-  background: var(--bg3); border: 1px solid var(--line);
-  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--muted); padding: 4px 8px; border-radius: 1px;
-  cursor: pointer; transition: all 0.12s; white-space: nowrap;
-}
-.ab:hover { color: var(--text); border-color: var(--line2); }
-.ab.p { background: var(--gold-bg); border-color: var(--gold-bd); color: var(--gold); }
-.ab.p:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
-.ab.r { color: var(--red); border-color: var(--red-bd); background: var(--red-bg); }
+.badge.sequence { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
+.lval { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gold); font-weight: 500; }
+/* chips */
+.chips { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 9px; }
+.chip { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; border: 1px solid; }
+.ch-p { color: var(--blu); border-color: var(--blubd); background: var(--blubg); }
+.ch-s { color: var(--muted); border-color: var(--line); background: var(--bg3); }
+.ch-hs { color: #c05000; border-color: rgba(192,80,0,0.2); background: rgba(192,80,0,0.05); }
+.ch-sq { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
+.ch-gm { color: var(--gml); border-color: var(--gmlbd); background: var(--gmlbg); }
+.ch-ot { color: var(--ott); border-color: var(--ottbd); background: var(--ottbg); }
+.ch-in { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
+/* footer */
+.lcard-ft { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid var(--line); gap: 8px; }
+.ltime { font-size: 11px; color: var(--muted); flex: 1; line-height: 1.4; }
+.ltime .hr { font-weight: 600; } .ltime .hr.r { color: var(--red); } .ltime .hr.a { color: var(--amb); } .ltime .hr.g { color: var(--grn); }
+.acts { display: flex; gap: 4px; }
+.ab { background: var(--bg3); border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px; font-family: 'IBM Plex Sans', sans-serif; font-size: 10.5px; font-weight: 500; color: var(--soft); cursor: pointer; transition: all 0.12s; white-space: nowrap; }
+.ab:hover { background: var(--text); color: #fff; border-color: var(--text); }
+.ab.p { background: var(--goldbg); border-color: var(--goldbd); color: var(--gold); font-weight: 600; }
+.ab.p:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+.ab.r { color: var(--red); border-color: var(--redbd); background: var(--redbg); }
 .ab.r:hover { background: var(--red); color: #fff; }
-.ab.g { color: var(--grn); border-color: var(--grn-bd); background: var(--grn-bg); }
+.ab.g { color: var(--grn); border-color: var(--grnbd); background: var(--grnbg); }
 
-/* ─── RIGHT PANEL ─── */
-.rp {
-  background: var(--bg2); border-left: 1px solid var(--line);
-  display: flex; flex-direction: column; overflow: hidden;
-}
-.ptabs { display: flex; border-bottom: 1px solid var(--line); flex-shrink: 0; }
-.ptab {
-  flex: 1; padding: 0 6px; height: 42px; background: none; border: none;
-  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim);
-  cursor: pointer; transition: all 0.12s; border-bottom: 2px solid transparent;
-  position: relative;
-}
+/* ── RIGHT PANEL ── */
+.rp { background: var(--bg2); border-left: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; }
+.ptabs { display: flex; border-bottom: 1px solid var(--line); background: var(--bg2); }
+.ptab { flex: 1; height: 42px; background: none; border: none; border-bottom: 2px solid transparent; font-family: 'IBM Plex Sans', sans-serif; font-size: 11px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.14s; letter-spacing: 0.02em; }
 .ptab:hover { color: var(--text); background: var(--bg3); }
-.ptab.on { color: var(--gold); border-bottom-color: var(--gold); }
-.pc { flex: 1; overflow-y: auto; padding: 14px; }
-.pc::-webkit-scrollbar { width: 3px; }
-.pc::-webkit-scrollbar-thumb { background: var(--line2); }
-.ph { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 6px; }
-.psg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
-.pst { background: var(--bg3); border: 1px solid var(--line); padding: 9px 10px; border-radius: 2px; }
-.pst-l { font-family: 'IBM Plex Mono', monospace; font-size: 7px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+.ptab.on { color: var(--gold); border-bottom-color: var(--gold); font-weight: 600; }
+.pc { flex: 1; overflow-y: auto; padding: 16px; }
+.pc::-webkit-scrollbar { width: 3px; } .pc::-webkit-scrollbar-thumb { background: var(--line2); }
+.ph { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; padding-bottom: 7px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+.psg { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 14px; }
+.pst { background: var(--bg3); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+.pst-l { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
 .pst-v { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 500; color: var(--text); line-height: 1; }
-.act-item { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 11px; }
+.act-item { display: flex; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 11.5px; }
 .act-item:last-child { border-bottom: none; }
-.act-d { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--dim); flex-shrink: 0; width: 68px; }
-.act-t { color: var(--muted); line-height: 1.5; }
-.on-card { background: var(--ott-bg); border: 1px solid var(--ott-bd); border-radius: 2px; padding: 9px 10px; margin-bottom: 6px; }
-.on-head { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--ott); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; display: flex; justify-content: space-between; }
-.on-body { font-size: 11px; color: var(--muted); line-height: 1.6; }
-.on-acts { margin-top: 5px; display: flex; gap: 4px; }
-.inv-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 9px; background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; margin-bottom: 5px; }
-.inv-n { font-size: 11.5px; font-weight: 500; color: var(--text); }
-.inv-d { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 1px; }
-.inv-amt { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gold); }
-/* Email */
-.ecomp { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 12px; }
-.ecomp-subj { font-weight: 500; font-size: 12px; color: var(--text); padding-bottom: 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; outline: none; }
-.ecomp-body { font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: var(--muted); line-height: 1.8; white-space: pre-wrap; outline: none; min-height: 130px; }
-.ea { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
-.snz-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 4px; margin-top: 7px; }
-.snz-opt { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 6px 3px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); cursor: pointer; transition: all 0.12s; text-align: center; letter-spacing: 0.04em; }
-.snz-opt:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
-
-/* ─── MODALS ─── */
-.mo { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
-.mo.open { display: flex; }
-.md { background: var(--bg2); border: 1px solid var(--line2); border-radius: 2px; width: 100%; max-width: 500px; max-height: 88vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(0,0,0,0.7); animation: modIn 0.18s ease both; position: relative; }
-.md::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
-.md::-webkit-scrollbar { width: 3px; } .md::-webkit-scrollbar-thumb { background: var(--line2); }
-.md-top { padding: 18px 22px 14px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
-.md-ttl { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
-.mclose { background: none; border: none; font-size: 16px; cursor: pointer; color: var(--dim); padding: 2px 6px; border-radius: 2px; transition: all 0.12s; }
-.mclose:hover { color: var(--text); background: var(--bg3); }
-.mb { padding: 18px 22px 22px; }
-.ff { margin-bottom: 12px; }
-.ff label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 5px; }
-.ff input, .ff select, .ff textarea { width: 100%; background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 8px 11px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--text); outline: none; transition: border-color 0.15s; }
-.ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-bg); }
-.ff select option { background: var(--bg2); }
-.ff textarea { resize: vertical; min-height: 64px; line-height: 1.6; font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; }
-.fr { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.frow { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
-.frow input[type=checkbox] { accent-color: var(--gold); width: 13px; height: 13px; cursor: pointer; }
-.frow label { font-size: 12px; color: var(--muted); cursor: pointer; }
-.prods-box { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 9px 11px; }
-.fa { display: flex; gap: 7px; justify-content: flex-end; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
-.fpri { background: var(--gold); color: var(--bg); border: 1px solid var(--gold); border-radius: 2px; padding: 8px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
-.fpri:hover { background: var(--gold2); border-color: var(--gold2); }
-.fcan { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 2px; padding: 8px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
-.fcan:hover { color: var(--text); border-color: var(--line2); }
-.dl { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); display: flex; align-items: center; gap: 8px; margin: 14px 0 10px; }
+.act-d { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted); flex-shrink: 0; width: 72px; }
+.act-t { color: var(--soft); line-height: 1.5; }
+.on-card { background: var(--ottbg); border: 1px solid var(--ottbd); border-radius: 8px; padding: 10px 12px; margin-bottom: 7px; }
+.on-h { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; color: var(--ott); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; display: flex; justify-content: space-between; }
+.on-b { font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+.on-as { margin-top: 6px; display: flex; gap: 4px; }
+.inv-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 11px; background: var(--bg3); border: 1px solid var(--line); border-radius: 7px; margin-bottom: 5px; }
+.inv-n { font-size: 12px; font-weight: 500; color: var(--text); }
+.inv-d { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+/* email composer */
+.ecomp { background: var(--bg3); border: 1.5px solid var(--line); border-radius: 9px; padding: 13px; }
+.ecomp-s { font-weight: 600; font-size: 12.5px; color: var(--text); padding-bottom: 9px; border-bottom: 1px solid var(--line); margin-bottom: 9px; outline: none; }
+.ecomp-b { font-size: 12px; color: var(--soft); line-height: 1.8; white-space: pre-wrap; outline: none; min-height: 130px; font-family: 'IBM Plex Sans', sans-serif; }
+.ea { display: flex; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
+.snzg { display: grid; grid-template-columns: repeat(5,1fr); gap: 5px; margin-top: 8px; }
+.snzo { background: var(--bg3); border: 1px solid var(--line); border-radius: 6px; padding: 6px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--muted); cursor: pointer; transition: all 0.12s; text-align: center; }
+.snzo:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+.dl { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); display: flex; align-items: center; gap: 8px; margin: 14px 0 10px; }
 .dl::after { content: ''; flex: 1; height: 1px; background: var(--line); }
-.infobox { background: var(--blu-bg); border: 1px solid var(--blu-bd); border-radius: 2px; padding: 9px 11px; font-size: 11.5px; color: var(--blu); line-height: 1.6; margin-bottom: 11px; }
-.wh-box { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 8px 11px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--muted); word-break: break-all; margin: 7px 0; }
-.conn-box { background: var(--bg3); border: 1px solid var(--line); border-radius: 2px; padding: 12px 14px; display: flex; align-items: center; gap: 11px; cursor: pointer; transition: all 0.15s; margin-bottom: 8px; }
-.conn-box:hover { border-color: var(--gold); background: var(--bg4); }
-.conn-box .cico { font-size: 20px; flex-shrink: 0; }
-.conn-box .ctxt { font-size: 12px; color: var(--muted); }
-.conn-box .ctxt strong { color: var(--text); display: block; margin-bottom: 2px; font-size: 12.5px; }
-.cpbtn { background: var(--gold); color: var(--bg); border: none; border-radius: 2px; padding: 6px 13px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
+
+/* ── MODALS ── */
+.mo { display: none; position: fixed; inset: 0; background: rgba(26,26,32,0.35); z-index: 200; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(6px); }
+.mo.open { display: flex; }
+.md { background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; width: 100%; max-width: 510px; max-height: 88vh; overflow-y: auto; box-shadow: var(--sh3); animation: mi 0.2s ease both; }
+.md::-webkit-scrollbar { width: 3px; } .md::-webkit-scrollbar-thumb { background: var(--line2); }
+.md-top { padding: 20px 24px 15px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+.md-ttl { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--text); }
+.mclose { background: var(--bg3); border: 1px solid var(--line); border-radius: 6px; font-size: 14px; cursor: pointer; color: var(--muted); padding: 3px 8px; transition: all 0.12s; }
+.mclose:hover { background: var(--bg4); color: var(--text); }
+.mb { padding: 18px 24px 24px; }
+.ff { margin-bottom: 13px; }
+.ff label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.ff input, .ff select, .ff textarea { width: 100%; background: var(--bg3); border: 1.5px solid var(--line); border-radius: 8px; padding: 9px 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--text); outline: none; transition: all 0.15s; }
+.ff input:focus, .ff select:focus, .ff textarea:focus { border-color: var(--gold); background: var(--bg2); box-shadow: 0 0 0 3px var(--goldbg); }
+.ff textarea { resize: vertical; min-height: 66px; line-height: 1.6; }
+.fr { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+.frow { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.frow input[type=checkbox] { accent-color: var(--gold); width: 14px; height: 14px; cursor: pointer; border-radius: 3px; }
+.frow label { font-size: 12.5px; color: var(--soft); cursor: pointer; }
+.prods-box { background: var(--bg3); border: 1.5px solid var(--line); border-radius: 8px; padding: 10px 13px; }
+.fa { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.fpri { background: var(--gold); color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.14s; }
+.fpri:hover { background: var(--gold2); }
+.fcan { background: none; border: 1.5px solid var(--line); color: var(--soft); border-radius: 8px; padding: 9px 16px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.14s; }
+.fcan:hover { background: var(--bg3); }
+.infobox { background: var(--blubg); border: 1px solid var(--blubd); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--blu); line-height: 1.6; margin-bottom: 12px; }
+.wh-box { background: var(--bg3); border: 1px solid var(--line); border-radius: 7px; padding: 9px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--soft); word-break: break-all; margin: 7px 0; }
+.cpbtn { background: var(--gold); color: #fff; border: none; border-radius: 7px; padding: 7px 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; font-weight: 600; cursor: pointer; transition: all 0.14s; }
 .cpbtn:hover { background: var(--gold2); }
 .cpbtn.done { background: var(--grn); }
-.uzone { border: 1px dashed var(--line2); border-radius: 2px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.15s; }
-.uzone:hover { border-color: var(--gold); background: var(--gold-bg); }
-/* Empty */
-.empty { text-align: center; padding: 50px 20px; }
-.empty-i { font-size: 26px; margin-bottom: 10px; }
-.empty-t { font-family: 'Syne', sans-serif; font-size: 16px; color: var(--muted); margin-bottom: 6px; }
-.empty-s { font-size: 12px; color: var(--dim); line-height: 1.6; }
-/* Notif */
-.notif { position: fixed; bottom: 18px; right: 18px; border-radius: 2px; padding: 9px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.04em; z-index: 999; box-shadow: 0 8px 32px rgba(0,0,0,0.5); animation: fadein 0.2s ease both; pointer-events: none; border-left: 2px solid; max-width: 280px; }
-/* Anim */
-@keyframes fadein { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
-@keyframes modIn { from{opacity:0;transform:scale(0.97) translateY(4px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.conn-box { background: var(--bg3); border: 1.5px solid var(--line); border-radius: 9px; padding: 13px 15px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.15s; margin-bottom: 8px; }
+.conn-box:hover { border-color: var(--gold); background: var(--goldbg); }
+.conn-box .cico { font-size: 22px; flex-shrink: 0; }
+.conn-box .ctxt { font-size: 12.5px; color: var(--soft); }
+.conn-box .ctxt strong { color: var(--text); display: block; margin-bottom: 2px; }
+.uzone { border: 2px dashed var(--line2); border-radius: 9px; padding: 18px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.uzone:hover { border-color: var(--gold); background: var(--goldbg); }
+.empty { text-align: center; padding: 60px 30px; }
+.empty-i { font-size: 30px; margin-bottom: 12px; }
+.empty-t { font-family: 'Syne', sans-serif; font-size: 17px; color: var(--soft); margin-bottom: 6px; }
+.empty-s { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+.notif { position: fixed; bottom: 18px; right: 18px; border-radius: 10px; padding: 10px 16px; font-size: 12px; font-weight: 500; z-index: 999; box-shadow: var(--sh3); animation: su 0.2s ease both; pointer-events: none; max-width: 280px; }
+@keyframes su { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+@keyframes mi { from{opacity:0;transform:scale(0.975) translateY(5px)} to{opacity:1;transform:scale(1) translateY(0)} }
 </style>
 </head>
 <body>
 
 <!-- TOPBAR -->
 <div class="top">
-  <div class="top-brand">
-    <div class="brand-logo"><div class="brand-logo-inner"></div></div>
+  <div class="brand">
+    <div class="brand-hex"><div class="brand-hex-i"></div></div>
     <div>
-      <div class="brand-text">NEUROUX</div>
-      <div class="brand-sub">Command Center</div>
+      <div class="brand-name">NEUROUX</div>
+      <div class="brand-tag">Command Center</div>
     </div>
   </div>
-
   <div class="top-stats">
-    <div class="tstat">
-      <div><div class="tstat-n red" id="tsO">0</div></div>
-      <div class="tstat-label">Over<br>due</div>
-    </div>
-    <div class="tstat">
-      <div><div class="tstat-n amb" id="tsD">0</div></div>
-      <div class="tstat-label">Due<br>Today</div>
-    </div>
-    <div class="tstat">
-      <div><div class="tstat-n grn" id="tsR">0</div></div>
-      <div class="tstat-label">Re<br>plied</div>
-    </div>
-    <div class="tstat">
-      <div><div class="tstat-n blu" id="tsP">$0</div></div>
-      <div class="tstat-label">Pipe<br>line</div>
-    </div>
-    <div class="tstat">
-      <div><div class="tstat-n ott" id="tsU">0</div></div>
-      <div class="tstat-label">Un<br>matched</div>
-    </div>
+    <div class="tstat"><div class="tstat-n r" id="tsO">0</div><div class="tstat-l">Over<br>due</div></div>
+    <div class="tstat"><div class="tstat-n a" id="tsD">0</div><div class="tstat-l">Due<br>Today</div></div>
+    <div class="tstat"><div class="tstat-n g" id="tsR">0</div><div class="tstat-l">Re<br>plied</div></div>
+    <div class="tstat"><div class="tstat-n b" id="tsP">$0</div><div class="tstat-l">Pipe<br>line</div></div>
+    <div class="tstat"><div class="tstat-n o" id="tsU">0</div><div class="tstat-l">Un<br>matched</div></div>
   </div>
-
   <div class="top-right">
-    <span id="dateLbl"></span>
-    <div class="pill hs" id="hsPill" onclick="syncHS()"><span class="pill-dot"></span><span id="hsT">HubSpot</span></div>
-    <div class="pill gm" id="gmPill" onclick="connectGmail()"><span class="pill-dot"></span><span id="gmT">Gmail</span></div>
-    <div class="pill ot" id="otPill" onclick="openM('otterM')"><span class="pill-dot"></span><span id="otT">Otter</span></div>
-    <button class="tbtn" onclick="openM('settingsM')">⚙</button>
-    <button class="tbtn add" onclick="openAddM()">+ Lead</button>
+    <span id="dlbl"></span>
+    <div class="cpill hs" id="hsPill" onclick="syncHS()"><span class="cd"></span><span id="hsT">HubSpot</span></div>
+    <div class="cpill gm" id="gmPill" onclick="connectGmail()"><span class="cd"></span><span id="gmT">Gmail</span></div>
+    <div class="cpill ot" id="otPill" onclick="openM('otterM')"><span class="cd"></span><span id="otT">Otter</span></div>
+    <button class="tbtn" onclick="openM('settingsM')">⚙ Settings</button>
+    <button class="tbtn add" onclick="openAddM()">+ Add Lead</button>
   </div>
 </div>
 
 <div class="layout">
-
-<!-- LEFT SIDEBAR -->
+<!-- SIDEBAR -->
 <div class="lsb">
-  <div class="lsb-section">
-    <div class="lsb-head">Filters</div>
-    <button class="flt on" data-f="all" onclick="setF('all')">All Active <span class="fc" id="cAll">0</span></button>
-    <button class="flt" data-f="urgent" onclick="setF('urgent')">🔴 Overdue <span class="fc" id="cUrgent">0</span></button>
-    <button class="flt" data-f="due" onclick="setF('due')">🟡 Due Today <span class="fc" id="cDue">0</span></button>
-    <button class="flt" data-f="replied" onclick="setF('replied')">🟢 Replied <span class="fc" id="cReplied">0</span></button>
-    <button class="flt" data-f="scheduled" onclick="setF('scheduled')">📅 Scheduled <span class="fc" id="cScheduled">0</span></button>
-    <button class="flt" data-f="new" onclick="setF('new')">✨ New Lead <span class="fc" id="cNew">0</span></button>
-    <button class="flt" data-f="sequence" onclick="setF('sequence')">📧 Sequence <span class="fc" id="cSequence">0</span></button>
-    <button class="flt" data-f="snoozed" onclick="setF('snoozed')">💤 Snoozed <span class="fc" id="cSnoozed">0</span></button>
+  <div class="lsb-sec">
+    <div class="lsb-lbl">Filters</div>
+    <button class="fb on" data-f="all" onclick="setF('all')">All Active <span class="fc" id="cAll">0</span></button>
+    <button class="fb" data-f="urgent" onclick="setF('urgent')">🔴 Overdue <span class="fc" id="cUrgent">0</span></button>
+    <button class="fb" data-f="due" onclick="setF('due')">🟡 Due Today <span class="fc" id="cDue">0</span></button>
+    <button class="fb" data-f="replied" onclick="setF('replied')">🟢 Replied <span class="fc" id="cReplied">0</span></button>
+    <button class="fb" data-f="scheduled" onclick="setF('scheduled')">📅 Scheduled <span class="fc" id="cScheduled">0</span></button>
+    <button class="fb" data-f="new" onclick="setF('new')">✨ New Lead <span class="fc" id="cNew">0</span></button>
+    <button class="fb" data-f="sequence" onclick="setF('sequence')">📧 Sequence <span class="fc" id="cSequence">0</span></button>
+    <button class="fb" data-f="snoozed" onclick="setF('snoozed')">💤 Snoozed <span class="fc" id="cSnoozed">0</span></button>
     <div class="fsep"></div>
-    <button class="flt" data-f="won" onclick="setF('won')">✅ Won <span class="fc" id="cWon">0</span></button>
-    <button class="flt" data-f="lost" onclick="setF('lost')">❌ Lost <span class="fc" id="cLost">0</span></button>
+    <button class="fb" data-f="won" onclick="setF('won')">✅ Won <span class="fc" id="cWon">0</span></button>
+    <button class="fb" data-f="lost" onclick="setF('lost')">❌ Lost <span class="fc" id="cLost">0</span></button>
     <div class="fsep"></div>
-    <button class="flt" data-f="no_response" onclick="setF('no_response')" style="color:var(--red);">📋 No Response <span class="fc" id="cNr">0</span></button>
-    <button class="flt" data-f="unmatched" onclick="setF('unmatched')" style="color:var(--ott);">🎙 Unmatched Calls <span class="fc" id="cUnm">0</span></button>
+    <button class="fb" data-f="no_response" onclick="setF('no_response')" style="color:var(--red)">📋 No Response <span class="fc" id="cNr">0</span></button>
+    <button class="fb" data-f="unmatched" onclick="setF('unmatched')" style="color:var(--ott)">🎙 Unmatched <span class="fc" id="cUnm">0</span></button>
   </div>
-  <div class="pipe-block">
-    <div class="pipe-label">Active Pipeline</div>
+  <div class="pipe-card">
+    <div class="pipe-lbl">Active Pipeline</div>
     <div class="pipe-val" id="pipeV">$0</div>
-    <div class="pipe-sub" id="pipeS">0 leads</div>
+    <div class="pipe-sub" id="pipeS">0 active leads</div>
   </div>
 </div>
 
 <!-- MAIN -->
 <div class="main">
-  <div class="main-header">
+  <div class="main-hd">
     <div>
       <div class="main-ttl" id="mainTtl">All Active Leads</div>
-      <div class="main-count" id="mainSub">Sorted by urgency</div>
+      <div class="main-sub" id="mainSub">Sorted by urgency</div>
     </div>
-    <button id="expBtn" style="display:none;" class="tbtn" onclick="exportCSV()">↓ Export CSV</button>
+    <button id="expBtn" style="display:none" class="tbtn" onclick="exportCSV()">↓ Export CSV</button>
   </div>
   <div class="srch-wrap">
-    <input class="srch" type="text" placeholder="search name, org, product..." id="srchI" oninput="renderLeads()">
+    <input class="srch" type="text" placeholder="🔍  Search name, org, or product..." id="srchI" oninput="renderLeads()">
   </div>
-  <div class="leads-wrap">
-    <div class="leads-grid" id="leadsList"></div>
-  </div>
+  <div class="leads-wrap"><div class="leads-grid" id="leadsList"></div></div>
 </div>
 
 <!-- RIGHT PANEL -->
@@ -511,7 +335,7 @@ body::before {
     <button class="ptab" id="pt_invoices" onclick="switchP('invoices')">Invoices</button>
   </div>
   <div class="pc" id="panelC">
-    <div class="empty"><div class="empty-i">◈</div><div class="empty-t">No lead selected</div><div class="empty-s">Click any lead card to view details, compose emails, and manage invoices.</div></div>
+    <div class="empty"><div class="empty-i">👈</div><div class="empty-t">Select a lead</div><div class="empty-s">Click any lead card to view details, compose emails, and manage invoices.</div></div>
   </div>
 </div>
 </div>
@@ -559,13 +383,13 @@ body::before {
 <!-- SNOOZE -->
 <div class="mo" id="snoozeM">
   <div class="md" style="max-width:340px;">
-    <div class="md-top"><div class="md-ttl" id="snzTitle">Snooze Lead</div><button class="mclose" onclick="closeM('snoozeM')">✕</button></div>
+    <div class="md-top"><div class="md-ttl" id="snzT">Snooze Lead</div><button class="mclose" onclick="closeM('snoozeM')">✕</button></div>
     <div class="mb">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:11px;letter-spacing:0.04em;">Remind again in:</div>
-      <div class="snz-grid">
-        <div class="snz-opt" onclick="doSnz(1)">1d</div><div class="snz-opt" onclick="doSnz(3)">3d</div>
-        <div class="snz-opt" onclick="doSnz(5)">5d</div><div class="snz-opt" onclick="doSnz(7)">7d</div>
-        <div class="snz-opt" onclick="doSnz(14)">14d</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:13px;">Remind me again in:</div>
+      <div class="snzg">
+        <div class="snzo" onclick="doSnz(1)">1 day</div><div class="snzo" onclick="doSnz(3)">3 days</div>
+        <div class="snzo" onclick="doSnz(5)">5 days</div><div class="snzo" onclick="doSnz(7)">1 week</div>
+        <div class="snzo" onclick="doSnz(14)">2 weeks</div>
       </div>
     </div>
   </div>
@@ -573,7 +397,7 @@ body::before {
 
 <!-- INVOICE -->
 <div class="mo" id="invM">
-  <div class="md" style="max-width:420px;">
+  <div class="md" style="max-width:430px;">
     <div class="md-top"><div class="md-ttl" id="invMT">Add Invoice</div><button class="mclose" onclick="closeM('invM')">✕</button></div>
     <div class="mb">
       <div class="ff"><label>Invoice ID / Reference</label><input type="text" id="iv_id" placeholder="INV-2024-001"></div>
@@ -586,10 +410,10 @@ body::before {
         <label>Attach Files (optional)</label>
         <div class="uzone" onclick="document.getElementById('iv_file').click()">
           <input type="file" id="iv_file" multiple accept=".pdf,.doc,.docx,.png,.jpg" style="display:none" onchange="handleFiles(this)">
-          <div style="font-size:20px;margin-bottom:5px;">📎</div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);">Click to upload PDF, DOC, or images</div>
+          <div style="font-size:22px;margin-bottom:6px;">📎</div>
+          <div style="font-size:12px;color:var(--muted);">Click to upload PDF, DOC, or images</div>
         </div>
-        <div id="iv_flist" style="margin-top:6px;"></div>
+        <div id="iv_flist" style="margin-top:7px;"></div>
       </div>
       <div class="fa"><button class="fcan" onclick="closeM('invM')">Cancel</button><button class="fpri" onclick="saveInv()">Add Invoice</button></div>
     </div>
@@ -601,18 +425,18 @@ body::before {
   <div class="md">
     <div class="md-top"><div class="md-ttl">Settings</div><button class="mclose" onclick="closeM('settingsM')">✕</button></div>
     <div class="mb">
-      <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:16px;line-height:1.7;letter-spacing:0.04em;">// Credentials stored in browser only. Never transmitted.</p>
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Credentials are stored in your browser only and never transmitted.</p>
       <div class="ff"><label>HubSpot API Token</label><input type="password" id="s_hs" placeholder="pat-na2-..."></div>
       <div class="ff"><label>Cloudflare Worker URL</label><input type="text" id="s_wk" placeholder="https://your-worker.workers.dev"></div>
       <div class="dl">Gmail OAuth</div>
       <div class="conn-box" onclick="connectGmail()">
         <div class="cico">📧</div>
-        <div class="ctxt"><strong id="gmConnT">Connect Gmail</strong><span id="gmConnD">Sign in with Google to enable reply detection</span></div>
+        <div class="ctxt"><strong id="gmConnT">Connect Gmail</strong><span id="gmConnD">Sign in with Google to enable reply detection & sending</span></div>
       </div>
       <div class="dl">Otter via Zapier</div>
       <div class="conn-box" onclick="openM('otterM');closeM('settingsM')">
         <div class="cico">🎙</div>
-        <div class="ctxt"><strong>Set Up Otter</strong><span>Configure Zapier webhook for call sync</span></div>
+        <div class="ctxt"><strong>Set Up Otter</strong><span>Configure Zapier webhook for automatic call sync</span></div>
       </div>
       <div class="fa"><button class="fcan" onclick="closeM('settingsM')">Cancel</button><button class="fpri" onclick="saveSettings()">Save & Connect</button></div>
     </div>
@@ -622,21 +446,21 @@ body::before {
 <!-- OTTER -->
 <div class="mo" id="otterM">
   <div class="md">
-    <div class="md-top"><div class="md-ttl">Otter via Zapier</div><button class="mclose" onclick="closeM('otterM')">✕</button></div>
+    <div class="md-top"><div class="md-ttl">Connect Otter via Zapier</div><button class="mclose" onclick="closeM('otterM')">✕</button></div>
     <div class="mb">
-      <div class="infobox">After each call, Otter sends the summary to Zapier which forwards it here. The tracker extracts the lead name from the summary text and auto-assigns it.</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Webhook URL</div>
+      <div class="infobox">After every call, Otter sends the summary to Zapier which forwards it here. The tracker reads the lead's name from the summary text and auto-assigns it.</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Your Webhook URL</div>
       <div class="wh-box" id="whUrl">https://neuroux-tracker-1.vercel.app/api/otter</div>
       <button class="cpbtn" id="cpwB" onclick="cpWh()">Copy URL</button>
-      <div class="dl" style="margin-top:14px;">Zapier Setup</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);line-height:2;letter-spacing:0.02em;">
-        1. zapier.com → Create Zap<br>
-        2. Trigger: <span style="color:var(--ott)">Otter</span> → New Recording<br>
-        3. Action: <span style="color:var(--gold)">Webhooks by Zapier</span> → POST<br>
-        4. URL: paste webhook above<br>
-        5. Payload type: <span style="color:var(--text)">JSON</span><br>
-        6. Fields: <span style="color:var(--text)">title, summary, action_items, created_at</span><br>
-        7. Turn on Zap ✓
+      <div class="dl" style="margin-top:14px;">Zapier Setup Steps</div>
+      <div style="font-size:12.5px;color:var(--soft);line-height:2;">
+        1. Go to <strong>zapier.com</strong> → Create Zap<br>
+        2. Trigger: <strong style="color:var(--ott)">Otter</strong> → New Recording<br>
+        3. Action: <strong style="color:var(--gold)">Webhooks by Zapier</strong> → POST<br>
+        4. URL: paste the webhook above<br>
+        5. Payload type: <strong>JSON</strong><br>
+        6. Fields: <strong>title, summary, action_items, created_at</strong><br>
+        7. Turn on your Zap ✓
       </div>
       <div class="fa"><button class="fpri" onclick="markOtterOn()">Mark as Connected</button></div>
     </div>
@@ -645,10 +469,10 @@ body::before {
 
 <!-- ASSIGN CALL -->
 <div class="mo" id="assignM">
-  <div class="md" style="max-width:400px;">
-    <div class="md-top"><div class="md-ttl">Assign Call</div><button class="mclose" onclick="closeM('assignM')">✕</button></div>
+  <div class="md" style="max-width:410px;">
+    <div class="md-top"><div class="md-ttl">Assign Call to Lead</div><button class="mclose" onclick="closeM('assignM')">✕</button></div>
     <div class="mb">
-      <div id="assignInfo" style="background:var(--ott-bg);border:1px solid var(--ott-bd);border-radius:2px;padding:9px 11px;margin-bottom:12px;font-size:11px;color:var(--muted);line-height:1.6;font-family:'IBM Plex Mono',monospace;"></div>
+      <div id="assignInfo" style="background:var(--ottbg);border:1px solid var(--ottbd);border-radius:8px;padding:10px 13px;margin-bottom:13px;font-size:12px;color:var(--soft);line-height:1.6;"></div>
       <div class="ff"><label>Assign to Lead</label><select id="assignSel"></select></div>
       <div class="fa"><button class="fcan" onclick="closeM('assignM')">Cancel</button><button class="fpri" onclick="doAssign()">Assign</button></div>
     </div>
@@ -656,20 +480,16 @@ body::before {
 </div>
 
 <script>
-// ═══ CONFIG ═══
-const SK='nx_cc_v3', CK='nx_calls_v3';
+const SK='nx_cc_v4',CK='nx_calls_v4';
 const GMAIL_CLIENT_ID='845125273179-5uqdk4tpvutv0t0n8808r5bbtu6doev1.apps.googleusercontent.com';
 const VERCEL_URL='https://neuroux-tracker-1.vercel.app';
 const PRODS=['Mobile Cognitive Tests','EMA Platform','Mobile Sensing App','PVT','Wearables Dashboard','Support & Training'];
 const FU={new:1,emailed:3,quote_sent:3,call_scheduled:0,call_done:3,negotiating:5,replied:5,snoozed:null};
-const HS_STAGE={appointmentscheduled:'call_scheduled',qualifiedtobuy:'call_done',presentationscheduled:'quote_sent',decisionmakerboughtin:'negotiating',contractsent:'negotiating',closedwon:'won',closedlost:'lost'};
+const HS_ST={appointmentscheduled:'call_scheduled',qualifiedtobuy:'call_done',presentationscheduled:'quote_sent',decisionmakerboughtin:'negotiating',contractsent:'negotiating',closedwon:'won',closedlost:'lost'};
+let leads=[],calls=[],curF='all',selId=null,panel='detail',editId=null,snzId=null,invLId=null,invFiles=[],assignIdx=null,gmOk=false,otOk=false;
 
-let leads=[], calls=[], curF='all', selId=null, panel='detail', editId=null, snzId=null, invLId=null, invFiles=[], assignIdx=null;
-let gmOk=false, otOk=false;
-
-// ═══ INIT ═══
-document.addEventListener('DOMContentLoaded', ()=>{
-  document.getElementById('dateLbl').textContent = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('dlbl').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
   document.getElementById('f_date').value=tod();
   document.getElementById('iv_date').value=tod();
   try{const r=localStorage.getItem(SK);if(r)leads=JSON.parse(r)||[];}catch(e){leads=[];}
@@ -683,12 +503,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(!hs||!wk){openM('settingsM');renderAll();return;}
   renderAll();
   setTimeout(syncHS,600);
-  // Gmail OAuth callback
   const h=window.location.hash;
-  if(h.includes('access_token')){const p=new URLSearchParams(h.slice(1));const t=p.get('access_token');if(t){localStorage.setItem('nx_gm_tok',t);gmOk=true;updPills();window.history.replaceState(null,'',location.pathname);notif('Gmail connected','grn');}};
+  if(h.includes('access_token')){const p=new URLSearchParams(h.slice(1));const t=p.get('access_token');if(t){localStorage.setItem('nx_gm_tok',t);gmOk=true;updPills();window.history.replaceState(null,'',location.pathname);notif('Gmail connected! ✓','g');}}
 });
 
-// ═══ HUBSPOT ═══
 async function hsGet(path){const wk=localStorage.getItem('nx_wk_url')||'';const tk=localStorage.getItem('nx_hs_tok')||'';const r=await fetch(wk+'/hubspot'+path,{headers:{'Authorization':'Bearer '+tk}});if(!r.ok)throw new Error('HS '+r.status);return r.json();}
 async function syncHS(){
   const tk=localStorage.getItem('nx_hs_tok'),wk=localStorage.getItem('nx_wk_url');if(!tk||!wk)return;
@@ -697,41 +515,37 @@ async function syncHS(){
     let deals=[],after='';
     do{const q='?limit=50&properties=dealname,amount,dealstage,hs_lastmodifieddate&associations=contacts'+(after?'&after='+after:'');const d=await hsGet('/crm/v3/objects/deals'+q);deals=deals.concat(d.results||[]);after=d.paging?.next?.after||'';}while(after);
     for(const deal of deals){
-      const p=deal.properties||{};const stage=p.dealstage||'';const ist=HS_STAGE[stage]||'emailed';const closed=stage==='closedwon'||stage==='closedlost';
+      const p=deal.properties||{};const stage=p.dealstage||'';const ist=HS_ST[stage]||'emailed';const closed=stage==='closedwon'||stage==='closedlost';
       let name=p.dealname||'Unknown',email='',org='';
       const ac=deal.associations?.contacts?.results||[];
       if(ac.length>0){try{const c=await hsGet('/crm/v3/objects/contacts/'+ac[0].id+'?properties=firstname,lastname,email,company');const cp=c.properties||{};const fn=cp.firstname||'',ln=cp.lastname||'';if(fn||ln)name=(fn+' '+ln).trim();email=cp.email||'';org=cp.company||'';}catch(e){}}
       const lm=p.hs_lastmodifieddate?p.hs_lastmodifieddate.split('T')[0]:tod();
       const ex=leads.find(l=>l.hsId===deal.id);
-      if(ex){if(HS_STAGE[stage]&&ex.stage!==ist){ex.stage=ist;if(closed)ex.status=stage==='closedwon'?'won':'lost';}ex.value=parseFloat(p.amount)||ex.value||0;ex.name=name;ex.org=org;ex.email=email;}
+      if(ex){if(HS_ST[stage]&&ex.stage!==ist){ex.stage=ist;if(closed)ex.status=stage==='closedwon'?'won':'lost';}ex.value=parseFloat(p.amount)||ex.value||0;ex.name=name;ex.org=org;ex.email=email;}
       else{leads.unshift({id:'hs_'+deal.id,hsId:deal.id,name,org,email,value:parseFloat(p.amount)||0,products:[],stage:ist,lastContact:lm,followUpCount:0,status:closed?(stage==='closedwon'?'won':'lost'):null,snoozeUntil:null,sequenceRunning:false,sequenceStartDate:null,notes:'',invoices:[],otterNotes:[],gmailReplied:false,fromHS:true,activity:[{date:tod(),text:'Imported from HubSpot'}]});}
     }
-    save();renderAll();setPill('hs','ok','HubSpot');
-  }catch(e){console.error(e);setPill('hs','err','Failed');}
+    save();renderAll();setPill('hs','ok','HubSpot ✓');
+  }catch(e){console.error(e);setPill('hs','err','Sync Failed');}
 }
-function setPill(p,state,t){const el=document.getElementById(p+'Pill');const te=document.getElementById(p+'T');if(!el||!te)return;const base='pill '+p;el.className=base+(state==='ok'?' on':'');te.textContent=t;}
-function updPills(){if(gmOk){document.getElementById('gmPill').className='pill gm on';document.getElementById('gmT').textContent='Gmail ✓';document.getElementById('gmConnT').textContent='Gmail Connected';document.getElementById('gmConnD').textContent='Click to reconnect';}if(otOk){document.getElementById('otPill').className='pill ot on';document.getElementById('otT').textContent='Otter ✓';}}
+function setPill(p,state,t){const el=document.getElementById(p+'Pill'),te=document.getElementById(p+'T');if(!el||!te)return;el.className='cpill '+p+(state==='ok'?' on':'');te.textContent=t;}
+function updPills(){if(gmOk){document.getElementById('gmPill').className='cpill gm on';document.getElementById('gmT').textContent='Gmail ✓';document.getElementById('gmConnT').textContent='Gmail Connected';document.getElementById('gmConnD').textContent='Click to reconnect';}if(otOk){document.getElementById('otPill').className='cpill ot on';document.getElementById('otT').textContent='Otter ✓';}}
 
-// ═══ GMAIL ═══
 function connectGmail(){const sc='https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send';window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+GMAIL_CLIENT_ID+'&redirect_uri='+encodeURIComponent(VERCEL_URL)+'&response_type=token&scope='+encodeURIComponent(sc)+'&prompt=consent';}
 async function checkGmail(){const tk=localStorage.getItem('nx_gm_tok');if(!tk)return;try{for(const l of leads.filter(x=>x.email&&!['won','lost'].includes(cstat(x))).slice(0,20)){const r=await fetch('https://www.googleapis.com/gmail/v1/users/me/messages?q='+encodeURIComponent('from:'+l.email+' is:unread')+'&maxResults=1',{headers:{'Authorization':'Bearer '+tk}});if(r.status===401){localStorage.removeItem('nx_gm_tok');gmOk=false;updPills();return;}const d=await r.json();if(d.messages?.length>0&&!l.gmailReplied){l.gmailReplied=true;l.status='replied';l.lastContact=tod();act(l,'Gmail reply from '+l.email);}}}catch(e){}save();renderAll();}
-async function sendGmail(lid){const tk=localStorage.getItem('nx_gm_tok');if(!tk){alert('Connect Gmail first.');return;}const l=leads.find(x=>x.id===lid);if(!l?.email){alert('No email for this lead.');return;}const s=document.getElementById('ec_s')?.textContent||'';const b=document.getElementById('ec_b')?.textContent||'';try{const raw=btoa(unescape(encodeURIComponent('To: '+l.email+'\r\nSubject: '+s+'\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n'+b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');const r=await fetch('https://www.googleapis.com/gmail/v1/users/me/messages/send',{method:'POST',headers:{'Authorization':'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({raw})});if(r.ok){l.lastContact=tod();l.followUpCount=(l.followUpCount||0)+1;l.gmailReplied=false;act(l,'Email sent: '+s);save();renderAll();notif('Sent to '+l.email,'grn');}else{const e=await r.json();alert('Send failed: '+(e.error?.message||'Unknown'));}}catch(e){alert('Error: '+e.message);}}
+async function sendGmail(lid){const tk=localStorage.getItem('nx_gm_tok');if(!tk){alert('Connect Gmail first.');return;}const l=leads.find(x=>x.id===lid);if(!l?.email){alert('No email for this lead.');return;}const s=document.getElementById('ec_s')?.textContent||'';const b=document.getElementById('ec_b')?.textContent||'';try{const raw=btoa(unescape(encodeURIComponent('To: '+l.email+'\r\nSubject: '+s+'\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n'+b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');const r=await fetch('https://www.googleapis.com/gmail/v1/users/me/messages/send',{method:'POST',headers:{'Authorization':'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({raw})});if(r.ok){l.lastContact=tod();l.followUpCount=(l.followUpCount||0)+1;l.gmailReplied=false;act(l,'Email sent: '+s);save();renderAll();notif('Sent to '+l.email,'g');}else{const e=await r.json();alert('Failed: '+(e.error?.message||'Unknown'));}}catch(e){alert('Error: '+e.message);}}
 
-// ═══ OTTER ═══
-function rcvOtter(d){const{title,summary,action_items,created_at}=d;const dt=created_at?created_at.split('T')[0]:tod();const note={id:uid(),title:title||'Call',summary:summary||'',actionItems:action_items||'',date:dt};const ml=leads.find(l=>{const np=l.name.toLowerCase().split(' ').filter(p=>p.length>2);return np.some(p=>(summary||'').toLowerCase().includes(p));});if(ml){ml.otterNotes=ml.otterNotes||[];ml.otterNotes.unshift({...note,assigned:true});ml.stage='call_done';ml.lastContact=dt;act(ml,'Otter: '+note.title);save();renderAll();notif('Call matched → '+ml.name,'ott');}else{calls.unshift(note);saveC();renderAll();notif('Unmatched call received','ott');}}
-function cpWh(){const b=document.getElementById('cpwB');navigator.clipboard.writeText(document.getElementById('whUrl').textContent);b.textContent='Copied!';b.classList.add('done');setTimeout(()=>{b.textContent='Copy URL';b.classList.remove('done');},2000);}
-function markOtterOn(){localStorage.setItem('nx_ot','1');otOk=true;updPills();closeM('otterM');notif('Otter connected','ott');}
-function openAssM(i){assignIdx=i;const c=calls[i];if(!c)return;document.getElementById('assignInfo').innerHTML=c.title+'\n\n'+(c.summary||'').substring(0,200)+'...';const s=document.getElementById('assignSel');s.innerHTML=leads.filter(l=>!['won','lost'].includes(cstat(l))).map(l=>'<option value="'+l.id+'">'+l.name+(l.org?' — '+l.org:'')+'</option>').join('');openM('assignM');}
-function doAssign(){if(assignIdx===null)return;const c=calls[assignIdx],lid=document.getElementById('assignSel').value,l=leads.find(x=>x.id===lid);if(!l||!c)return;l.otterNotes=l.otterNotes||[];l.otterNotes.unshift({...c,assigned:true});l.stage='call_done';l.lastContact=c.date||tod();act(l,'Otter call assigned: '+c.title);calls.splice(assignIdx,1);saveC();save();renderAll();closeM('assignM');notif('Assigned → '+l.name,'grn');}
+function rcvOtter(d){const{title,summary,action_items,created_at}=d;const dt=created_at?created_at.split('T')[0]:tod();const note={id:uid(),title:title||'Call',summary:summary||'',actionItems:action_items||'',date:dt};const ml=leads.find(l=>{const np=l.name.toLowerCase().split(' ').filter(p=>p.length>2);return np.some(p=>(summary||'').toLowerCase().includes(p));});if(ml){ml.otterNotes=ml.otterNotes||[];ml.otterNotes.unshift({...note,assigned:true});ml.stage='call_done';ml.lastContact=dt;act(ml,'Otter: '+note.title);save();renderAll();notif('Call matched → '+ml.name,'o');}else{calls.unshift(note);saveC();renderAll();notif('Unmatched call received','o');}}
+function cpWh(){const b=document.getElementById('cpwB');navigator.clipboard.writeText(document.getElementById('whUrl').textContent);b.textContent='Copied! ✓';b.classList.add('done');setTimeout(()=>{b.textContent='Copy URL';b.classList.remove('done');},2000);}
+function markOtterOn(){localStorage.setItem('nx_ot','1');otOk=true;updPills();closeM('otterM');notif('Otter connected ✓','o');}
+function openAssM(i){assignIdx=i;const c=calls[i];if(!c)return;document.getElementById('assignInfo').innerHTML='<strong>'+esc(c.title)+'</strong><br><br>'+(c.summary||'').substring(0,200)+'...';const s=document.getElementById('assignSel');s.innerHTML=leads.filter(l=>!['won','lost'].includes(cstat(l))).map(l=>'<option value="'+l.id+'">'+l.name+(l.org?' — '+l.org:'')+'</option>').join('');openM('assignM');}
+function doAssign(){if(assignIdx===null)return;const c=calls[assignIdx],lid=document.getElementById('assignSel').value,l=leads.find(x=>x.id===lid);if(!l||!c)return;l.otterNotes=l.otterNotes||[];l.otterNotes.unshift({...c,assigned:true});l.stage='call_done';l.lastContact=c.date||tod();act(l,'Otter call assigned: '+c.title);calls.splice(assignIdx,1);saveC();save();renderAll();closeM('assignM');notif('Assigned → '+l.name,'g');}
 
-// ═══ STATUS ═══
 function cstat(l){if(l.status==='won'||l.status==='lost')return l.status;if(l.sequenceRunning)return 'sequence';if(l.status==='snoozed'){if(l.snoozeUntil&&tod()>=l.snoozeUntil)return getDue(l);return 'snoozed';}if(l.stage==='new')return 'new';if(l.stage==='call_scheduled')return 'scheduled';if(l.status==='replied'||l.gmailReplied)return 'replied';return getDue(l);}
 function getDue(l){const d=FU[l.stage]??3,diff=ddiff(l.lastContact,tod());if(diff>d)return 'urgent';if(diff===d)return 'due';return 'pending';}
-function slabel(s){return{urgent:'Overdue',due:'Due Today',replied:'Replied',scheduled:'Scheduled',new:'New',won:'Won',lost:'Lost',snoozed:'Snoozed',pending:'On Track',sequence:'Seq Running'}[s]||s;}
+function slbl(s){return{urgent:'Overdue',due:'Due Today',replied:'Replied',scheduled:'Scheduled',new:'New Lead',won:'Won',lost:'Lost',snoozed:'Snoozed',pending:'On Track',sequence:'Seq Running'}[s]||s;}
 function sord(s){return{urgent:0,due:1,replied:2,scheduled:3,new:4,snoozed:5,pending:6,sequence:7,won:8,lost:9}[s]??99;}
 function ddiff(a,b){return Math.floor((new Date(b)-new Date(a))/86400000);}
 
-// ═══ RENDER ═══
 function renderAll(){renderStats();renderLeads();if(selId)renderPanel(selId,panel);}
 function renderStats(){
   const active=leads.filter(l=>!['won','lost'].includes(cstat(l)));
@@ -749,179 +563,157 @@ function renderStats(){
 }
 function renderLeads(){
   const q=(document.getElementById('srchI').value||'').toLowerCase().trim();
-  const titles={all:'All Active Leads',urgent:'Overdue',due:'Due Today',replied:'Replied',scheduled:'Call Scheduled',new:'New Leads',snoozed:'Snoozed',won:'Won',lost:'Lost',no_response:'No Response After Quote',sequence:'Sequence Running',unmatched:'Unmatched Calls'};
+  const titles={all:'All Active Leads',urgent:'Overdue — Follow Up Now',due:'Due Today',replied:'Replied',scheduled:'Call Scheduled',new:'New Leads',snoozed:'Snoozed',won:'Won Deals',lost:'Lost Deals',no_response:'No Response After Quote',sequence:'Sequence Running',unmatched:'Unmatched Otter Calls'};
   document.getElementById('mainTtl').textContent=titles[curF]||'Leads';
   document.getElementById('expBtn').style.display=curF==='no_response'?'block':'none';
   const el=document.getElementById('leadsList');
   if(curF==='unmatched'){
     if(!calls.length){el.innerHTML='<div class="empty"><div class="empty-i">🎙</div><div class="empty-t">No unmatched calls</div><div class="empty-s">All Otter calls have been assigned.</div></div>';return;}
-    el.innerHTML=calls.map((c,i)=>`<div class="lcard" style="cursor:default;"><div class="lcard-body"><div class="lcard-top"><div><div class="lcard-name">${esc(c.title)}</div><div class="lcard-org">${c.date}</div></div><span class="badge scheduled">unassigned</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:8px;line-height:1.6;">${esc((c.summary||'').substring(0,130))}...</div><div class="lcard-foot"><div class="lcard-time"></div><div class="lcard-actions"><button class="ab p" onclick="openAssM(${i})">Assign</button></div></div></div></div>`).join('');
+    el.innerHTML=calls.map((c,i)=>`<div class="lcard" style="cursor:default;"><div class="lcard-body"><div class="lcard-r1"><div><div class="lname">${esc(c.title)}</div><div class="lorg">${c.date}</div></div><span class="badge scheduled">Unassigned</span></div><div style="font-size:11.5px;color:var(--muted);margin-bottom:8px;line-height:1.5;">${esc((c.summary||'').substring(0,130))}…</div><div class="lcard-ft"><div class="ltime"></div><div class="acts"><button class="ab p" onclick="openAssM(${i})">Assign to Lead</button></div></div></div></div>`).join('');
     return;
   }
   let f=leads.filter(l=>{const s=cstat(l);if(curF==='all')return!['won','lost','snoozed'].includes(s)&&!l.sequenceRunning;if(curF==='no_response')return isNR(l);if(curF==='sequence')return l.sequenceRunning;return s===curF;});
   if(q)f=f.filter(l=>l.name.toLowerCase().includes(q)||(l.org||'').toLowerCase().includes(q)||(l.products||[]).join(' ').toLowerCase().includes(q));
   f.sort((a,b)=>sord(cstat(a))-sord(cstat(b)));
-  if(!f.length){el.innerHTML='<div class="empty"><div class="empty-i">◈</div><div class="empty-t">Nothing here</div><div class="empty-s">No leads match this filter.</div></div>';return;}
+  if(!f.length){el.innerHTML='<div class="empty"><div class="empty-i">📭</div><div class="empty-t">Nothing here</div><div class="empty-s">No leads match this filter.</div></div>';return;}
   el.innerHTML=f.map((l,i)=>cardH(l,i)).join('');
 }
 function cardH(l,i){
   const s=cstat(l),diff=ddiff(l.lastContact,tod()),dat=diff===0?'Today':diff===1?'Yesterday':diff+'d ago';
   let tl='';
-  if(s==='urgent')tl='<span class="hi r">Overdue '+(diff-(FU[l.stage]??3))+'d</span> · '+dat;
-  else if(s==='due')tl='<span class="hi a">Follow up today</span> · '+dat;
-  else if(s==='replied')tl='<span class="hi g">'+(l.gmailReplied?'Gmail reply':'Replied')+'</span> · '+dat;
-  else if(s==='scheduled')tl='<span class="hi">Call scheduled</span> · '+dat;
-  else if(s==='sequence'){const sd=l.sequenceStartDate?ddiff(l.sequenceStartDate,tod()):0;const nd=nxtSeq(sd);tl='<span class="hi g">Sequence running</span>'+(nd?' · Next D'+nd:'');}
-  else if(s==='new')tl='<span class="hi">New today</span>';
-  else if(s==='snoozed')tl='Snoozed → '+l.snoozeUntil;
-  else{const nd=Math.max(0,(FU[l.stage]??3)-diff);tl='Next follow-up <span class="hi">'+nd+'d</span> · '+dat;}
-  const prods=(l.products||[]).slice(0,2).map(p=>'<span class="chip chip-p">'+esc(p)+'</span>').join('');
+  if(s==='urgent')tl='<span class="hr r">Overdue '+(diff-(FU[l.stage]??3))+'d</span> · '+dat;
+  else if(s==='due')tl='<span class="hr a">Follow up today</span> · '+dat;
+  else if(s==='replied')tl='<span class="hr g">'+(l.gmailReplied?'Gmail reply':'Replied')+'</span> · '+dat;
+  else if(s==='scheduled')tl='<span class="hr">Call scheduled</span> · '+dat;
+  else if(s==='sequence'){const sd=l.sequenceStartDate?ddiff(l.sequenceStartDate,tod()):0;const nd=nxtSeq(sd);tl='<span class="hr g">Sequence running</span>'+(nd?' · Next D'+nd:'');}
+  else if(s==='new')tl='<span class="hr">New today</span>';
+  else if(s==='snoozed')tl='Snoozed until '+l.snoozeUntil;
+  else{const nd=Math.max(0,(FU[l.stage]??3)-diff);tl='Next follow-up in <span class="hr">'+nd+'d</span> · '+dat;}
+  const prods=(l.products||[]).slice(0,2).map(p=>'<span class="chip ch-p">'+esc(p)+'</span>').join('');
   const sl={new:'New',emailed:'Emailed',quote_sent:'Quote Sent',call_scheduled:'Call Scheduled',call_done:'Call Done',negotiating:'Negotiating'};
-  const bd=(l.fromHS?'<span class="chip chip-hs">HubSpot</span>':'')+(l.sequenceRunning?'<span class="chip chip-seq">Seq</span>':'')+(l.gmailReplied?'<span class="chip chip-gm">Replied</span>':'')+((l.otterNotes?.length)?'<span class="chip chip-ot">'+l.otterNotes.length+' Call'+(l.otterNotes.length>1?'s':'')+'</span>':'')+((l.invoices?.length)?'<span class="chip chip-inv">'+l.invoices.length+' Inv</span>':'');
+  const bd=(l.fromHS?'<span class="chip ch-hs">HubSpot</span>':'')+(l.sequenceRunning?'<span class="chip ch-sq">Seq</span>':'')+(l.gmailReplied?'<span class="chip ch-gm">Replied</span>':'')+((l.otterNotes?.length)?'<span class="chip ch-ot">'+l.otterNotes.length+' Call'+(l.otterNotes.length>1?'s':'')+'</span>':'')+((l.invoices?.length)?'<span class="chip ch-in">'+l.invoices.length+' Inv</span>':'');
   let ab='';
   if(l.sequenceRunning)ab='<button class="ab g" onclick="event.stopPropagation();togSeq(\''+l.id+'\')">Seq ON</button>';
-  else if(s==='urgent'||s==='due')ab='<button class="ab p" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft</button><button class="ab" onclick="event.stopPropagation();openSnzM(\''+l.id+'\')">Snooze</button>';
-  else if(s==='replied')ab='<button class="ab p" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft</button>';
-  else if(s==='scheduled')ab='<button class="ab p" onclick="event.stopPropagation();markCallDone(\''+l.id+'\')">Call Done</button>';
-  else ab='<button class="ab" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft</button>';
+  else if(s==='urgent'||s==='due')ab='<button class="ab p" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft Email</button><button class="ab" onclick="event.stopPropagation();openSnzM(\''+l.id+'\')">Snooze</button>';
+  else if(s==='replied')ab='<button class="ab p" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft Reply</button>';
+  else if(s==='scheduled')ab='<button class="ab p" onclick="event.stopPropagation();markCallDone(\''+l.id+'\')">Call Done ✓</button>';
+  else ab='<button class="ab" onclick="event.stopPropagation();selL(\''+l.id+'\',\'email\')">Draft Email</button>';
   ab+='<button class="ab" onclick="event.stopPropagation();openEditM(\''+l.id+'\')">Edit</button><button class="ab r" onclick="event.stopPropagation();delL(\''+l.id+'\')">×</button>';
   return`<div class="lcard ${s}${selId===l.id?' sel':''}" style="animation-delay:${i*0.025}s" onclick="selL('${l.id}','${panel}')">
-    ${l.gmailReplied?'<div class="gbar">▶ GMAIL REPLY — '+esc(l.email)+'</div>':''}
+    ${l.gmailReplied?'<div class="gbar">📧 Gmail reply received from '+esc(l.email)+'</div>':''}
     ${l.otterNotes?.length?'<div class="obar"><div class="obar-t">🎙 '+esc(l.otterNotes[0].title)+' · '+l.otterNotes[0].date+'</div><div class="obar-b">'+esc((l.otterNotes[0].summary||'').substring(0,110))+'…</div></div>':''}
     <div class="lcard-body">
-      <div class="lcard-top">
-        <div><div class="lcard-name">${esc(l.name)}</div><div class="lcard-org">${esc(l.org||'—')}</div></div>
-        <div class="lcard-right"><span class="badge ${s}">${slabel(s)}</span>${l.value?'<span class="lcard-val">$'+parseFloat(l.value).toLocaleString()+'</span>':''}</div>
+      <div class="lcard-r1">
+        <div><div class="lname">${esc(l.name)}</div><div class="lorg">${esc(l.org||'—')}</div></div>
+        <div class="lrv"><span class="badge ${s}">${slbl(s)}</span>${l.value?'<span class="lval">$'+parseFloat(l.value).toLocaleString()+'</span>':''}</div>
       </div>
-      <div class="chips">${prods}<span class="chip chip-s">${sl[l.stage]||l.stage}</span>${bd}</div>
-      <div class="lcard-foot"><div class="lcard-time">${tl}</div><div class="lcard-actions">${ab}</div></div>
+      <div class="chips">${prods}<span class="chip ch-s">${sl[l.stage]||l.stage}</span>${bd}</div>
+      <div class="lcard-ft"><div class="ltime">${tl}</div><div class="acts">${ab}</div></div>
     </div>
   </div>`;
 }
 
-// ═══ PANEL ═══
 function selL(id,p){selId=id;panel=p||'detail';switchP(p||'detail',false);renderPanel(id,panel);renderLeads();}
 function switchP(p,r=true){panel=p;document.querySelectorAll('.ptab').forEach(t=>t.classList.toggle('on',t.id==='pt_'+p));if(r&&selId)renderPanel(selId,p);}
 function renderPanel(id,p){
   const l=leads.find(x=>x.id===id);if(!l)return;
   const s=cstat(l),el=document.getElementById('panelC');
   if(p==='detail'){
-    const alist=(l.activity||[]).slice().reverse().slice(0,12).map(a=>`<div class="act-item"><div class="act-d">${a.date}</div><div class="act-t">${esc(a.text)}</div></div>`).join('');
-    el.innerHTML=`
-      <div style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-          <div><div style="font-family:'Syne',serif;font-size:15px;font-weight:700;color:var(--text);">${esc(l.name)}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-top:2px;">${esc(l.org||'—')}</div></div>
-          <span class="badge ${s}">${slabel(s)}</span>
-        </div>
-        ${l.hsId?'<a href="https://app.hubspot.com/contacts/deals/'+l.hsId+'" target="_blank" style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;color:var(--gold);letter-spacing:0.06em;display:inline-block;margin-bottom:8px;text-decoration:none;">↗ OPEN IN HUBSPOT</a><br>':''}
-        ${l.email?'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--muted);margin-bottom:9px;">✉ <a href="mailto:'+l.email+'" style="color:var(--gold);text-decoration:none;">'+l.email+'</a></div>':''}
-        <div class="psg">
-          <div class="pst"><div class="pst-l">Value</div><div class="pst-v" style="color:var(--gold);">$${parseFloat(l.value||0).toLocaleString()}</div></div>
-          <div class="pst"><div class="pst-l">Follow-Ups</div><div class="pst-v">${l.followUpCount||0}</div></div>
-          <div class="pst"><div class="pst-l">Calls</div><div class="pst-v">${(l.otterNotes||[]).length}</div></div>
-          <div class="pst"><div class="pst-l">Invoices</div><div class="pst-v">${(l.invoices||[]).length}</div></div>
-        </div>
-        ${l.notes?'<div style="background:var(--amb-bg);border:1px solid var(--amb-bd);border-radius:2px;padding:9px 10px;font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.6;font-family:\'IBM Plex Mono\',monospace;letter-spacing:0.02em;">// '+esc(l.notes)+'</div>':''}
-        <div style="display:flex;gap:4px;flex-wrap:wrap;">
-          <button class="ab p" onclick="switchP('email')">Draft Email</button>
-          <button class="ab ${l.sequenceRunning?'g':''}" onclick="togSeq('${l.id}')">${l.sequenceRunning?'Seq ON':'Seq Start'}</button>
-          <button class="ab" onclick="openInvM('${l.id}')">+ Invoice</button>
-          <button class="ab g" onclick="markWon('${l.id}')">Won</button>
-          <button class="ab r" onclick="markLost('${l.id}')">Lost</button>
-          <button class="ab" onclick="openEditM('${l.id}')">Edit</button>
-        </div>
+    const al=(l.activity||[]).slice().reverse().slice(0,12).map(a=>`<div class="act-item"><div class="act-d">${a.date}</div><div class="act-t">${esc(a.text)}</div></div>`).join('');
+    el.innerHTML=`<div style="margin-bottom:16px;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:11px;">
+        <div><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);">${esc(l.name)}</div><div style="font-size:11.5px;color:var(--muted);margin-top:2px;">${esc(l.org||'—')}</div></div>
+        <span class="badge ${s}">${slbl(s)}</span>
       </div>
-      <div class="ph">Activity Log</div>
-      ${alist||'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--dim);">No activity recorded.</div>'}`;
+      ${l.hsId?'<a href="https://app.hubspot.com/contacts/deals/'+l.hsId+'" target="_blank" style="font-family:\'IBM Plex Mono\',monospace;font-size:9.5px;color:var(--gold);display:inline-block;margin-bottom:9px;text-decoration:none;letter-spacing:0.04em;">↗ Open in HubSpot</a><br>':''}
+      ${l.email?'<div style="font-size:12px;color:var(--muted);margin-bottom:10px;">📧 <a href="mailto:'+l.email+'" style="color:var(--blu);text-decoration:none;">'+l.email+'</a></div>':''}
+      <div class="psg">
+        <div class="pst"><div class="pst-l">Value</div><div class="pst-v" style="color:var(--gold);">$${parseFloat(l.value||0).toLocaleString()}</div></div>
+        <div class="pst"><div class="pst-l">Follow-Ups</div><div class="pst-v">${l.followUpCount||0}</div></div>
+        <div class="pst"><div class="pst-l">Calls</div><div class="pst-v">${(l.otterNotes||[]).length}</div></div>
+        <div class="pst"><div class="pst-l">Invoices</div><div class="pst-v">${(l.invoices||[]).length}</div></div>
+      </div>
+      ${l.notes?'<div style="background:var(--ambbg);border:1px solid var(--ambbd);border-radius:8px;padding:9px 12px;font-size:12px;color:var(--soft);margin-bottom:11px;line-height:1.6;"><strong>Notes:</strong> '+esc(l.notes)+'</div>':''}
+      <div style="display:flex;gap:5px;flex-wrap:wrap;">
+        <button class="ab p" onclick="switchP('email')">Draft Email</button>
+        <button class="ab ${l.sequenceRunning?'g':''}" onclick="togSeq('${l.id}')">${l.sequenceRunning?'Seq Running ●':'Start Sequence'}</button>
+        <button class="ab" onclick="openInvM('${l.id}')">+ Invoice</button>
+        <button class="ab g" onclick="markWon('${l.id}')">Won ✓</button>
+        <button class="ab r" onclick="markLost('${l.id}')">Lost ✗</button>
+        <button class="ab" onclick="openEditM('${l.id}')">Edit</button>
+      </div>
+    </div>
+    <div class="ph">Activity Log</div>
+    ${al||'<div style="font-size:12px;color:var(--muted);">No activity recorded yet.</div>'}`;
   }
   else if(p==='email'){
-    const {subj,body}=buildDraft(l);const gok=!!localStorage.getItem('nx_gm_tok');
-    el.innerHTML=`
-      <div class="ph">Email Draft — ${esc(l.name)}</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:10px;letter-spacing:0.04em;">${l.followUpCount||0} follow-ups sent · last contact ${ddiff(l.lastContact,tod())===0?'today':ddiff(l.lastContact,tod())+'d ago'}</div>
+    const{subj,body}=buildDraft(l);const gok=!!localStorage.getItem('nx_gm_tok');
+    el.innerHTML=`<div class="ph">Email Draft — ${esc(l.name)}</div>
+      <div style="font-size:11.5px;color:var(--muted);margin-bottom:10px;">${l.followUpCount||0} follow-ups sent · last contact ${ddiff(l.lastContact,tod())===0?'today':ddiff(l.lastContact,tod())+'d ago'}</div>
       <div class="ecomp">
-        <div class="ecomp-subj" id="ec_s" contenteditable="true">${esc(subj)}</div>
-        <div class="ecomp-body" id="ec_b" contenteditable="true">${esc(body)}</div>
+        <div class="ecomp-s" id="ec_s" contenteditable="true">${esc(subj)}</div>
+        <div class="ecomp-b" id="ec_b" contenteditable="true">${esc(body)}</div>
       </div>
       <div class="ea">
-        ${gok?'<button class="ab g" onclick="sendGmail(\''+l.id+'\')">Send via Gmail</button>':'<button class="ab" onclick="connectGmail()">Connect Gmail</button>'}
-        <button class="cpbtn" id="cpEB" onclick="cpEmail()">Copy</button>
-        <button class="ab p" onclick="markSent('${l.id}')">Mark Sent</button>
+        ${gok?'<button class="ab g" onclick="sendGmail(\''+l.id+'\')">Send via Gmail</button>':'<button class="ab" onclick="connectGmail()">Connect Gmail to Send</button>'}
+        <button class="cpbtn" id="cpEB" onclick="cpEmail()" style="font-size:11.5px;padding:5px 13px;">Copy</button>
+        <button class="ab p" onclick="markSent('${l.id}')">Mark Sent ✓</button>
       </div>
       <div class="dl">Snooze Instead</div>
-      <div class="snz-grid">
-        <div class="snz-opt" onclick="snzP('${l.id}',1)">1d</div><div class="snz-opt" onclick="snzP('${l.id}',3)">3d</div>
-        <div class="snz-opt" onclick="snzP('${l.id}',5)">5d</div><div class="snz-opt" onclick="snzP('${l.id}',7)">7d</div>
-        <div class="snz-opt" onclick="snzP('${l.id}',14)">14d</div>
+      <div class="snzg">
+        <div class="snzo" onclick="snzP('${l.id}',1)">1d</div><div class="snzo" onclick="snzP('${l.id}',3)">3d</div>
+        <div class="snzo" onclick="snzP('${l.id}',5)">5d</div><div class="snzo" onclick="snzP('${l.id}',7)">7d</div>
+        <div class="snzo" onclick="snzP('${l.id}',14)">14d</div>
       </div>`;
   }
   else if(p==='calls'){
     const ns=l.otterNotes||[];
-    el.innerHTML=`
-      <div class="ph">Call Summaries (${ns.length})</div>
-      ${!otOk?'<div class="infobox">Connect Otter via Zapier to auto-sync call summaries. <span style="cursor:pointer;color:var(--ott);text-decoration:underline;" onclick="openM(\'otterM\')">Set up →</span></div>':''}
-      ${!ns.length?'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--dim);">No call summaries yet.</div>':ns.map(n=>`<div class="on-card"><div class="on-head"><span>🎙 ${esc(n.title)}</span><span>${n.date}</span></div><div class="on-body">${esc(n.summary||'')}</div>${n.actionItems?'<div style="margin-top:5px;font-family:\'IBM Plex Mono\',monospace;font-size:8px;color:var(--ott);letter-spacing:0.1em;text-transform:uppercase;">Action items:</div><div style="font-size:11px;color:var(--muted);line-height:1.6;margin-top:3px;">'+esc(n.actionItems)+'</div>':''}<div class="on-acts"><button class="ab p" onclick="switchP(\'email\')">Draft Follow-Up</button></div></div>`).join('')}`;
+    el.innerHTML=`<div class="ph">Call Summaries (${ns.length})</div>
+      ${!otOk?'<div class="infobox">Connect Otter via Zapier to auto-sync call summaries. <span style="cursor:pointer;color:var(--ott);font-weight:600;text-decoration:underline;" onclick="openM(\'otterM\')">Set up →</span></div>':''}
+      ${!ns.length?'<div style="font-size:12.5px;color:var(--muted);">No call summaries yet. They will appear here automatically after each Otter call.</div>':ns.map(n=>`<div class="on-card"><div class="on-h"><span>🎙 ${esc(n.title)}</span><span>${n.date}</span></div><div class="on-b">${esc(n.summary||'')}</div>${n.actionItems?'<div style="margin-top:6px;font-family:\'IBM Plex Mono\',monospace;font-size:8.5px;color:var(--ott);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Action Items</div><div style="font-size:11.5px;color:var(--soft);line-height:1.6;">'+esc(n.actionItems)+'</div>':''}<div class="on-as"><button class="ab p" onclick="switchP(\'email\')">Draft Follow-Up</button></div></div>`).join('')}`;
   }
   else if(p==='invoices'){
     const invs=l.invoices||[];
-    el.innerHTML=`
-      <div class="ph" style="display:flex;justify-content:space-between;align-items:center;">
-        <span>Invoices (${invs.length})</span>
-        <button class="ab p" onclick="openInvM('${l.id}')">+ Add</button>
-      </div>
-      ${!invs.length?'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--dim);">No invoices yet.</div>':invs.map((iv,i)=>`<div class="inv-row"><div><div class="inv-n">${esc(iv.id||'Invoice')} — ${esc(iv.desc||'')}</div><div class="inv-d">${iv.date||''}${iv.amount?' · $'+parseFloat(iv.amount).toLocaleString():''}</div></div><div style="display:flex;gap:4px;align-items:center;">${iv.files?.length?'<span style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;color:var(--muted);">'+iv.files.length+'f</span>':''}<span class="inv-amt">$${parseFloat(iv.amount||0).toLocaleString()}</span><button class="ab r" onclick="delInv('${l.id}',${i})">×</button></div></div>`).join('')}`;
+    el.innerHTML=`<div class="ph"><span>Invoices (${invs.length})</span><button class="ab p" onclick="openInvM('${l.id}')">+ Add</button></div>
+      ${!invs.length?'<div style="font-size:12.5px;color:var(--muted);">No invoices yet. Click Add to attach one.</div>':invs.map((iv,i)=>`<div class="inv-row"><div><div class="inv-n">${esc(iv.id||'Invoice')} — ${esc(iv.desc||'')}</div><div class="inv-d">${iv.date||''}${iv.amount?' · $'+parseFloat(iv.amount).toLocaleString():''}</div></div><div style="display:flex;gap:5px;align-items:center;">${iv.files?.length?'<span style="font-family:\'IBM Plex Mono\',monospace;font-size:9.5px;color:var(--muted);">'+iv.files.length+'f</span>':''}<span style="font-family:\'IBM Plex Mono\',monospace;font-size:12px;color:var(--gold);font-weight:500;">$${parseFloat(iv.amount||0).toLocaleString()}</span><button class="ab r" onclick="delInv('${l.id}',${i})">×</button></div></div>`).join('')}`;
   }
 }
-function cpEmail(){const s=document.getElementById('ec_s')?.textContent||'',b=document.getElementById('ec_b')?.textContent||'';navigator.clipboard.writeText('Subject: '+s+'\n\n'+b).then(()=>{const btn=document.getElementById('cpEB');btn.textContent='Copied!';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done');},2000);});}
+function cpEmail(){const s=document.getElementById('ec_s')?.textContent||'',b=document.getElementById('ec_b')?.textContent||'';navigator.clipboard.writeText('Subject: '+s+'\n\n'+b).then(()=>{const btn=document.getElementById('cpEB');btn.textContent='Copied ✓';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done');},2000);});}
 
-// ═══ EMAIL DRAFTS ═══
 function buildDraft(l){
   const s=cstat(l),prods=(l.products||[]).join(', ')||'our platform',fn=l.name.split(' ').filter(Boolean).pop();
   let subj='',body='';
   if(s==='new'||l.stage==='new'||l.stage==='emailed'){subj='NeuroUX — Following up on your inquiry';body='Hi '+fn+',\n\nThank you for your interest in NeuroUX. I wanted to follow up and share how we can support your research.\n\nWe specialise in '+prods+', and I would love to schedule a quick call to understand your specific needs.\n\nAre you available this week?\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
-  else if(l.stage==='quote_sent'&&(l.followUpCount||0)===0){subj='Re: NeuroUX Quote — Quick check-in';body='Hi '+fn+',\n\nI hope you are doing well. I wanted to follow up on the quote I sent over for '+prods+'.\n\nDo you have any questions, or would you like a quick call to walk through it?\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
-  else if(l.stage==='quote_sent'&&(l.followUpCount||0)>=1){subj='NeuroUX — Still here if you need us';body='Hi '+fn+',\n\nJust circling back on the NeuroUX proposal for '+prods+'.\n\nIf timing is not right or you have concerns, please do let me know. Happy to revisit the scope or pricing.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  else if(l.stage==='quote_sent'&&(l.followUpCount||0)===0){subj='Re: NeuroUX Quote — Quick check-in';body='Hi '+fn+',\n\nI hope you are doing well. I wanted to follow up on the quote I sent for '+prods+'.\n\nDo you have any questions, or would you like a quick call to walk through it?\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  else if(l.stage==='quote_sent'&&(l.followUpCount||0)>=1){subj='NeuroUX — Still here if you need us';body='Hi '+fn+',\n\nJust circling back on the NeuroUX proposal for '+prods+'.\n\nIf timing is not right or you have concerns, please do let me know. Happy to revisit scope or pricing.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
   else if(l.stage==='call_done'){const lc=l.otterNotes?.length?'\n\nFrom our call: '+l.otterNotes[0].summary.substring(0,120)+'…':'';subj='NeuroUX — Next steps after our call';body='Hi '+fn+',\n\nThank you for your time.'+lc+'\n\nI have shared a quote for '+prods+'. Please take a look and let me know if you have any questions.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
   else if(s==='replied'||l.stage==='negotiating'){subj='Re: NeuroUX — Following up';body='Hi '+fn+',\n\nThank you for your response. '+(l.notes?'Regarding your query: '+l.notes.substring(0,80)+'…':'Let me know if you have any further questions.')+'\n\nLooking forward to moving forward.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
-  else{subj='NeuroUX — Checking in';body='Hi '+fn+',\n\nI hope all is well. Just checking in on where things stand with NeuroUX.\n\nPlease do not hesitate to reach out if you have any questions.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
+  else{subj='NeuroUX — Checking in';body='Hi '+fn+',\n\nI hope all is well. Just checking in on where things stand with NeuroUX.\n\nPlease reach out if you have any questions.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';}
   return{subj,body};
 }
 
-// ═══ ACTIONS ═══
-function markSent(id){const l=leads.find(x=>x.id===id);if(!l)return;l.lastContact=tod();l.followUpCount=(l.followUpCount||0)+1;l.status=null;l.snoozeUntil=null;l.gmailReplied=false;act(l,'Follow-up #'+l.followUpCount+' sent');save();renderAll();notif('Follow-up logged','grn');}
+function markSent(id){const l=leads.find(x=>x.id===id);if(!l)return;l.lastContact=tod();l.followUpCount=(l.followUpCount||0)+1;l.status=null;l.snoozeUntil=null;l.gmailReplied=false;act(l,'Follow-up #'+l.followUpCount+' sent');save();renderAll();notif('Follow-up logged ✓','g');}
 function markCallDone(id){const l=leads.find(x=>x.id===id);if(!l)return;l.stage='call_done';l.lastContact=tod();l.status=null;act(l,'Call completed');save();renderAll();}
-function markWon(id){if(!confirm('Mark as Won?'))return;const l=leads.find(x=>x.id===id);if(!l)return;l.status='won';act(l,'Deal Won');save();renderAll();}
+function markWon(id){if(!confirm('Mark as Won?'))return;const l=leads.find(x=>x.id===id);if(!l)return;l.status='won';act(l,'Deal Won ✓');save();renderAll();}
 function markLost(id){if(!confirm('Mark as Lost?'))return;const l=leads.find(x=>x.id===id);if(!l)return;l.status='lost';act(l,'Deal Lost');save();renderAll();}
-function delL(id){if(!confirm('Remove lead?'))return;leads=leads.filter(x=>x.id!==id);if(selId===id){selId=null;document.getElementById('panelC').innerHTML='<div class="empty"><div class="empty-i">◈</div><div class="empty-t">No lead selected</div></div>';}save();renderAll();}
-function openSnzM(id){snzId=id;const l=leads.find(x=>x.id===id);document.getElementById('snzTitle').textContent='Snooze — '+(l?.name||'');openM('snoozeM');}
-function doSnz(d){if(!snzId)return;const l=leads.find(x=>x.id===snzId);if(!l)return;const dt=new Date();dt.setDate(dt.getDate()+d);l.snoozeUntil=dt.toISOString().split('T')[0];l.status='snoozed';act(l,'Snoozed '+d+'d → '+l.snoozeUntil);save();renderAll();closeM('snoozeM');}
+function delL(id){if(!confirm('Remove this lead?'))return;leads=leads.filter(x=>x.id!==id);if(selId===id){selId=null;document.getElementById('panelC').innerHTML='<div class="empty"><div class="empty-i">👈</div><div class="empty-t">Select a lead</div></div>';}save();renderAll();}
+function openSnzM(id){snzId=id;const l=leads.find(x=>x.id===id);document.getElementById('snzT').textContent='Snooze — '+(l?.name||'');openM('snoozeM');}
+function doSnz(d){if(!snzId)return;const l=leads.find(x=>x.id===snzId);if(!l)return;const dt=new Date();dt.setDate(dt.getDate()+d);l.snoozeUntil=dt.toISOString().split('T')[0];l.status='snoozed';act(l,'Snoozed '+d+'d');save();renderAll();closeM('snoozeM');}
 function snzP(id,d){snzId=id;doSnz(d);}
-function togSeq(id){const l=leads.find(x=>x.id===id);if(!l)return;l.sequenceRunning=!l.sequenceRunning;if(l.sequenceRunning){l.sequenceStartDate=tod();l.status=null;act(l,'Sequence started D3/D10/D16');}else{l.sequenceStartDate=null;l.status=null;act(l,'Sequence stopped');}save();renderAll();}
+function togSeq(id){const l=leads.find(x=>x.id===id);if(!l)return;l.sequenceRunning=!l.sequenceRunning;if(l.sequenceRunning){l.sequenceStartDate=tod();l.status=null;act(l,'Sequence started');}else{l.sequenceStartDate=null;l.status=null;act(l,'Sequence stopped');}save();renderAll();}
 function nxtSeq(d){for(const x of[3,10,16])if(d<x)return x;return null;}
-
-// ═══ INVOICES ═══
-function openInvM(id){invLId=id;invFiles=[];document.getElementById('iv_id').value='';document.getElementById('iv_desc').value='';document.getElementById('iv_amt').value='';document.getElementById('iv_date').value=tod();document.getElementById('iv_flist').innerHTML='';const l=leads.find(x=>x.id===id);document.getElementById('invMT').textContent='Add Invoice'+(l?' — '+l.name:'');openM('invM');}
-function handleFiles(inp){invFiles=Array.from(inp.files);document.getElementById('iv_flist').innerHTML=invFiles.map(f=>'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:9px;color:var(--muted);padding:2px 0;">📎 '+f.name+' ('+Math.round(f.size/1024)+'KB)</div>').join('');}
+function openInvM(id){invLId=id;invFiles=[];['iv_id','iv_desc','iv_amt'].forEach(x=>document.getElementById(x).value='');document.getElementById('iv_date').value=tod();document.getElementById('iv_flist').innerHTML='';const l=leads.find(x=>x.id===id);document.getElementById('invMT').textContent='Add Invoice'+(l?' — '+l.name:'');openM('invM');}
+function handleFiles(inp){invFiles=Array.from(inp.files);document.getElementById('iv_flist').innerHTML=invFiles.map(f=>'<div style="font-size:11px;color:var(--muted);padding:2px 0;">📎 '+f.name+' ('+Math.round(f.size/1024)+'KB)</div>').join('');}
 function saveInv(){if(!invLId)return;const l=leads.find(x=>x.id===invLId);if(!l)return;const iv={id:document.getElementById('iv_id').value.trim(),desc:document.getElementById('iv_desc').value.trim(),amount:document.getElementById('iv_amt').value,date:document.getElementById('iv_date').value,files:invFiles.map(f=>({name:f.name,size:f.size})),added:tod()};if(!iv.id&&!iv.desc){alert('Enter invoice ID or description.');return;}l.invoices=l.invoices||[];l.invoices.unshift(iv);act(l,'Invoice added: '+(iv.id||iv.desc));save();renderAll();closeM('invM');if(selId===invLId)renderPanel(invLId,'invoices');}
 function delInv(lid,i){const l=leads.find(x=>x.id===lid);if(!l?.invoices)return;l.invoices.splice(i,1);save();renderAll();renderPanel(lid,'invoices');}
-
-// ═══ ADD/EDIT ═══
 function openAddM(){editId=null;document.getElementById('addMT').textContent='Add New Lead';document.getElementById('saveLB').textContent='Add Lead';['f_name','f_org','f_email','f_value','f_notes'].forEach(id=>document.getElementById(id).value='');document.getElementById('f_stage').value='quote_sent';document.getElementById('f_date').value=tod();['p1','p2','p3','p4','p5','p6'].forEach(id=>document.getElementById(id).checked=false);openM('addM');}
-function openEditM(id){editId=id;const l=leads.find(x=>x.id===id);if(!l)return;document.getElementById('addMT').textContent='Edit Lead';document.getElementById('saveLB').textContent='Save';document.getElementById('f_name').value=l.name;document.getElementById('f_org').value=l.org||'';document.getElementById('f_email').value=l.email||'';document.getElementById('f_value').value=l.value||'';document.getElementById('f_notes').value=l.notes||'';document.getElementById('f_stage').value=l.stage;document.getElementById('f_date').value=l.lastContact;['p1','p2','p3','p4','p5','p6'].forEach((pid,i)=>document.getElementById(pid).checked=(l.products||[]).includes(PRODS[i]));openM('addM');}
-function saveLead(){const name=document.getElementById('f_name').value.trim();if(!name){alert('Name required.');return;}const prods=['p1','p2','p3','p4','p5','p6'].map((pid,i)=>document.getElementById(pid).checked?PRODS[i]:null).filter(Boolean);if(editId){const l=leads.find(x=>x.id===editId);if(!l)return;const sc=l.stage!==document.getElementById('f_stage').value;l.name=name;l.org=document.getElementById('f_org').value.trim();l.email=document.getElementById('f_email').value.trim();l.value=parseFloat(document.getElementById('f_value').value)||0;l.notes=document.getElementById('f_notes').value.trim();l.stage=document.getElementById('f_stage').value;l.lastContact=document.getElementById('f_date').value;l.products=prods;if(sc){l.status=null;act(l,'Stage updated: '+l.stage);}}else{leads.unshift({id:uid(),hsId:null,name,org:document.getElementById('f_org').value.trim(),email:document.getElementById('f_email').value.trim(),value:parseFloat(document.getElementById('f_value').value)||0,notes:document.getElementById('f_notes').value.trim(),stage:document.getElementById('f_stage').value,lastContact:document.getElementById('f_date').value,products:prods,followUpCount:0,status:null,snoozeUntil:null,sequenceRunning:false,sequenceStartDate:null,invoices:[],otterNotes:[],gmailReplied:false,fromHS:false,activity:[{date:tod(),text:'Added manually'}]});}save();renderAll();closeM('addM');}
-
-// ═══ NO RESPONSE & EXPORT ═══
+function openEditM(id){editId=id;const l=leads.find(x=>x.id===id);if(!l)return;document.getElementById('addMT').textContent='Edit Lead';document.getElementById('saveLB').textContent='Save Changes';document.getElementById('f_name').value=l.name;document.getElementById('f_org').value=l.org||'';document.getElementById('f_email').value=l.email||'';document.getElementById('f_value').value=l.value||'';document.getElementById('f_notes').value=l.notes||'';document.getElementById('f_stage').value=l.stage;document.getElementById('f_date').value=l.lastContact;['p1','p2','p3','p4','p5','p6'].forEach((pid,i)=>document.getElementById(pid).checked=(l.products||[]).includes(PRODS[i]));openM('addM');}
+function saveLead(){const name=document.getElementById('f_name').value.trim();if(!name){alert('Name required.');return;}const prods=['p1','p2','p3','p4','p5','p6'].map((pid,i)=>document.getElementById(pid).checked?PRODS[i]:null).filter(Boolean);if(editId){const l=leads.find(x=>x.id===editId);if(!l)return;const sc=l.stage!==document.getElementById('f_stage').value;l.name=name;l.org=document.getElementById('f_org').value.trim();l.email=document.getElementById('f_email').value.trim();l.value=parseFloat(document.getElementById('f_value').value)||0;l.notes=document.getElementById('f_notes').value.trim();l.stage=document.getElementById('f_stage').value;l.lastContact=document.getElementById('f_date').value;l.products=prods;if(sc){l.status=null;act(l,'Stage: '+l.stage);}}else{leads.unshift({id:uid(),hsId:null,name,org:document.getElementById('f_org').value.trim(),email:document.getElementById('f_email').value.trim(),value:parseFloat(document.getElementById('f_value').value)||0,notes:document.getElementById('f_notes').value.trim(),stage:document.getElementById('f_stage').value,lastContact:document.getElementById('f_date').value,products:prods,followUpCount:0,status:null,snoozeUntil:null,sequenceRunning:false,sequenceStartDate:null,invoices:[],otterNotes:[],gmailReplied:false,fromHS:false,activity:[{date:tod(),text:'Added manually'}]});}save();renderAll();closeM('addM');}
 function isNR(l){const s=cstat(l);if(['won','lost','replied'].includes(s)||l.status==='replied')return false;return l.stage==='quote_sent'||(l.followUpCount||0)>=1;}
 function exportCSV(){const rows=leads.filter(l=>isNR(l)).map(l=>[l.name,l.org||'',l.email||'',(l.products||[]).join('|'),l.value||0,l.stage,l.lastContact,l.followUpCount||0,ddiff(l.lastContact,tod()),l.fromHS?'Yes':'No'].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));if(!rows.length){alert('No leads.');return;}const csv=[['Name','Org','Email','Products','Value','Stage','Last Contact','Follow-Ups','Days Since','HubSpot'].join(','),...rows].join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='NoResponse_'+tod()+'.csv';a.click();}
-
-// ═══ SETTINGS ═══
 function saveSettings(){const hs=document.getElementById('s_hs').value.trim(),wk=document.getElementById('s_wk').value.trim();if(!hs||!wk){alert('Fill in both fields.');return;}localStorage.setItem('nx_hs_tok',hs);localStorage.setItem('nx_wk_url',wk);closeM('settingsM');syncHS();}
-
-// ═══ NOTIFICATIONS ═══
-function notif(msg,type){const cols={grn:{bg:'rgba(61,186,122,0.1)',bc:'var(--grn)',c:'var(--grn)'},ott:{bg:'rgba(100,118,245,0.1)',bc:'var(--ott)',c:'var(--ott)'},amb:{bg:'rgba(240,160,64,0.1)',bc:'var(--amb)',c:'var(--amb)'},red:{bg:'rgba(224,82,82,0.1)',bc:'var(--red)',c:'var(--red)'}};const t=cols[type]||cols.grn;const n=document.createElement('div');n.className='notif';n.style.background=t.bg;n.style.borderLeftColor=t.bc;n.style.color=t.c;n.style.border='1px solid '+t.bc.replace('var(--',t.bc);n.textContent='// '+msg;document.body.appendChild(n);setTimeout(()=>n.remove(),3200);}
-
-// ═══ UTILS ═══
-function setF(f){curF=f;document.querySelectorAll('.flt').forEach(b=>b.classList.toggle('on',b.dataset.f===f));renderLeads();}
+function notif(msg,type){const t={g:{bg:'#f0faf5',bd:'#2a8a5c',c:'#2a8a5c'},o:{bg:'#f0f1fe',bd:'#4455e0',c:'#4455e0'},r:{bg:'#fef2f2',bd:'#c94040',c:'#c94040'},a:{bg:'#fffbeb',bd:'#c07010',c:'#c07010'}}[type]||{bg:'#f0faf5',bd:'#2a8a5c',c:'#2a8a5c'};const n=document.createElement('div');n.className='notif';n.style.background=t.bg;n.style.border='1px solid '+t.bd;n.style.color=t.c;n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),3200);}
+function setF(f){curF=f;document.querySelectorAll('.fb').forEach(b=>b.classList.toggle('on',b.dataset.f===f));renderLeads();}
 function act(l,t){l.activity=l.activity||[];l.activity.push({date:tod(),text:t});}
 function tod(){return new Date().toISOString().split('T')[0];}
 function uid(){return 'l_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);}
