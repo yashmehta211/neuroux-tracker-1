@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroUX — HubSpot Follow-Up Tracker</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --navy: #0f1f3d;
+  --navy-mid: #1a3260;
+  --navy-light: #e8edf7;
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --surface2: #f8f9fc;
+  --border: #e4e8f0;
+  --border-mid: #cdd3e0;
+  --text: #0d1b2e;
+  --text-mid: #3d4f68;
+  --text-muted: #8494aa;
+  --red: #c0392b;
+  --red-bg: #fdf3f2;
+  --red-border: #f5c6c2;
+  --amber: #b45309;
+  --amber-bg: #fdf8f0;
+  --amber-border: #f0d9a8;
+  --green: #166534;
+  --green-bg: #f0faf4;
+  --green-border: #a7d5b9;
+  --blue: #1e4db7;
+  --blue-bg: #eef3fc;
+  --blue-border: #bccff5;
+  --purple: #5b21b6;
+  --purple-bg: #f5f3ff;
+  --purple-border: #c4b5fd;
+  --shadow-sm: 0 1px 3px rgba(15,31,61,0.06), 0 1px 2px rgba(15,31,61,0.04);
+  --shadow-md: 0 4px 16px rgba(15,31,61,0.08), 0 2px 6px rgba(15,31,61,0.04);
+  --shadow-lg: 0 16px 48px rgba(15,31,61,0.14), 0 4px 16px rgba(15,31,61,0.06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--navy);
+  color: #fff;
+  padding: 0 36px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(15,31,61,0.25);
+}
+.topbar-brand {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #fff;
+}
+.topbar-brand .wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-brand .divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255,255,255,0.2);
+}
+.topbar-brand .sub {
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.08em;
+}
+.topbar-brand .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 2px rgba(74,222,128,0.3);
+  flex-shrink: 0;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.today-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+}
+
+.btn-add {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-add:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.35);
+}
+
+/* ── LAYOUT ── */
+.layout {
+  display: grid;
+  grid-template-columns: 268px 1fr;
+  min-height: calc(100vh - 60px);
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 28px 0;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+.sidebar-section {
+  padding: 0 20px;
+  margin-bottom: 32px;
+}
+.sidebar-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.stat-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.stat-card.urgent { background: var(--red-bg); border-color: var(--red-border); }
+.stat-card.due { background: var(--amber-bg); border-color: var(--amber-border); }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-card.urgent .stat-number { color: var(--red); }
+.stat-card.due .stat-number { color: var(--amber); }
+.stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.filter-nav { display: flex; flex-direction: column; gap: 1px; }
+.filter-btn {
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-mid);
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1.4;
+}
+.filter-btn:hover { background: var(--navy-light); color: var(--navy); }
+.filter-btn.active {
+  background: var(--navy);
+  color: #fff;
+  font-weight: 600;
+}
+.filter-btn .count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  opacity: 0.55;
+  min-width: 18px;
+  text-align: right;
+}
+.filter-btn.active .count { opacity: 0.65; }
+
+/* ── MAIN ── */
+.main {
+  padding: 32px 36px;
+  max-width: 1100px;
+}
+
+.main-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.main-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.main-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.search-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 10px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow-sm);
+}
+.search-input:focus {
+  border-color: var(--navy-mid);
+  box-shadow: 0 0 0 3px rgba(30,77,183,0.1);
+}
+.search-input::placeholder { color: var(--text-muted); }
+
+/* ── LEAD CARDS ── */
+.leads-list { display: flex; flex-direction: column; gap: 8px; }
+
+.lead-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px 16px 24px;
+  cursor: pointer;
+  transition: all 0.18s;
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.22s ease both;
+  box-shadow: var(--shadow-sm);
+}
+.lead-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+}
+.lead-card.urgent::before { background: var(--red); }
+.lead-card.due::before { background: var(--amber); }
+.lead-card.replied::before { background: var(--green); }
+.lead-card.scheduled::before { background: var(--blue); }
+.lead-card.new::before { background: var(--purple); }
+.lead-card.won::before { background: var(--green); }
+.lead-card.lost::before { background: var(--text-muted); }
+
+.lead-card:hover {
+  border-color: var(--border-mid);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.lead-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.lead-info { flex: 1; }
+.lead-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--text);
+  margin-bottom: 2px;
+  letter-spacing: -0.01em;
+}
+.lead-org {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.lead-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.tag-product { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+.tag-stage { background: var(--surface2); color: var(--text-mid); border: 1px solid var(--border); }
+
+.lead-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.status-pill {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.status-pill.urgent { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.status-pill.due { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+.status-pill.replied { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.status-pill.scheduled { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+.status-pill.new { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+.status-pill.won { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.status-pill.lost { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+.status-pill.snoozed { background: var(--surface2); color: var(--text-mid); border: 1px solid var(--border); }
+
+.lead-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.lead-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--border);
+  gap: 12px;
+}
+.lead-timeline {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  line-height: 1.5;
+}
+.lead-timeline strong { color: var(--text-mid); font-weight: 600; }
+
+.lead-actions { display: flex; gap: 5px; flex-shrink: 0; }
+.btn-sm {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.btn-sm:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn-sm.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn-sm.primary:hover { background: var(--navy-mid); border-color: var(--navy-mid); }
+.btn-sm.green { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+.btn-sm.green:hover { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-sm.red { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
+.btn-sm.red:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+.empty-state {
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--text-muted);
+}
+.empty-state .icon { font-size: 36px; margin-bottom: 16px; }
+.empty-state h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--text-mid);
+  margin-bottom: 8px;
+}
+.empty-state p { font-size: 13px; line-height: 1.7; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,20,45,0.55);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(3px);
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: modalIn 0.2s ease both;
+  border: 1px solid var(--border);
+}
+.modal-head {
+  padding: 24px 28px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+  margin-bottom: 4px;
+}
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 2px 6px;
+  line-height: 1;
+  transition: color 0.15s;
+  border-radius: 4px;
+}
+.modal-close:hover { color: var(--text); background: var(--surface2); }
+.modal-body { padding: 20px 28px 28px; }
+
+.form-field { margin-bottom: 16px; }
+.form-field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 9px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--navy-mid);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(30,77,183,0.1);
+}
+.form-field textarea { resize: vertical; min-height: 72px; line-height: 1.6; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.btn-modal-primary {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 10px 24px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.02em;
+}
+.btn-modal-primary:hover { background: var(--navy-mid); }
+.btn-modal-cancel {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 10px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-modal-cancel:hover { background: var(--surface2); border-color: var(--border-mid); }
+
+/* ── DRAFT EMAIL MODAL ── */
+.email-draft {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+  margin-top: 14px;
+}
+.email-draft-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.email-subject {
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: -0.01em;
+}
+.email-body {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--text-mid);
+  white-space: pre-wrap;
+  font-family: 'Inter', sans-serif;
+}
+.copy-btn {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 14px;
+  transition: all 0.15s;
+  letter-spacing: 0.03em;
+}
+.copy-btn:hover { background: var(--navy-mid); }
+.copy-btn.copied { background: var(--green); }
+
+/* ── ACTIVITY LOG ── */
+.activity-log { margin-top: 16px; }
+.activity-log-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-date {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  width: 84px;
+  font-size: 11px;
+  padding-top: 1px;
+}
+.activity-text { color: var(--text-mid); line-height: 1.55; }
+.activity-text strong { color: var(--text); font-weight: 600; }
+
+/* ── SNOOZE PICKER ── */
+.snooze-options { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.snooze-opt {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.02em;
+}
+.snooze-opt:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.975) translateY(6px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.divider-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 20px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.divider-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+.checkbox-row input[type=checkbox] { accent-color: var(--navy); width: 14px; height: 14px; cursor: pointer; }
+.checkbox-row label { font-size: 13px; color: var(--text-mid); font-weight: 400; cursor: pointer; }
+
+/* Pipeline value */
+#pipelineValue {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  .main { padding: 20px 16px; }
+  .topbar { padding: 0 16px; }
+}
+
+/* ── SEQUENCE BADGE ── */
+.seq-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.seq-badge .seq-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: seqPulse 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.btn-sm.seq-on {
+  background: #f0fdf4;
+  color: #166534;
+  border-color: #86efac;
+}
+.btn-sm.seq-on:hover {
+  background: #166534;
+  color: #fff;
+  border-color: #166534;
+}
+.btn-sm.seq-off {
+  background: var(--surface2);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+@keyframes seqPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="wordmark">
+      <span class="dot"></span>
+      <span>NeuroUX</span>
+    </div>
+    <span class="divider"></span>
+    <span class="sub">Sales Follow-Up Tracker</span><span id="hsStatus" style="font-size:11px;color:rgba(255,255,255,0.4);margin-left:16px;display:flex;align-items:center;gap:5px;"><span id="hsDot" style="width:6px;height:6px;border-radius:50%;background:#6b7280;display:inline-block;"></span><span id="hsStatusText">Connecting...</span></span>
+  </div>
+  <div class="topbar-right">
+    <span class="today-badge" id="todayLabel"></span>
+    <button class="btn-add" onclick="syncHubSpot()" id="syncBtn" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15);">⟳ Sync HubSpot</button><button class="btn-add" onclick="openAddModal()">+ Add Lead</button><button class="btn-add" onclick="openModal('settingsModal')" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15);">&#9881; Settings</button>
+  </div>
+</div>
+
+<!-- file:// warning banner -->
+<div id="fileBanner" style="display:none;background:#7c3aed;color:#fff;padding:10px 32px;font-size:13px;font-family:Inter,sans-serif;align-items:center;gap:16px;justify-content:space-between;">
+  <div>
+    <strong>⚠ HubSpot sync requires a web server.</strong>
+    You are opening this file directly (file://). To enable HubSpot sync, drag this file into <strong>VS Code</strong> and use Live Server, or simply double-click it in Chrome and allow — 
+    alternatively, upload it to any web host.
+    <br><span style="opacity:0.8;font-size:12px;">All other features (add lead, draft email, export CSV) work fine right now.</span>
+  </div>
+  <button onclick="document.getElementById('fileBanner').style.display='none'" style="background:rgba(255,255,255,0.2);border:none;color:#fff;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;white-space:nowrap;">Dismiss</button>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Needs Attention</div>
+      <div class="stat-grid">
+        <div class="stat-card urgent">
+          <div class="stat-number" id="statOverdue">0</div>
+          <div class="stat-label">Overdue</div>
+        </div>
+        <div class="stat-card due">
+          <div class="stat-number" id="statDueToday">0</div>
+          <div class="stat-label">Due Today</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Filter</div>
+      <div class="filter-nav" id="filterNav">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All Active <span class="count" id="cAll">0</span></button>
+        <button class="filter-btn" data-filter="urgent" onclick="setFilter('urgent')">🔴 Overdue <span class="count" id="cUrgent">0</span></button>
+        <button class="filter-btn" data-filter="due" onclick="setFilter('due')">🟡 Due Today <span class="count" id="cDue">0</span></button>
+        <button class="filter-btn" data-filter="replied" onclick="setFilter('replied')">🟢 Replied <span class="count" id="cReplied">0</span></button>
+        <button class="filter-btn" data-filter="scheduled" onclick="setFilter('scheduled')">📅 Call Scheduled <span class="count" id="cScheduled">0</span></button>
+        <button class="filter-btn" data-filter="new" onclick="setFilter('new')">✨ New Lead <span class="count" id="cNew">0</span></button>
+        <button class="filter-btn" data-filter="snoozed" onclick="setFilter('snoozed')">💤 Snoozed <span class="count" id="cSnoozed">0</span></button>
+        <button class="filter-btn" data-filter="won" onclick="setFilter('won')">✅ Won <span class="count" id="cWon">0</span></button>
+        <button class="filter-btn" data-filter="lost" onclick="setFilter('lost')">❌ Lost <span class="count" id="cLost">0</span></button>
+        <div style="height:1px;background:var(--border);margin:8px 0;"></div>
+        <button class="filter-btn" data-filter="sequence" onclick="setFilter('sequence')" style="color:var(--green);font-weight:600;">📧 Sequence Running <span class="count" id="cSequence">0</span></button>
+        <button class="filter-btn" data-filter="no_response" onclick="setFilter('no_response')" style="color:var(--red);font-weight:600;">📋 No Response After Quote <span class="count" id="cNoResponse">0</span></button>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Pipeline Value</div>
+      <div id="pipelineValue">$0</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:3px;" id="pipelineSub">across 0 active leads</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="main-header">
+      <div>
+        <div class="main-title" id="mainTitle">All Active Leads</div>
+        <div class="main-sub" id="mainSub">Sorted by urgency</div>
+      </div>
+      <button id="exportBtn" onclick="exportCSV()" style="background:var(--navy);color:#fff;border:none;border-radius:7px;padding:9px 18px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.03em;display:none;align-items:center;gap:7px;transition:all 0.15s;" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy)'">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export CSV
+      </button>
+    </div>
+
+    <div class="search-bar">
+      <input class="search-input" type="text" placeholder="Search by name, org, or product..." id="searchInput" oninput="renderLeads()">
+    </div>
+
+    <div id="leadsList" class="leads-list"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- ADD / EDIT LEAD MODAL -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modalTitle">Add New Lead</div>
+      <button class="modal-close" onclick="closeModal('addModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Contact Name *</label>
+          <input type="text" id="f_name" placeholder="e.g. Dr. Sarah Johnson">
+        </div>
+        <div class="form-field">
+          <label>Organization</label>
+          <input type="text" id="f_org" placeholder="e.g. Stanford University">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" id="f_email" placeholder="email@org.com">
+        </div>
+        <div class="form-field">
+          <label>Quote Value ($)</label>
+          <input type="number" id="f_value" placeholder="0">
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Products Quoted</label>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;">
+          <div class="checkbox-row"><input type="checkbox" id="p1" value="Mobile Cognitive Tests"><label for="p1">Mobile Cognitive Tests</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="p2" value="EMA Platform"><label for="p2">EMA Platform</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="p3" value="Mobile Sensing App"><label for="p3">Mobile Sensing App (NeuroLogger)</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="p4" value="PVT"><label for="p4">Psychomotor Vigilance Test (PVT)</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="p5" value="Wearables Dashboard"><label for="p5">Wearables Dashboard</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="p6" value="Support & Training"><label for="p6">Support, Training & Customization</label></div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Current Stage</label>
+          <select id="f_stage">
+            <option value="new">New Lead</option>
+            <option value="emailed">Email Sent</option>
+            <option value="quote_sent" selected>Quote Sent</option>
+            <option value="call_scheduled">Call Scheduled</option>
+            <option value="call_done">Call Done</option>
+            <option value="negotiating">Negotiating</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Last Contact Date *</label>
+          <input type="date" id="f_lastContact">
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Notes</label>
+        <textarea id="f_notes" placeholder="Any context, conversation notes, or details..."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-modal-cancel" onclick="closeModal('addModal')">Cancel</button>
+        <button class="btn-modal-primary" id="saveLeadBtn" onclick="saveLead()">Add Lead</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- DRAFT EMAIL MODAL -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="emailModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="emailModalTitle">Follow-Up Email</div>
+      <button class="modal-close" onclick="closeModal('emailModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;" id="emailContext"></div>
+      <div class="email-draft">
+        <div class="email-draft-label">Suggested Email</div>
+        <div class="email-subject" id="draftSubject"></div>
+        <div class="email-body" id="draftBody"></div>
+      </div>
+      <button class="copy-btn" id="copyEmailBtn" onclick="copyEmail()">Copy Email</button>
+
+      <div class="divider-label" style="margin-top:20px;">After Sending</div>
+      <div style="font-size:13px;color:var(--text-mid);margin-bottom:10px;">What would you like to do?</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-sm primary" onclick="markFollowUpSent()">✓ Mark as Sent & Start Timer</button>
+        <button class="btn-sm" onclick="closeModal('emailModal')">Close</button>
+      </div>
+
+      <div class="divider-label">Snooze Instead</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Remind me again in:</div>
+      <div class="snooze-options">
+        <div class="snooze-opt" onclick="snooze(1)">1 day</div>
+        <div class="snooze-opt" onclick="snooze(3)">3 days</div>
+        <div class="snooze-opt" onclick="snooze(5)">5 days</div>
+        <div class="snooze-opt" onclick="snooze(7)">1 week</div>
+        <div class="snooze-opt" onclick="snooze(14)">2 weeks</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- LEAD DETAIL MODAL -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal" style="max-width:600px;">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="detailName"></div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:3px;" id="detailOrg"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="detailContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIG - HubSpot + Cloudflare Worker
+// ═══════════════════════════════════════════════════════
+
+const HS_TOKEN = localStorage.getItem('neuroux_hs_token') || '';
+const WORKER_URL = localStorage.getItem('neuroux_worker_url') || '';
+const STORAGE_KEY = 'neuroux_followup_v3';
+const PRODUCTS = ['Mobile Cognitive Tests','EMA Platform','Mobile Sensing App','PVT','Wearables Dashboard','Support & Training'];
+
+let leads = [];
+let currentFilter = 'all';
+let editingId = null;
+let emailTargetId = null;
+let isSyncing = false;
+
+const FOLLOWUP_RULES = {
+  new: 1, emailed: 3, quote_sent: 3,
+  call_scheduled: 0, call_done: 3,
+  negotiating: 5, replied: 5, snoozed: null,
+};
+
+// Map HubSpot deal stages to our internal stages
+const HS_STAGE_MAP = {
+  'appointmentscheduled': 'call_scheduled',
+  'qualifiedtobuy':       'call_done',
+  'presentationscheduled':'quote_sent',
+  'decisionmakerboughtin':'negotiating',
+  'contractsent':         'negotiating',
+  'closedwon':            'won',
+  'closedlost':           'lost',
+};
+
+// ═══════════════════════════════════════════════════════
+// HUBSPOT API
+// ═══════════════════════════════════════════════════════
+
+async function hsGet(path) {
+  const WORKER_URL = localStorage.getItem('neuroux_worker_url') || '';
+  const HS_TOKEN = localStorage.getItem('neuroux_hs_token') || '';
+  const url = WORKER_URL + '/hubspot' + path;
+  const resp = await fetch(url, {
+    headers: { 'Authorization': 'Bearer ' + HS_TOKEN }
+  });
+  if (!resp.ok) throw new Error(`HubSpot API error ${resp.status}: ${await resp.text()}`);
+  return resp.json();
+}
+
+async function fetchHubSpotDeals() {
+  // Fetch deals with associated contact info
+  const props = 'dealname,amount,dealstage,closedate,hs_lastmodifieddate,hubspot_owner_id,notes_last_updated';
+  let deals = [], after = '';
+  do {
+    const qs = `?limit=50&properties=${props}&associations=contacts${after ? '&after=' + after : ''}`;
+    const data = await hsGet(`/crm/v3/objects/deals${qs}`);
+    deals = deals.concat(data.results || []);
+    after = data.paging?.next?.after || '';
+  } while (after);
+  return deals;
+}
+
+async function fetchContact(contactId) {
+  try {
+    const data = await hsGet(`/crm/v3/objects/contacts/${contactId}?properties=firstname,lastname,email,company`);
+    return data.properties || {};
+  } catch(e) { return {}; }
+}
+
+async function syncHubSpot() {
+  // Detect file:// protocol which blocks fetch requests
+  if (window.location.protocol === 'file:') {
+    setHsStatus('error', 'Cannot sync from file:// - see instructions');
+    const banner = document.getElementById('fileBanner');
+    if (banner) banner.style.display = 'flex';
+    return;
+  }
+  if (isSyncing) return;
+  isSyncing = true;
+  setHsStatus('syncing', 'Syncing...');
+  document.getElementById('syncBtn').textContent = '⟳ Syncing...';
+
+  try {
+    const deals = await fetchHubSpotDeals();
+    let synced = 0, updated = 0;
+
+    for (const deal of deals) {
+      const p = deal.properties || {};
+      const stage = p.dealstage || '';
+      const internalStage = HS_STAGE_MAP[stage] || 'emailed';
+
+      // Skip if closed and not in our leads
+      const isClosed = stage === 'closedwon' || stage === 'closedlost';
+
+      // Get contact info
+      let contactName = p.dealname || 'Unknown';
+      let contactEmail = '';
+      let contactOrg = '';
+
+      const assocContacts = deal.associations?.contacts?.results || [];
+      if (assocContacts.length > 0) {
+        const contact = await fetchContact(assocContacts[0].id);
+        const fn = contact.firstname || '';
+        const ln = contact.lastname || '';
+        if (fn || ln) contactName = `${fn} ${ln}`.trim();
+        contactEmail = contact.email || '';
+        contactOrg = contact.company || '';
+      }
+
+      const hsId = 'hs_' + deal.id;
+      const lastMod = p.hs_lastmodifieddate
+        ? p.hs_lastmodifieddate.split('T')[0]
+        : todayStr();
+
+      const existing = leads.find(l => l.hsId === deal.id);
+      if (existing) {
+        // Update stage if changed in HubSpot
+        if (HS_STAGE_MAP[stage] && existing.stage !== internalStage) {
+          existing.stage = internalStage;
+          if (isClosed) existing.status = stage === 'closedwon' ? 'won' : 'lost';
+          addActivity(existing, `HubSpot stage updated → ${internalStage}`);
+          updated++;
+        }
+        // Update value
+        existing.value = parseFloat(p.amount) || existing.value || 0;
+        existing.name = contactName;
+        existing.org = contactOrg;
+        existing.email = contactEmail;
+      } else {
+        // New deal from HubSpot
+        const lead = {
+          id: 'hs_' + deal.id,
+          hsId: deal.id,
+          name: contactName,
+          org: contactOrg,
+          email: contactEmail,
+          value: parseFloat(p.amount) || 0,
+          products: [],
+          stage: internalStage,
+          lastContact: lastMod,
+          followUpCount: 0,
+          status: isClosed ? (stage === 'closedwon' ? 'won' : 'lost') : null,
+          snoozeUntil: null,
+          notes: '',
+          activity: [{ date: todayStr(), text: 'Imported from HubSpot - stage: ' + (stage || 'unknown') }],
+          fromHubSpot: true,
+        };
+        leads.unshift(lead);
+        synced++;
+      }
+    }
+
+    save();
+    renderAll();
+    setHsStatus('connected', `Connected · ${synced} new, ${updated} updated`);
+    setTimeout(() => setHsStatus('connected', 'Connected to HubSpot'), 4000);
+  } catch(e) {
+    console.error('HubSpot sync error:', e);
+    setHsStatus('error', 'Sync failed - check console');
+  }
+
+  isSyncing = false;
+  document.getElementById('syncBtn').textContent = '⟳ Sync HubSpot';
+}
+
+function setHsStatus(state, text) {
+  const dot = document.getElementById('hsDot');
+  const label = document.getElementById('hsStatusText');
+  if (!dot || !label) return;
+  label.textContent = text;
+  dot.style.background = state === 'connected' ? '#4ade80'
+    : state === 'syncing' ? '#fbbf24'
+    : state === 'error' ? '#f87171'
+    : '#6b7280';
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+
+async function init() {
+  document.getElementById('todayLabel').textContent = new Date().toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'});
+  document.getElementById('f_lastContact').value = todayStr();
+
+  // Load saved data
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) leads = JSON.parse(raw) || [];
+  } catch(e) { leads = []; }
+
+  renderAll();
+
+  // Check for missing config
+  const savedToken = localStorage.getItem('neuroux_hs_token');
+  const savedWorker = localStorage.getItem('neuroux_worker_url');
+  
+  if (!savedToken || !savedWorker) {
+    setHsStatus('error', 'Setup required');
+    openModal('settingsModal');
+    return;
+  }
+
+  // Auto-sync on load
+  setHsStatus('syncing', 'Connecting...');
+  setTimeout(() => syncHubSpot(), 800);
+}
+
+// ═══════════════════════════════════════════════════════
+// STATUS LOGIC
+// ═══════════════════════════════════════════════════════
+
+function computeStatus(lead) {
+  if (lead.status === 'won' || lead.status === 'lost') return lead.status;
+  if (lead.status === 'snoozed') {
+    if (lead.snoozeUntil && todayStr() >= lead.snoozeUntil) return getDueStatus(lead);
+    return 'snoozed';
+  }
+  if (lead.stage === 'new') return 'new';
+  if (lead.stage === 'call_scheduled') return 'scheduled';
+  if (lead.status === 'replied') return 'replied';
+  return getDueStatus(lead);
+}
+
+function getDueStatus(lead) {
+  const days = FOLLOWUP_RULES[lead.stage] ?? 3;
+  const diff = daysDiff(lead.lastContact, todayStr());
+  if (diff > days) return 'urgent';
+  if (diff === days) return 'due';
+  return 'pending';
+}
+
+function daysDiff(from, to) {
+  const a = new Date(from), b = new Date(to);
+  return Math.floor((b - a) / 86400000);
+}
+
+function daysUntilFollowup(lead) {
+  const days = FOLLOWUP_RULES[lead.stage] ?? 3;
+  const diff = daysDiff(lead.lastContact, todayStr());
+  return days - diff;
+}
+
+function statusLabel(s) {
+  const map = { urgent:'Overdue', due:'Due Today', replied:'Replied', scheduled:'Call Scheduled', new:'New Lead', won:'Won', lost:'Lost', snoozed:'Snoozed', pending:'On Track' };
+  return map[s] || s;
+}
+
+function statusOrder(s) {
+  const o = { urgent:0, due:1, replied:2, scheduled:3, new:4, snoozed:5, pending:6, won:7, lost:8 };
+  return o[s] ?? 99;
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════
+
+function renderAll() { renderStats(); renderLeads(); }
+
+function renderStats() {
+  const active = leads.filter(l => !['won','lost'].includes(computeStatus(l)));
+  const overdue = leads.filter(l => computeStatus(l) === 'urgent').length;
+  const dueToday = leads.filter(l => computeStatus(l) === 'due').length;
+
+  document.getElementById('statOverdue').textContent = overdue;
+  document.getElementById('statDueToday').textContent = dueToday;
+
+  const noResponseLeads = leads.filter(l => isNoResponse(l));
+  const counts = {
+    all: active.length,
+    urgent: overdue,
+    due: dueToday,
+    replied: leads.filter(l=>computeStatus(l)==='replied').length,
+    scheduled: leads.filter(l=>computeStatus(l)==='scheduled').length,
+    new: leads.filter(l=>computeStatus(l)==='new').length,
+    snoozed: leads.filter(l=>computeStatus(l)==='snoozed').length,
+    won: leads.filter(l=>computeStatus(l)==='won').length,
+    lost: leads.filter(l=>computeStatus(l)==='lost').length,
+    noResponse: noResponseLeads.length,
+    sequence: leads.filter(l=>l.sequenceRunning).length,
+  };
+  Object.entries(counts).forEach(([k,v]) => {
+    const el = document.getElementById('c' + k.charAt(0).toUpperCase() + k.slice(1));
+    if (el) el.textContent = v;
+  });
+
+  const pipeline = active.reduce((s,l) => s + (parseFloat(l.value)||0), 0);
+  document.getElementById('pipelineValue').textContent = '$' + pipeline.toLocaleString();
+  document.getElementById('pipelineSub').textContent = `across ${active.length} active lead${active.length !== 1 ? 's' : ''}`;
+}
+
+function renderLeads() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const titles = {
+    all:'All Active Leads', urgent:'Overdue - Follow Up Now', due:'Due Today',
+    replied:'Replied - Schedule Next Step', scheduled:'Call Scheduled', new:'New Leads',
+    snoozed:'Snoozed', won:'Won Deals', lost:'Lost Deals',
+    no_response:'No Response After First Quote', sequence:'Sequence Running'
+  };
+  document.getElementById('mainTitle').textContent = titles[currentFilter] || 'All Leads';
+
+  const exportBtn = document.getElementById('exportBtn');
+  if (exportBtn) exportBtn.style.display = currentFilter === 'no_response' ? 'flex' : 'none';
+
+  let filtered = leads.filter(l => {
+    const s = computeStatus(l);
+    if (currentFilter === 'all') return !['won','lost','snoozed'].includes(s) && !l.sequenceRunning;
+    if (currentFilter === 'no_response') return isNoResponse(l);
+    if (currentFilter === 'sequence') return l.sequenceRunning === true;
+    return s === currentFilter;
+  });
+
+  if (q) filtered = filtered.filter(l =>
+    l.name.toLowerCase().includes(q) ||
+    (l.org||'').toLowerCase().includes(q) ||
+    (l.products||[]).join(' ').toLowerCase().includes(q)
+  );
+
+  filtered.sort((a,b) => statusOrder(computeStatus(a)) - statusOrder(computeStatus(b)));
+
+  const el = document.getElementById('leadsList');
+  if (filtered.length === 0) {
+    const isSyncingNow = isSyncing;
+    el.innerHTML = `<div class="empty-state">
+      <div class="icon">${isSyncingNow ? '⟳' : '📭'}</div>
+      <h3>${isSyncingNow ? 'Syncing with HubSpot...' : 'Nothing here'}</h3>
+      <p>${isSyncingNow ? 'Fetching your deals and contacts.' : 'No leads match this filter.<br>Click "+ Add Lead" or sync HubSpot above.'}</p>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML = filtered.map((l, i) => renderCard(l, i)).join('');
+}
+
+function renderCard(l, i) {
+  const s = computeStatus(l);
+  const diff = daysDiff(l.lastContact, todayStr());
+  const daysAgoText = diff === 0 ? 'Today' : diff === 1 ? 'Yesterday' : `${diff}d ago`;
+  const nextDays = daysUntilFollowup(l);
+
+  let timelineText = '';
+  if (s === 'urgent') timelineText = `<strong style="color:var(--red)">Overdue by ${diff - (FOLLOWUP_RULES[l.stage]??3)}d</strong> · Last contact ${daysAgoText}`;
+  else if (s === 'due') timelineText = `<strong style="color:var(--amber)">Follow up today</strong> · Last contact ${daysAgoText}`;
+  else if (s === 'replied') timelineText = `<strong>Replied</strong> · Last contact ${daysAgoText}`;
+  else if (s === 'scheduled') timelineText = `<strong>Call scheduled</strong> · Added ${daysAgoText}`;
+  else if (s === 'new') timelineText = `<strong>New today</strong>`;
+  else if (s === 'snoozed') timelineText = `Snoozed until <strong>${l.snoozeUntil}</strong>`;
+  else timelineText = `Next follow-up in <strong>${nextDays}d</strong> · Last contact ${daysAgoText}`;
+
+  const products = (l.products||[]).slice(0,3).map(p => `<span class="tag tag-product">${p}</span>`).join('');
+  const stageLabel = { new:'New Lead', emailed:'Email Sent', quote_sent:'Quote Sent', call_scheduled:'Call Scheduled', call_done:'Call Done', negotiating:'Negotiating', replied:'Replied' }[l.stage] || l.stage;
+  const hsBadge = l.fromHubSpot ? `<span class="tag" style="background:#fff3e0;color:#e65100;border:1px solid #ffcc80;">HubSpot</span>` : '';
+
+  // Sequence info
+  const seqDaysSinceStart = l.sequenceStartDate ? daysDiff(l.sequenceStartDate, todayStr()) : 0;
+  const seqNextDay = l.sequenceRunning ? getNextSequenceDay(seqDaysSinceStart) : null;
+  const seqBadge = l.sequenceRunning
+    ? `<span class="seq-badge"><span class="seq-dot"></span>Sequence Running${seqNextDay ? ' - Next email day ' + seqNextDay : ' - Complete'}</span>`
+    : '';
+
+
+  const actionBtns = l.sequenceRunning
+    ? `<button class="btn-sm seq-on" onclick="event.stopPropagation();toggleSequence('${l.id}')">📧 Sequence ON</button>
+       <button class="btn-sm" onclick="event.stopPropagation();openDetail('${l.id}')">View</button>`
+    : s === 'urgent' || s === 'due'
+    ? `<button class="btn-sm primary" onclick="event.stopPropagation();openEmailDraft('${l.id}')">✍ Draft Follow-Up</button>
+       <button class="btn-sm" onclick="event.stopPropagation();openSnooze('${l.id}')">💤 Snooze</button>`
+    : s === 'replied'
+    ? `<button class="btn-sm green" onclick="event.stopPropagation();logActivity('${l.id}','replied')">✓ Log Reply</button>
+       <button class="btn-sm primary" onclick="event.stopPropagation();openEmailDraft('${l.id}')">✍ Draft Next Email</button>`
+    : s === 'scheduled'
+    ? `<button class="btn-sm primary" onclick="event.stopPropagation();markCallDone('${l.id}')">✓ Call Done</button>`
+    : s === 'new'
+    ? `<button class="btn-sm primary" onclick="event.stopPropagation();openEmailDraft('${l.id}')">✍ Draft Intro Email</button>`
+    : `<button class="btn-sm" onclick="event.stopPropagation();openEmailDraft('${l.id}')">✍ Draft Email</button>`;
+
+  return `
+    <div class="lead-card ${s}" style="animation-delay:${i*0.04}s" onclick="openDetail('${l.id}')">
+      <div class="lead-top">
+        <div class="lead-info">
+          <div class="lead-name">${escHtml(l.name)}</div>
+          <div class="lead-org">${escHtml(l.org||'')}</div>
+          <div class="lead-tags">
+            ${products}
+            <span class="tag tag-stage">${stageLabel}</span>
+            ${hsBadge}
+            ${seqBadge}
+          </div>
+
+        </div>
+        <div class="lead-right">
+          <span class="status-pill ${s}">${statusLabel(s)}</span>
+          ${l.value ? `<span class="lead-value">$${parseFloat(l.value).toLocaleString()}</span>` : ''}
+        </div>
+      </div>
+      <div class="lead-bottom">
+        <div class="lead-timeline">${timelineText}</div>
+        <div class="lead-actions">${actionBtns}
+          <button class="btn-sm" onclick="event.stopPropagation();openEdit('${l.id}')">Edit</button>
+          <button class="btn-sm red" onclick="event.stopPropagation();deleteLead('${l.id}')">×</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// DETAIL MODAL
+// ═══════════════════════════════════════════════════════
+
+function openDetail(id) {
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  const s = computeStatus(l);
+  document.getElementById('detailName').textContent = l.name;
+  document.getElementById('detailOrg').textContent = l.org || '';
+
+  const actLog = (l.activity||[]).slice().reverse().map(a =>
+    `<div class="activity-item"><div class="activity-date">${a.date}</div><div class="activity-text">${escHtml(a.text)}</div></div>`
+  ).join('');
+
+  const hsLink = l.hsId
+    ? `<a href="https://app.hubspot.com/contacts/deals/${l.hsId}" target="_blank" style="font-size:12px;color:var(--blue);display:inline-flex;align-items:center;gap:4px;margin-bottom:12px;">↗ View in HubSpot</a>`
+    : '';
+
+  document.getElementById('detailContent').innerHTML = `
+    ${hsLink}
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px;">Status</div>
+        <span class="status-pill ${s}">${statusLabel(s)}</span>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px;">Value</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:500;">$${parseFloat(l.value||0).toLocaleString()}</div>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:4px;">Follow-Ups</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:500;">${l.followUpCount||0}</div>
+      </div>
+    </div>
+    ${l.email ? `<div style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">📧 <a href="mailto:${l.email}" style="color:var(--blue);">${l.email}</a></div>` : ''}
+    ${l.notes ? `<div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;padding:12px;font-size:13px;color:var(--text-mid);margin-bottom:16px;line-height:1.6;"><strong>Notes:</strong> ${escHtml(l.notes)}</div>` : ''}
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;"><strong>Products:</strong> ${(l.products||[]).join(', ') || 'None specified'}</div>
+    <div class="activity-log">
+      <div class="activity-log-title">Activity Log</div>
+      ${actLog || '<div style="color:var(--text-muted);font-size:13px;">No activity yet.</div>'}
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+      <button class="btn-sm primary" onclick="closeModal('detailModal');openEmailDraft('${l.id}')">✍ Draft Email</button>
+      <button class="${l.sequenceRunning ? 'btn-sm seq-on' : 'btn-sm'}" onclick="toggleSequence('${l.id}');openDetail('${l.id}')">${l.sequenceRunning ? '📧 Sequence ON - Turn Off' : '📧 Start Sequence'}</button>
+      <button class="btn-sm green" onclick="markWon('${l.id}')">✅ Mark Won</button>
+      <button class="btn-sm red" onclick="markLost('${l.id}')">❌ Mark Lost</button>
+      <button class="btn-sm" onclick="closeModal('detailModal');openEdit('${l.id}')">✏ Edit</button>
+    </div>
+  `;
+  openModal('detailModal');
+}
+
+// ═══════════════════════════════════════════════════════
+// EMAIL DRAFT
+// ═══════════════════════════════════════════════════════
+
+function openEmailDraft(id) {
+  emailTargetId = id;
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  const s = computeStatus(l);
+  const diff = daysDiff(l.lastContact, todayStr());
+  const products = (l.products||[]).join(', ') || 'our platform';
+
+  document.getElementById('emailModalTitle').textContent = 'Draft Email - ' + l.name;
+  document.getElementById('emailContext').textContent = `${l.name} · ${l.org||''} · ${l.followUpCount||0} follow-ups sent · Last contact ${diff === 0 ? 'today' : diff + 'd ago'}`;
+
+  let subject = '', body = '';
+  const firstName = l.name.split(' ').filter(Boolean).pop();
+
+  if (s === 'new' || l.stage === 'new' || l.stage === 'emailed') {
+    subject = 'NeuroUX - Following up on your inquiry';
+    body = 'Hi ' + firstName + ',\n\nThank you for your interest in NeuroUX! I wanted to follow up on your inquiry and share a bit more about how we can support your research.\n\nWe specialize in ' + products + ', and I would love to schedule a quick 20-minute call to understand your specific needs and show you a demo.\n\nAre you available this week or next?\n\nLooking forward to connecting,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';
+  } else if (l.stage === 'quote_sent' && (l.followUpCount||0) === 0) {
+    subject = 'Re: NeuroUX Quote - Quick check-in';
+    body = 'Hi ' + firstName + ',\n\nI hope you are doing well. I wanted to follow up on the quote I sent over for ' + products + '.\n\nI would love to hear your thoughts - do you have any questions or would you like to walk through the proposal on a quick call?\n\nHappy to adjust anything based on your specific needs.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';
+  } else if (l.stage === 'quote_sent' && (l.followUpCount||0) >= 1) {
+    subject = 'NeuroUX - Still here if you need us';
+    body = 'Hi ' + firstName + ',\n\nI know you are likely busy, so I will keep this brief - I am circling back on the NeuroUX quote for ' + products + '.\n\nIf the timing is not right or if there are any concerns I can address, please do let me know. I am happy to revisit the scope or pricing to better fit your needs.\n\nNo pressure at all - just want to make sure you have everything you need to make a decision.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';
+  } else if (l.stage === 'call_done') {
+    subject = 'NeuroUX - Next steps after our call';
+    body = 'Hi ' + firstName + ',\n\nThank you for taking the time to speak with me - it was great learning more about your research goals.\n\nAs discussed, I have shared the quote for ' + products + '. Please take a look and let me know if you have any questions or would like to adjust anything.\n\nI would suggest we reconnect briefly once you have had a chance to review - does later this week work for you?\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';
+  } else if (l.stage === 'negotiating' || s === 'replied') {
+    subject = 'Re: NeuroUX - Following up on our discussion';
+    const notesTxt = l.notes ? 'Regarding your query: ' + l.notes.substring(0,80) + '...' : 'Please let me know if you have any further questions or anything I can clarify.';
+    body = 'Hi ' + firstName + ',\n\nThank you for your response! I wanted to follow up to make sure we are aligned on next steps.\n\n' + notesTxt + '\n\nLooking forward to moving this forward.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';
+  } else {
+    subject = 'NeuroUX - Checking in';
+    body = 'Hi ' + firstName + ',\n\nI hope all is well. I am reaching out to check in on where things stand with NeuroUX.\n\nPlease do not hesitate to reach out if you have any questions or if there is anything I can help with.\n\nLooking forward to hearing from you.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com';
+  }
+
+  document.getElementById('draftSubject').textContent = subject;
+  document.getElementById('draftBody').textContent = body;
+  document.getElementById('copyEmailBtn').textContent = 'Copy Email';
+  document.getElementById('copyEmailBtn').classList.remove('copied');
+  openModal('emailModal');
+}
+
+function copyEmail() {
+  const subj = document.getElementById('draftSubject').textContent;
+  const body = document.getElementById('draftBody').textContent;
+  navigator.clipboard.writeText(`Subject: ${subj}
+
+${body}`).then(() => {
+    const btn = document.getElementById('copyEmailBtn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Email'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function markFollowUpSent() {
+  if (!emailTargetId) return;
+  const l = leads.find(x => x.id === emailTargetId);
+  if (!l) return;
+  l.lastContact = todayStr();
+  l.followUpCount = (l.followUpCount||0) + 1;
+  l.status = null;
+  l.snoozeUntil = null;
+  addActivity(l, `Follow-up #${l.followUpCount} sent`);
+  save(); renderAll();
+  closeModal('emailModal');
+}
+
+// ═══════════════════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════════════════
+
+function openSnooze(id) {
+  emailTargetId = id;
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  document.getElementById('emailModalTitle').textContent = 'Snooze - ' + l.name;
+  document.getElementById('emailContext').textContent = 'Choose when to be reminded about this lead:';
+  document.getElementById('draftSubject').textContent = '';
+  document.getElementById('draftBody').textContent = '';
+  openModal('emailModal');
+}
+
+function snooze(days) {
+  if (!emailTargetId) return;
+  const l = leads.find(x => x.id === emailTargetId);
+  if (!l) return;
+  const d = new Date(); d.setDate(d.getDate() + days);
+  l.snoozeUntil = d.toISOString().split('T')[0];
+  l.status = 'snoozed';
+  addActivity(l, 'Snoozed for ' + days + ' day' + (days>1?'s':'') + ' - reminder on ' + l.snoozeUntil);
+  save(); renderAll();
+  closeModal('emailModal');
+}
+
+function markCallDone(id) {
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  l.stage = 'call_done';
+  l.lastContact = todayStr();
+  l.status = null;
+  addActivity(l, 'Call completed');
+  save(); renderAll();
+}
+
+function logActivity(id, type) {
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  if (type === 'replied') {
+    l.status = 'replied';
+    l.lastContact = todayStr();
+    addActivity(l, 'Lead replied - follow-up scheduled');
+    save(); renderAll();
+  }
+}
+
+function markWon(id) {
+  if (!confirm('Mark this deal as Won?')) return;
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  l.status = 'won';
+  addActivity(l, '🎉 Deal marked as Won!');
+  save(); renderAll();
+  closeModal('detailModal');
+}
+
+function markLost(id) {
+  if (!confirm('Mark this deal as Lost?')) return;
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  l.status = 'lost';
+  addActivity(l, 'Deal marked as Lost');
+  save(); renderAll();
+  closeModal('detailModal');
+}
+
+function deleteLead(id) {
+  if (!confirm('Remove this lead?')) return;
+  leads = leads.filter(x => x.id !== id);
+  save(); renderAll();
+}
+
+// ═══════════════════════════════════════════════════════
+// ADD / EDIT
+// ═══════════════════════════════════════════════════════
+
+function openAddModal() {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'Add New Lead';
+  document.getElementById('saveLeadBtn').textContent = 'Add Lead';
+  document.getElementById('f_name').value = '';
+  document.getElementById('f_org').value = '';
+  document.getElementById('f_email').value = '';
+  document.getElementById('f_value').value = '';
+  document.getElementById('f_notes').value = '';
+  document.getElementById('f_stage').value = 'quote_sent';
+  document.getElementById('f_lastContact').value = todayStr();
+  ['p1','p2','p3','p4','p5','p6'].forEach(id => document.getElementById(id).checked = false);
+  openModal('addModal');
+}
+
+function openEdit(id) {
+  editingId = id;
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  document.getElementById('modalTitle').textContent = 'Edit Lead';
+  document.getElementById('saveLeadBtn').textContent = 'Save Changes';
+  document.getElementById('f_name').value = l.name;
+  document.getElementById('f_org').value = l.org||'';
+  document.getElementById('f_email').value = l.email||'';
+  document.getElementById('f_value').value = l.value||'';
+  document.getElementById('f_notes').value = l.notes||'';
+  document.getElementById('f_stage').value = l.stage;
+  document.getElementById('f_lastContact').value = l.lastContact;
+  const ps = ['Mobile Cognitive Tests','EMA Platform','Mobile Sensing App','PVT','Wearables Dashboard','Support & Training'];
+  ['p1','p2','p3','p4','p5','p6'].forEach((pid,i) => {
+    document.getElementById(pid).checked = (l.products||[]).includes(ps[i]);
+  });
+  openModal('addModal');
+}
+
+function saveLead() {
+  const name = document.getElementById('f_name').value.trim();
+  if (!name) { alert('Please enter a contact name.'); return; }
+  const ps = ['Mobile Cognitive Tests','EMA Platform','Mobile Sensing App','PVT','Wearables Dashboard','Support & Training'];
+  const products = ['p1','p2','p3','p4','p5','p6']
+    .map((pid,i) => document.getElementById(pid).checked ? ps[i] : null)
+    .filter(Boolean);
+
+  if (editingId) {
+    const l = leads.find(x => x.id === editingId);
+    if (!l) return;
+    const stageChanged = l.stage !== document.getElementById('f_stage').value;
+    l.name = name;
+    l.org = document.getElementById('f_org').value.trim();
+    l.email = document.getElementById('f_email').value.trim();
+    l.value = parseFloat(document.getElementById('f_value').value)||0;
+    l.notes = document.getElementById('f_notes').value.trim();
+    l.stage = document.getElementById('f_stage').value;
+    l.lastContact = document.getElementById('f_lastContact').value;
+    l.products = products;
+    if (stageChanged) { l.status = null; addActivity(l, `Stage updated to: ${l.stage}`); }
+  } else {
+    leads.unshift({
+      id: uid(), hsId: null, name, fromHubSpot: false,
+      org: document.getElementById('f_org').value.trim(),
+      email: document.getElementById('f_email').value.trim(),
+      value: parseFloat(document.getElementById('f_value').value)||0,
+      notes: document.getElementById('f_notes').value.trim(),
+      stage: document.getElementById('f_stage').value,
+      lastContact: document.getElementById('f_lastContact').value,
+      products, followUpCount: 0, status: null, snoozeUntil: null,
+      sequenceRunning: false, sequenceStartDate: null,
+      activity: [{ date: todayStr(), text: 'Lead added manually' }]
+    });
+  }
+  save(); renderAll();
+  closeModal('addModal');
+}
+
+// ═══════════════════════════════════════════════════════
+// NO RESPONSE + EXPORT
+// ═══════════════════════════════════════════════════════
+
+function isNoResponse(l) {
+  const s = computeStatus(l);
+  if (['won','lost','replied'].includes(s)) return false;
+  if (l.status === 'replied') return false;
+  return l.stage === 'quote_sent' || (l.followUpCount||0) >= 1;
+}
+
+function exportCSV() {
+  const noResp = leads.filter(l => isNoResponse(l));
+  if (noResp.length === 0) { alert('No leads in this list to export.'); return; }
+  const headers = ['Name','Organization','Email','Products Quoted','Quote Value ($)','Stage','Last Contact','Follow-Ups Sent','Days Since Last Contact','Status','In HubSpot'];
+  const rows = noResp.map(l => {
+    const diff = daysDiff(l.lastContact, todayStr());
+    return [
+      l.name, l.org||'', l.email||'',
+      (l.products||[]).join(' | '),
+      l.value||0,
+      ({quote_sent:'Quote Sent',emailed:'Email Sent',call_done:'Call Done',negotiating:'Negotiating',new:'New Lead'}[l.stage]||l.stage),
+      l.lastContact, l.followUpCount||0, diff,
+      computeStatus(l)==='urgent'?'Overdue':computeStatus(l)==='due'?'Due Today':'Pending',
+      l.fromHubSpot ? 'Yes' : 'No'
+    ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(',');
+  });
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `NeuroUX_No_Response_${todayStr()}.csv`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════
+
+function toggleSequence(id) {
+  const l = leads.find(x => x.id === id);
+  if (!l) return;
+  if (l.sequenceRunning) {
+    // Turn off
+    l.sequenceRunning = false;
+    l.sequenceStartDate = null;
+    l.status = null;
+    addActivity(l, 'Email sequence stopped');
+  } else {
+    // Turn on
+    l.sequenceRunning = true;
+    l.sequenceStartDate = todayStr();
+    l.status = 'sequence';
+    addActivity(l, 'Email sequence started - emails scheduled for Day 3, 10, 16');
+  }
+  save(); renderAll();
+  closeModal('detailModal');
+}
+
+function getNextSequenceDay(daysSinceStart) {
+  const days = [3, 10, 16];
+  for (const d of days) {
+    if (daysSinceStart < d) return d;
+  }
+  return null; // sequence complete
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  renderLeads();
+}
+
+function addActivity(lead, text) {
+  lead.activity = lead.activity || [];
+  lead.activity.push({ date: todayStr(), text });
+}
+
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function uid() { return 'l_' + Date.now() + '_' + Math.random().toString(36).slice(2,6); }
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(leads)); } catch(e){} }
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+init();
+</script>
+
+<!-- SETTINGS MODAL -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-head">
+      <div class="modal-title">Connection Settings</div>
+      <button class="modal-close" onclick="closeModal('settingsModal')">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6;">Enter your credentials below. These are stored securely in your browser only and never shared anywhere.</p>
+      <div class="form-field">
+        <label>HubSpot API Token</label>
+        <input type="password" id="s_hstoken" placeholder="pat-na2-..." />
+      </div>
+      <div class="form-field">
+        <label>Cloudflare Worker URL</label>
+        <input type="text" id="s_worker" placeholder="https://your-worker.workers.dev" />
+      </div>
+      <div class="form-actions">
+        <button class="btn-modal-cancel" onclick="closeModal('settingsModal')">Cancel</button>
+        <button class="btn-modal-primary" onclick="saveSettings()">Save & Connect</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
