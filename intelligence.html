@@ -3,1039 +3,677 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroUX · Deal Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<title>NeuroUX · Founder Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:#f9f8f5; --bg2:#ffffff; --bg3:#f2f1ed; --bg4:#eae9e3;
-  --line:#e5e3db; --line2:#d4d2c8;
-  --ink:#18181c; --ink2:#38383f; --soft:#6b6b78; --muted:#9999a8; --dim:#c4c4d0;
-  --gold:#b07828; --gold2:#d4a040; --goldbg:rgba(176,120,40,0.07); --goldbd:rgba(176,120,40,0.18);
-  --red:#c03838; --redbg:rgba(192,56,56,0.06); --redbd:rgba(192,56,56,0.16);
-  --grn:#1e7a50; --grnbg:rgba(30,122,80,0.06); --grnbd:rgba(30,122,80,0.16);
-  --blu:#2050b8; --blubg:rgba(32,80,184,0.06); --blubd:rgba(32,80,184,0.16);
-  --amb:#b06010; --ambbg:rgba(176,96,16,0.06); --ambbd:rgba(176,96,16,0.16);
-  --prp:#6030b0; --prpbg:rgba(96,48,176,0.06); --prpbd:rgba(96,48,176,0.16);
-  --sh1:0 1px 3px rgba(24,24,28,0.05),0 1px 2px rgba(24,24,28,0.04);
-  --sh2:0 4px 20px rgba(24,24,28,0.08); --sh3:0 20px 60px rgba(24,24,28,0.12);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f8f7f3;--bg2:#ffffff;--bg3:#f1f0ea;--bg4:#e8e7df;
+  --line:#e2e0d6;--line2:#d0cec2;
+  --ink:#16161a;--ink2:#34343c;--soft:#64646f;--muted:#96969f;--dim:#c0c0c8;
+  --gold:#a87020;--gold2:#cc9038;--goldbg:rgba(168,112,32,0.07);--goldbd:rgba(168,112,32,0.2);
+  --red:#b83030;--redbg:rgba(184,48,48,0.06);--redbd:rgba(184,48,48,0.18);
+  --grn:#1a7248;--grnbg:rgba(26,114,72,0.06);--grnbd:rgba(26,114,72,0.18);
+  --blu:#1848a8;--blubg:rgba(24,72,168,0.06);--blubd:rgba(24,72,168,0.18);
+  --amb:#a05808;--ambbg:rgba(160,88,8,0.06);--ambbd:rgba(160,88,8,0.18);
+  --sh1:0 1px 4px rgba(22,22,26,0.06),0 1px 2px rgba(22,22,26,0.04);
+  --sh2:0 4px 24px rgba(22,22,26,0.09);--sh3:0 20px 64px rgba(22,22,26,0.13);
 }
 html,body{min-height:100%;}
 body{background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif;font-size:13px;-webkit-font-smoothing:antialiased;}
 
-/* HEADER */
-.hdr{background:var(--bg2);border-bottom:1px solid var(--line);padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50;box-shadow:var(--sh1);}
-.hdr-left{display:flex;align-items:center;gap:16px;}
-.hdr-hex{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--gold2));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:grid;place-items:center;}
-.hdr-hex-i{width:13px;height:13px;background:#fff;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
-.hdr-brand{font-weight:600;font-size:15px;letter-spacing:0.04em;}
-.hdr-div{width:1px;height:20px;background:var(--line);}
-.hdr-title{font-family:'Instrument Serif',serif;font-size:17px;color:var(--soft);font-style:italic;}
-.hdr-right{display:flex;align-items:center;gap:8px;}
-.hdr-date{font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.06em;}
-.hbtn{display:flex;align-items:center;gap:6px;border:none;border-radius:8px;padding:7px 16px;font-family:'Geist',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.15s;}
-.hbtn.dark{background:var(--ink);color:#fff;} .hbtn.dark:hover{background:var(--ink2);}
-.hbtn.dark.syn{background:var(--gold);}
-.hbtn.light{background:var(--bg3);border:1px solid var(--line);color:var(--soft);} .hbtn.light:hover{background:var(--bg4);color:var(--ink);}
-.hbtn.gold{background:var(--gold);color:#fff;} .hbtn.gold:hover{background:var(--gold2);}
+/* ── HEADER ── */
+.hdr{background:var(--bg2);border-bottom:1px solid var(--line);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:50;box-shadow:var(--sh1);}
+.hdr-l{display:flex;align-items:center;gap:14px;}
+.logo{width:34px;height:34px;background:linear-gradient(135deg,var(--gold),var(--gold2));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:grid;place-items:center;flex-shrink:0;}
+.logo-i{width:14px;height:14px;background:#fff;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.logo-text{display:flex;flex-direction:column;gap:1px;}
+.logo-name{font-weight:700;font-size:14px;letter-spacing:0.05em;color:var(--ink);}
+.logo-sub{font-family:'Geist Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
+.hdr-div{width:1px;height:22px;background:var(--line);}
+.hdr-title{font-family:'Instrument Serif',serif;font-size:18px;color:var(--soft);font-style:italic;}
+.hdr-r{display:flex;align-items:center;gap:8px;}
+.hdr-ts{font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.05em;}
+.btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:8px;padding:7px 15px;font-family:'Geist',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.15s;white-space:nowrap;width:auto;}
+.btn-dark{background:var(--ink);color:#fff;} .btn-dark:hover{background:var(--ink2);}
+.btn-dark.loading{background:var(--gold);width:auto;}
+.btn-light{background:var(--bg3);border:1px solid var(--line);color:var(--soft);} .btn-light:hover{background:var(--bg4);color:var(--ink);}
+.btn-gold{background:var(--gold);color:#fff;border:none;} .btn-gold:hover{background:var(--gold2);}
 
-/* AI STATUS BAR */
-.ai-bar{background:var(--goldbg);border-bottom:1px solid var(--goldbd);padding:8px 36px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--gold);}
-.ai-bar.hidden{display:none;}
-.ai-progress{display:flex;align-items:center;gap:8px;}
-.ai-prog-track{width:200px;height:4px;background:var(--goldbd);border-radius:2px;overflow:hidden;}
-.ai-prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width 0.3s ease;}
-
-/* MODALS */
-.mo{display:none;position:fixed;inset:0;background:rgba(24,24,28,0.4);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
+/* ── MODALS ── */
+.mo{display:none;position:fixed;inset:0;background:rgba(22,22,26,0.45);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
 .mo.open{display:flex;}
-.md{background:var(--bg2);border:1px solid var(--line);border-radius:14px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:var(--sh3);animation:mi 0.2s ease both;}
-.md::-webkit-scrollbar{width:3px;} .md::-webkit-scrollbar-thumb{background:var(--line2);}
-.md-top{padding:20px 24px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
-.md-ttl{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
-.mclose{background:var(--bg3);border:1px solid var(--line);border-radius:6px;font-size:14px;cursor:pointer;color:var(--muted);padding:3px 8px;transition:all 0.12s;}
-.mclose:hover{background:var(--bg4);color:var(--ink);}
+.md{background:var(--bg2);border:1px solid var(--line);border-radius:14px;width:100%;max-width:460px;max-height:88vh;overflow-y:auto;box-shadow:var(--sh3);animation:mi 0.2s ease both;}
+.md-h{padding:20px 24px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.md-t{font-family:'Instrument Serif',serif;font-size:19px;color:var(--ink);}
+.mcls{background:var(--bg3);border:1px solid var(--line);border-radius:6px;font-size:14px;cursor:pointer;color:var(--muted);padding:3px 8px;transition:all 0.12s;}
+.mcls:hover{background:var(--bg4);color:var(--ink);}
 .mb{padding:18px 24px 24px;}
-.ff{margin-bottom:13px;}
+.ff{margin-bottom:12px;}
 .ff label{display:block;font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
-.ff input,.ff select,.ff textarea{width:100%;background:var(--bg3);border:1.5px solid var(--line);border-radius:8px;padding:9px 12px;font-family:'Geist',sans-serif;font-size:13px;color:var(--ink);outline:none;transition:all 0.15s;}
-.ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--gold);background:var(--bg2);box-shadow:0 0 0 3px var(--goldbg);}
-.ff textarea{resize:vertical;min-height:64px;line-height:1.6;}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
-.fa{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
-.fpri{background:var(--gold);color:#fff;border:none;border-radius:8px;padding:9px 22px;font-family:'Geist',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;}
-.fpri:hover{background:var(--gold2);}
-.fcan{background:none;border:1.5px solid var(--line);color:var(--soft);border-radius:8px;padding:9px 16px;font-family:'Geist',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;}
-.fcan:hover{background:var(--bg3);}
-.ai-lookup-row{display:flex;align-items:center;gap:8px;background:var(--goldbg);border:1px solid var(--goldbd);border-radius:8px;padding:10px 12px;margin-bottom:14px;}
-.ai-lookup-row span{font-size:12px;color:var(--gold);flex:1;line-height:1.5;}
-.ai-lookup-btn{background:var(--gold);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;font-family:'Geist',sans-serif;}
-.ai-lookup-btn:hover{background:var(--gold2);}
-.ai-lookup-btn:disabled{opacity:0.5;cursor:default;}
-.ai-result-box{background:var(--grnbg);border:1px solid var(--grnbd);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--grn);line-height:1.6;display:none;}
+.ff input{width:100%;background:var(--bg3);border:1.5px solid var(--line);border-radius:8px;padding:9px 12px;font-family:'Geist Mono',monospace;font-size:12px;color:var(--ink);outline:none;transition:all 0.15s;}
+.ff input:focus{border-color:var(--gold);background:var(--bg2);box-shadow:0 0 0 3px var(--goldbg);}
+.mfa{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
+.fpri{background:var(--gold);color:#fff;border:none;border-radius:8px;padding:9px 22px;font-family:'Geist',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;} .fpri:hover{background:var(--gold2);}
+.fcan{background:none;border:1.5px solid var(--line);color:var(--soft);border-radius:8px;padding:9px 16px;font-family:'Geist',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;} .fcan:hover{background:var(--bg3);}
 
-/* MAIN */
-.wrap{max-width:1340px;margin:0 auto;padding:28px 36px 60px;}
+/* ── PAGE ── */
+.wrap{max-width:1280px;margin:0 auto;padding:32px 40px 72px;}
 
-/* HERO */
-.hero{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:26px;}
-.hstat{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--sh1);position:relative;overflow:hidden;transition:all 0.18s;}
-.hstat:hover{box-shadow:var(--sh2);transform:translateY(-1px);}
-.hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;}
-.hstat.green::before{background:var(--grn);} .hstat.red::before{background:var(--red);} .hstat.gold::before{background:var(--gold);} .hstat.blue::before{background:var(--blu);} .hstat.amb::before{background:var(--amb);}
-.hstat-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.hstat-val{font-family:'Instrument Serif',serif;font-size:34px;line-height:1;margin-bottom:5px;}
-.hstat-val.green{color:var(--grn);} .hstat-val.red{color:var(--red);} .hstat-val.gold{color:var(--gold);} .hstat-val.blue{color:var(--blu);} .hstat-val.amb{color:var(--amb);}
-.hstat-sub{font-size:11px;color:var(--muted);}
+/* ── AI BRIEF ── */
+.brief{background:var(--ink);border-radius:14px;padding:28px 32px;margin-bottom:28px;position:relative;overflow:hidden;}
+.brief::after{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(168,112,32,0.12);}
+.brief::before{content:'';position:absolute;bottom:-60px;left:100px;width:160px;height:160px;border-radius:50%;background:rgba(168,112,32,0.07);}
+.brief-label{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.brief-dot{width:6px;height:6px;border-radius:50%;background:var(--gold2);animation:pulse 2s ease-in-out infinite;}
+.brief-text{font-family:'Instrument Serif',serif;font-size:18px;line-height:1.65;color:rgba(255,255,255,0.92);position:relative;z-index:1;max-width:900px;}
+.brief-text.loading{color:rgba(255,255,255,0.4);font-style:italic;font-size:15px;}
+.brief-meta{margin-top:14px;font-family:'Geist Mono',monospace;font-size:9.5px;color:rgba(255,255,255,0.3);letter-spacing:0.05em;position:relative;z-index:1;}
+.brief-regen{background:none;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 12px;font-family:'Geist',sans-serif;font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.15s;margin-left:12px;}
+.brief-regen:hover{border-color:var(--gold2);color:var(--gold2);}
 
-/* SECTION */
-.sec-hd{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;}
-.sec-ttl{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
-.sec-sub{font-size:12px;color:var(--muted);}
-.sec-line{flex:1;height:1px;background:var(--line);}
+/* ── REVENUE HERO ── */
+.rev-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+.rh-card{border-radius:12px;padding:24px 26px;position:relative;overflow:hidden;transition:all 0.18s;cursor:default;}
+.rh-card:hover{transform:translateY(-2px);box-shadow:var(--sh2);}
+.rh-card.won{background:var(--grn);} .rh-card.lost{background:var(--red);} .rh-card.pipe{background:var(--bg2);border:1px solid var(--line);box-shadow:var(--sh1);}
+.rh-card::after{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.08);}
+.rh-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;}
+.rh-card.won .rh-lbl,.rh-card.lost .rh-lbl{color:rgba(255,255,255,0.6);}
+.rh-card.pipe .rh-lbl{color:var(--muted);}
+.rh-val{font-family:'Instrument Serif',serif;font-size:48px;line-height:1;letter-spacing:-0.02em;margin-bottom:6px;}
+.rh-card.won .rh-val,.rh-card.lost .rh-val{color:#fff;}
+.rh-card.pipe .rh-val{color:var(--blu);}
+.rh-sub{font-size:12px;}
+.rh-card.won .rh-sub,.rh-card.lost .rh-sub{color:rgba(255,255,255,0.65);}
+.rh-card.pipe .rh-sub{color:var(--muted);}
+.rh-rate{font-family:'Geist Mono',monospace;font-size:13px;font-weight:500;margin-top:8px;padding:4px 10px;border-radius:20px;display:inline-block;}
+.rh-card.won .rh-rate{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);}
+.rh-card.lost .rh-rate{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);}
+.rh-card.pipe .rh-rate{background:var(--blubg);color:var(--blu);border:1px solid var(--blubd);}
 
-/* GRIDS */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:22px;}
-.grid-13{display:grid;grid-template-columns:1fr 1.6fr;gap:16px;margin-bottom:22px;}
+/* ── SECONDARY STATS ── */
+.sec-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
+.ss{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--sh1);}
+.ss-lbl{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.ss-val{font-family:'Instrument Serif',serif;font-size:26px;color:var(--ink);line-height:1;margin-bottom:3px;}
+.ss-sub{font-size:11px;color:var(--muted);}
 
-/* CARDS */
-.card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:var(--sh1);}
-.card-ttl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
-.card-ttl span{color:var(--dim);font-size:9px;}
+/* ── SECTION ── */
+.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;}
+.sh-t{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
+.sh-s{font-size:12px;color:var(--muted);}
+.sh-line{flex:1;height:1px;background:var(--line);}
 
-/* RING */
-.ring-wrap{display:flex;align-items:center;gap:24px;}
-.ring-legend{display:flex;flex-direction:column;gap:9px;}
-.rleg{display:flex;align-items:center;gap:7px;font-size:12px;}
-.rleg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.rleg-label{color:var(--soft);}
-.rleg-val{font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;color:var(--ink);margin-left:auto;padding-left:14px;}
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;}
+.g13{display:grid;grid-template-columns:1fr 1.8fr;gap:16px;margin-bottom:24px;}
 
-/* BARS */
-.bar-list{display:flex;flex-direction:column;gap:9px;}
-.bar-item{display:flex;flex-direction:column;gap:3px;}
-.bar-head{display:flex;justify-content:space-between;align-items:center;}
-.bar-label{font-size:12px;color:var(--ink2);font-weight:500;}
-.bar-val{font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);}
-.bar-track{background:var(--bg3);border-radius:3px;height:6px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:3px;transition:width 1s ease;}
-.bar-fill.grn{background:var(--grn);} .bar-fill.red{background:var(--red);} .bar-fill.blu{background:var(--blu);} .bar-fill.gold{background:var(--gold);} .bar-fill.amb{background:var(--amb);} .bar-fill.prp{background:var(--prp);}
+/* ── CARD ── */
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:var(--sh1);}
+.ct{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.ct span{color:var(--dim);}
 
-/* RESEARCHER BREAKDOWN */
-.rtype-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px;}
-.rtype-card{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:12px 10px;text-align:center;transition:all 0.15s;}
-.rtype-card:hover{box-shadow:var(--sh2);transform:translateY(-1px);background:var(--bg2);}
-.rtype-icon{font-size:20px;margin-bottom:6px;}
-.rtype-name{font-size:10.5px;font-weight:600;color:var(--ink2);margin-bottom:4px;}
-.rtype-count{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ink);line-height:1;margin-bottom:2px;}
-.rtype-sub{font-size:10px;color:var(--muted);}
-.rtype-rate{font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;margin-top:5px;padding:2px 7px;border-radius:10px;display:inline-block;}
-.rtype-rate.g{color:var(--grn);background:var(--grnbg);border:1px solid var(--grnbd);}
-.rtype-rate.r{color:var(--red);background:var(--redbg);border:1px solid var(--redbd);}
-.rtype-rate.a{color:var(--amb);background:var(--ambbg);border:1px solid var(--ambbd);}
+/* ── WHERE MONEY IS STUCK ── */
+.stage-list{display:flex;flex-direction:column;gap:8px;}
+.stage-item{display:flex;flex-direction:column;gap:4px;cursor:pointer;padding:8px 10px;border-radius:8px;transition:all 0.12s;border:1px solid transparent;}
+.stage-item:hover{background:var(--bg3);border-color:var(--line);}
+.stage-item.active{background:var(--goldbg);border-color:var(--goldbd);}
+.stage-top{display:flex;justify-content:space-between;align-items:center;}
+.stage-name{font-size:12.5px;font-weight:500;color:var(--ink2);}
+.stage-meta{display:flex;align-items:center;gap:10px;}
+.stage-val{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);}
+.stage-cnt{font-size:11px;color:var(--muted);}
+.stage-track{background:var(--bg3);border-radius:3px;height:5px;overflow:hidden;}
+.stage-fill{height:100%;border-radius:3px;transition:width 0.8s ease;}
+.stage-hint{font-size:10px;color:var(--muted);margin-top:2px;display:none;}
+.stage-item.active .stage-hint{display:block;color:var(--gold);}
 
-/* FUNNEL */
-.funnel{display:flex;flex-direction:column;gap:6px;}
-.funnel-stage{display:flex;align-items:center;gap:10px;}
-.funnel-name{font-size:11px;color:var(--soft);width:110px;text-align:right;flex-shrink:0;}
-.funnel-bar-wrap{flex:1;background:var(--bg3);border-radius:4px;height:30px;overflow:hidden;}
-.funnel-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 10px;transition:width 1s ease;}
-.funnel-bar-lbl{font-size:10.5px;font-weight:500;color:#fff;white-space:nowrap;}
-.funnel-cnt{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--muted);width:28px;text-align:right;flex-shrink:0;}
+/* ── WIN RATE RING ── */
+.ring-wrap{display:flex;align-items:center;gap:22px;}
+.rleg{display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:8px;}
+.rleg:last-child{margin-bottom:0;}
+.rleg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.rleg-lbl{color:var(--soft);flex:1;}
+.rleg-v{font-family:'Geist Mono',monospace;font-size:12.5px;font-weight:500;color:var(--ink);}
 
-/* PRICE BANDS */
-.price-bands{display:flex;flex-direction:column;gap:8px;}
-.pband{display:flex;align-items:center;gap:10px;}
-.pband-lbl{font-family:'Geist Mono',monospace;font-size:10px;color:var(--soft);width:90px;flex-shrink:0;}
-.pband-track{flex:1;background:var(--bg3);border-radius:3px;height:22px;overflow:hidden;}
-.pband-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;transition:width 1s ease;}
-.pband-fill span{font-family:'Geist Mono',monospace;font-size:10px;color:rgba(255,255,255,0.9);font-weight:500;}
-.pband-rate{font-family:'Geist Mono',monospace;font-size:11px;width:34px;text-align:right;flex-shrink:0;}
+/* ── MONTHLY BARS ── */
+.month-chart{display:flex;align-items:flex-end;gap:6px;height:80px;padding-top:4px;}
+.month-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
+.month-bars{display:flex;gap:2px;align-items:flex-end;flex:1;width:100%;}
+.mbar{flex:1;border-radius:3px 3px 0 0;transition:height 0.8s ease;min-height:2px;cursor:pointer;}
+.mbar:hover{opacity:0.8;}
+.month-lbl{font-family:'Geist Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:0.04em;}
+.month-legend{display:flex;gap:14px;margin-top:10px;}
+.ml-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+.ml-dot{width:7px;height:7px;border-radius:2px;}
 
-/* INSIGHTS */
-.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
-.insight{background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:10px;padding:14px 16px;box-shadow:var(--sh1);display:flex;gap:10px;transition:all 0.15s;cursor:pointer;position:relative;}
-.insight:hover{box-shadow:var(--sh2);transform:translateY(-1px);border-color:var(--line2);}
-.insight.active-ins{box-shadow:var(--sh2);transform:translateY(-1px);}
-.insight.gold{border-left-color:var(--gold);} .insight.gold.active-ins{background:var(--goldbg);}
-.insight.grn{border-left-color:var(--grn);} .insight.grn.active-ins{background:var(--grnbg);}
-.insight.red{border-left-color:var(--red);} .insight.red.active-ins{background:var(--redbg);}
-.insight.blu{border-left-color:var(--blu);} .insight.blu.active-ins{background:var(--blubg);}
-.insight.amb{border-left-color:var(--amb);} .insight.amb.active-ins{background:var(--ambbg);}
-.insight.prp{border-left-color:var(--prp);} .insight.prp.active-ins{background:var(--prpbg);}
-.ins-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
-.ins-ttl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.4;}
-.ins-txt{font-size:11px;color:var(--soft);line-height:1.6;}
-.ins-click-hint{font-size:9.5px;color:var(--dim);margin-top:5px;font-family:'Geist Mono',monospace;letter-spacing:0.04em;}
-/* INSIGHT DRILL-DOWN TABLE */
-.drill-table-wrap{background:var(--bg2);border:1.5px solid var(--goldbd);border-radius:12px;padding:0;margin-bottom:22px;overflow:hidden;box-shadow:var(--sh2);animation:fadeUp 0.25s ease both;display:none;}
-.drill-table-wrap.open{display:block;}
-.drill-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--goldbg);}
-.drill-title{font-family:'Instrument Serif',serif;font-size:16px;color:var(--ink);}
-.drill-close{background:none;border:1px solid var(--goldbd);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--gold);cursor:pointer;font-family:'Geist',sans-serif;transition:all 0.12s;}
-.drill-close:hover{background:var(--gold);color:#fff;}
+/* ── ACTION REQUIRED TABLE ── */
+.action-table{width:100%;border-collapse:collapse;}
+.action-table th{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:0 12px 10px;text-align:left;border-bottom:1px solid var(--line);}
+.action-table td{padding:10px 12px;font-size:12.5px;border-bottom:1px solid var(--line);vertical-align:middle;}
+.action-table tr:last-child td{border-bottom:none;}
+.action-table tr:hover td{background:var(--bg3);}
+.urgency{font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:10px;white-space:nowrap;}
+.urgency.critical{color:var(--red);background:var(--redbg);border:1px solid var(--redbd);}
+.urgency.high{color:var(--amb);background:var(--ambbg);border:1px solid var(--ambbd);}
+.urgency.medium{color:var(--gold);background:var(--goldbg);border:1px solid var(--goldbd);}
+.deal-name{font-weight:500;color:var(--ink);font-size:12.5px;}
+.deal-org{font-size:11px;color:var(--muted);margin-top:1px;}
+.deal-val{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;}
+.days-badge{font-family:'Geist Mono',monospace;font-size:11px;color:var(--soft);}
 
-/* DEAL TABLE */
-.dtable{width:100%;border-collapse:collapse;}
-.dtable th{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:0 10px 10px;text-align:left;border-bottom:1px solid var(--line);}
-.dtable td{padding:9px 10px;font-size:12px;color:var(--soft);border-bottom:1px solid var(--line);vertical-align:middle;}
-.dtable td:first-child{color:var(--ink);font-weight:500;}
-.dtable td.mono{font-family:'Geist Mono',monospace;font-size:11px;}
-.dtable td.red{color:var(--red);font-weight:600;font-family:'Geist Mono',monospace;}
-.dtable td.grn{color:var(--grn);font-weight:600;font-family:'Geist Mono',monospace;}
-.dtable td.gold{color:var(--gold);font-family:'Geist Mono',monospace;font-weight:600;}
-.dtable tr:last-child td{border-bottom:none;}
-.dtable tr:hover td{background:var(--bg3);}
-.rtype-badge{font-family:'Geist Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;border-radius:10px;border:1px solid;white-space:nowrap;}
-.rtype-badge.phd{color:var(--blu);background:var(--blubg);border-color:var(--blubd);}
-.rtype-badge.postdoc{color:var(--prp);background:var(--prpbg);border-color:var(--prpbd);}
-.rtype-badge.professor{color:var(--grn);background:var(--grnbg);border-color:var(--grnbd);}
-.rtype-badge.researcher{color:var(--amb);background:var(--ambbg);border-color:var(--ambbd);}
-.rtype-badge.coordinator{color:var(--gold);background:var(--goldbg);border-color:var(--goldbd);}
-.rtype-badge.unknown{color:var(--muted);background:var(--bg3);border-color:var(--line);}
-.edit-btn{background:none;border:1px solid var(--line);border-radius:5px;padding:3px 7px;cursor:pointer;color:var(--muted);font-size:11px;transition:all 0.12s;white-space:nowrap;}
-.edit-btn:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
-.ai-badge{font-family:'Geist Mono',monospace;font-size:8px;letter-spacing:0.06em;color:var(--gold);background:var(--goldbg);border:1px solid var(--goldbd);border-radius:10px;padding:1px 6px;}
+/* ── LOST DEALS ── */
+.lost-table{width:100%;border-collapse:collapse;}
+.lost-table th{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:0 12px 10px;text-align:left;border-bottom:1px solid var(--line);}
+.lost-table td{padding:9px 12px;font-size:12px;color:var(--soft);border-bottom:1px solid var(--line);vertical-align:middle;}
+.lost-table td:first-child{color:var(--ink);font-weight:500;}
+.lost-table tr:last-child td{border-bottom:none;}
+.lost-table tr:hover td{background:var(--bg3);}
 
-/* HEALTH SCORES */
-.health-item{margin-bottom:14px;}
-.health-head{display:flex;justify-content:space-between;margin-bottom:4px;}
-.health-lbl{font-size:12px;font-weight:500;color:var(--ink2);}
-.health-pct{font-family:'Geist Mono',monospace;font-size:12px;}
-.health-desc{font-size:10.5px;color:var(--muted);margin-top:3px;}
+/* ── DRILL PANEL ── */
+.drill{display:none;background:var(--bg2);border:1.5px solid var(--goldbd);border-radius:12px;overflow:hidden;margin-bottom:24px;box-shadow:var(--sh2);animation:fu 0.22s ease both;}
+.drill.open{display:block;}
+.drill-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--goldbg);border-bottom:1px solid var(--goldbd);}
+.drill-ttl{font-family:'Instrument Serif',serif;font-size:16px;color:var(--ink);}
+.drill-cls{background:none;border:1px solid var(--goldbd);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--gold);cursor:pointer;font-family:'Geist',sans-serif;transition:all 0.12s;}
+.drill-cls:hover{background:var(--gold);color:#fff;}
+.drill-body{overflow-x:auto;}
 
-/* LOADING */
-.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;text-align:center;}
-.spinner{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:16px;}
-.loading-t{font-family:'Instrument Serif',serif;font-size:20px;color:var(--soft);margin-bottom:6px;}
+/* ── LOADING / EMPTY ── */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px;text-align:center;}
+.spinner{width:38px;height:38px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:18px;}
+.loading-t{font-family:'Instrument Serif',serif;font-size:22px;color:var(--soft);margin-bottom:6px;}
 .loading-s{font-size:12px;color:var(--muted);}
 .no-data{text-align:center;padding:32px;color:var(--muted);font-size:13px;}
 
 @keyframes spin{to{transform:rotate(360deg);}}
 @keyframes mi{from{opacity:0;transform:scale(0.975) translateY(5px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeUp 0.4s ease both;}
+@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
 </style>
 </head>
 <body>
 
 <div class="hdr">
-  <div class="hdr-left">
-    <div class="hdr-hex"><div class="hdr-hex-i"></div></div>
-    <div class="hdr-brand">NEUROUX</div>
+  <div class="hdr-l">
+    <div class="logo"><div class="logo-i"></div></div>
+    <div class="logo-text">
+      <div class="logo-name">NEUROUX</div>
+      <div class="logo-sub">Founder Intelligence</div>
+    </div>
     <div class="hdr-div"></div>
-    <div class="hdr-title">Deal Intelligence</div>
+    <div class="hdr-title">Revenue Dashboard</div>
   </div>
-  <div class="hdr-right">
-    <div class="hdr-date" id="dateLabel"></div>
-    <a href="index.html" class="hbtn light" style="text-decoration:none;">← CRM</a>
-    <button class="hbtn light" onclick="openAddDealM()">+ Add Deal</button>
-    <button class="hbtn dark" id="aiLookupBtn" onclick="runAILookup()">✦ AI Lookup All</button>
-    <button class="hbtn dark" id="syncBtn" onclick="loadData()">⟳ Sync HubSpot</button>
-    <button class="hbtn light" onclick="openM('settingsM')">⚙</button>
-  </div>
-</div>
-
-<!-- AI PROGRESS BAR -->
-<div class="ai-bar hidden" id="aiBar">
-  <div class="ai-progress">
-    <span>✦</span>
-    <span id="aiBarText">Running AI lookup on contacts…</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <div class="ai-prog-track"><div class="ai-prog-fill" id="aiProgFill" style="width:0%"></div></div>
-    <span id="aiProgPct" style="font-family:'Geist Mono',monospace;font-size:10px;">0%</span>
+  <div class="hdr-r">
+    <div class="hdr-ts" id="tsLabel"></div>
+    <a href="index.html" class="btn btn-light" style="text-decoration:none;">← CRM</a>
+    <button class="btn btn-dark" id="syncBtn" onclick="loadData()" style="min-width:auto;width:auto;">⟳ Sync</button>
+    <button class="btn btn-light" onclick="openM('settingsM')">⚙</button>
   </div>
 </div>
 
 <div class="wrap" id="mainWrap">
-  <div class="loading" id="loadingState">
+  <div class="loading" id="loadState">
     <div class="spinner"></div>
-    <div class="loading-t">Loading deal intelligence…</div>
+    <div class="loading-t">Loading your revenue data…</div>
     <div class="loading-s">Connecting to HubSpot</div>
   </div>
-  <div id="dashboard" style="display:none;"></div>
+  <div id="dash" style="display:none;"></div>
 </div>
 
-<!-- SETTINGS MODAL -->
+<!-- SETTINGS -->
 <div class="mo" id="settingsM">
   <div class="md">
-    <div class="md-top"><div class="md-ttl">Settings</div><button class="mclose" onclick="closeM('settingsM')">✕</button></div>
+    <div class="md-h"><div class="md-t">Connect HubSpot</div><button class="mcls" onclick="closeM('settingsM')">✕</button></div>
     <div class="mb">
-      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Credentials stored in your browser only.</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Credentials stored in your browser only — never transmitted.</p>
       <div class="ff"><label>HubSpot API Token</label><input type="password" id="s_hs" placeholder="pat-na2-..."></div>
       <div class="ff"><label>Cloudflare Worker URL</label><input type="text" id="s_wk" placeholder="https://your-worker.workers.dev"></div>
-      <div class="ff"><label>Anthropic API Key (for AI Lookup)</label><input type="password" id="s_ai" placeholder="sk-ant-..."></div>
-      <div class="fa"><button class="fcan" onclick="closeM('settingsM')">Cancel</button><button class="fpri" onclick="saveSettings()">Save & Sync</button></div>
-    </div>
-  </div>
-</div>
-
-<!-- EDIT DEAL MODAL -->
-<div class="mo" id="editM">
-  <div class="md">
-    <div class="md-top"><div class="md-ttl" id="editMTitle">Edit Deal</div><button class="mclose" onclick="closeM('editM')">✕</button></div>
-    <div class="mb">
-      <!-- AI lookup row (shown when name+org exist) -->
-      <div class="ai-lookup-row" id="aiLookupRow">
-        <span>✦ Let AI look up this contact's role from their name & organisation</span>
-        <button class="ai-lookup-btn" id="aiLookupSingleBtn" onclick="aiLookupSingle()">Look Up</button>
-      </div>
-      <div class="ai-result-box" id="aiResultBox"></div>
-      <div class="fr">
-        <div class="ff"><label>Contact Name</label><input type="text" id="e_name" placeholder="Dr. Sarah Johnson"></div>
-        <div class="ff"><label>Organisation</label><input type="text" id="e_org" placeholder="Stanford University"></div>
-      </div>
-      <div class="fr">
-        <div class="ff"><label>Deal Name</label><input type="text" id="e_deal" placeholder="EMA Platform Study"></div>
-        <div class="ff"><label>Value ($)</label><input type="number" id="e_value" placeholder="0"></div>
-      </div>
-      <div class="fr">
-        <div class="ff"><label>Stage</label>
-          <select id="e_stage">
-            <option value="appointmentscheduled">Call Scheduled</option>
-            <option value="qualifiedtobuy">Call Done</option>
-            <option value="presentationscheduled">Quote Sent</option>
-            <option value="decisionmakerboughtin">Negotiating</option>
-            <option value="closedwon">Won</option>
-            <option value="closedlost">Lost</option>
-          </select>
-        </div>
-        <div class="ff"><label>Researcher Type</label>
-          <select id="e_rtype">
-            <option value="unknown">Unknown</option>
-            <option value="phd">PhD Student / Candidate</option>
-            <option value="postdoc">Postdoc</option>
-            <option value="professor">Professor / PI</option>
-            <option value="researcher">Researcher / Scientist</option>
-            <option value="coordinator">Research Coordinator / Lab Manager</option>
-          </select>
-        </div>
-      </div>
-      <div class="ff"><label>Job Title</label><input type="text" id="e_title" placeholder="PhD Candidate, Postdoctoral Fellow..."></div>
-      <div class="ff"><label>Email</label><input type="email" id="e_email" placeholder="contact@university.edu"></div>
-      <div class="ff"><label>Notes</label><textarea id="e_notes" placeholder="Any context about this deal..."></textarea></div>
-      <div class="fa"><button class="fcan" onclick="closeM('editM')">Cancel</button><button class="fpri" onclick="saveDealEdit()">Save Changes</button></div>
-    </div>
-  </div>
-</div>
-
-<!-- ADD DEAL MODAL -->
-<div class="mo" id="addDealM">
-  <div class="md">
-    <div class="md-top"><div class="md-ttl">Add New Deal</div><button class="mclose" onclick="closeM('addDealM')">✕</button></div>
-    <div class="mb">
-      <div class="fr">
-        <div class="ff"><label>Contact Name *</label><input type="text" id="a_name" placeholder="Dr. Sarah Johnson"></div>
-        <div class="ff"><label>Organisation *</label><input type="text" id="a_org" placeholder="Stanford University"></div>
-      </div>
-      <div class="fr">
-        <div class="ff"><label>Deal Name</label><input type="text" id="a_deal" placeholder="EMA Platform - 12 month study"></div>
-        <div class="ff"><label>Value ($)</label><input type="number" id="a_value" placeholder="0"></div>
-      </div>
-      <div class="fr">
-        <div class="ff"><label>Stage</label>
-          <select id="a_stage">
-            <option value="presentationscheduled">Quote Sent</option>
-            <option value="appointmentscheduled">Call Scheduled</option>
-            <option value="qualifiedtobuy">Call Done</option>
-            <option value="decisionmakerboughtin">Negotiating</option>
-            <option value="closedwon">Won</option>
-            <option value="closedlost">Lost</option>
-          </select>
-        </div>
-        <div class="ff"><label>Researcher Type</label>
-          <select id="a_rtype">
-            <option value="unknown">Unknown / Unclassified</option>
-            <option value="phd">PhD Student / Candidate</option>
-            <option value="postdoc">Postdoc</option>
-            <option value="professor">Professor / PI</option>
-            <option value="researcher">Researcher / Scientist</option>
-            <option value="coordinator">Research Coordinator / Lab Manager</option>
-          </select>
-        </div>
-      </div>
-      <div class="fr">
-        <div class="ff"><label>Job Title</label><input type="text" id="a_title" placeholder="PhD Candidate, Professor..."></div>
-        <div class="ff"><label>Email</label><input type="email" id="a_email" placeholder="contact@university.edu"></div>
-      </div>
-      <div class="ff"><label>Notes</label><textarea id="a_notes" placeholder="Context, requirements, study details..."></textarea></div>
-      <div class="fa"><button class="fcan" onclick="closeM('addDealM')">Cancel</button><button class="fpri" onclick="saveNewDeal()">Add Deal</button></div>
+      <div class="ff"><label>Anthropic API Key (for AI brief)</label><input type="password" id="s_ai" placeholder="sk-ant-..."></div>
+      <div class="mfa"><button class="fcan" onclick="closeM('settingsM')">Cancel</button><button class="fpri" onclick="saveSettings()">Save & Sync</button></div>
     </div>
   </div>
 </div>
 
 <script>
-// ═══ STATE ═══
-const DEALS_KEY = 'nx_intel_deals_v1';
-let allDeals = [];
-let editingId = null;
+const HS_STAGE_MAP={appointmentscheduled:'Call Scheduled',qualifiedtobuy:'Call Done',presentationscheduled:'Quote Sent',decisionmakerboughtin:'Negotiating',contractsent:'Contract Sent',closedwon:'Won',closedlost:'Lost'};
+const STAGE_ORDER=['appointmentscheduled','qualifiedtobuy','presentationscheduled','decisionmakerboughtin','contractsent'];
+const STAGE_COLORS=['#2050b8','#1848a8','#a87020','#a05808','#1a7248'];
+const FOLLOWUP_DAYS={appointmentscheduled:0,qualifiedtobuy:3,presentationscheduled:3,decisionmakerboughtin:5,contractsent:5};
 
-// ═══ RESEARCHER CLASSIFICATION ═══
-const RTYPE_LABELS = {
-  phd: 'PhD Student', postdoc: 'Postdoc', professor: 'Professor / PI',
-  researcher: 'Researcher', coordinator: 'Coordinator', unknown: 'Unknown'
-};
-const RTYPE_ICONS = { phd:'🎓', postdoc:'🔬', professor:'👨‍🏫', researcher:'🧪', coordinator:'📋', unknown:'❓' };
-const RTYPE_COLORS = { phd:'blu', postdoc:'prp', professor:'grn', researcher:'amb', coordinator:'gold', unknown:'muted' };
+let allDeals=[], drillDeals=[], activeStage=null;
 
-function classifyFromText(title, name, org, notes) {
-  const text = [title, name, org, notes].join(' ').toLowerCase();
-  if (/\bphd\b|ph\.d|doctoral|doctorate|phd candidate|phd student|d\.phil/.test(text)) return 'phd';
-  if (/postdoc|post-doc|post doc|postdoctoral|research fellow/.test(text)) return 'postdoc';
-  if (/professor|assoc\. prof|asst\. prof|associate prof|assistant prof|\bpi\b|principal investigator|faculty|chair of|head of/.test(text)) return 'professor';
-  if (/research coordinator|lab manager|lab coordinator|study coordinator|clinical coordinator/.test(text)) return 'coordinator';
-  if (/researcher|scientist|research scientist|research associate|research officer/.test(text)) return 'researcher';
-  return 'unknown';
-}
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('tsLabel').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('s_hs').value=localStorage.getItem('nx_hs_tok')||'';
+  document.getElementById('s_wk').value=localStorage.getItem('nx_wk_url')||'';
+  document.getElementById('s_ai').value=localStorage.getItem('nx_ai_key')||'';
+  const hs=localStorage.getItem('nx_hs_tok'),wk=localStorage.getItem('nx_wk_url');
+  if(hs&&wk)loadData(); else{document.getElementById('loadState').style.display='none';openM('settingsM');}
+});
 
-// ═══ AI LOOKUP (Claude API) ═══
-async function aiClassifySingle(name, org, title) {
-  const key = localStorage.getItem('nx_ai_key');
-  const wk = localStorage.getItem('nx_wk_url');
-  if (!key || !wk) return null;
-  try {
-    const prompt = `You are classifying academic researchers for a sales CRM.
-
-Contact: ${name || 'Unknown'}
-Organisation: ${org || 'Unknown'}
-Job Title: ${title || 'not provided'}
-
-Based on the name, organisation, and any title clues, classify this person into EXACTLY one category:
-- phd (PhD student, doctoral candidate, graduate student doing their doctorate)
-- postdoc (postdoctoral researcher, research fellow, post-doctoral associate)
-- professor (professor, PI, principal investigator, faculty member, associate/assistant professor, lecturer)
-- researcher (research scientist, research associate, senior researcher, staff scientist)
-- coordinator (lab manager, research coordinator, study coordinator, clinical coordinator)
-- unknown (genuinely cannot determine from the information given)
-
-Use context clues: universities often have PhD students, hospitals have coordinators, named labs suggest PIs.
-
-Respond in JSON only, no markdown, no explanation:
-{"type":"phd","confidence":"high","reasoning":"one short sentence"}`;
-
-    const resp = await fetch(wk + '/claude', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        apiKey: key,
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 150,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    if (!resp.ok) throw new Error('Worker returned ' + resp.status);
-    const data = await resp.json();
-    const text = data.content?.[0]?.text || '';
-    const clean = text.replace(/```json|```/g, '').trim();
-    return JSON.parse(clean);
-  } catch(e) { console.error('AI classify error:', e); return null; }
-}
-
-async function aiLookupSingle() {
-  const name = document.getElementById('e_name').value.trim();
-  const org = document.getElementById('e_org').value.trim();
-  const title = document.getElementById('e_title').value.trim();
-  if (!name) { alert('Enter a contact name first.'); return; }
-
-  const key = localStorage.getItem('nx_ai_key');
-  if (!key) { alert('Add your Anthropic API key in Settings to use AI lookup.'); openM('settingsM'); return; }
-
-  const btn = document.getElementById('aiLookupSingleBtn');
-  btn.textContent = '…'; btn.disabled = true;
-
-  const result = await aiClassifySingle(name, org, title);
-  btn.textContent = 'Look Up'; btn.disabled = false;
-
-  const box = document.getElementById('aiResultBox');
-  if (result) {
-    document.getElementById('e_rtype').value = result.type || 'unknown';
-    if (result.reasoning) document.getElementById('e_title').value = document.getElementById('e_title').value || result.reasoning;
-    box.style.display = 'block';
-    box.innerHTML = `✦ AI classified as <strong>${RTYPE_LABELS[result.type]||result.type}</strong> (${result.confidence} confidence) — ${result.reasoning}`;
-  } else {
-    box.style.display = 'block';
-    box.style.background = 'var(--redbg)'; box.style.borderColor = 'var(--redbd)'; box.style.color = 'var(--red)';
-    box.textContent = 'Could not classify. Check your API key or fill in manually.';
-  }
-}
-
-async function runAILookup() {
-  const key = localStorage.getItem('nx_ai_key');
-  if (!key) { alert('Add your Anthropic API key in Settings first.'); openM('settingsM'); return; }
-
-  const unknownDeals = allDeals.filter(d => !d._rtype || d._rtype === 'unknown');
-  if (!unknownDeals.length) { alert('All deals already classified!'); return; }
-
-  document.getElementById('aiBar').classList.remove('hidden');
-  document.getElementById('aiLookupBtn').disabled = true;
-
-  let done = 0;
-  for (const deal of unknownDeals) {
-    const name = deal._contact?.name || deal.properties?.dealname || '';
-    const org = deal._contact?.org || '';
-    const title = deal._contact?.title || '';
-
-    const result = await aiClassifySingle(name, org, title);
-    if (result && result.type !== 'unknown') {
-      deal._rtype = result.type;
-      deal._rtypeSource = 'ai';
-      deal._rtypereasoning = result.reasoning;
-    }
-
-    done++;
-    const pct = Math.round((done / unknownDeals.length) * 100);
-    document.getElementById('aiProgFill').style.width = pct + '%';
-    document.getElementById('aiProgPct').textContent = pct + '%';
-    document.getElementById('aiBarText').textContent = `AI classifying contacts… ${done}/${unknownDeals.length} done`;
-
-    // Small delay to avoid rate limits
-    await new Promise(r => setTimeout(r, 300));
-  }
-
-  saveDealsLocal();
-  renderDashboard(allDeals);
-  document.getElementById('aiBar').classList.add('hidden');
-  document.getElementById('aiLookupBtn').disabled = false;
-}
-
-// ═══ HUBSPOT ═══
-async function hsGet(path) {
-  const wk = localStorage.getItem('nx_wk_url') || '', tk = localStorage.getItem('nx_hs_tok') || '';
-  const r = await fetch(wk + '/hubspot' + path, { headers: { 'Authorization': 'Bearer ' + tk } });
-  if (!r.ok) throw new Error('HS ' + r.status);
+// ── HUBSPOT ──
+async function hsGet(path){
+  const wk=localStorage.getItem('nx_wk_url')||'',tk=localStorage.getItem('nx_hs_tok')||'';
+  const r=await fetch(wk+'/hubspot'+path,{headers:{'Authorization':'Bearer '+tk}});
+  if(!r.ok)throw new Error('HubSpot error '+r.status);
   return r.json();
 }
 
-async function loadData() {
-  const hs = localStorage.getItem('nx_hs_tok'), wk = localStorage.getItem('nx_wk_url');
-  if (!hs || !wk) { openM('settingsM'); return; }
+async function loadData(){
+  const hs=localStorage.getItem('nx_hs_tok'),wk=localStorage.getItem('nx_wk_url');
+  if(!hs||!wk){openM('settingsM');return;}
+  document.getElementById('loadState').style.display='flex';
+  document.getElementById('dash').style.display='none';
+  const btn=document.getElementById('syncBtn');
+  btn.classList.add('loading');btn.textContent='⟳ Syncing…';
 
-  document.getElementById('loadingState').style.display = 'flex';
-  document.getElementById('dashboard').style.display = 'none';
-  const btn = document.getElementById('syncBtn');
-  btn.classList.add('syn'); btn.textContent = '⟳ Syncing…';
+  try{
+    let deals=[],after='';
+    do{
+      const q='?limit=100&properties=dealname,amount,dealstage,closedate,createdate,hs_lastmodifieddate&associations=contacts'+(after?'&after='+after:'');
+      const d=await hsGet('/crm/v3/objects/deals'+q);
+      deals=deals.concat(d.results||[]);
+      after=d.paging?.next?.after||'';
+    }while(after);
 
-  try {
-    let deals = [], after = '';
-    do {
-      const q = '?limit=100&properties=dealname,amount,dealstage,closedate,createdate,hs_lastmodifieddate&associations=contacts' + (after ? '&after=' + after : '');
-      const d = await hsGet('/crm/v3/objects/deals' + q);
-      deals = deals.concat(d.results || []);
-      after = d.paging?.next?.after || '';
-    } while (after);
-
-    // Load saved local enrichment
-    const saved = loadDealsLocal();
-
-    // Enrich sample with contacts
-    for (const deal of deals.slice(0, 50)) {
-      const ac = deal.associations?.contacts?.results || [];
-      if (ac.length > 0) {
-        try {
-          const c = await hsGet('/crm/v3/objects/contacts/' + ac[0].id + '?properties=firstname,lastname,email,company,jobtitle');
-          const cp = c.properties || {};
-          deal._contact = { name: ((cp.firstname || '') + ' ' + (cp.lastname || '')).trim(), email: cp.email || '', org: cp.company || '', title: cp.jobtitle || '' };
-        } catch(e) {}
-      }
-
-      // Merge saved enrichment
-      const s = saved[deal.id];
-      if (s) {
-        deal._rtype = s.rtype;
-        deal._rtypeSource = s.source;
-        deal._overrides = s.overrides;
-        deal._notes = s.notes;
-        if (s.overrides) {
-          if (s.overrides.name) deal._contact = deal._contact || {};
-          Object.assign(deal._contact || {}, s.overrides.contact || {});
-          if (s.overrides.value) deal.properties.amount = s.overrides.value;
-          if (s.overrides.stage) deal.properties.dealstage = s.overrides.stage;
-          if (s.overrides.dealname) deal.properties.dealname = s.overrides.dealname;
-        }
-      }
-
-      // Auto-classify if not already done
-      if (!deal._rtype || deal._rtype === 'unknown') {
-        const c = deal._contact || {};
-        deal._rtype = classifyFromText(c.title || '', c.name || '', c.org || '', deal.properties?.dealname || '');
-        deal._rtypeSource = 'auto';
+    // Enrich top 60 with contact names
+    for(const deal of deals.slice(0,60)){
+      const ac=deal.associations?.contacts?.results||[];
+      if(ac.length>0){
+        try{
+          const c=await hsGet('/crm/v3/objects/contacts/'+ac[0].id+'?properties=firstname,lastname,email,company');
+          const cp=c.properties||{};
+          deal._contact={name:((cp.firstname||'')+' '+(cp.lastname||'')).trim(),org:cp.company||'',email:cp.email||''};
+        }catch(e){}
       }
     }
 
-    // For remaining deals without contacts, auto-classify from deal name
-    for (const deal of deals.slice(50)) {
-      const s = saved[deal.id];
-      if (s) { deal._rtype = s.rtype; deal._rtypeSource = s.source; deal._overrides = s.overrides; deal._notes = s.notes; }
-      if (!deal._rtype || deal._rtype === 'unknown') {
-        deal._rtype = classifyFromText('', '', '', deal.properties?.dealname || '');
-        deal._rtypeSource = 'auto';
-      }
-    }
+    allDeals=deals;
+    renderDash(deals);
+    document.getElementById('loadState').style.display='none';
+    document.getElementById('dash').style.display='block';
+    btn.classList.remove('loading');btn.textContent='⟳ Sync';
 
-    allDeals = deals;
-    renderDashboard(deals);
-    document.getElementById('loadingState').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-    btn.classList.remove('syn'); btn.textContent = '⟳ Sync HubSpot';
-  } catch(e) {
+    // Generate AI brief after render
+    generateBrief(deals);
+  }catch(e){
     console.error(e);
-    document.getElementById('loadingState').innerHTML = `<div style="text-align:center;padding:60px;"><div style="font-size:24px;margin-bottom:12px;">⚠️</div><div style="font-family:'Instrument Serif',serif;font-size:18px;color:var(--soft);margin-bottom:8px;">Could not connect to HubSpot</div><div style="font-size:12px;color:var(--muted);margin-bottom:16px;">${e.message}</div><button onclick="openM('settingsM')" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:13px;cursor:pointer;font-family:'Geist',sans-serif;">Open Settings</button></div>`;
-    btn.classList.remove('syn'); btn.textContent = '⟳ Sync HubSpot';
+    document.getElementById('loadState').innerHTML=`<div style="text-align:center;padding:60px;"><div style="font-size:28px;margin-bottom:14px;">⚠️</div><div style="font-family:'Instrument Serif',serif;font-size:20px;color:var(--soft);margin-bottom:8px;">Connection failed</div><div style="font-size:12px;color:var(--muted);margin-bottom:16px;">${e.message}</div><button onclick="openM('settingsM')" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:13px;cursor:pointer;font-family:'Geist',sans-serif;font-weight:600;">Open Settings</button></div>`;
+    btn.classList.remove('loading');btn.textContent='⟳ Sync';
   }
 }
 
-// ═══ LOCAL STORAGE ═══
-function saveDealsLocal() {
-  const map = {};
-  allDeals.forEach(d => {
-    if (d._rtype || d._overrides || d._notes) {
-      map[d.id] = { rtype: d._rtype, source: d._rtypeSource, overrides: d._overrides, notes: d._notes };
+// ── AI BRIEF ──
+async function generateBrief(deals){
+  const key=localStorage.getItem('nx_ai_key'),wk=localStorage.getItem('nx_wk_url');
+  if(!key||!wk)return;
+
+  const won=deals.filter(d=>d.properties?.dealstage==='closedwon');
+  const lost=deals.filter(d=>d.properties?.dealstage==='closedlost');
+  const active=deals.filter(d=>d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost');
+  const wonVal=won.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const lostVal=lost.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const pipeVal=active.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const winRate=won.length+lost.length>0?Math.round((won.length/(won.length+lost.length))*100):0;
+
+  // Find most stuck stage
+  let maxStageVal=0,maxStageName='';
+  STAGE_ORDER.forEach(s=>{const v=active.filter(d=>d.properties?.dealstage===s).reduce((sum,d)=>sum+(parseFloat(d.properties?.amount)||0),0);if(v>maxStageVal){maxStageVal=v;maxStageName=HS_STAGE_MAP[s]||s;}});
+
+  // Overdue count
+  const today=new Date();
+  const overdue=active.filter(d=>{
+    const s=d.properties?.dealstage;const daysRule=FOLLOWUP_DAYS[s];if(daysRule===undefined)return false;
+    const lm=d.properties?.hs_lastmodifieddate?new Date(d.properties.hs_lastmodifieddate):null;
+    if(!lm)return false;
+    return Math.floor((today-lm)/86400000)>daysRule;
+  });
+
+  // Last 30 days won
+  const thirtyDaysAgo=new Date(today-30*86400000);
+  const recentWon=won.filter(d=>d.properties?.closedate&&new Date(d.properties.closedate)>thirtyDaysAgo);
+  const recentWonVal=recentWon.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+
+  const prompt=`You are a business intelligence analyst summarising NeuroUX's sales pipeline for the founders. Write a single paragraph of 3-4 sentences that reads like a confident analyst briefing. Be specific with numbers. No bullet points. No headers. No fluff.
+
+Data:
+- Win rate: ${winRate}%
+- Revenue won (all time): $${wonVal.toLocaleString()} across ${won.length} deals
+- Revenue won (last 30 days): $${recentWonVal.toLocaleString()} across ${recentWon.length} deals
+- Revenue lost (all time): $${lostVal.toLocaleString()} across ${lost.length} deals
+- Active pipeline: $${pipeVal.toLocaleString()} across ${active.length} deals
+- Most stuck stage: ${maxStageName} ($${maxStageVal.toLocaleString()})
+- Overdue follow-ups: ${overdue.length} deals worth $${overdue.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0).toLocaleString()}
+- Total deals tracked: ${deals.length}
+
+Write the paragraph now. Start directly with the insight, not with "NeuroUX" or "The company".`;
+
+  try{
+    const resp=await fetch(wk+'/claude',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        apiKey:key,
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:220,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data=await resp.json();
+    const text=data.content?.[0]?.text||'';
+    if(text){
+      document.getElementById('briefText').textContent=text;
+      document.getElementById('briefText').classList.remove('loading');
+      document.getElementById('briefMeta').textContent='Generated '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' · Powered by Claude';
     }
-  });
-  try { localStorage.setItem(DEALS_KEY, JSON.stringify(map)); } catch(e) {}
-}
-function loadDealsLocal() {
-  try { return JSON.parse(localStorage.getItem(DEALS_KEY) || '{}'); } catch(e) { return {}; }
+  }catch(e){
+    document.getElementById('briefText').textContent='Could not generate brief. Check your Anthropic API key in Settings.';
+  }
 }
 
-// ═══ EDIT DEAL ═══
-function openEditDeal(dealId) {
-  editingId = dealId;
-  const deal = allDeals.find(d => d.id === dealId);
-  if (!deal) return;
-  const p = deal.properties || {}, c = deal._contact || {};
-  document.getElementById('editMTitle').textContent = 'Edit — ' + esc(p.dealname || 'Deal');
-  document.getElementById('e_name').value = c.name || '';
-  document.getElementById('e_org').value = c.org || '';
-  document.getElementById('e_deal').value = p.dealname || '';
-  document.getElementById('e_value').value = p.amount || '';
-  document.getElementById('e_stage').value = p.dealstage || 'presentationscheduled';
-  document.getElementById('e_rtype').value = deal._rtype || 'unknown';
-  document.getElementById('e_title').value = c.title || '';
-  document.getElementById('e_email').value = c.email || '';
-  document.getElementById('e_notes').value = deal._notes || '';
-  document.getElementById('aiResultBox').style.display = 'none';
-  openM('editM');
-}
-function saveDealEdit() {
-  const deal = allDeals.find(d => d.id === editingId);
-  if (!deal) return;
-  deal._contact = deal._contact || {};
-  deal._contact.name = document.getElementById('e_name').value.trim();
-  deal._contact.org = document.getElementById('e_org').value.trim();
-  deal._contact.title = document.getElementById('e_title').value.trim();
-  deal._contact.email = document.getElementById('e_email').value.trim();
-  deal.properties.dealname = document.getElementById('e_deal').value.trim() || deal.properties.dealname;
-  deal.properties.amount = document.getElementById('e_value').value || deal.properties.amount;
-  deal.properties.dealstage = document.getElementById('e_stage').value;
-  deal._rtype = document.getElementById('e_rtype').value;
-  deal._rtypeSource = 'manual';
-  deal._notes = document.getElementById('e_notes').value.trim();
-  deal._overrides = { contact: { name: deal._contact.name, org: deal._contact.org, title: deal._contact.title, email: deal._contact.email }, value: deal.properties.amount, stage: deal.properties.dealstage, dealname: deal.properties.dealname };
-  saveDealsLocal();
-  renderDashboard(allDeals);
-  closeM('editM');
-}
+// ── RENDER ──
+function renderDash(deals){
+  const won=deals.filter(d=>d.properties?.dealstage==='closedwon');
+  const lost=deals.filter(d=>d.properties?.dealstage==='closedlost');
+  const active=deals.filter(d=>d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost');
+  const wonVal=won.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const lostVal=lost.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const pipeVal=active.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const total=won.length+lost.length;
+  const winRate=total>0?Math.round((won.length/total)*100):0;
+  const circ=2*Math.PI*52;
+  const wonArc=(winRate/100)*circ;
 
-// ═══ ADD DEAL ═══
-function openAddDealM() {
-  ['a_name','a_org','a_deal','a_value','a_title','a_email','a_notes'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('a_stage').value = 'presentationscheduled';
-  document.getElementById('a_rtype').value = 'unknown';
-  openM('addDealM');
-}
-function saveNewDeal() {
-  const name = document.getElementById('a_name').value.trim();
-  const org = document.getElementById('a_org').value.trim();
-  if (!name) { alert('Contact name is required.'); return; }
-  const newDeal = {
-    id: 'manual_' + Date.now(),
-    properties: { dealname: document.getElementById('a_deal').value.trim() || name + ' — ' + org, amount: document.getElementById('a_value').value || '0', dealstage: document.getElementById('a_stage').value, createdate: new Date().toISOString(), closedate: null },
-    _contact: { name, org, title: document.getElementById('a_title').value.trim(), email: document.getElementById('a_email').value.trim() },
-    _rtype: document.getElementById('a_rtype').value,
-    _rtypeSource: 'manual',
-    _notes: document.getElementById('a_notes').value.trim(),
-    _manual: true
-  };
-  allDeals.unshift(newDeal);
-  saveDealsLocal();
-  renderDashboard(allDeals);
-  closeM('addDealM');
-}
+  // Avg deal size & close time
+  const avgDeal=won.length>0?Math.round(wonVal/won.length):0;
+  const closeTimes=won.filter(d=>d.properties?.createdate&&d.properties?.closedate).map(d=>Math.round((new Date(d.properties.closedate)-new Date(d.properties.createdate))/86400000)).filter(d=>d>0&&d<400);
+  const avgClose=closeTimes.length?Math.round(closeTimes.reduce((a,b)=>a+b,0)/closeTimes.length):0;
 
-// ═══ RENDER ═══
-const HS_STAGE_MAP = { appointmentscheduled:'Call Scheduled', qualifiedtobuy:'Call Done', presentationscheduled:'Quote Sent', decisionmakerboughtin:'Negotiating', contractsent:'Negotiating', closedwon:'Won', closedlost:'Lost' };
-const STAGE_COLORS = ['#3060c8','#2050b8','#b07828','#c07010','#1e7a50'];
+  // Stage money map
+  const stageData=STAGE_ORDER.map((s,i)=>{
+    const sDeals=active.filter(d=>d.properties?.dealstage===s);
+    const sVal=sDeals.reduce((sum,d)=>sum+(parseFloat(d.properties?.amount)||0),0);
+    return{stage:s,name:HS_STAGE_MAP[s]||s,deals:sDeals,value:sVal,count:sDeals.length,color:STAGE_COLORS[i]};
+  }).filter(s=>s.count>0);
+  const maxStageVal=Math.max(...stageData.map(s=>s.value),1);
 
-function renderDashboard(deals) {
-  const won = deals.filter(d => d.properties?.dealstage === 'closedwon');
-  const lost = deals.filter(d => d.properties?.dealstage === 'closedlost');
-  const active = deals.filter(d => d.properties?.dealstage !== 'closedwon' && d.properties?.dealstage !== 'closedlost');
-  const total = won.length + lost.length;
-  const winRate = total > 0 ? Math.round((won.length / total) * 100) : 0;
-  const wonValue = won.reduce((s, d) => s + (parseFloat(d.properties?.amount) || 0), 0);
-  const lostValue = lost.reduce((s, d) => s + (parseFloat(d.properties?.amount) || 0), 0);
-  const activeValue = active.reduce((s, d) => s + (parseFloat(d.properties?.amount) || 0), 0);
-  const avgDeal = won.length > 0 ? Math.round(wonValue / won.length) : 0;
-  const closeTimes = won.filter(d => d.properties?.createdate && d.properties?.closedate).map(d => Math.round((new Date(d.properties.closedate) - new Date(d.properties.createdate)) / 86400000)).filter(d => d > 0 && d < 365);
-  const avgClose = closeTimes.length > 0 ? Math.round(closeTimes.reduce((a, b) => a + b, 0) / closeTimes.length) : 0;
+  // Overdue deals (action required)
+  const today=new Date();
+  const actionDeals=active.map(d=>{
+    const s=d.properties?.dealstage;
+    const rule=FOLLOWUP_DAYS[s];if(rule===undefined)return null;
+    const lm=d.properties?.hs_lastmodifieddate?new Date(d.properties.hs_lastmodifieddate):null;
+    if(!lm)return null;
+    const daysOld=Math.floor((today-lm)/86400000);
+    const daysOverdue=daysOld-rule;
+    if(daysOverdue<0)return null;
+    return{...d,_daysOverdue:daysOverdue,_daysOld:daysOld};
+  }).filter(Boolean).sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0));
 
-  // Researcher breakdown
-  const rtypes = ['phd','postdoc','professor','researcher','coordinator','unknown'];
-  const rtypeData = rtypes.map(rt => {
-    const rtWon = won.filter(d => d._rtype === rt);
-    const rtLost = lost.filter(d => d._rtype === rt);
-    const rtActive = active.filter(d => d._rtype === rt);
-    const rtTotal = rtWon.length + rtLost.length;
-    const rtRate = rtTotal > 0 ? Math.round((rtWon.length / rtTotal) * 100) : null;
-    const rtValue = rtWon.reduce((s, d) => s + (parseFloat(d.properties?.amount) || 0), 0);
-    const rtAvg = rtWon.length > 0 ? Math.round(rtValue / rtWon.length) : 0;
-    return { rt, won: rtWon.length, lost: rtLost.length, active: rtActive.length, total: rtTotal, rate: rtRate, value: rtValue, avg: rtAvg };
-  }).filter(r => r.won + r.lost + r.active > 0);
-
-  // Best researcher type
-  const bestRtype = rtypeData.filter(r => r.rate !== null && r.total >= 2).sort((a, b) => b.rate - a.rate)[0];
-
-  // Price bands
-  const bands = [{label:'< $1K',min:0,max:1000},{label:'$1K–$3K',min:1000,max:3000},{label:'$3K–$6K',min:3000,max:6000},{label:'$6K–$10K',min:6000,max:10000},{label:'> $10K',min:10000,max:Infinity}];
-  const bandData = bands.map(b => {
-    const bW = won.filter(d => { const v = parseFloat(d.properties?.amount) || 0; return v >= b.min && v < b.max; }).length;
-    const bL = lost.filter(d => { const v = parseFloat(d.properties?.amount) || 0; return v >= b.min && v < b.max; }).length;
-    const bT = bW + bL;
-    return { ...b, won: bW, lost: bL, total: bT, rate: bT > 0 ? Math.round((bW / bT) * 100) : 0 };
-  });
-  const bestBand = bandData.filter(b => b.total > 1).sort((a, b) => b.rate - a.rate)[0] || { label: 'N/A', rate: 0 };
-
-  // Stage funnel
-  const stages = ['appointmentscheduled','qualifiedtobuy','presentationscheduled','decisionmakerboughtin','contractsent'];
-  const stageCounts = {};
-  stages.forEach(s => stageCounts[s] = active.filter(d => d.properties?.dealstage === s).length);
-  const maxStage = Math.max(...Object.values(stageCounts), 1);
-
-  // Monthly trend
-  const now = new Date();
-  const months = Array.from({length:6},(_,i) => { const d = new Date(now.getFullYear(), now.getMonth()-5+i, 1); return {label:d.toLocaleDateString('en-US',{month:'short'}),year:d.getFullYear(),month:d.getMonth()}; });
-  const mWon = months.map(m => won.filter(d => { if(!d.properties?.closedate)return false; const cd=new Date(d.properties.closedate); return cd.getMonth()===m.month&&cd.getFullYear()===m.year; }).length);
-  const mLost = months.map(m => lost.filter(d => { if(!d.properties?.closedate)return false; const cd=new Date(d.properties.closedate); return cd.getMonth()===m.month&&cd.getFullYear()===m.year; }).length);
-  const maxM = Math.max(...mWon, ...mLost, 1);
+  // Monthly trend (6 months)
+  const months=Array.from({length:6},(_,i)=>{const d=new Date(today.getFullYear(),today.getMonth()-5+i,1);return{label:d.toLocaleDateString('en-US',{month:'short'}),y:d.getFullYear(),m:d.getMonth()};});
+  const mWon=months.map(m=>won.filter(d=>{if(!d.properties?.closedate)return false;const cd=new Date(d.properties.closedate);return cd.getMonth()===m.m&&cd.getFullYear()===m.y;}).reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0));
+  const mLost=months.map(m=>lost.filter(d=>{if(!d.properties?.closedate)return false;const cd=new Date(d.properties.closedate);return cd.getMonth()===m.m&&cd.getFullYear()===m.y;}).reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0));
+  const maxM=Math.max(...mWon,...mLost,1);
 
   // Top lost deals
-  const topLost = lost.filter(d => d.properties?.amount).sort((a,b) => (parseFloat(b.properties.amount)||0)-(parseFloat(a.properties.amount)||0)).slice(0, 10);
-  const recentWon = won.filter(d => d.properties?.closedate).sort((a,b) => new Date(b.properties.closedate)-new Date(a.properties.closedate)).slice(0, 8);
+  const topLost=lost.filter(d=>d.properties?.amount).sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0)).slice(0,10);
 
-  const circ = 2 * Math.PI * 54;
-  const wonArc = (winRate / 100) * circ;
+  // Recent wins
+  const recentWon=won.filter(d=>d.properties?.closedate).sort((a,b)=>new Date(b.properties.closedate)-new Date(a.properties.closedate)).slice(0,6);
 
-  const insights = generateInsights(won, lost, active, winRate, bestBand, avgClose, avgDeal, lostValue, activeValue, bestRtype);
+  const hasAI=!!localStorage.getItem('nx_ai_key');
 
-  const aiClassified = deals.filter(d => d._rtypeSource === 'ai').length;
-  const manualClassified = deals.filter(d => d._rtypeSource === 'manual').length;
-  const unknownCount = deals.filter(d => !d._rtype || d._rtype === 'unknown').length;
+  document.getElementById('dash').innerHTML=`
 
-  document.getElementById('dashboard').innerHTML = `<div class="fade-in">
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hstat green"><div class="hstat-lbl">Win Rate</div><div class="hstat-val green">${winRate}%</div><div class="hstat-sub">${won.length} won of ${total} closed</div></div>
-    <div class="hstat gold"><div class="hstat-lbl">Revenue Won</div><div class="hstat-val gold">$${fmtK(wonValue)}</div><div class="hstat-sub">across ${won.length} deals</div></div>
-    <div class="hstat red"><div class="hstat-lbl">Revenue Lost</div><div class="hstat-val red">$${fmtK(lostValue)}</div><div class="hstat-sub">${lost.length} deals went cold</div></div>
-    <div class="hstat blue"><div class="hstat-lbl">Active Pipeline</div><div class="hstat-val blue">$${fmtK(activeValue)}</div><div class="hstat-sub">${active.length} in progress</div></div>
-    <div class="hstat amb"><div class="hstat-lbl">Avg Deal Size</div><div class="hstat-val amb">$${fmtK(avgDeal)}</div><div class="hstat-sub">avg ${avgClose}d to close</div></div>
+  <!-- AI BRIEF -->
+  <div class="brief">
+    <div class="brief-label"><span class="brief-dot"></span>${hasAI?'AI Founder Brief':'Revenue Summary'}<button class="brief-regen" onclick="generateBrief(allDeals)" ${!hasAI?'disabled title="Add Anthropic API key in Settings"':''}>↺ Regenerate</button></div>
+    <div class="brief-text ${hasAI?'loading':''}" id="briefText">${hasAI?'Analysing your pipeline data…':'Add your Anthropic API key in Settings to get an AI-generated narrative brief each time you open this dashboard.'}</div>
+    <div class="brief-meta" id="briefMeta">${hasAI?'':'Connect AI in Settings → Anthropic API Key'}</div>
   </div>
 
-  <!-- AI INSIGHTS -->
-  <div class="sec-hd"><div class="sec-ttl">AI Insights</div><div class="sec-line"></div><div class="sec-sub">Based on your real deal data</div></div>
-  <div class="insights">${insights.map((i,idx)=>`<div class="insight ${i.color}" onclick="drillInsight(${idx})" id="ins_${idx}"><div class="ins-icon">${i.icon}</div><div><div class="ins-ttl">${i.title}</div><div class="ins-txt">${i.text}</div><div class="ins-click-hint">Click to see deals →</div></div></div>`).join('')}</div>
-
-  <!-- DRILL DOWN TABLE -->
-  <div class="drill-table-wrap" id="drillWrap">
-    <div class="drill-header">
-      <div class="drill-title" id="drillTitle">Deals</div>
-      <button class="drill-close" onclick="closeDrill()">✕ Close</button>
+  <!-- REVENUE HERO -->
+  <div class="rev-hero">
+    <div class="rh-card won">
+      <div class="rh-lbl">Revenue Won</div>
+      <div class="rh-val">$${fmtK(wonVal)}</div>
+      <div class="rh-sub">${won.length} deals closed</div>
+      <div class="rh-rate">${winRate}% win rate</div>
     </div>
-    <div id="drillBody" style="overflow-x:auto;"></div>
-  </div>
-
-  <!-- RESEARCHER BREAKDOWN -->
-  <div class="sec-hd"><div class="sec-ttl">Researcher Breakdown</div><div class="sec-line"></div><div class="sec-sub">${aiClassified} AI · ${manualClassified} manual · ${unknownCount} unknown — <button onclick="runAILookup()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;font-family:'Geist',sans-serif;text-decoration:underline;">✦ Run AI lookup on unknowns</button></div></div>
-  <div class="rtype-grid" style="grid-template-columns:repeat(${Math.min(rtypeData.length,6)},1fr);margin-bottom:16px;">
-    ${rtypeData.map(r=>{
-      const rateColor = r.rate===null?'a':r.rate>=60?'g':r.rate>=35?'a':'r';
-      return`<div class="rtype-card">
-        <div class="rtype-icon">${RTYPE_ICONS[r.rt]}</div>
-        <div class="rtype-name">${RTYPE_LABELS[r.rt]}</div>
-        <div class="rtype-count">${r.won+r.lost+r.active}</div>
-        <div class="rtype-sub">${r.won}W · ${r.lost}L · ${r.active} active</div>
-        ${r.rate!==null?`<div class="rtype-rate ${rateColor}">${r.rate}% win</div>`:`<div class="rtype-rate a">no data</div>`}
-        ${r.avg>0?`<div style="font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--muted);margin-top:3px;">avg $${fmtK(r.avg)}</div>`:''}
-      </div>`;
-    }).join('')}
-  </div>
-  <div class="card" style="margin-bottom:22px;">
-    <div class="card-ttl">Win Rate by Researcher Type <span>Which contacts close best</span></div>
-    <div class="bar-list">
-      ${rtypeData.filter(r=>r.total>0).sort((a,b)=>(b.rate||0)-(a.rate||0)).map(r=>{
-        const col=r.rate===null?'amb':r.rate>=60?'grn':r.rate>=35?'gold':'red';
-        return`<div class="bar-item">
-          <div class="bar-head">
-            <div class="bar-label">${RTYPE_ICONS[r.rt]} ${RTYPE_LABELS[r.rt]} <span style="font-weight:400;color:var(--muted);font-size:11px;">(${r.total} closed)</span></div>
-            <div class="bar-val" style="color:var(--${col==='grn'?'grn':col==='gold'?'gold':col==='red'?'red':'amb'})">${r.rate!==null?r.rate+'%':'—'}</div>
-          </div>
-          <div class="bar-track"><div class="bar-fill ${col}" style="width:${r.rate||0}%"></div></div>
-        </div>`;
-      }).join('')}
+    <div class="rh-card pipe">
+      <div class="rh-lbl">Active Pipeline</div>
+      <div class="rh-val">$${fmtK(pipeVal)}</div>
+      <div class="rh-sub">${active.length} deals in progress</div>
+      <div class="rh-rate">${actionDeals.length} need action now</div>
+    </div>
+    <div class="rh-card lost">
+      <div class="rh-lbl">Revenue Lost</div>
+      <div class="rh-val">$${fmtK(lostVal)}</div>
+      <div class="rh-sub">${lost.length} deals went cold</div>
+      <div class="rh-rate">${total>0?Math.round((lost.length/total)*100):0}% loss rate</div>
     </div>
   </div>
 
-  <!-- WIN RATE + FUNNEL -->
-  <div class="grid-13">
+  <!-- SECONDARY STATS -->
+  <div class="sec-stats">
+    <div class="ss"><div class="ss-lbl">Total Deals Tracked</div><div class="ss-val">${deals.length}</div><div class="ss-sub">across all stages</div></div>
+    <div class="ss"><div class="ss-lbl">Avg Deal Size (Won)</div><div class="ss-val">$${fmtK(avgDeal)}</div><div class="ss-sub">per closed deal</div></div>
+    <div class="ss"><div class="ss-lbl">Avg Days to Close</div><div class="ss-val">${avgClose}</div><div class="ss-sub">from first contact to won</div></div>
+    <div class="ss"><div class="ss-lbl">Overdue Follow-ups</div><div class="ss-val" style="color:var(--red)">${actionDeals.length}</div><div class="ss-sub">$${fmtK(actionDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0))} at risk</div></div>
+  </div>
+
+  <!-- DRILL DOWN -->
+  <div class="drill" id="drillWrap">
+    <div class="drill-hd"><div class="drill-ttl" id="drillTitle">Deals</div><button class="drill-cls" onclick="closeDrill()">✕ Close</button></div>
+    <div class="drill-body" id="drillBody"></div>
+  </div>
+
+  <!-- WHERE MONEY IS STUCK + WIN RATE -->
+  <div class="sh"><div class="sh-t">Where Money is Stuck</div><div class="sh-line"></div><div class="sh-s">Click any stage to see the deals</div></div>
+  <div class="g13">
     <div class="card">
-      <div class="card-ttl">Win / Loss Breakdown</div>
+      <div class="ct">Pipeline by Stage <span>Active deals only</span></div>
+      <div class="stage-list">
+        ${stageData.length===0?'<div class="no-data" style="padding:20px 0;">No active deals</div>':stageData.map(s=>`
+          <div class="stage-item" id="stage_${s.stage}" onclick="drillStage('${s.stage}')">
+            <div class="stage-top">
+              <div class="stage-name">${s.name}</div>
+              <div class="stage-meta">
+                <div class="stage-val">$${fmtK(s.value)}</div>
+                <div class="stage-cnt">${s.count} deal${s.count!==1?'s':''}</div>
+              </div>
+            </div>
+            <div class="stage-track"><div class="stage-fill" style="width:${Math.round((s.value/maxStageVal)*100)}%;background:${s.color};"></div></div>
+            <div class="stage-hint">↓ Showing ${s.count} deal${s.count!==1?'s':''} in this stage</div>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">Win Rate Breakdown</div>
       <div class="ring-wrap">
-        <svg width="130" height="130" viewBox="0 0 130 130">
-          <circle fill="none" stroke="var(--bg3)" stroke-width="10" cx="65" cy="65" r="54"/>
-          <circle fill="none" stroke="var(--grn)" stroke-width="10" stroke-linecap="round" cx="65" cy="65" r="54" stroke-dasharray="${wonArc} ${circ}" transform="rotate(-90 65 65)"/>
-          <circle fill="none" stroke="var(--red)" stroke-width="10" stroke-linecap="round" cx="65" cy="65" r="54" stroke-dasharray="${((100-winRate)/100)*circ} ${circ}" stroke-dashoffset="${-wonArc}" transform="rotate(-90 65 65)"/>
-          <text x="65" y="58" text-anchor="middle" font-family="Instrument Serif,serif" font-size="26" fill="#18181c">${winRate}%</text>
-          <text x="65" y="76" text-anchor="middle" font-family="Geist Mono,monospace" font-size="9" fill="#9999a8" letter-spacing="1">WIN RATE</text>
+        <svg width="120" height="120" viewBox="0 0 120 120" style="flex-shrink:0;">
+          <circle fill="none" stroke="var(--bg3)" stroke-width="10" cx="60" cy="60" r="52"/>
+          <circle fill="none" stroke="var(--grn)" stroke-width="10" stroke-linecap="round" cx="60" cy="60" r="52" stroke-dasharray="${wonArc} ${circ}" transform="rotate(-90 60 60)"/>
+          <circle fill="none" stroke="var(--red)" stroke-width="10" stroke-linecap="round" cx="60" cy="60" r="52" stroke-dasharray="${((100-winRate)/100)*circ} ${circ}" stroke-dashoffset="${-wonArc}" transform="rotate(-90 60 60)"/>
+          <text x="60" y="54" text-anchor="middle" font-family="Instrument Serif,serif" font-size="24" fill="#16161a">${winRate}%</text>
+          <text x="60" y="70" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#96969f" letter-spacing="1">WIN RATE</text>
         </svg>
-        <div class="ring-legend">
-          <div class="rleg"><span class="rleg-dot" style="background:var(--grn)"></span><span class="rleg-label">Won</span><span class="rleg-val">${won.length}</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-label">Lost</span><span class="rleg-val">${lost.length}</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--blu)"></span><span class="rleg-label">Active</span><span class="rleg-val">${active.length}</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--gold)"></span><span class="rleg-label">Avg close</span><span class="rleg-val">${avgClose}d</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--amb)"></span><span class="rleg-label">Total</span><span class="rleg-val">${deals.length}</span></div>
+        <div style="flex:1;">
+          <div class="rleg"><span class="rleg-dot" style="background:var(--grn)"></span><span class="rleg-lbl">Won deals</span><span class="rleg-v">${won.length} · $${fmtK(wonVal)}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-lbl">Lost deals</span><span class="rleg-v">${lost.length} · $${fmtK(lostVal)}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--blu)"></span><span class="rleg-lbl">Active deals</span><span class="rleg-v">${active.length} · $${fmtK(pipeVal)}</span></div>
+          <div class="rleg" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line)"><span class="rleg-dot" style="background:var(--gold)"></span><span class="rleg-lbl">Avg deal size</span><span class="rleg-v">$${fmtK(avgDeal)}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--amb)"></span><span class="rleg-lbl">Avg close time</span><span class="rleg-v">${avgClose} days</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-lbl">Overdue</span><span class="rleg-v" style="color:var(--red)">${actionDeals.length} deals</span></div>
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-ttl">Pipeline Funnel <span>Active deals by stage</span></div>
-      <div class="funnel">
-        ${stages.map((s,i)=>`<div class="funnel-stage">
-          <div class="funnel-name">${{appointmentscheduled:'Call Scheduled',qualifiedtobuy:'Call Done',presentationscheduled:'Quote Sent',decisionmakerboughtin:'Negotiating',contractsent:'Contract Sent'}[s]}</div>
-          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:${Math.max(Math.round((stageCounts[s]||0)/maxStage*100),6)}%;background:${STAGE_COLORS[i]};"><span class="funnel-bar-lbl">${stageCounts[s]||0} deals</span></div></div>
-          <div class="funnel-cnt">${stageCounts[s]||0}</div>
-        </div>`).join('')}
-      </div>
+  </div>
+
+  <!-- MONTHLY TREND -->
+  <div class="sh"><div class="sh-t">Monthly Revenue Trend</div><div class="sh-line"></div><div class="sh-s">Last 6 months · Won vs Lost</div></div>
+  <div class="card" style="margin-bottom:24px;">
+    <div class="ct">Revenue Closed by Month</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      ${months.map((m,i)=>{
+        const wv=mWon[i],lv=mLost[i],total=wv+lv;
+        const wPct=maxM>0?Math.round((wv/maxM)*100):0;
+        const lPct=maxM>0?Math.round((lv/maxM)*100):0;
+        return`<div style="display:flex;align-items:center;gap:12px;">
+          <div style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);width:28px;flex-shrink:0;">${m.label}</div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
+            ${wv>0?`<div style="display:flex;align-items:center;gap:6px;"><div style="background:var(--grn);height:16px;border-radius:3px;width:${Math.max(wPct,1)}%;display:flex;align-items:center;padding:0 6px;"><span style="font-family:'Geist Mono',monospace;font-size:9px;color:rgba(255,255,255,0.9);white-space:nowrap;">$${fmtK(wv)}</span></div></div>`:''}
+            ${lv>0?`<div style="display:flex;align-items:center;gap:6px;"><div style="background:var(--redbg);border:1px solid var(--redbd);height:16px;border-radius:3px;width:${Math.max(lPct,1)}%;display:flex;align-items:center;padding:0 6px;"><span style="font-family:'Geist Mono',monospace;font-size:9px;color:var(--red);white-space:nowrap;">-$${fmtK(lv)}</span></div></div>`:''}
+            ${total===0?`<div style="height:16px;display:flex;align-items:center;"><span style="font-size:10px;color:var(--dim);">No closed deals</span></div>`:''}
+          </div>
+          ${total>0?`<div style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);width:50px;text-align:right;flex-shrink:0;">${wv>0&&lv>0?'+$'+fmtK(wv-lv):wv>0?'$'+fmtK(wv):'-$'+fmtK(lv)}</div>`:''}
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:var(--grn);"></div>Won revenue</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:var(--redbg);border:1px solid var(--redbd);"></div>Lost revenue</div>
     </div>
   </div>
 
-  <!-- PRICE BANDS + MONTHLY -->
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-ttl">Win Rate by Price Band</div>
-      <div class="price-bands">
-        ${bandData.map(b=>{const col=b.rate>=60?'var(--grn)':b.rate>=40?'var(--gold)':'var(--red)';return`<div class="pband"><div class="pband-lbl">${b.label}</div><div class="pband-track"><div class="pband-fill" style="width:${b.rate||0}%;background:${col};">${b.rate>0?`<span>${b.rate}%</span>`:''}</div></div><div class="pband-rate" style="color:${col}">${b.rate}%</div></div>`;}).join('')}
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-ttl">Monthly Performance <span>Last 6 months</span></div>
-      <div style="margin-bottom:14px;">
-        <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--grn);margin-bottom:8px;">Won</div>
-        <div class="bar-list">${months.map((m,i)=>`<div class="bar-item"><div class="bar-head"><div class="bar-label">${m.label}</div><div class="bar-val">${mWon[i]}</div></div><div class="bar-track"><div class="bar-fill grn" style="width:${Math.round((mWon[i]/maxM)*100)}%"></div></div></div>`).join('')}</div>
-      </div>
-      <div>
-        <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Lost</div>
-        <div class="bar-list">${months.map((m,i)=>`<div class="bar-item"><div class="bar-head"><div class="bar-label">${m.label}</div><div class="bar-val">${mLost[i]}</div></div><div class="bar-track"><div class="bar-fill red" style="width:${Math.round((mLost[i]/maxM)*100)}%"></div></div></div>`).join('')}</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOST DEALS TABLE -->
-  <div class="sec-hd"><div class="sec-ttl">Lost Revenue</div><div class="sec-line"></div><div class="sec-sub">Click ✏ to edit any deal</div></div>
-  <div class="card" style="margin-bottom:22px;padding:0;overflow:hidden;">
-    ${topLost.length===0?'<div class="no-data">No lost deals found.</div>':`
-    <table class="dtable">
-      <thead><tr><th>Contact</th><th>Organisation</th><th>Researcher Type</th><th>Value</th><th>Stage Lost At</th><th>Days Open</th><th>Edit</th></tr></thead>
-      <tbody>${topLost.map(d=>{
-        const p=d.properties||{}, c=d._contact||{};
+  <!-- ACTION REQUIRED -->
+  <div class="sh"><div class="sh-t">Action Required Now</div><div class="sh-line"></div><div class="sh-s">${actionDeals.length} deals overdue · $${fmtK(actionDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0))} at risk</div></div>
+  <div class="card" style="margin-bottom:24px;padding:0;overflow:hidden;">
+    ${actionDeals.length===0?'<div class="no-data">All deals are on track — no overdue follow-ups.</div>':`
+    <table class="action-table">
+      <thead><tr><th>Deal</th><th>Stage</th><th>Value</th><th>Overdue By</th><th>Urgency</th></tr></thead>
+      <tbody>${actionDeals.slice(0,15).map(d=>{
+        const p=d.properties||{},c=d._contact||{};
         const val=parseFloat(p.amount)||0;
-        const created=p.createdate?new Date(p.createdate):null, closed=p.closedate?new Date(p.closedate):null;
-        const days=created&&closed?Math.round((closed-created)/86400000):'—';
-        const rtype=d._rtype||'unknown';
-        const src=d._rtypeSource==='ai'?'<span class="ai-badge">AI</span>':d._rtypeSource==='manual'?'<span class="ai-badge" style="color:var(--grn);background:var(--grnbg);border-color:var(--grnbd);">Manual</span>':'';
+        const urgency=d._daysOverdue>7?'critical':d._daysOverdue>3?'high':'medium';
+        const urgencyLabel=urgency==='critical'?'Critical':urgency==='high'?'High':'Follow Up';
         return`<tr>
-          <td>${esc(c.name||p.dealname||'—')}</td>
-          <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
-          <td><span class="rtype-badge ${rtype}">${RTYPE_ICONS[rtype]} ${RTYPE_LABELS[rtype]}</span> ${src}</td>
-          <td class="red">$${val.toLocaleString()}</td>
-          <td class="mono" style="font-size:11px;">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
-          <td class="mono" style="font-size:11px;">${days}d</td>
-          <td><button class="edit-btn" onclick="openEditDeal('${d.id}')">✏ Edit</button></td>
+          <td><div class="deal-name">${esc(c.name||p.dealname||'—')}</div><div class="deal-org">${esc(c.org||p.dealname||'')}</div></td>
+          <td style="font-size:11.5px;color:var(--soft);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
+          <td class="deal-val" style="color:var(--gold);">$${val.toLocaleString()}</td>
+          <td class="days-badge">${d._daysOverdue}d overdue</td>
+          <td><span class="urgency ${urgency}">${urgencyLabel}</span></td>
         </tr>`;
       }).join('')}</tbody>
     </table>`}
   </div>
 
-  <!-- RECENT WINS TABLE -->
-  <div class="sec-hd"><div class="sec-ttl">Recent Wins</div><div class="sec-line"></div><div class="sec-sub">Last ${recentWon.length} closed deals</div></div>
-  <div class="card" style="margin-bottom:22px;padding:0;overflow:hidden;">
-    ${recentWon.length===0?'<div class="no-data">No won deals yet.</div>':`
-    <table class="dtable">
-      <thead><tr><th>Contact</th><th>Organisation</th><th>Researcher Type</th><th>Value</th><th>Closed</th><th>Edit</th></tr></thead>
-      <tbody>${recentWon.map(d=>{
-        const p=d.properties||{}, c=d._contact||{};
-        const val=parseFloat(p.amount)||0;
-        const closed=p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
-        const rtype=d._rtype||'unknown';
-        const src=d._rtypeSource==='ai'?'<span class="ai-badge">AI</span>':d._rtypeSource==='manual'?'<span class="ai-badge" style="color:var(--grn);background:var(--grnbg);border-color:var(--grnbd);">Manual</span>':'';
-        return`<tr>
-          <td>${esc(c.name||p.dealname||'—')}</td>
-          <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
-          <td><span class="rtype-badge ${rtype}">${RTYPE_ICONS[rtype]} ${RTYPE_LABELS[rtype]}</span> ${src}</td>
-          <td class="grn">$${val.toLocaleString()}</td>
-          <td class="mono" style="font-size:11px;color:var(--muted);">${closed}</td>
-          <td><button class="edit-btn" onclick="openEditDeal('${d.id}')">✏ Edit</button></td>
-        </tr>`;
-      }).join('')}</tbody>
-    </table>`}
-  </div>
-
-  <!-- PIPELINE HEALTH -->
-  <div class="card" style="margin-bottom:22px;">
-    <div class="card-ttl">Pipeline Health Score</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-      ${[
-        {label:'Quote conversion',val:winRate,col:winRate>=50?'grn':winRate>=30?'gold':'red',desc:winRate+'% of closed deals won'},
-        {label:'Follow-up velocity',val:Math.min(100,Math.round((active.filter(d=>['qualifiedtobuy','presentationscheduled'].includes(d.properties?.dealstage)).length/Math.max(active.length,1))*200)),col:'grn',desc:'Deals actively progressing'},
-        {label:'Pipeline coverage',val:Math.min(100,Math.round((activeValue/Math.max(wonValue,1))*50)),col:'blu',desc:'$'+fmtK(activeValue)+' active vs $'+fmtK(wonValue)+' won'},
-        {label:'Deal velocity',val:avgClose>0?Math.min(100,Math.round((90/avgClose)*100)):50,col:'amb',desc:avgClose+'d average days to close'},
-      ].map(s=>`<div class="health-item">
-        <div class="health-head"><span class="health-lbl">${s.label}</span><span class="health-pct" style="color:var(--${s.col})">${s.val}%</span></div>
-        <div class="bar-track" style="height:7px;"><div class="bar-fill ${s.col}" style="width:${s.val}%"></div></div>
-        <div class="health-desc">${s.desc}</div>
-      </div>`).join('')}
+  <!-- WON vs LOST SIDE BY SIDE -->
+  <div class="g2">
+    <div>
+      <div class="sh" style="margin-bottom:12px;"><div class="sh-t">Recent Wins</div><div class="sh-line"></div><div class="sh-s">Last ${recentWon.length} closed</div></div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        ${recentWon.length===0?'<div class="no-data">No won deals yet.</div>':`
+        <table class="lost-table">
+          <thead><tr><th>Contact</th><th>Value</th><th>Closed</th></tr></thead>
+          <tbody>${recentWon.map(d=>{
+            const p=d.properties||{},c=d._contact||{};
+            const val=parseFloat(p.amount)||0;
+            const closed=p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
+            return`<tr>
+              <td><div>${esc(c.name||p.dealname||'—')}</div><div style="font-size:10.5px;color:var(--muted);">${esc(c.org||'')}</div></td>
+              <td style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--grn);">$${val.toLocaleString()}</td>
+              <td style="font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--muted);">${closed}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table>`}
+      </div>
+    </div>
+    <div>
+      <div class="sh" style="margin-bottom:12px;"><div class="sh-t">Biggest Losses</div><div class="sh-line"></div><div class="sh-s">Sorted by value</div></div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        ${topLost.length===0?'<div class="no-data">No lost deals.</div>':`
+        <table class="lost-table">
+          <thead><tr><th>Contact</th><th>Value</th><th>Lost At Stage</th></tr></thead>
+          <tbody>${topLost.map(d=>{
+            const p=d.properties||{},c=d._contact||{};
+            const val=parseFloat(p.amount)||0;
+            return`<tr>
+              <td><div>${esc(c.name||p.dealname||'—')}</div><div style="font-size:10.5px;color:var(--muted);">${esc(c.org||'')}</div></td>
+              <td style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--red);">$${val.toLocaleString()}</td>
+              <td style="font-size:11px;color:var(--muted);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
+            </tr>`;
+          }).join('')}</tbody>
+        </table>`}
+      </div>
     </div>
   </div>
 
   <div style="text-align:center;padding:20px 0 0;font-family:'Geist Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.06em;">
-    Last synced ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})} · ${deals.length} total deals · NeuroUX Deal Intelligence
-  </div>
+    ${deals.length} deals · synced ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})} · NeuroUX Founder Intelligence
   </div>`;
 }
 
-function generateInsights(won, lost, active, winRate, bestBand, avgClose, avgDeal, lostValue, activeValue, bestRtype) {
-  const ins = [];
-  insightFilters = [];
+// ── STAGE DRILL DOWN ──
+function drillStage(stage){
+  // Toggle
+  if(activeStage===stage){closeDrill();return;}
+  activeStage=stage;
 
-  // 1. Win rate
-  if (winRate >= 60) ins.push({icon:'🏆',color:'grn',title:'Strong win rate at '+winRate+'%',text:'You\'re closing more than half of all competed deals. Maintain this with consistent follow-up timing.'});
-  else if (winRate >= 40) ins.push({icon:'📈',color:'amb',title:'Win rate of '+winRate+'% has room to grow',text:'Good progress but conversion needs attention. Faster follow-up within 3 days of quoting makes the biggest difference.'});
-  else ins.push({icon:'⚠️',color:'red',title:'Win rate of '+winRate+'% needs attention',text:'More than half of competed deals are being lost. Review pricing, follow-up cadence, and where deals are stalling.'});
-  insightFilters.push({label:'All Closed Deals', deals:[...won,...lost]});
+  // Update visual
+  document.querySelectorAll('.stage-item').forEach(el=>{
+    el.classList.toggle('active',el.id==='stage_'+stage);
+  });
 
-  // 2. Best price band
-  if (bestBand && bestBand.rate > 0) {
-    ins.push({icon:'💰',color:'gold',title:bestBand.label+' deals close at '+bestBand.rate+'%',text:'This is your pricing sweet spot. Anchor quotes in this range and only go outside it with strong justification.'});
-    const bandDeals = [...won,...lost].filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=bestBand.min&&v<bestBand.max;});
-    insightFilters.push({label:'Deals in '+bestBand.label+' range', deals:bandDeals});
-  }
+  const deals=allDeals.filter(d=>d.properties?.dealstage===stage);
+  const stageName=HS_STAGE_MAP[stage]||stage;
+  const totalVal=deals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
 
-  // 3. Best researcher type
-  if (bestRtype) {
-    ins.push({icon:RTYPE_ICONS[bestRtype.rt],color:'blu',title:RTYPE_LABELS[bestRtype.rt]+'s close at '+bestRtype.rate+'%',text:'This researcher type converts best for NeuroUX. Prioritise these leads and tailor pitches to their specific study needs.'});
-    insightFilters.push({label:RTYPE_LABELS[bestRtype.rt]+' deals', deals:[...won,...lost,...active].filter(d=>d._rtype===bestRtype.rt)});
-  }
+  document.getElementById('drillTitle').textContent=stageName+' — '+deals.length+' deal'+(deals.length!==1?'s':'')+' · $'+totalVal.toLocaleString();
 
-  // 4. Lost revenue
-  if (lostValue > 0) {
-    ins.push({icon:'🔴',color:'red',title:'$'+fmtK(lostValue)+' in revenue lost',text:lost.length+' deals went cold. A re-activation email sequence targeting the last 90 days could recover several of these.'});
-    insightFilters.push({label:'Lost Deals', deals:lost.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});
-  }
-
-  // 5. Active pipeline
-  if (activeValue > 0) {
-    ins.push({icon:'🚀',color:'grn',title:'$'+fmtK(activeValue)+' in active pipeline',text:active.length+' deals in progress. Consistent follow-up over the next 2 weeks could significantly close this out.'});
-    insightFilters.push({label:'Active Pipeline Deals', deals:active.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});
-  }
-
-  // 6. Avg close time
-  if (avgClose > 0) {
-    ins.push({icon:'⏱',color:'amb',title:'Deals take avg '+avgClose+' days to close',text:avgClose<=30?'Excellent velocity. Short sales cycles mean more throughput.':avgClose<=60?'Reasonable. Faster quote turnaround after calls could shorten this.':'Consider urgency triggers — study start dates, grant deadlines — to accelerate decisions.'});
-    // Show won deals sorted by days to close
-    const withTime = won.filter(d=>d.properties?.createdate&&d.properties?.closedate).map(d=>({...d,_days:Math.round((new Date(d.properties.closedate)-new Date(d.properties.createdate))/86400000)})).sort((a,b)=>b._days-a._days);
-    insightFilters.push({label:'Won Deals by Days to Close', deals:withTime});
-  }
-
-  return ins.slice(0,6);
-}
-
-// ═══ INSIGHT DRILL-DOWN ═══
-let insightFilters = []; // populated during renderDashboard
-
-function drillInsight(idx) {
-  const filter = insightFilters[idx];
-  if (!filter) return;
-
-  // Toggle active state
-  document.querySelectorAll('.insight').forEach((el,i) => el.classList.toggle('active-ins', i===idx));
-
-  const deals = filter.deals;
-  const wrap = document.getElementById('drillWrap');
-  const title = document.getElementById('drillTitle');
-  const body = document.getElementById('drillBody');
-
-  title.textContent = filter.label + ' — ' + deals.length + ' deal' + (deals.length!==1?'s':'');
-
-  if (!deals.length) {
-    body.innerHTML = '<div class="no-data">No deals match this insight.</div>';
-  } else {
-    body.innerHTML = `<table class="dtable">
-      <thead><tr><th>Contact</th><th>Organisation</th><th>Type</th><th>Value</th><th>Stage</th><th>Last Modified</th><th>Edit</th></tr></thead>
-      <tbody>${deals.map(d=>{
-        const p=d.properties||{}, c=d._contact||{};
+  if(!deals.length){
+    document.getElementById('drillBody').innerHTML='<div class="no-data">No deals in this stage.</div>';
+  }else{
+    document.getElementById('drillBody').innerHTML=`<table class="lost-table">
+      <thead><tr><th>Contact</th><th>Organisation</th><th>Value</th><th>Last Activity</th></tr></thead>
+      <tbody>${deals.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0)).map(d=>{
+        const p=d.properties||{},c=d._contact||{};
         const val=parseFloat(p.amount)||0;
-        const mod=p.hs_lastmodifieddate?new Date(p.hs_lastmodifieddate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):(p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—');
-        const rtype=d._rtype||'unknown';
-        const stageName=HS_STAGE_MAP[p.dealstage]||p.dealstage||'—';
-        const valColor=p.dealstage==='closedwon'?'grn':p.dealstage==='closedlost'?'red':'gold';
+        const lm=p.hs_lastmodifieddate?new Date(p.hs_lastmodifieddate):null;
+        const today=new Date();
+        const daysAgo=lm?Math.floor((today-lm)/86400000):null;
+        const lmStr=daysAgo===0?'Today':daysAgo===1?'Yesterday':daysAgo!==null?daysAgo+'d ago':'—';
         return`<tr>
-          <td>${esc(c.name||p.dealname||'—')}<div style="font-size:10px;color:var(--muted);margin-top:1px;">${esc(p.dealname||'')}</div></td>
-          <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
-          <td><span class="rtype-badge ${rtype}">${RTYPE_ICONS[rtype]} ${RTYPE_LABELS[rtype]}</span></td>
-          <td class="${valColor}">$${val.toLocaleString()}</td>
-          <td class="mono" style="font-size:11px;">${stageName}</td>
-          <td class="mono" style="font-size:10.5px;color:var(--muted);">${mod}</td>
-          <td><button class="edit-btn" onclick="openEditDeal('${d.id}')">✏</button></td>
+          <td><div style="font-weight:500;color:var(--ink);">${esc(c.name||p.dealname||'—')}</div></td>
+          <td>${esc(c.org||'—')}</td>
+          <td style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);">$${val.toLocaleString()}</td>
+          <td style="font-family:'Geist Mono',monospace;font-size:11px;color:${daysAgo>5?'var(--red)':'var(--muted)'};">${lmStr}</td>
         </tr>`;
       }).join('')}</tbody>
     </table>`;
   }
 
+  const wrap=document.getElementById('drillWrap');
   wrap.classList.add('open');
-  // Scroll to drill table
-  setTimeout(()=>wrap.scrollIntoView({behavior:'smooth', block:'start'}), 50);
+  setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
 }
 
-function closeDrill() {
+function closeDrill(){
+  activeStage=null;
   document.getElementById('drillWrap').classList.remove('open');
-  document.querySelectorAll('.insight').forEach(el=>el.classList.remove('active-ins'));
+  document.querySelectorAll('.stage-item').forEach(el=>el.classList.remove('active'));
 }
-function fmtK(n){if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1000)return(n/1000).toFixed(0)+'K';return n.toLocaleString();}
+
+// ── SETTINGS ──
+function saveSettings(){
+  const hs=document.getElementById('s_hs').value.trim(),wk=document.getElementById('s_wk').value.trim(),ai=document.getElementById('s_ai').value.trim();
+  if(!hs||!wk){alert('Fill in HubSpot token and Worker URL.');return;}
+  localStorage.setItem('nx_hs_tok',hs);localStorage.setItem('nx_wk_url',wk);
+  if(ai)localStorage.setItem('nx_ai_key',ai);
+  closeM('settingsM');loadData();
+}
+
+// ── UTILS ──
+function fmtK(n){if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1000)return Math.round(n/1000)+'K';return n.toLocaleString();}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function openM(id){document.getElementById(id)?.classList.add('open');}
 function closeM(id){document.getElementById(id)?.classList.remove('open');}
 document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
-function saveSettings(){
-  const hs=document.getElementById('s_hs').value.trim(), wk=document.getElementById('s_wk').value.trim(), ai=document.getElementById('s_ai').value.trim();
-  if(!hs||!wk){alert('Fill in HubSpot token and Worker URL.');return;}
-  localStorage.setItem('nx_hs_tok',hs); localStorage.setItem('nx_wk_url',wk);
-  if(ai) localStorage.setItem('nx_ai_key',ai);
-  closeM('settingsM'); loadData();
-}
-
-document.getElementById('dateLabel').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-document.getElementById('s_hs').value = localStorage.getItem('nx_hs_tok')||'';
-document.getElementById('s_wk').value = localStorage.getItem('nx_wk_url')||'';
-document.getElementById('s_ai').value = localStorage.getItem('nx_ai_key')||'';
-
-window.addEventListener('DOMContentLoaded', ()=>{
-  const hs=localStorage.getItem('nx_hs_tok'), wk=localStorage.getItem('nx_wk_url');
-  if(hs&&wk) loadData();
-  else { document.getElementById('loadingState').style.display='none'; openM('settingsM'); }
-});
 </script>
 </body>
 </html>
