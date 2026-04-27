@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroUX · Deal Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f9f8f5;
+  --bg2: #ffffff;
+  --bg3: #f2f1ed;
+  --bg4: #eae9e3;
+  --line: #e5e3db;
+  --line2: #d4d2c8;
+  --ink: #18181c;
+  --ink2: #38383f;
+  --soft: #6b6b78;
+  --muted: #9999a8;
+  --dim: #c4c4d0;
+  --gold: #b07828;
+  --gold2: #d4a040;
+  --goldbg: rgba(176,120,40,0.07);
+  --goldbd: rgba(176,120,40,0.18);
+  --red: #c03838;
+  --redbg: rgba(192,56,56,0.06);
+  --redbd: rgba(192,56,56,0.16);
+  --grn: #1e7a50;
+  --grnbg: rgba(30,122,80,0.06);
+  --grnbd: rgba(30,122,80,0.16);
+  --blu: #2050b8;
+  --blubg: rgba(32,80,184,0.06);
+  --blubd: rgba(32,80,184,0.16);
+  --amb: #b06010;
+  --ambbg: rgba(176,96,16,0.06);
+  --ambbd: rgba(176,96,16,0.16);
+  --sh1: 0 1px 3px rgba(24,24,28,0.05), 0 1px 2px rgba(24,24,28,0.04);
+  --sh2: 0 4px 20px rgba(24,24,28,0.08);
+  --sh3: 0 20px 60px rgba(24,24,28,0.12);
+}
+html, body { min-height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: 'Geist', sans-serif; font-size: 13px; -webkit-font-smoothing: antialiased; }
+
+/* ── HEADER ── */
+.hdr {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--line);
+  padding: 0 36px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+  position: sticky; top: 0; z-index: 50;
+  box-shadow: var(--sh1);
+}
+.hdr-left { display: flex; align-items: center; gap: 16px; }
+.hdr-hex { width: 32px; height: 32px; background: linear-gradient(135deg, var(--gold), var(--gold2)); clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); display: grid; place-items: center; }
+.hdr-hex-i { width: 13px; height: 13px; background: #fff; clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); }
+.hdr-brand { font-family: 'Geist', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.04em; color: var(--ink); }
+.hdr-div { width: 1px; height: 20px; background: var(--line); }
+.hdr-title { font-family: 'Instrument Serif', serif; font-size: 17px; color: var(--soft); font-style: italic; }
+.hdr-right { display: flex; align-items: center; gap: 10px; }
+.hdr-date { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.06em; }
+.sync-btn { display: flex; align-items: center; gap: 6px; background: var(--ink); color: #fff; border: none; border-radius: 8px; padding: 7px 16px; font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+.sync-btn:hover { background: var(--ink2); }
+.sync-btn.syncing { background: var(--gold); }
+.crm-link { background: var(--bg3); border: 1px solid var(--line); color: var(--soft); border-radius: 8px; padding: 7px 14px; font-size: 12px; font-weight: 500; cursor: pointer; text-decoration: none; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
+.crm-link:hover { background: var(--bg4); color: var(--ink); }
+
+/* ── SETTINGS MODAL ── */
+.mo { display: none; position: fixed; inset: 0; background: rgba(24,24,28,0.4); z-index: 200; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(6px); }
+.mo.open { display: flex; }
+.md { background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; width: 100%; max-width: 460px; box-shadow: var(--sh3); animation: mi 0.2s ease both; padding: 24px; }
+.md-t { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); margin-bottom: 6px; }
+.md-s { font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+.ff { margin-bottom: 14px; }
+.ff label { display: block; font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.ff input { width: 100%; background: var(--bg3); border: 1.5px solid var(--line); border-radius: 8px; padding: 9px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--ink); outline: none; transition: all 0.15s; }
+.ff input:focus { border-color: var(--gold); background: var(--bg2); box-shadow: 0 0 0 3px var(--goldbg); }
+.md-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+.btn-pri { background: var(--gold); color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.btn-pri:hover { background: var(--gold2); }
+.btn-sec { background: none; border: 1.5px solid var(--line); color: var(--soft); border-radius: 8px; padding: 9px 16px; font-family: 'Geist', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.15s; }
+.btn-sec:hover { background: var(--bg3); }
+
+/* ── MAIN ── */
+.wrap { max-width: 1320px; margin: 0 auto; padding: 32px 36px 60px; }
+
+/* ── HERO STATS ── */
+.hero { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
+.hstat { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; box-shadow: var(--sh1); position: relative; overflow: hidden; transition: all 0.18s; }
+.hstat:hover { box-shadow: var(--sh2); transform: translateY(-1px); }
+.hstat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+.hstat.green::before { background: var(--grn); }
+.hstat.red::before { background: var(--red); }
+.hstat.gold::before { background: var(--gold); }
+.hstat.blue::before { background: var(--blu); }
+.hstat.amb::before { background: var(--amb); }
+.hstat-label { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.hstat-val { font-family: 'Instrument Serif', serif; font-size: 36px; line-height: 1; color: var(--ink); margin-bottom: 6px; }
+.hstat-val.green { color: var(--grn); }
+.hstat-val.red { color: var(--red); }
+.hstat-val.gold { color: var(--gold); }
+.hstat-val.blue { color: var(--blu); }
+.hstat-val.amb { color: var(--amb); }
+.hstat-sub { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+
+/* ── SECTION HEADER ── */
+.sec-hd { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.sec-ttl { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); }
+.sec-sub { font-size: 12px; color: var(--muted); }
+.sec-line { flex: 1; height: 1px; background: var(--line); }
+
+/* ── GRID LAYOUTS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.grid-13 { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin-bottom: 24px; }
+.grid-31 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; margin-bottom: 24px; }
+
+/* ── CARDS ── */
+.card { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; box-shadow: var(--sh1); }
+.card-ttl { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
+.card-ttl span { color: var(--dim); font-size: 9px; }
+
+/* ── WIN RATE RING ── */
+.ring-wrap { display: flex; align-items: center; gap: 28px; }
+.ring-svg { flex-shrink: 0; }
+.ring-bg { fill: none; stroke: var(--bg3); stroke-width: 10; }
+.ring-fill { fill: none; stroke-width: 10; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dasharray 1s ease; }
+.ring-fill.grn { stroke: var(--grn); }
+.ring-fill.red { stroke: var(--red); }
+.ring-fill.amb { stroke: var(--amb); }
+.ring-legend { display: flex; flex-direction: column; gap: 10px; }
+.rleg { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.rleg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.rleg-label { color: var(--soft); }
+.rleg-val { font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); margin-left: auto; padding-left: 16px; }
+
+/* ── BAR CHARTS ── */
+.bar-list { display: flex; flex-direction: column; gap: 10px; }
+.bar-item { display: flex; flex-direction: column; gap: 4px; }
+.bar-head { display: flex; justify-content: space-between; align-items: center; }
+.bar-label { font-size: 12px; color: var(--ink2); font-weight: 500; }
+.bar-val { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); }
+.bar-track { background: var(--bg3); border-radius: 3px; height: 6px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+.bar-fill.grn { background: var(--grn); }
+.bar-fill.blu { background: var(--blu); }
+.bar-fill.gold { background: var(--gold); }
+.bar-fill.red { background: var(--red); }
+.bar-fill.amb { background: var(--amb); }
+.bar-fill.prp { background: #7040c0; }
+
+/* ── FUNNEL ── */
+.funnel { display: flex; flex-direction: column; gap: 6px; }
+.funnel-stage { display: flex; align-items: center; gap: 12px; }
+.funnel-bar-wrap { flex: 1; background: var(--bg3); border-radius: 4px; height: 32px; overflow: hidden; position: relative; }
+.funnel-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 12px; transition: width 1s ease; }
+.funnel-bar-label { font-size: 11px; font-weight: 500; color: #fff; white-space: nowrap; }
+.funnel-stage-name { font-size: 11.5px; color: var(--soft); width: 110px; text-align: right; flex-shrink: 0; }
+.funnel-count { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); width: 30px; flex-shrink: 0; text-align: right; }
+
+/* ── INSIGHT CARDS ── */
+.insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.insight { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; box-shadow: var(--sh1); display: flex; gap: 12px; align-items: flex-start; transition: all 0.16s; }
+.insight:hover { box-shadow: var(--sh2); transform: translateY(-1px); }
+.insight-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.insight-body {}
+.insight-ttl { font-size: 12.5px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.4; }
+.insight-txt { font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+.insight.gold { border-left: 3px solid var(--gold); }
+.insight.grn { border-left: 3px solid var(--grn); }
+.insight.red { border-left: 3px solid var(--red); }
+.insight.blu { border-left: 3px solid var(--blu); }
+.insight.amb { border-left: 3px solid var(--amb); }
+.insight.prp { border-left: 3px solid #7040c0; }
+
+/* ── LOST DEALS TABLE ── */
+.lost-table { width: 100%; border-collapse: collapse; }
+.lost-table th { font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0 10px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+.lost-table td { padding: 10px; font-size: 12px; color: var(--soft); border-bottom: 1px solid var(--line); vertical-align: middle; }
+.lost-table td:first-child { color: var(--ink); font-weight: 500; }
+.lost-table td.mono { font-family: 'Geist Mono', monospace; font-size: 11.5px; }
+.lost-table td.red { color: var(--red); font-weight: 600; font-family: 'Geist Mono', monospace; }
+.lost-table td.gold { color: var(--gold); font-family: 'Geist Mono', monospace; font-weight: 600; }
+.lost-table tr:last-child td { border-bottom: none; }
+.lost-table tr:hover td { background: var(--bg3); }
+
+/* ── PRICE BAND ── */
+.price-bands { display: flex; flex-direction: column; gap: 8px; }
+.pband { display: flex; align-items: center; gap: 12px; }
+.pband-label { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--soft); width: 100px; flex-shrink: 0; }
+.pband-track { flex: 1; background: var(--bg3); border-radius: 3px; height: 24px; overflow: hidden; position: relative; }
+.pband-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; transition: width 1s ease; }
+.pband-fill span { font-family: 'Geist Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.9); font-weight: 500; }
+.pband-rate { font-family: 'Geist Mono', monospace; font-size: 11px; width: 36px; text-align: right; flex-shrink: 0; }
+
+/* ── TREND SPARKLINE ── */
+.sparkline-wrap { display: flex; flex-direction: column; gap: 14px; }
+.spark-item { display: flex; align-items: center; gap: 12px; }
+.spark-label { font-size: 11.5px; color: var(--soft); width: 80px; flex-shrink: 0; }
+.spark-svg { flex: 1; }
+.spark-val { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--ink2); width: 40px; text-align: right; flex-shrink: 0; }
+
+/* ── EMPTY / LOADING ── */
+.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 40px; text-align: center; }
+.loading-spinner { width: 36px; height: 36px; border: 3px solid var(--line); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
+.loading-t { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--soft); margin-bottom: 6px; }
+.loading-s { font-size: 12.5px; color: var(--muted); }
+.no-data { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes mi { from{opacity:0;transform:scale(0.975) translateY(5px)} to{opacity:1;transform:scale(1) translateY(0)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.fade-in { animation: fadeUp 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="hdr-hex"><div class="hdr-hex-i"></div></div>
+    <div class="hdr-brand">NEUROUX</div>
+    <div class="hdr-div"></div>
+    <div class="hdr-title">Deal Intelligence</div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-date" id="dateLabel"></div>
+    <a href="index.html" class="crm-link">← CRM</a>
+    <button class="sync-btn" id="syncBtn" onclick="loadData()">
+      <span id="syncIcon">⟳</span> Sync HubSpot
+    </button>
+    <button class="sync-btn" style="background:var(--bg3);color:var(--soft);border:1px solid var(--line);" onclick="openM()">⚙</button>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="mo" id="settingsM">
+  <div class="md">
+    <div class="md-t">Connect HubSpot</div>
+    <div class="md-s">Your credentials are stored in your browser only and never transmitted anywhere.</div>
+    <div class="ff"><label>HubSpot API Token</label><input type="password" id="s_hs" placeholder="pat-na2-..."></div>
+    <div class="ff"><label>Cloudflare Worker URL</label><input type="text" id="s_wk" placeholder="https://your-worker.workers.dev"></div>
+    <div class="md-btns">
+      <button class="btn-sec" onclick="closeM()">Cancel</button>
+      <button class="btn-pri" onclick="saveSettings()">Save & Sync</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="mainWrap">
+  <div class="loading" id="loadingState">
+    <div class="loading-spinner"></div>
+    <div class="loading-t">Loading your deal data…</div>
+    <div class="loading-s">Connecting to HubSpot</div>
+  </div>
+  <div id="dashboard" style="display:none;"></div>
+</div>
+
+<script>
+const VERCEL_URL = 'https://neuroux-tracker-1.vercel.app';
+
+document.getElementById('dateLabel').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+document.getElementById('s_hs').value = localStorage.getItem('nx_hs_tok')||'';
+document.getElementById('s_wk').value = localStorage.getItem('nx_wk_url')||'';
+
+function openM(){ document.getElementById('settingsM').classList.add('open'); }
+function closeM(){ document.getElementById('settingsM').classList.remove('open'); }
+document.getElementById('settingsM').addEventListener('click', e => { if(e.target===document.getElementById('settingsM')) closeM(); });
+function saveSettings(){
+  const hs=document.getElementById('s_hs').value.trim(), wk=document.getElementById('s_wk').value.trim();
+  if(!hs||!wk){ alert('Fill in both fields.'); return; }
+  localStorage.setItem('nx_hs_tok', hs); localStorage.setItem('nx_wk_url', wk);
+  closeM(); loadData();
+}
+
+async function hsGet(path){
+  const wk=localStorage.getItem('nx_wk_url')||'', tk=localStorage.getItem('nx_hs_tok')||'';
+  const r = await fetch(wk+'/hubspot'+path, {headers:{'Authorization':'Bearer '+tk}});
+  if(!r.ok) throw new Error('HS '+r.status);
+  return r.json();
+}
+
+let allDeals = [];
+
+async function loadData(){
+  const hs=localStorage.getItem('nx_hs_tok'), wk=localStorage.getItem('nx_wk_url');
+  if(!hs||!wk){ openM(); return; }
+
+  document.getElementById('loadingState').style.display='flex';
+  document.getElementById('dashboard').style.display='none';
+  const btn=document.getElementById('syncBtn');
+  btn.classList.add('syncing'); btn.innerHTML='<span>⟳</span> Syncing…';
+
+  try {
+    let deals=[], after='';
+    do {
+      const q='?limit=100&properties=dealname,amount,dealstage,closedate,createdate,hs_lastmodifieddate,num_notes,hs_num_target_accounts&associations=contacts'+(after?'&after='+after:'');
+      const d = await hsGet('/crm/v3/objects/deals'+q);
+      deals = deals.concat(d.results||[]);
+      after = d.paging?.next?.after||'';
+    } while(after);
+
+    // Enrich with contact data (sample first 40 to avoid rate limits)
+    const sample = deals.slice(0,40);
+    for(const deal of sample){
+      const ac = deal.associations?.contacts?.results||[];
+      if(ac.length>0){
+        try{
+          const c = await hsGet('/crm/v3/objects/contacts/'+ac[0].id+'?properties=firstname,lastname,email,company,jobtitle');
+          const cp = c.properties||{};
+          deal._contact = { name:(cp.firstname||'')+' '+(cp.lastname||''), email:cp.email||'', org:cp.company||'', title:cp.jobtitle||'' };
+        }catch(e){}
+      }
+    }
+
+    allDeals = deals;
+    renderDashboard(deals);
+    document.getElementById('loadingState').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    btn.classList.remove('syncing'); btn.innerHTML='<span>⟳</span> Sync HubSpot';
+  } catch(e){
+    console.error(e);
+    document.getElementById('loadingState').innerHTML='<div style="text-align:center;padding:60px;"><div style="font-size:24px;margin-bottom:12px;">⚠️</div><div style="font-family:\'Instrument Serif\',serif;font-size:18px;color:var(--soft);margin-bottom:8px;">Could not connect to HubSpot</div><div style="font-size:12px;color:var(--muted);margin-bottom:16px;">Check your credentials in Settings</div><button onclick="openM()" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:13px;cursor:pointer;">Open Settings</button></div>';
+    btn.classList.remove('syncing'); btn.innerHTML='<span>⟳</span> Sync HubSpot';
+  }
+}
+
+const HS_STAGE_MAP = {
+  appointmentscheduled:'Call Scheduled', qualifiedtobuy:'Call Done',
+  presentationscheduled:'Quote Sent', decisionmakerboughtin:'Negotiating',
+  contractsent:'Negotiating', closedwon:'Won', closedlost:'Lost'
+};
+
+function renderDashboard(deals){
+  const won = deals.filter(d=>d.properties?.dealstage==='closedwon');
+  const lost = deals.filter(d=>d.properties?.dealstage==='closedlost');
+  const active = deals.filter(d=>d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost');
+  const total = won.length+lost.length;
+  const winRate = total>0?Math.round((won.length/total)*100):0;
+  const wonValue = won.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const lostValue = lost.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const activeValue = active.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const avgDeal = won.length>0?Math.round(wonValue/won.length):0;
+
+  // Stage funnel
+  const stages = ['appointmentscheduled','qualifiedtobuy','presentationscheduled','decisionmakerboughtin','contractsent'];
+  const stageCounts = {};
+  stages.forEach(s=>stageCounts[s]=active.filter(d=>d.properties?.dealstage===s).length);
+  const stageNames = {appointmentscheduled:'Call Scheduled',qualifiedtobuy:'Call Done',presentationscheduled:'Quote Sent',decisionmakerboughtin:'Negotiating',contractsent:'Contract Sent'};
+  const stageColors = ['#3060c8','#2050b8','#b07828','#c07010','#1e7a50'];
+
+  // Price bands win rates
+  const bands = [{label:'< $1K',min:0,max:1000},{label:'$1K–$3K',min:1000,max:3000},{label:'$3K–$6K',min:3000,max:6000},{label:'$6K–$10K',min:6000,max:10000},{label:'> $10K',min:10000,max:Infinity}];
+  const bandData = bands.map(b=>{
+    const bWon=won.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;
+    const bLost=lost.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;
+    const bTotal=bWon+bLost;
+    return {...b,won:bWon,lost:bLost,total:bTotal,rate:bTotal>0?Math.round((bWon/bTotal)*100):0};
+  });
+  const bestBand = bandData.reduce((best,b)=>b.rate>best.rate&&b.total>1?b:best,{rate:0,label:'N/A'});
+
+  // Days to close
+  const closeTimes = won.filter(d=>d.properties?.createdate&&d.properties?.closedate).map(d=>{
+    return Math.round((new Date(d.properties.closedate)-new Date(d.properties.createdate))/86400000);
+  }).filter(d=>d>0&&d<365);
+  const avgClose = closeTimes.length>0?Math.round(closeTimes.reduce((a,b)=>a+b,0)/closeTimes.length):0;
+
+  // Lost deals sorted by value
+  const topLost = lost.filter(d=>d.properties?.amount).sort((a,b)=>(parseFloat(b.properties.amount)||0)-(parseFloat(a.properties.amount)||0)).slice(0,8);
+
+  // Recent won
+  const recentWon = won.filter(d=>d.properties?.closedate).sort((a,b)=>new Date(b.properties.closedate)-new Date(a.properties.closedate)).slice(0,5);
+
+  // Monthly trend (last 6 months)
+  const now = new Date();
+  const months = Array.from({length:6},(_,i)=>{const d=new Date(now.getFullYear(),now.getMonth()-5+i,1);return{label:d.toLocaleDateString('en-US',{month:'short'}),year:d.getFullYear(),month:d.getMonth()};});
+  const monthlyWon = months.map(m=>won.filter(d=>{if(!d.properties?.closedate)return false;const cd=new Date(d.properties.closedate);return cd.getMonth()===m.month&&cd.getFullYear()===m.year;}).length);
+  const monthlyLost = months.map(m=>lost.filter(d=>{if(!d.properties?.closedate)return false;const cd=new Date(d.properties.closedate);return cd.getMonth()===m.month&&cd.getFullYear()===m.year;}).length);
+  const maxMonth = Math.max(...monthlyWon,...monthlyLost,1);
+
+  // Insights
+  const insights = generateInsights(won,lost,active,winRate,bestBand,avgClose,avgDeal,lostValue,activeValue,bandData);
+
+  // Ring chart circumference
+  const circ = 2*Math.PI*54;
+  const wonArc = (winRate/100)*circ;
+  const lostArc = ((100-winRate)/100)*circ;
+
+  document.getElementById('dashboard').innerHTML = `
+  <div class="fade-in">
+
+  <!-- HERO STATS -->
+  <div class="hero">
+    <div class="hstat green">
+      <div class="hstat-label">Win Rate</div>
+      <div class="hstat-val green">${winRate}%</div>
+      <div class="hstat-sub">${won.length} won of ${total} closed</div>
+    </div>
+    <div class="hstat gold">
+      <div class="hstat-label">Revenue Won</div>
+      <div class="hstat-val gold">$${fmtK(wonValue)}</div>
+      <div class="hstat-sub">across ${won.length} deals</div>
+    </div>
+    <div class="hstat red">
+      <div class="hstat-label">Revenue Lost</div>
+      <div class="hstat-val red">$${fmtK(lostValue)}</div>
+      <div class="hstat-sub">${lost.length} deals went cold</div>
+    </div>
+    <div class="hstat blue">
+      <div class="hstat-label">Active Pipeline</div>
+      <div class="hstat-val blue">$${fmtK(activeValue)}</div>
+      <div class="hstat-sub">${active.length} deals in progress</div>
+    </div>
+    <div class="hstat amb">
+      <div class="hstat-label">Avg Deal Size</div>
+      <div class="hstat-val amb">$${fmtK(avgDeal)}</div>
+      <div class="hstat-sub">avg ${avgClose}d to close</div>
+    </div>
+  </div>
+
+  <!-- AI INSIGHTS -->
+  <div class="sec-hd"><div class="sec-ttl">AI Insights</div><div class="sec-line"></div><div class="sec-sub">Based on your real deal data</div></div>
+  <div class="insights">${insights.map(ins=>`
+    <div class="insight ${ins.color}">
+      <div class="insight-icon">${ins.icon}</div>
+      <div class="insight-body"><div class="insight-ttl">${ins.title}</div><div class="insight-txt">${ins.text}</div></div>
+    </div>`).join('')}
+  </div>
+
+  <!-- WIN RATE + FUNNEL -->
+  <div class="grid-13">
+    <div class="card">
+      <div class="card-ttl">Win / Loss Breakdown</div>
+      <div class="ring-wrap">
+        <svg class="ring-svg" width="130" height="130" viewBox="0 0 130 130">
+          <circle class="ring-bg" cx="65" cy="65" r="54"/>
+          <circle class="ring-fill grn" cx="65" cy="65" r="54" stroke-dasharray="${wonArc} ${circ}" stroke-dashoffset="0"/>
+          <circle class="ring-fill red" cx="65" cy="65" r="54" stroke-dasharray="${lostArc} ${circ}" stroke-dashoffset="${-wonArc}"/>
+          <text x="65" y="58" text-anchor="middle" font-family="Instrument Serif,serif" font-size="26" fill="#18181c">${winRate}%</text>
+          <text x="65" y="76" text-anchor="middle" font-family="Geist Mono,monospace" font-size="9" fill="#9999a8" letter-spacing="1">WIN RATE</text>
+        </svg>
+        <div class="ring-legend">
+          <div class="rleg"><span class="rleg-dot" style="background:var(--grn)"></span><span class="rleg-label">Won</span><span class="rleg-val">${won.length} deals</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-label">Lost</span><span class="rleg-val">${lost.length} deals</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--blu)"></span><span class="rleg-label">Active</span><span class="rleg-val">${active.length} deals</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--gold)"></span><span class="rleg-label">Avg close</span><span class="rleg-val">${avgClose} days</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--amb)"></span><span class="rleg-label">Total deals</span><span class="rleg-val">${deals.length}</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-ttl">Pipeline Funnel <span>Active deals by stage</span></div>
+      <div class="funnel">
+        ${stages.map((s,i)=>{
+          const cnt=stageCounts[s]||0;
+          const maxCnt=Math.max(...Object.values(stageCounts),1);
+          const pct=Math.round((cnt/maxCnt)*100);
+          return`<div class="funnel-stage">
+            <div class="funnel-stage-name">${stageNames[s]}</div>
+            <div class="funnel-bar-wrap">
+              <div class="funnel-bar" style="width:${Math.max(pct,8)}%;background:${stageColors[i]};">
+                <span class="funnel-bar-label">${cnt} deal${cnt!==1?'s':''}</span>
+              </div>
+            </div>
+            <div class="funnel-count">${cnt}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  </div>
+
+  <!-- WIN RATE BY PRICE + MONTHLY TREND -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-ttl">Win Rate by Price Band <span>Which prices close best</span></div>
+      <div class="price-bands">
+        ${bandData.map(b=>{
+          const col=b.rate>=60?'var(--grn)':b.rate>=40?'var(--gold)':'var(--red)';
+          return`<div class="pband">
+            <div class="pband-label">${b.label}</div>
+            <div class="pband-track">
+              <div class="pband-fill" style="width:${b.rate||0}%;background:${col};">
+                ${b.rate>0?`<span>${b.rate}%</span>`:''}
+              </div>
+            </div>
+            <div class="pband-rate" style="color:${col}">${b.rate}%</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-ttl">Monthly Performance <span>Last 6 months</span></div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--grn);margin-bottom:8px;">Won</div>
+          <div class="bar-list">
+            ${months.map((m,i)=>`<div class="bar-item">
+              <div class="bar-head"><div class="bar-label">${m.label}</div><div class="bar-val">${monthlyWon[i]} deals</div></div>
+              <div class="bar-track"><div class="bar-fill grn" style="width:${maxMonth>0?Math.round((monthlyWon[i]/maxMonth)*100):0}%"></div></div>
+            </div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Lost</div>
+          <div class="bar-list">
+            ${months.map((m,i)=>`<div class="bar-item">
+              <div class="bar-head"><div class="bar-label">${m.label}</div><div class="bar-val">${monthlyLost[i]} deals</div></div>
+              <div class="bar-track"><div class="bar-fill red" style="width:${maxMonth>0?Math.round((monthlyLost[i]/maxMonth)*100):0}%"></div></div>
+            </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOST DEALS TABLE -->
+  <div class="sec-hd"><div class="sec-ttl">Lost Revenue</div><div class="sec-line"></div><div class="sec-sub">Deals that went cold — sorted by value</div></div>
+  <div class="card" style="margin-bottom:24px;padding:0;overflow:hidden;">
+    ${topLost.length===0?'<div class="no-data">No lost deals found.</div>':`
+    <table class="lost-table">
+      <thead><tr>
+        <th>Deal</th><th>Organisation</th><th>Value</th><th>Stage Lost At</th><th>Days Open</th><th>Closed</th>
+      </tr></thead>
+      <tbody>
+        ${topLost.map(d=>{
+          const p=d.properties||{};
+          const org=d._contact?.org||'—';
+          const val=parseFloat(p.amount)||0;
+          const stage=HS_STAGE_MAP[p.dealstage]||p.dealstage||'—';
+          const created=p.createdate?new Date(p.createdate):null;
+          const closed=p.closedate?new Date(p.closedate):null;
+          const days=created&&closed?Math.round((closed-created)/86400000):'—';
+          const closedStr=closed?closed.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
+          return`<tr>
+            <td>${esc(p.dealname||'Unnamed')}</td>
+            <td>${esc(org)}</td>
+            <td class="red">$${val.toLocaleString()}</td>
+            <td class="mono">${stage}</td>
+            <td class="mono">${days}d</td>
+            <td class="mono" style="color:var(--muted);font-size:10.5px;">${closedStr}</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`}
+  </div>
+
+  <!-- RECENT WINS -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-ttl">Recent Wins <span>Last ${recentWon.length} closed deals</span></div>
+      ${recentWon.length===0?'<div class="no-data">No won deals yet.</div>':'<div class="bar-list">'+recentWon.map(d=>{
+        const p=d.properties||{};
+        const val=parseFloat(p.amount)||0;
+        const maxVal=Math.max(...recentWon.map(x=>parseFloat(x.properties?.amount)||0),1);
+        const closed=p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
+        return`<div class="bar-item">
+          <div class="bar-head"><div class="bar-label" style="font-size:11.5px;">${esc(p.dealname||'Deal')}</div><div class="bar-val" style="color:var(--grn);font-weight:600;">$${val.toLocaleString()} <span style="color:var(--dim);font-weight:400;">· ${closed}</span></div></div>
+          <div class="bar-track"><div class="bar-fill grn" style="width:${Math.round((val/maxVal)*100)}%"></div></div>
+        </div>`;
+      }).join('')+'</div>'}
+    </div>
+    <div class="card">
+      <div class="card-ttl">Pipeline Health Score</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        ${[
+          {label:'Follow-up velocity', val: Math.min(100,Math.round((active.filter(d=>{const s=d.properties?.dealstage;return s==='qualifiedtobuy'||s==='presentationscheduled';}).length/Math.max(active.length,1))*200)), color:'grn', desc:'Deals actively progressing'},
+          {label:'Quote conversion', val: winRate, color: winRate>=50?'grn':winRate>=30?'gold':'red', desc:'% of closed deals won'},
+          {label:'Pipeline coverage', val: Math.min(100,Math.round((activeValue/(Math.max(wonValue,1)))*50)), color:'blu', desc:'Active vs closed won value'},
+          {label:'Deal velocity', val: avgClose>0?Math.min(100,Math.round((90/avgClose)*100)):50, color:'amb', desc: avgClose+'d avg to close'},
+        ].map(s=>`<div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <span style="font-size:12px;font-weight:500;color:var(--ink2);">${s.label}</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--${s.color})">${s.val}%</span>
+          </div>
+          <div class="bar-track" style="height:8px;">
+            <div class="bar-fill ${s.color}" style="width:${s.val}%"></div>
+          </div>
+          <div style="font-size:10.5px;color:var(--muted);margin-top:3px;">${s.desc}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:24px 0 0;font-family:'Geist Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.08em;">
+    Last synced ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})} · ${deals.length} total deals · NeuroUX Deal Intelligence
+  </div>
+  </div>`;
+}
+
+function generateInsights(won, lost, active, winRate, bestBand, avgClose, avgDeal, lostValue, activeValue, bandData) {
+  const insights = [];
+
+  // Win rate insight
+  if(winRate>=60) insights.push({icon:'🏆',color:'grn',title:'Strong win rate at '+winRate+'%',text:'You\'re closing more than half of all competed deals. Keep the follow-up cadence tight.'});
+  else if(winRate>=40) insights.push({icon:'📈',color:'amb',title:'Win rate of '+winRate+'% has room to grow',text:'Deals are moving but conversion needs attention. Focus on faster follow-up after quote sent.'});
+  else insights.push({icon:'⚠️',color:'red',title:'Win rate of '+winRate+'% is below target',text:'More than half of competed deals are lost. Consider revisiting pricing or follow-up timing.'});
+
+  // Best price band
+  if(bestBand.rate>0) insights.push({icon:'💰',color:'gold',title:bestBand.label+' deals close at '+bestBand.rate+'%',text:'Your sweet spot is the '+bestBand.label+' price range. Prioritise leads in this bracket and use it as anchor pricing.'});
+
+  // Lost revenue
+  if(lostValue>0) insights.push({icon:'🔴',color:'red',title:'$'+fmtK(lostValue)+' in lost revenue to recover',text:'These deals went cold — many could be re-engaged. Consider a re-activation sequence for leads lost in the last 90 days.'});
+
+  // Active pipeline
+  if(activeValue>0) insights.push({icon:'🚀',color:'blu',title:'$'+fmtK(activeValue)+' sitting in active pipeline',text:active.length+' deals are in progress right now. Consistent follow-up in the next 2 weeks could significantly move this number.'});
+
+  // Close time
+  if(avgClose>0) insights.push({icon:'⏱',color:'amb',title:'Average deal takes '+avgClose+' days to close',text:avgClose<=30?'You close fast. Keep response times short to maintain this advantage.':avgClose<=60?'Deals are closing in about 2 months. Faster quotes after calls could shorten this.':'Deals are taking 2+ months. Consider adding urgency triggers like study start deadlines.'});
+
+  // Quote stage stalling
+  const quoteStageLost = lost.filter(d=>d.properties?.dealstage==='presentationscheduled'||d.properties?.dealstage==='contractsent').length;
+  if(quoteStageLost>2) insights.push({icon:'📋',color:'red',title:quoteStageLost+' deals lost after quote was sent',text:'Leads are dropping off after seeing the price. A follow-up call within 3 days of sending a quote could recover these.'});
+
+  // Won deals pattern
+  if(won.length>5) insights.push({icon:'✅',color:'grn',title:'You\'ve closed '+won.length+' deals — look for patterns',text:'Check your recent wins for common researcher types, universities, or products. Double down on what\'s working.'});
+
+  return insights.slice(0,6);
+}
+
+function fmtK(n){if(n>=1000000)return(n/1000000).toFixed(1)+'M';if(n>=1000)return(n/1000).toFixed(0)+'K';return n.toLocaleString();}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// Auto load
+window.addEventListener('DOMContentLoaded',()=>{
+  const hs=localStorage.getItem('nx_hs_tok'), wk=localStorage.getItem('nx_wk_url');
+  if(hs&&wk) loadData();
+  else { document.getElementById('loadingState').style.display='none'; openM(); }
+});
+</script>
+</body>
+</html>
