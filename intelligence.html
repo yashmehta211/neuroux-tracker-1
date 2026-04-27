@@ -454,11 +454,18 @@ async function generateBrief(deals){
   }catch(e){document.getElementById('briefTxt').textContent='Could not generate brief — check your API key in Settings.';}
 }
 
+// ═══ DEAL STATUS HELPERS ═══
+function isCold(d){return d._local?.status==='cold';}
+function isGrant(d){return d._local?.status==='grant';}
+function isActiveForDash(d){return d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost'&&!isCold(d)&&!isGrant(d);}
+
 // ═══ RENDER DASHBOARD ═══
 function renderDash(deals){
   const won=deals.filter(d=>d.properties?.dealstage==='closedwon');
   const lost=deals.filter(d=>d.properties?.dealstage==='closedlost');
-  const active=deals.filter(d=>d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost');
+  const coldDeals=deals.filter(d=>isCold(d));
+  const grantDeals=deals.filter(d=>isGrant(d));
+  const active=deals.filter(d=>isActiveForDash(d));
   const wonVal=won.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
   const lostVal=lost.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
   const pipeVal=active.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
@@ -521,6 +528,34 @@ function renderDash(deals){
       ?'<div class="fut-empty">✅ You\'re all caught up — no follow-ups due today.</div>'
       :`<div class="fut-cards">${allActionToday.map(d=>{const p=d.properties||{},c=d._contact||{},l=d._local||{};const lastNote=l.notes?.slice(-1)[0];return`<div class="fut-card" onclick="openPanel('${d.id}')"><div class="fut-card-name">${esc(c.name||p.dealname||'—')}</div><div class="fut-card-org">${esc(c.org||'—')}</div><div class="fut-card-row"><span class="fut-card-val">$${(parseFloat(p.amount)||0).toLocaleString()}</span><span class="fut-card-stage">${HS_STAGE_MAP[p.dealstage]||'—'}</span></div>${lastNote?`<div class="fut-card-note">"${esc(lastNote.text)}"</div>`:''}</div>`;}).join('')}</div>`}
   </div>
+
+  <!-- GRANT WAITING SECTION -->
+  ${grantDeals.length>0?`
+  <div class="fut-section">
+    <div class="fut-header">
+      <div class="fut-title" style="color:#7040c0;">🎓 Waiting for Grant Decision</div>
+      <div class="fut-count" style="background:#7040c0;">${grantDeals.length}</div>
+      <div class="fut-line"></div>
+      <div style="font-size:11.5px;color:var(--muted);">$${fmtK(grantDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0))} on hold</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid #c4b5fd;border-radius:10px;overflow:hidden;box-shadow:var(--sh1);">
+      <table class="dtable">
+        <thead><tr><th>Contact</th><th>Organisation</th><th>Value</th><th>Stage</th><th>Expected Decision</th><th>Action</th></tr></thead>
+        <tbody>${grantDeals.map(d=>{
+          const p=d.properties||{},c=d._contact||{},l=d._local||{};
+          const val=parseFloat(p.amount)||0;
+          return`<tr onclick="openPanel('${d.id}')">
+            <td><div class="d-name">${esc(c.name||p.dealname||'—')}</div><div class="d-org">${esc(c.org||'')}</div></td>
+            <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
+            <td class="d-val" style="color:#7040c0;">$${val.toLocaleString()}</td>
+            <td style="font-size:11.5px;color:var(--soft);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
+            <td style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);">${l.grantDate||'Not set'}</td>
+            <td onclick="event.stopPropagation();">${actionDropdown(d.id)}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>
+  </div>`:''}
 
   <!-- REVENUE HERO -->
   <div class="rev-hero">
@@ -640,12 +675,15 @@ function dealRowSimple(d, type){
   </tr>`;
 }
 function actionDropdown(id){
+  const loc=getLocal(id);const frozen=loc.status==='cold'||loc.status==='grant';
   return`<div class="action-wrap">
     <button class="action-dd-btn" onclick="toggleDD('${id}')">Actions ▾</button>
     <div class="action-dd" id="dd_${id}">
+      ${frozen?`<div class="dd-item gold" onclick="confirmReactivate('${id}')">↩ Move Back to Active</div><div class="dd-sep"></div>`:''}
       <div class="dd-item grn" onclick="dealAction('${id}','won')">✅ Mark as Won</div>
       <div class="dd-item red" onclick="dealAction('${id}','lost')">❌ Mark as Lost</div>
       <div class="dd-item muted" onclick="dealAction('${id}','cold')">🧊 Mark as Cold</div>
+      <div class="dd-item" style="color:#7040c0;" onclick="dealAction('${id}','grant')">🎓 Waiting for Grant Decision</div>
       <div class="dd-sep"></div>
       <div class="dd-item gold" onclick="dealAction('${id}','followup')">📞 Follow-up Done</div>
       <div class="dd-item" onclick="dealAction('${id}','note')">📝 Add Note</div>
@@ -675,6 +713,10 @@ function dealAction(id, action){
     document.getElementById('actionMTitle').textContent='Mark as Cold — '+name;
     document.getElementById('actionMBody').innerHTML=`<div class="ff"><label>Note (optional)</label><textarea id="am_note" placeholder="e.g. No response after 3 follow-ups..."></textarea></div><div class="mfa"><button class="fcan" onclick="closeM('actionM')">Cancel</button><button class="fpri" style="background:var(--muted);" onclick="confirmAction('${id}','cold')">Mark Cold 🧊</button></div>`;
     openM('actionM');
+  } else if(action==='grant'){
+    document.getElementById('actionMTitle').textContent='Waiting for Grant Decision — '+name;
+    document.getElementById('actionMBody').innerHTML=`<div style="font-size:12.5px;color:var(--soft);margin-bottom:13px;line-height:1.6;">This deal will be moved to the <strong>Waiting for Grant Decision</strong> section and removed from your active pipeline and follow-up lists until the grant decision comes in.</div><div class="ff"><label>Expected decision date (optional)</label><input type="date" id="am_gdate" value="${tod()}"></div><div class="ff"><label>Note (optional)</label><textarea id="am_note" placeholder="e.g. Awaiting NIH grant decision, expected Q2..."></textarea></div><div class="mfa"><button class="fcan" onclick="closeM('actionM')">Cancel</button><button class="fpri" style="background:#7040c0;" onclick="confirmAction('${id}','grant')">Move to Grant Waiting 🎓</button></div>`;
+    openM('actionM');
   } else if(action==='followup'){
     document.getElementById('actionMTitle').textContent='Follow-up Done — '+name;
     document.getElementById('actionMBody').innerHTML=`
@@ -698,7 +740,15 @@ function dealAction(id, action){
   }
 }
 
-function selectSnz(el,days){document.querySelectorAll('.snz-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');document.getElementById('am_days').value=days;}
+function confirmReactivate(id){
+  const deal=allDeals.find(d=>d.id===id);if(!deal)return;
+  const local=getLocal(id);
+  local.status=null;local.grantDate=null;
+  addNote(id,'↩ Moved back to Active');
+  const m=loadLocal();m[id]={...m[id],...local,notes:getLocal(id).notes};
+  try{localStorage.setItem(DEALS_KEY,JSON.stringify(m));}catch(e){}
+  closePanel();renderDash(allDeals);
+}document.querySelectorAll('.snz-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');document.getElementById('am_days').value=days;}
 
 function confirmAction(id,action){
   const note=document.getElementById('am_note')?.value.trim()||'';
@@ -715,6 +765,10 @@ function confirmAction(id,action){
   } else if(action==='cold'){
     local.status='cold';
     addNote(id,'🧊 Marked as Cold'+(note?' — '+note:''));
+  } else if(action==='grant'){
+    const gdate=document.getElementById('am_gdate')?.value||'';
+    local.status='grant';local.grantDate=gdate;
+    addNote(id,'🎓 Moved to Grant Waiting'+(gdate?' — Expected: '+gdate:'')+(note?' · '+note:''));
   } else if(action==='followup'){
     // Reset timer — set hs_lastmodifieddate to today
     deal.properties.hs_lastmodifieddate=new Date().toISOString();
@@ -768,12 +822,15 @@ async function openPanel(id){
     </div>`;
 
   // Actions
+  const localStatus=getLocal(id).status;
   document.getElementById('panelActions').innerHTML=`
+    ${localStatus==='cold'||localStatus==='grant'?`<button class="pa-btn gold" onclick="confirmReactivate('${id}')">↩ Move Back to Active</button>`:''}
     <button class="pa-btn grn" onclick="dealAction('${id}','followup')">📞 Follow-up Done</button>
     <button class="pa-btn" onclick="dealAction('${id}','note')">📝 Add Note</button>
     <button class="pa-btn grn" onclick="dealAction('${id}','won')">✅ Won</button>
     <button class="pa-btn red" onclick="dealAction('${id}','lost')">❌ Lost</button>
-    <button class="pa-btn" onclick="dealAction('${id}','cold')">🧊 Cold</button>`;
+    <button class="pa-btn" onclick="dealAction('${id}','cold')">🧊 Cold</button>
+    <button class="pa-btn" style="color:#7040c0;border-color:#c4b5fd;background:#f5f3ff;" onclick="dealAction('${id}','grant')">🎓 Grant</button>`;
 
   document.getElementById('panelOverlay').classList.add('open');
   document.getElementById('dealPanel').classList.add('open');
