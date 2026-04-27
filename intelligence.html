@@ -61,16 +61,30 @@ body{background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif;font-s
 .wrap{max-width:1280px;margin:0 auto;padding:32px 40px 72px;}
 
 /* ── AI BRIEF ── */
-.brief{background:var(--ink);border-radius:14px;padding:28px 32px;margin-bottom:28px;position:relative;overflow:hidden;}
-.brief::after{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(168,112,32,0.12);}
-.brief::before{content:'';position:absolute;bottom:-60px;left:100px;width:160px;height:160px;border-radius:50%;background:rgba(168,112,32,0.07);}
-.brief-label{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.brief-dot{width:6px;height:6px;border-radius:50%;background:var(--gold2);animation:pulse 2s ease-in-out infinite;}
-.brief-text{font-family:'Instrument Serif',serif;font-size:18px;line-height:1.65;color:rgba(255,255,255,0.92);position:relative;z-index:1;max-width:900px;}
-.brief-text.loading{color:rgba(255,255,255,0.4);font-style:italic;font-size:15px;}
-.brief-meta{margin-top:14px;font-family:'Geist Mono',monospace;font-size:9.5px;color:rgba(255,255,255,0.3);letter-spacing:0.05em;position:relative;z-index:1;}
-.brief-regen{background:none;border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 12px;font-family:'Geist',sans-serif;font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.15s;margin-left:12px;}
-.brief-regen:hover{border-color:var(--gold2);color:var(--gold2);}
+.brief{background:linear-gradient(135deg,#fffbf2 0%,#fdf6e3 60%,#fef9ec 100%);border:1.5px solid var(--goldbd);border-radius:14px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden;box-shadow:var(--sh2);}
+.brief::after{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;border-radius:50%;background:rgba(168,112,32,0.06);}
+.brief::before{content:'';position:absolute;bottom:-50px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(168,112,32,0.04);}
+.brief-label{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.brief-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s ease-in-out infinite;}
+.brief-text{font-family:'Instrument Serif',serif;font-size:19px;line-height:1.68;color:var(--ink);position:relative;z-index:1;max-width:940px;}
+.brief-text.loading{color:var(--muted);font-style:italic;font-size:15px;}
+.brief-meta{margin-top:14px;font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:0.05em;position:relative;z-index:1;display:flex;align-items:center;gap:0;}
+.brief-regen{background:none;border:1px solid var(--goldbd);border-radius:6px;padding:4px 12px;font-family:'Geist',sans-serif;font-size:11px;color:var(--gold);cursor:pointer;transition:all 0.15s;margin-left:12px;}
+.brief-regen:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
+/* ── INSIGHT CARDS ── */
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px;}
+.insight{background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:10px;padding:14px 16px;box-shadow:var(--sh1);display:flex;gap:10px;transition:all 0.15s;cursor:pointer;}
+.insight:hover{box-shadow:var(--sh2);transform:translateY(-1px);}
+.insight.active-ins{box-shadow:var(--sh2);transform:translateY(-1px);}
+.insight.gold{border-left-color:var(--gold);} .insight.gold.active-ins{background:var(--goldbg);}
+.insight.grn{border-left-color:var(--grn);} .insight.grn.active-ins{background:var(--grnbg);}
+.insight.red{border-left-color:var(--red);} .insight.red.active-ins{background:var(--redbg);}
+.insight.blu{border-left-color:var(--blu);} .insight.blu.active-ins{background:var(--blubg);}
+.insight.amb{border-left-color:var(--amb);} .insight.amb.active-ins{background:var(--ambbg);}
+.ins-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.ins-ttl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.4;}
+.ins-txt{font-size:11px;color:var(--soft);line-height:1.6;}
+.ins-hint{font-size:9.5px;color:var(--dim);margin-top:5px;font-family:'Geist Mono',monospace;letter-spacing:0.04em;}
 
 /* ── REVENUE HERO ── */
 .rev-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
@@ -426,6 +440,11 @@ function renderDash(deals){
   // Recent wins
   const recentWon=won.filter(d=>d.properties?.closedate).sort((a,b)=>new Date(b.properties.closedate)-new Date(a.properties.closedate)).slice(0,6);
 
+  // Insights
+  let insightFilters = [];
+  const insightCards = generateInsights(won, lost, active, winRate, wonVal, lostVal, pipeVal, avgClose, actionDeals, insightFilters);
+  _insightFilters = insightFilters;
+
   const hasAI=!!localStorage.getItem('nx_ai_key');
 
   document.getElementById('dash').innerHTML=`
@@ -436,6 +455,9 @@ function renderDash(deals){
     <div class="brief-text ${hasAI?'loading':''}" id="briefText">${hasAI?'Analysing your pipeline data…':'Add your Anthropic API key in Settings to get an AI-generated narrative brief each time you open this dashboard.'}</div>
     <div class="brief-meta" id="briefMeta">${hasAI?'':'Connect AI in Settings → Anthropic API Key'}</div>
   </div>
+
+  <!-- INSIGHT CARDS -->
+  <div class="insights" id="insightsGrid">${insightCards.map((ins,i)=>`<div class="insight ${ins.color}" onclick="drillInsight(${i})" id="ins_${i}"><div class="ins-icon">${ins.icon}</div><div><div class="ins-ttl">${ins.title}</div><div class="ins-txt">${ins.text}</div><div class="ins-hint">Click to see deals →</div></div></div>`).join('')}</div>
 
   <!-- REVENUE HERO -->
   <div class="rev-hero">
@@ -609,7 +631,47 @@ function renderDash(deals){
   </div>`;
 }
 
-// ── STAGE DRILL DOWN ──
+// ── INSIGHTS ──
+function generateInsights(won, lost, active, winRate, wonVal, lostVal, pipeVal, avgClose, actionDeals, filters){
+  const ins=[];
+
+  // Win rate
+  if(winRate>=60){ins.push({icon:'🏆',color:'grn',title:'Strong win rate at '+winRate+'%',text:'Closing more than half of all competed deals. Consistent follow-up timing is the key driver.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
+  else if(winRate>=40){ins.push({icon:'📈',color:'amb',title:'Win rate of '+winRate+'% has room to grow',text:'Good progress, but faster follow-up within 3 days of quoting makes the biggest difference.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
+  else{ins.push({icon:'⚠️',color:'red',title:'Win rate of '+winRate+'% needs attention',text:'More than half of competed deals are being lost. Review pricing and follow-up cadence urgently.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
+
+  // Price band
+  const bands=[{label:'< $1K',min:0,max:1000},{label:'$1K–$3K',min:1000,max:3000},{label:'$3K–$6K',min:3000,max:6000},{label:'$6K–$10K',min:6000,max:10000},{label:'> $10K',min:10000,max:Infinity}];
+  const bestBand=bands.map(b=>{const bW=won.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;const bL=lost.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;const bT=bW+bL;return{...b,won:bW,lost:bL,total:bT,rate:bT>0?Math.round((bW/bT)*100):0};}).filter(b=>b.total>1).sort((a,b)=>b.rate-a.rate)[0];
+  if(bestBand&&bestBand.rate>0){ins.push({icon:'💰',color:'gold',title:bestBand.label+' deals close at '+bestBand.rate+'%',text:'This is your pricing sweet spot. Anchor quotes in this range and only go outside it with strong justification.'});const bd=[...won,...lost].filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=bestBand.min&&v<bestBand.max;});filters.push({label:'Deals in '+bestBand.label,deals:bd});}
+
+  // Lost revenue
+  if(lostVal>0){ins.push({icon:'🔴',color:'red',title:'$'+fmtK(lostVal)+' in revenue lost',text:lost.length+' deals went cold. A re-activation sequence targeting the last 90 days could recover several.'});filters.push({label:'Lost Deals',deals:lost.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});}
+
+  // Active pipeline
+  if(pipeVal>0){ins.push({icon:'🚀',color:'grn',title:'$'+fmtK(pipeVal)+' in active pipeline',text:active.length+' deals in progress. Consistent follow-up over the next 2 weeks could significantly move this.'});filters.push({label:'Active Pipeline',deals:active.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});}
+
+  // Action required
+  if(actionDeals.length>0){const atRisk=actionDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);ins.push({icon:'⚡',color:'amb',title:actionDeals.length+' deals need follow-up now',text:'$'+fmtK(atRisk)+' at risk from overdue follow-ups. These should be contacted this week without fail.'});filters.push({label:'Overdue Follow-ups',deals:actionDeals});}
+
+  // Avg close time
+  if(avgClose>0){ins.push({icon:'⏱',color:'blu',title:'Deals take avg '+avgClose+' days to close',text:avgClose<=30?'Excellent velocity — short sales cycles mean more throughput.':avgClose<=60?'Reasonable. Faster quotes after calls could shorten this.':'Consider urgency triggers — grant deadlines, study start dates — to accelerate decisions.'});filters.push({label:'Won Deals by Close Time',deals:won.filter(d=>d.properties?.createdate&&d.properties?.closedate).sort((a,b)=>Math.round((new Date(b.properties.closedate)-new Date(b.properties.createdate))/86400000)-Math.round((new Date(a.properties.closedate)-new Date(a.properties.createdate))/86400000))});}
+
+  return ins.slice(0,6);
+}
+
+// ── INSIGHT DRILL DOWN ──
+let _insightFilters=[];
+function drillInsight(idx){
+  const filter=_insightFilters[idx];if(!filter)return;
+  document.querySelectorAll('.insight').forEach((el,i)=>el.classList.toggle('active-ins',i===idx));
+  const deals=filter.deals;
+  document.getElementById('drillTitle').textContent=filter.label+' — '+deals.length+' deal'+(deals.length!==1?'s':'');
+  if(!deals.length){document.getElementById('drillBody').innerHTML='<div class="no-data">No deals match this insight.</div>';}
+  else{document.getElementById('drillBody').innerHTML=`<table class="lost-table"><thead><tr><th>Contact</th><th>Organisation</th><th>Value</th><th>Stage</th><th>Last Activity</th></tr></thead><tbody>${deals.map(d=>{const p=d.properties||{},c=d._contact||{};const val=parseFloat(p.amount)||0;const lm=p.hs_lastmodifieddate?new Date(p.hs_lastmodifieddate):p.closedate?new Date(p.closedate):null;const today=new Date();const dAgo=lm?Math.floor((today-lm)/86400000):null;const lmStr=dAgo===0?'Today':dAgo===1?'Yesterday':dAgo!==null?dAgo+'d ago':'—';const stageName=HS_STAGE_MAP[p.dealstage]||'—';const valCol=p.dealstage==='closedwon'?'var(--grn)':p.dealstage==='closedlost'?'var(--red)':'var(--gold)';return`<tr><td><div style="font-weight:500;color:var(--ink);">${esc(c.name||p.dealname||'—')}</div></td><td>${esc(c.org||'—')}</td><td style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:${valCol};">$${val.toLocaleString()}</td><td style="font-size:11.5px;color:var(--soft);">${stageName}</td><td style="font-family:'Geist Mono',monospace;font-size:11px;color:${dAgo>5?'var(--red)':'var(--muted)'};">${lmStr}</td></tr>`;}).join('')}</tbody></table>`;}
+  const wrap=document.getElementById('drillWrap');wrap.classList.add('open');
+  setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
 function drillStage(stage){
   // Toggle
   if(activeStage===stage){closeDrill();return;}
