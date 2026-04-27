@@ -806,7 +806,9 @@ function confirmReactivate(id){
   const local=getLocal(id);
   local.status=null;local.grantDate=null;
   addNote(id,'↩ Moved back to Active');
-  const m=loadLocal();m[id]={...m[id],...local,notes:getLocal(id).notes};
+  const merged={...local,notes:getLocal(id).notes};
+  deal._local=merged;
+  const m=loadLocal();m[id]=merged;
   try{localStorage.setItem(DEALS_KEY,JSON.stringify(m));}catch(e){}
   closePanel();renderDash(allDeals);
 }document.querySelectorAll('.snz-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');document.getElementById('am_days').value=days;}
@@ -831,7 +833,6 @@ function confirmAction(id,action){
     local.status='grant';local.grantDate=gdate;
     addNote(id,'🎓 Moved to Grant Waiting'+(gdate?' — Expected: '+gdate:'')+(note?' · '+note:''));
   } else if(action==='followup'){
-    // Reset timer — set hs_lastmodifieddate to today
     deal.properties.hs_lastmodifieddate=new Date().toISOString();
     const reminderDate=new Date();reminderDate.setDate(reminderDate.getDate()+days);
     local.reminderDate=reminderDate.toISOString().split('T')[0];
@@ -841,11 +842,19 @@ function confirmAction(id,action){
     if(note)addNote(id,note);
   }
 
-  // Save
-  const m=loadLocal();m[id]={...m[id],...local,notes:getLocal(id).notes};try{localStorage.setItem(DEALS_KEY,JSON.stringify(m));}catch(e){}
+  // ── KEY FIX: update deal._local in memory so isCold/isGrant work immediately ──
+  const freshNotes = getLocal(id).notes;
+  const merged = {...local, notes: freshNotes};
+  deal._local = merged;
+
+  // Save to localStorage
+  const m=loadLocal();m[id]=merged;
+  try{localStorage.setItem(DEALS_KEY,JSON.stringify(m));}catch(e){}
+
   closeM('actionM');
   renderDash(allDeals);
-  if(activePanelId===id)openPanel(id);
+  if(activePanelId===id&&(action==='cold'||action==='grant'))closePanel();
+  else if(activePanelId===id)openPanel(id);
 }
 
 // ═══ DEAL PANEL ═══
@@ -885,13 +894,13 @@ async function openPanel(id){
   // Actions
   const localStatus=getLocal(id).status;
   document.getElementById('panelActions').innerHTML=`
-    ${localStatus==='cold'||localStatus==='grant'?`<button class="pa-btn gold" onclick="confirmReactivate('${id}')">↩ Move Back to Active</button>`:''}
+    ${localStatus==='cold'||localStatus==='grant'?`<button class="pa-btn gold" onclick="confirmReactivate('${id}')">↩ Back to Active</button>`:''}
     <button class="pa-btn grn" onclick="dealAction('${id}','followup')">📞 Follow-up Done</button>
     <button class="pa-btn" onclick="dealAction('${id}','note')">📝 Add Note</button>
     <button class="pa-btn grn" onclick="dealAction('${id}','won')">✅ Won</button>
     <button class="pa-btn red" onclick="dealAction('${id}','lost')">❌ Lost</button>
     <button class="pa-btn" onclick="dealAction('${id}','cold')">🧊 Cold</button>
-    <button class="pa-btn" style="color:#7040c0;border-color:#c4b5fd;background:#f5f3ff;" onclick="dealAction('${id}','grant')">🎓 Grant</button>`;
+    <button class="pa-btn" style="color:#7040c0;border-color:#c4b5fd;background:#f5f3ff;" onclick="dealAction('${id}','grant')">🎓 Awaiting Grant</button>`;
 
   document.getElementById('panelOverlay').classList.add('open');
   document.getElementById('dealPanel').classList.add('open');
