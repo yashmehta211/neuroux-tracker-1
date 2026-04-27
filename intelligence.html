@@ -385,6 +385,96 @@ const HS_COLD_STAGES=['cold','unqualified','closedlost_cold']; // HubSpot stage 
 // Also check by stage name pattern
 function isHSGrantStage(stage){return stage&&(HS_GRANT_STAGES.includes(stage)||stage.toLowerCase().includes('grant'));}
 function isHSColdStage(stage){return stage&&(HS_COLD_STAGES.includes(stage)||stage.toLowerCase().includes('cold')||stage.toLowerCase().includes('unqualified'));}
+function isInitialContact(stage){return stage&&(stage.toLowerCase().includes('initial')||stage.toLowerCase().includes('contact')||stage==='appointmentscheduled');}
+
+// ── WEEK RANGE: Saturday to Friday ──
+function getWeekRange(){
+  const today=new Date();
+  const day=today.getDay(); // 0=Sun,1=Mon,...,6=Sat
+  // Last Friday (end of report week)
+  const daysToFriday=day===5?0:day===6?1:day+2; // days back to last Friday
+  const friday=new Date(today);friday.setDate(today.getDate()-daysToFriday);friday.setHours(23,59,59,999);
+  // Saturday before that Friday (start)
+  const saturday=new Date(friday);saturday.setDate(friday.getDate()-6);saturday.setHours(0,0,0,0);
+  return{start:saturday,end:friday};
+}
+
+function weekRangeLabel(){
+  const{start,end}=getWeekRange();
+  const fmt=d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  return fmt(start)+' – '+fmt(end);
+}
+
+function renderWeeklyReport(deals){
+  const{start,end}=getWeekRange();
+  // All deals created in Initial Contact stage this week
+  const weekLeads=deals.filter(d=>{
+    const created=d.properties?.createdate?new Date(d.properties.createdate):null;
+    if(!created)return false;
+    const inStage=isInitialContact(d.properties?.dealstage)||isInitialContact(d._hsOriginalStage);
+    const inWindow=created>=start&&created<=end;
+    return inWindow; // include ALL new deals this week regardless of stage
+  }).sort((a,b)=>new Date(b.properties?.createdate||0)-new Date(a.properties?.createdate||0));
+
+  const total=weekLeads.length;
+  const totalVal=weekLeads.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+
+  function copyReport(){
+    const lines=weekLeads.map((d,i)=>{
+      const p=d.properties||{},c=d._contact||{};
+      const name=c.name||p.dealname||'Unknown';
+      const org=c.org||'';
+      const val=parseFloat(p.amount)||0;
+      const date=p.createdate?new Date(p.createdate).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
+      return`${i+1}. ${name}${org?' ('+org+')':''}${val?' — $'+val.toLocaleString():''}${date?' · '+date:''}`;
+    }).join('\n');
+    const report=`Weekly Lead Report — ${weekRangeLabel()}\nNew Leads This Week: ${total}${totalVal>0?' | Pipeline Value: $'+totalVal.toLocaleString():''}\n\n${lines}\n\n— Sent from NeuroUX Command Center`;
+    navigator.clipboard.writeText(report).then(()=>{
+      const btn=document.getElementById('copyReportBtn');
+      if(btn){btn.textContent='Copied ✓';btn.style.background='var(--grn)';setTimeout(()=>{btn.textContent='📋 Copy Report';btn.style.background='var(--gold)';},2500);}
+    });
+  }
+  window._copyWeeklyReport=copyReport;
+
+  if(!total) return `<div class="fut-section">
+    <div class="fut-header"><div class="fut-title">📋 Weekly Lead Report</div><div class="fut-line"></div><div style="font-size:11.5px;color:var(--muted);">${weekRangeLabel()}</div></div>
+    <div class="fut-empty" style="background:var(--bg3);border-color:var(--line);">No new leads received this week (${weekRangeLabel()}).</div>
+  </div>`;
+
+  const rows=weekLeads.map((d,i)=>{
+    const p=d.properties||{},c=d._contact||{};
+    const val=parseFloat(p.amount)||0;
+    const created=p.createdate?new Date(p.createdate).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}):'—';
+    const stage=HS_STAGE_MAP[p.dealstage]||p.dealstage||'—';
+    return`<tr onclick="openPanel('${d.id}')">
+      <td><span style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);margin-right:6px;">${i+1}</span><div class="d-name" style="display:inline;">${esc(c.name||p.dealname||'Unknown')}</div></td>
+      <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
+      <td style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--gold);">${val>0?'$'+val.toLocaleString():'—'}</td>
+      <td style="font-size:11px;color:var(--soft);">${stage}</td>
+      <td style="font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--muted);">${created}</td>
+      <td onclick="event.stopPropagation();">${actionDropdown(d.id)}</td>
+    </tr>`;
+  }).join('');
+
+  return`<div class="fut-section">
+    <div class="fut-header">
+      <div class="fut-title">📋 Weekly Lead Report</div>
+      <div class="fut-count" style="background:var(--blu);">${total}</div>
+      <div class="fut-line"></div>
+      <div style="font-size:11.5px;color:var(--muted);">${weekRangeLabel()}${totalVal>0?' · $'+totalVal.toLocaleString()+' pipeline':''}</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--blubd);border-radius:10px;overflow:hidden;box-shadow:var(--sh1);">
+      <div style="padding:12px 16px;background:var(--blubg);border-bottom:1px solid var(--blubd);display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-size:12.5px;color:var(--blu);font-weight:500;">${total} new lead${total!==1?'s':''} received this week · ready to share with your manager</div>
+        <button id="copyReportBtn" onclick="window._copyWeeklyReport()" style="background:var(--gold);color:#fff;border:none;border-radius:7px;padding:7px 16px;font-family:'Geist',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;">📋 Copy Report</button>
+      </div>
+      <table class="dtable">
+        <thead><tr><th>#  Contact</th><th>Organisation</th><th>Value</th><th>Stage</th><th>Created</th><th>Action</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
 const STAGE_ORDER=['appointmentscheduled','qualifiedtobuy','presentationscheduled','decisionmakerboughtin','contractsent'];
 const STAGE_COLORS=['#2050b8','#1848a8','#a87020','#a05808','#1a7248'];
 const FOLLOWUP_DAYS={appointmentscheduled:0,qualifiedtobuy:3,presentationscheduled:3,decisionmakerboughtin:5,contractsent:5};
@@ -425,7 +515,10 @@ async function loadData(){
     for(const deal of deals.slice(0,60)){const ac=deal.associations?.contacts?.results||[];if(ac.length>0){try{const c=await hsGet('/crm/v3/objects/contacts/'+ac[0].id+'?properties=firstname,lastname,email,company');const cp=c.properties||{};deal._contact={name:((cp.firstname||'')+' '+(cp.lastname||'')).trim(),org:cp.company||'',email:cp.email||''};}catch(e){}}}
     // Merge local overrides
     const local=loadLocal();
-    deals.forEach(d=>{if(local[d.id]){d._local=local[d.id];if(d._local.status)d.properties.dealstage=d._local.status==='won'?'closedwon':d._local.status==='lost'?'closedlost':d.properties.dealstage;}else{d._local=getLocal(d.id);}});
+    deals.forEach(d=>{
+      if(!d._hsOriginalStage) d._hsOriginalStage = d.properties?.dealstage;
+      if(local[d.id]){d._local=local[d.id];if(d._local.status)d.properties.dealstage=d._local.status==='won'?'closedwon':d._local.status==='lost'?'closedlost':d.properties.dealstage;}else{d._local=getLocal(d.id);}
+    });
     allDeals=deals;
     renderDash(deals);
     document.getElementById('loadState').style.display='none';
@@ -601,6 +694,9 @@ function renderDash(deals){
 
   <!-- INSIGHTS -->
   <div class="insights">${insightCards.map((ins,i)=>`<div class="insight ${ins.color}" onclick="drillInsight(${i})" id="ins_${i}"><div class="ins-icon">${ins.icon}</div><div><div class="ins-ttl">${ins.title}</div><div class="ins-txt">${ins.text}</div><div class="ins-hint">Click to see deals →</div></div></div>`).join('')}</div>
+
+  <!-- WEEKLY LEAD REPORT -->
+  ${renderWeeklyReport(deals)}
 
   <!-- FOLLOW-UP TODAY -->
   <div class="fut-section">
