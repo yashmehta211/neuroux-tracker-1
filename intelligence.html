@@ -8,215 +8,204 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #f9f8f5;
-  --bg2: #ffffff;
-  --bg3: #f2f1ed;
-  --bg4: #eae9e3;
-  --line: #e5e3db;
-  --line2: #d4d2c8;
-  --ink: #18181c;
-  --ink2: #38383f;
-  --soft: #6b6b78;
-  --muted: #9999a8;
-  --dim: #c4c4d0;
-  --gold: #b07828;
-  --gold2: #d4a040;
-  --goldbg: rgba(176,120,40,0.07);
-  --goldbd: rgba(176,120,40,0.18);
-  --red: #c03838;
-  --redbg: rgba(192,56,56,0.06);
-  --redbd: rgba(192,56,56,0.16);
-  --grn: #1e7a50;
-  --grnbg: rgba(30,122,80,0.06);
-  --grnbd: rgba(30,122,80,0.16);
-  --blu: #2050b8;
-  --blubg: rgba(32,80,184,0.06);
-  --blubd: rgba(32,80,184,0.16);
-  --amb: #b06010;
-  --ambbg: rgba(176,96,16,0.06);
-  --ambbd: rgba(176,96,16,0.16);
-  --sh1: 0 1px 3px rgba(24,24,28,0.05), 0 1px 2px rgba(24,24,28,0.04);
-  --sh2: 0 4px 20px rgba(24,24,28,0.08);
-  --sh3: 0 20px 60px rgba(24,24,28,0.12);
+  --bg:#f9f8f5; --bg2:#ffffff; --bg3:#f2f1ed; --bg4:#eae9e3;
+  --line:#e5e3db; --line2:#d4d2c8;
+  --ink:#18181c; --ink2:#38383f; --soft:#6b6b78; --muted:#9999a8; --dim:#c4c4d0;
+  --gold:#b07828; --gold2:#d4a040; --goldbg:rgba(176,120,40,0.07); --goldbd:rgba(176,120,40,0.18);
+  --red:#c03838; --redbg:rgba(192,56,56,0.06); --redbd:rgba(192,56,56,0.16);
+  --grn:#1e7a50; --grnbg:rgba(30,122,80,0.06); --grnbd:rgba(30,122,80,0.16);
+  --blu:#2050b8; --blubg:rgba(32,80,184,0.06); --blubd:rgba(32,80,184,0.16);
+  --amb:#b06010; --ambbg:rgba(176,96,16,0.06); --ambbd:rgba(176,96,16,0.16);
+  --prp:#6030b0; --prpbg:rgba(96,48,176,0.06); --prpbd:rgba(96,48,176,0.16);
+  --sh1:0 1px 3px rgba(24,24,28,0.05),0 1px 2px rgba(24,24,28,0.04);
+  --sh2:0 4px 20px rgba(24,24,28,0.08); --sh3:0 20px 60px rgba(24,24,28,0.12);
 }
-html, body { min-height: 100%; }
-body { background: var(--bg); color: var(--ink); font-family: 'Geist', sans-serif; font-size: 13px; -webkit-font-smoothing: antialiased; }
+html,body{min-height:100%;}
+body{background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif;font-size:13px;-webkit-font-smoothing:antialiased;}
 
-/* ── HEADER ── */
-.hdr {
-  background: var(--bg2);
-  border-bottom: 1px solid var(--line);
-  padding: 0 36px;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 60px;
-  position: sticky; top: 0; z-index: 50;
-  box-shadow: var(--sh1);
-}
-.hdr-left { display: flex; align-items: center; gap: 16px; }
-.hdr-hex { width: 32px; height: 32px; background: linear-gradient(135deg, var(--gold), var(--gold2)); clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); display: grid; place-items: center; }
-.hdr-hex-i { width: 13px; height: 13px; background: #fff; clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); }
-.hdr-brand { font-family: 'Geist', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.04em; color: var(--ink); }
-.hdr-div { width: 1px; height: 20px; background: var(--line); }
-.hdr-title { font-family: 'Instrument Serif', serif; font-size: 17px; color: var(--soft); font-style: italic; }
-.hdr-right { display: flex; align-items: center; gap: 10px; }
-.hdr-date { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.06em; }
-.sync-btn { display: flex; align-items: center; gap: 6px; background: var(--ink); color: #fff; border: none; border-radius: 8px; padding: 7px 16px; font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
-.sync-btn:hover { background: var(--ink2); }
-.sync-btn.syncing { background: var(--gold); }
-.crm-link { background: var(--bg3); border: 1px solid var(--line); color: var(--soft); border-radius: 8px; padding: 7px 14px; font-size: 12px; font-weight: 500; cursor: pointer; text-decoration: none; transition: all 0.15s; display: flex; align-items: center; gap: 5px; }
-.crm-link:hover { background: var(--bg4); color: var(--ink); }
+/* HEADER */
+.hdr{background:var(--bg2);border-bottom:1px solid var(--line);padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50;box-shadow:var(--sh1);}
+.hdr-left{display:flex;align-items:center;gap:16px;}
+.hdr-hex{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--gold2));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:grid;place-items:center;}
+.hdr-hex-i{width:13px;height:13px;background:#fff;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.hdr-brand{font-weight:600;font-size:15px;letter-spacing:0.04em;}
+.hdr-div{width:1px;height:20px;background:var(--line);}
+.hdr-title{font-family:'Instrument Serif',serif;font-size:17px;color:var(--soft);font-style:italic;}
+.hdr-right{display:flex;align-items:center;gap:8px;}
+.hdr-date{font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.06em;}
+.hbtn{display:flex;align-items:center;gap:6px;border:none;border-radius:8px;padding:7px 16px;font-family:'Geist',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.15s;}
+.hbtn.dark{background:var(--ink);color:#fff;} .hbtn.dark:hover{background:var(--ink2);}
+.hbtn.dark.syn{background:var(--gold);}
+.hbtn.light{background:var(--bg3);border:1px solid var(--line);color:var(--soft);} .hbtn.light:hover{background:var(--bg4);color:var(--ink);}
+.hbtn.gold{background:var(--gold);color:#fff;} .hbtn.gold:hover{background:var(--gold2);}
 
-/* ── SETTINGS MODAL ── */
-.mo { display: none; position: fixed; inset: 0; background: rgba(24,24,28,0.4); z-index: 200; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(6px); }
-.mo.open { display: flex; }
-.md { background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; width: 100%; max-width: 460px; box-shadow: var(--sh3); animation: mi 0.2s ease both; padding: 24px; }
-.md-t { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); margin-bottom: 6px; }
-.md-s { font-size: 12px; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
-.ff { margin-bottom: 14px; }
-.ff label { display: block; font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
-.ff input { width: 100%; background: var(--bg3); border: 1.5px solid var(--line); border-radius: 8px; padding: 9px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--ink); outline: none; transition: all 0.15s; }
-.ff input:focus { border-color: var(--gold); background: var(--bg2); box-shadow: 0 0 0 3px var(--goldbg); }
-.md-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
-.btn-pri { background: var(--gold); color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-.btn-pri:hover { background: var(--gold2); }
-.btn-sec { background: none; border: 1.5px solid var(--line); color: var(--soft); border-radius: 8px; padding: 9px 16px; font-family: 'Geist', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.15s; }
-.btn-sec:hover { background: var(--bg3); }
+/* AI STATUS BAR */
+.ai-bar{background:var(--goldbg);border-bottom:1px solid var(--goldbd);padding:8px 36px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--gold);}
+.ai-bar.hidden{display:none;}
+.ai-progress{display:flex;align-items:center;gap:8px;}
+.ai-prog-track{width:200px;height:4px;background:var(--goldbd);border-radius:2px;overflow:hidden;}
+.ai-prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width 0.3s ease;}
 
-/* ── MAIN ── */
-.wrap { max-width: 1320px; margin: 0 auto; padding: 32px 36px 60px; }
+/* MODALS */
+.mo{display:none;position:fixed;inset:0;background:rgba(24,24,28,0.4);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
+.mo.open{display:flex;}
+.md{background:var(--bg2);border:1px solid var(--line);border-radius:14px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:var(--sh3);animation:mi 0.2s ease both;}
+.md::-webkit-scrollbar{width:3px;} .md::-webkit-scrollbar-thumb{background:var(--line2);}
+.md-top{padding:20px 24px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.md-ttl{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
+.mclose{background:var(--bg3);border:1px solid var(--line);border-radius:6px;font-size:14px;cursor:pointer;color:var(--muted);padding:3px 8px;transition:all 0.12s;}
+.mclose:hover{background:var(--bg4);color:var(--ink);}
+.mb{padding:18px 24px 24px;}
+.ff{margin-bottom:13px;}
+.ff label{display:block;font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.ff input,.ff select,.ff textarea{width:100%;background:var(--bg3);border:1.5px solid var(--line);border-radius:8px;padding:9px 12px;font-family:'Geist',sans-serif;font-size:13px;color:var(--ink);outline:none;transition:all 0.15s;}
+.ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--gold);background:var(--bg2);box-shadow:0 0 0 3px var(--goldbg);}
+.ff textarea{resize:vertical;min-height:64px;line-height:1.6;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.fa{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
+.fpri{background:var(--gold);color:#fff;border:none;border-radius:8px;padding:9px 22px;font-family:'Geist',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.fpri:hover{background:var(--gold2);}
+.fcan{background:none;border:1.5px solid var(--line);color:var(--soft);border-radius:8px;padding:9px 16px;font-family:'Geist',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;}
+.fcan:hover{background:var(--bg3);}
+.ai-lookup-row{display:flex;align-items:center;gap:8px;background:var(--goldbg);border:1px solid var(--goldbd);border-radius:8px;padding:10px 12px;margin-bottom:14px;}
+.ai-lookup-row span{font-size:12px;color:var(--gold);flex:1;line-height:1.5;}
+.ai-lookup-btn{background:var(--gold);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;font-family:'Geist',sans-serif;}
+.ai-lookup-btn:hover{background:var(--gold2);}
+.ai-lookup-btn:disabled{opacity:0.5;cursor:default;}
+.ai-result-box{background:var(--grnbg);border:1px solid var(--grnbd);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--grn);line-height:1.6;display:none;}
 
-/* ── HERO STATS ── */
-.hero { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
-.hstat { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; box-shadow: var(--sh1); position: relative; overflow: hidden; transition: all 0.18s; }
-.hstat:hover { box-shadow: var(--sh2); transform: translateY(-1px); }
-.hstat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
-.hstat.green::before { background: var(--grn); }
-.hstat.red::before { background: var(--red); }
-.hstat.gold::before { background: var(--gold); }
-.hstat.blue::before { background: var(--blu); }
-.hstat.amb::before { background: var(--amb); }
-.hstat-label { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-.hstat-val { font-family: 'Instrument Serif', serif; font-size: 36px; line-height: 1; color: var(--ink); margin-bottom: 6px; }
-.hstat-val.green { color: var(--grn); }
-.hstat-val.red { color: var(--red); }
-.hstat-val.gold { color: var(--gold); }
-.hstat-val.blue { color: var(--blu); }
-.hstat-val.amb { color: var(--amb); }
-.hstat-sub { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+/* MAIN */
+.wrap{max-width:1340px;margin:0 auto;padding:28px 36px 60px;}
 
-/* ── SECTION HEADER ── */
-.sec-hd { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
-.sec-ttl { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); }
-.sec-sub { font-size: 12px; color: var(--muted); }
-.sec-line { flex: 1; height: 1px; background: var(--line); }
+/* HERO */
+.hero{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:26px;}
+.hstat{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--sh1);position:relative;overflow:hidden;transition:all 0.18s;}
+.hstat:hover{box-shadow:var(--sh2);transform:translateY(-1px);}
+.hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;}
+.hstat.green::before{background:var(--grn);} .hstat.red::before{background:var(--red);} .hstat.gold::before{background:var(--gold);} .hstat.blue::before{background:var(--blu);} .hstat.amb::before{background:var(--amb);}
+.hstat-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.hstat-val{font-family:'Instrument Serif',serif;font-size:34px;line-height:1;margin-bottom:5px;}
+.hstat-val.green{color:var(--grn);} .hstat-val.red{color:var(--red);} .hstat-val.gold{color:var(--gold);} .hstat-val.blue{color:var(--blu);} .hstat-val.amb{color:var(--amb);}
+.hstat-sub{font-size:11px;color:var(--muted);}
 
-/* ── GRID LAYOUTS ── */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-.grid-13 { display: grid; grid-template-columns: 1fr 1.6fr; gap: 16px; margin-bottom: 24px; }
-.grid-31 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; margin-bottom: 24px; }
+/* SECTION */
+.sec-hd{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;}
+.sec-ttl{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
+.sec-sub{font-size:12px;color:var(--muted);}
+.sec-line{flex:1;height:1px;background:var(--line);}
 
-/* ── CARDS ── */
-.card { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; box-shadow: var(--sh1); }
-.card-ttl { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
-.card-ttl span { color: var(--dim); font-size: 9px; }
+/* GRIDS */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:22px;}
+.grid-13{display:grid;grid-template-columns:1fr 1.6fr;gap:16px;margin-bottom:22px;}
 
-/* ── WIN RATE RING ── */
-.ring-wrap { display: flex; align-items: center; gap: 28px; }
-.ring-svg { flex-shrink: 0; }
-.ring-bg { fill: none; stroke: var(--bg3); stroke-width: 10; }
-.ring-fill { fill: none; stroke-width: 10; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dasharray 1s ease; }
-.ring-fill.grn { stroke: var(--grn); }
-.ring-fill.red { stroke: var(--red); }
-.ring-fill.amb { stroke: var(--amb); }
-.ring-legend { display: flex; flex-direction: column; gap: 10px; }
-.rleg { display: flex; align-items: center; gap: 8px; font-size: 12px; }
-.rleg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.rleg-label { color: var(--soft); }
-.rleg-val { font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); margin-left: auto; padding-left: 16px; }
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:var(--sh1);}
+.card-ttl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
+.card-ttl span{color:var(--dim);font-size:9px;}
 
-/* ── BAR CHARTS ── */
-.bar-list { display: flex; flex-direction: column; gap: 10px; }
-.bar-item { display: flex; flex-direction: column; gap: 4px; }
-.bar-head { display: flex; justify-content: space-between; align-items: center; }
-.bar-label { font-size: 12px; color: var(--ink2); font-weight: 500; }
-.bar-val { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); }
-.bar-track { background: var(--bg3); border-radius: 3px; height: 6px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
-.bar-fill.grn { background: var(--grn); }
-.bar-fill.blu { background: var(--blu); }
-.bar-fill.gold { background: var(--gold); }
-.bar-fill.red { background: var(--red); }
-.bar-fill.amb { background: var(--amb); }
-.bar-fill.prp { background: #7040c0; }
+/* RING */
+.ring-wrap{display:flex;align-items:center;gap:24px;}
+.ring-legend{display:flex;flex-direction:column;gap:9px;}
+.rleg{display:flex;align-items:center;gap:7px;font-size:12px;}
+.rleg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.rleg-label{color:var(--soft);}
+.rleg-val{font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;color:var(--ink);margin-left:auto;padding-left:14px;}
 
-/* ── FUNNEL ── */
-.funnel { display: flex; flex-direction: column; gap: 6px; }
-.funnel-stage { display: flex; align-items: center; gap: 12px; }
-.funnel-bar-wrap { flex: 1; background: var(--bg3); border-radius: 4px; height: 32px; overflow: hidden; position: relative; }
-.funnel-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 12px; transition: width 1s ease; }
-.funnel-bar-label { font-size: 11px; font-weight: 500; color: #fff; white-space: nowrap; }
-.funnel-stage-name { font-size: 11.5px; color: var(--soft); width: 110px; text-align: right; flex-shrink: 0; }
-.funnel-count { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); width: 30px; flex-shrink: 0; text-align: right; }
+/* BARS */
+.bar-list{display:flex;flex-direction:column;gap:9px;}
+.bar-item{display:flex;flex-direction:column;gap:3px;}
+.bar-head{display:flex;justify-content:space-between;align-items:center;}
+.bar-label{font-size:12px;color:var(--ink2);font-weight:500;}
+.bar-val{font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);}
+.bar-track{background:var(--bg3);border-radius:3px;height:6px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;transition:width 1s ease;}
+.bar-fill.grn{background:var(--grn);} .bar-fill.red{background:var(--red);} .bar-fill.blu{background:var(--blu);} .bar-fill.gold{background:var(--gold);} .bar-fill.amb{background:var(--amb);} .bar-fill.prp{background:var(--prp);}
 
-/* ── INSIGHT CARDS ── */
-.insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
-.insight { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; box-shadow: var(--sh1); display: flex; gap: 12px; align-items: flex-start; transition: all 0.16s; }
-.insight:hover { box-shadow: var(--sh2); transform: translateY(-1px); }
-.insight-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-.insight-body {}
-.insight-ttl { font-size: 12.5px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.4; }
-.insight-txt { font-size: 11.5px; color: var(--soft); line-height: 1.6; }
-.insight.gold { border-left: 3px solid var(--gold); }
-.insight.grn { border-left: 3px solid var(--grn); }
-.insight.red { border-left: 3px solid var(--red); }
-.insight.blu { border-left: 3px solid var(--blu); }
-.insight.amb { border-left: 3px solid var(--amb); }
-.insight.prp { border-left: 3px solid #7040c0; }
+/* RESEARCHER BREAKDOWN */
+.rtype-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px;}
+.rtype-card{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:12px 10px;text-align:center;transition:all 0.15s;}
+.rtype-card:hover{box-shadow:var(--sh2);transform:translateY(-1px);background:var(--bg2);}
+.rtype-icon{font-size:20px;margin-bottom:6px;}
+.rtype-name{font-size:10.5px;font-weight:600;color:var(--ink2);margin-bottom:4px;}
+.rtype-count{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ink);line-height:1;margin-bottom:2px;}
+.rtype-sub{font-size:10px;color:var(--muted);}
+.rtype-rate{font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;margin-top:5px;padding:2px 7px;border-radius:10px;display:inline-block;}
+.rtype-rate.g{color:var(--grn);background:var(--grnbg);border:1px solid var(--grnbd);}
+.rtype-rate.r{color:var(--red);background:var(--redbg);border:1px solid var(--redbd);}
+.rtype-rate.a{color:var(--amb);background:var(--ambbg);border:1px solid var(--ambbd);}
 
-/* ── LOST DEALS TABLE ── */
-.lost-table { width: 100%; border-collapse: collapse; }
-.lost-table th { font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0 10px 10px; text-align: left; border-bottom: 1px solid var(--line); }
-.lost-table td { padding: 10px; font-size: 12px; color: var(--soft); border-bottom: 1px solid var(--line); vertical-align: middle; }
-.lost-table td:first-child { color: var(--ink); font-weight: 500; }
-.lost-table td.mono { font-family: 'Geist Mono', monospace; font-size: 11.5px; }
-.lost-table td.red { color: var(--red); font-weight: 600; font-family: 'Geist Mono', monospace; }
-.lost-table td.gold { color: var(--gold); font-family: 'Geist Mono', monospace; font-weight: 600; }
-.lost-table tr:last-child td { border-bottom: none; }
-.lost-table tr:hover td { background: var(--bg3); }
+/* FUNNEL */
+.funnel{display:flex;flex-direction:column;gap:6px;}
+.funnel-stage{display:flex;align-items:center;gap:10px;}
+.funnel-name{font-size:11px;color:var(--soft);width:110px;text-align:right;flex-shrink:0;}
+.funnel-bar-wrap{flex:1;background:var(--bg3);border-radius:4px;height:30px;overflow:hidden;}
+.funnel-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 10px;transition:width 1s ease;}
+.funnel-bar-lbl{font-size:10.5px;font-weight:500;color:#fff;white-space:nowrap;}
+.funnel-cnt{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--muted);width:28px;text-align:right;flex-shrink:0;}
 
-/* ── PRICE BAND ── */
-.price-bands { display: flex; flex-direction: column; gap: 8px; }
-.pband { display: flex; align-items: center; gap: 12px; }
-.pband-label { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--soft); width: 100px; flex-shrink: 0; }
-.pband-track { flex: 1; background: var(--bg3); border-radius: 3px; height: 24px; overflow: hidden; position: relative; }
-.pband-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; transition: width 1s ease; }
-.pband-fill span { font-family: 'Geist Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.9); font-weight: 500; }
-.pband-rate { font-family: 'Geist Mono', monospace; font-size: 11px; width: 36px; text-align: right; flex-shrink: 0; }
+/* PRICE BANDS */
+.price-bands{display:flex;flex-direction:column;gap:8px;}
+.pband{display:flex;align-items:center;gap:10px;}
+.pband-lbl{font-family:'Geist Mono',monospace;font-size:10px;color:var(--soft);width:90px;flex-shrink:0;}
+.pband-track{flex:1;background:var(--bg3);border-radius:3px;height:22px;overflow:hidden;}
+.pband-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;transition:width 1s ease;}
+.pband-fill span{font-family:'Geist Mono',monospace;font-size:10px;color:rgba(255,255,255,0.9);font-weight:500;}
+.pband-rate{font-family:'Geist Mono',monospace;font-size:11px;width:34px;text-align:right;flex-shrink:0;}
 
-/* ── TREND SPARKLINE ── */
-.sparkline-wrap { display: flex; flex-direction: column; gap: 14px; }
-.spark-item { display: flex; align-items: center; gap: 12px; }
-.spark-label { font-size: 11.5px; color: var(--soft); width: 80px; flex-shrink: 0; }
-.spark-svg { flex: 1; }
-.spark-val { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--ink2); width: 40px; text-align: right; flex-shrink: 0; }
+/* INSIGHTS */
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+.insight{background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:10px;padding:14px 16px;box-shadow:var(--sh1);display:flex;gap:10px;transition:all 0.15s;}
+.insight:hover{box-shadow:var(--sh2);transform:translateY(-1px);}
+.insight.gold{border-left-color:var(--gold);} .insight.grn{border-left-color:var(--grn);} .insight.red{border-left-color:var(--red);} .insight.blu{border-left-color:var(--blu);} .insight.amb{border-left-color:var(--amb);} .insight.prp{border-left-color:var(--prp);}
+.ins-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.ins-ttl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.4;}
+.ins-txt{font-size:11px;color:var(--soft);line-height:1.6;}
 
-/* ── EMPTY / LOADING ── */
-.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 40px; text-align: center; }
-.loading-spinner { width: 36px; height: 36px; border: 3px solid var(--line); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
-.loading-t { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--soft); margin-bottom: 6px; }
-.loading-s { font-size: 12.5px; color: var(--muted); }
-.no-data { text-align: center; padding: 40px; color: var(--muted); font-size: 13px; }
+/* DEAL TABLE */
+.dtable{width:100%;border-collapse:collapse;}
+.dtable th{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:0 10px 10px;text-align:left;border-bottom:1px solid var(--line);}
+.dtable td{padding:9px 10px;font-size:12px;color:var(--soft);border-bottom:1px solid var(--line);vertical-align:middle;}
+.dtable td:first-child{color:var(--ink);font-weight:500;}
+.dtable td.mono{font-family:'Geist Mono',monospace;font-size:11px;}
+.dtable td.red{color:var(--red);font-weight:600;font-family:'Geist Mono',monospace;}
+.dtable td.grn{color:var(--grn);font-weight:600;font-family:'Geist Mono',monospace;}
+.dtable td.gold{color:var(--gold);font-family:'Geist Mono',monospace;font-weight:600;}
+.dtable tr:last-child td{border-bottom:none;}
+.dtable tr:hover td{background:var(--bg3);}
+.rtype-badge{font-family:'Geist Mono',monospace;font-size:8.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;border-radius:10px;border:1px solid;white-space:nowrap;}
+.rtype-badge.phd{color:var(--blu);background:var(--blubg);border-color:var(--blubd);}
+.rtype-badge.postdoc{color:var(--prp);background:var(--prpbg);border-color:var(--prpbd);}
+.rtype-badge.professor{color:var(--grn);background:var(--grnbg);border-color:var(--grnbd);}
+.rtype-badge.researcher{color:var(--amb);background:var(--ambbg);border-color:var(--ambbd);}
+.rtype-badge.coordinator{color:var(--gold);background:var(--goldbg);border-color:var(--goldbd);}
+.rtype-badge.unknown{color:var(--muted);background:var(--bg3);border-color:var(--line);}
+.edit-btn{background:none;border:1px solid var(--line);border-radius:5px;padding:3px 7px;cursor:pointer;color:var(--muted);font-size:11px;transition:all 0.12s;white-space:nowrap;}
+.edit-btn:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
+.ai-badge{font-family:'Geist Mono',monospace;font-size:8px;letter-spacing:0.06em;color:var(--gold);background:var(--goldbg);border:1px solid var(--goldbd);border-radius:10px;padding:1px 6px;}
 
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes mi { from{opacity:0;transform:scale(0.975) translateY(5px)} to{opacity:1;transform:scale(1) translateY(0)} }
-@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-.fade-in { animation: fadeUp 0.4s ease both; }
+/* HEALTH SCORES */
+.health-item{margin-bottom:14px;}
+.health-head{display:flex;justify-content:space-between;margin-bottom:4px;}
+.health-lbl{font-size:12px;font-weight:500;color:var(--ink2);}
+.health-pct{font-family:'Geist Mono',monospace;font-size:12px;}
+.health-desc{font-size:10.5px;color:var(--muted);margin-top:3px;}
+
+/* LOADING */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;text-align:center;}
+.spinner{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:16px;}
+.loading-t{font-family:'Instrument Serif',serif;font-size:20px;color:var(--soft);margin-bottom:6px;}
+.loading-s{font-size:12px;color:var(--muted);}
+.no-data{text-align:center;padding:32px;color:var(--muted);font-size:13px;}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes mi{from{opacity:0;transform:scale(0.975) translateY(5px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp 0.4s ease both;}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-left">
     <div class="hdr-hex"><div class="hdr-hex-i"></div></div>
@@ -226,206 +215,552 @@ body { background: var(--bg); color: var(--ink); font-family: 'Geist', sans-seri
   </div>
   <div class="hdr-right">
     <div class="hdr-date" id="dateLabel"></div>
-    <a href="index.html" class="crm-link">← CRM</a>
-    <button class="sync-btn" id="syncBtn" onclick="loadData()">
-      <span id="syncIcon">⟳</span> Sync HubSpot
-    </button>
-    <button class="sync-btn" style="background:var(--bg3);color:var(--soft);border:1px solid var(--line);" onclick="openM()">⚙</button>
+    <a href="index.html" class="hbtn light" style="text-decoration:none;">← CRM</a>
+    <button class="hbtn light" onclick="openAddDealM()">+ Add Deal</button>
+    <button class="hbtn dark" id="aiLookupBtn" onclick="runAILookup()">✦ AI Lookup All</button>
+    <button class="hbtn dark" id="syncBtn" onclick="loadData()">⟳ Sync HubSpot</button>
+    <button class="hbtn light" onclick="openM('settingsM')">⚙</button>
   </div>
 </div>
 
-<!-- SETTINGS MODAL -->
-<div class="mo" id="settingsM">
-  <div class="md">
-    <div class="md-t">Connect HubSpot</div>
-    <div class="md-s">Your credentials are stored in your browser only and never transmitted anywhere.</div>
-    <div class="ff"><label>HubSpot API Token</label><input type="password" id="s_hs" placeholder="pat-na2-..."></div>
-    <div class="ff"><label>Cloudflare Worker URL</label><input type="text" id="s_wk" placeholder="https://your-worker.workers.dev"></div>
-    <div class="md-btns">
-      <button class="btn-sec" onclick="closeM()">Cancel</button>
-      <button class="btn-pri" onclick="saveSettings()">Save & Sync</button>
-    </div>
+<!-- AI PROGRESS BAR -->
+<div class="ai-bar hidden" id="aiBar">
+  <div class="ai-progress">
+    <span>✦</span>
+    <span id="aiBarText">Running AI lookup on contacts…</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="ai-prog-track"><div class="ai-prog-fill" id="aiProgFill" style="width:0%"></div></div>
+    <span id="aiProgPct" style="font-family:'Geist Mono',monospace;font-size:10px;">0%</span>
   </div>
 </div>
 
 <div class="wrap" id="mainWrap">
   <div class="loading" id="loadingState">
-    <div class="loading-spinner"></div>
-    <div class="loading-t">Loading your deal data…</div>
+    <div class="spinner"></div>
+    <div class="loading-t">Loading deal intelligence…</div>
     <div class="loading-s">Connecting to HubSpot</div>
   </div>
   <div id="dashboard" style="display:none;"></div>
 </div>
 
+<!-- SETTINGS MODAL -->
+<div class="mo" id="settingsM">
+  <div class="md">
+    <div class="md-top"><div class="md-ttl">Settings</div><button class="mclose" onclick="closeM('settingsM')">✕</button></div>
+    <div class="mb">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Credentials stored in your browser only.</p>
+      <div class="ff"><label>HubSpot API Token</label><input type="password" id="s_hs" placeholder="pat-na2-..."></div>
+      <div class="ff"><label>Cloudflare Worker URL</label><input type="text" id="s_wk" placeholder="https://your-worker.workers.dev"></div>
+      <div class="ff"><label>Anthropic API Key (for AI Lookup)</label><input type="password" id="s_ai" placeholder="sk-ant-..."></div>
+      <div class="fa"><button class="fcan" onclick="closeM('settingsM')">Cancel</button><button class="fpri" onclick="saveSettings()">Save & Sync</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT DEAL MODAL -->
+<div class="mo" id="editM">
+  <div class="md">
+    <div class="md-top"><div class="md-ttl" id="editMTitle">Edit Deal</div><button class="mclose" onclick="closeM('editM')">✕</button></div>
+    <div class="mb">
+      <!-- AI lookup row (shown when name+org exist) -->
+      <div class="ai-lookup-row" id="aiLookupRow">
+        <span>✦ Let AI look up this contact's role from their name & organisation</span>
+        <button class="ai-lookup-btn" id="aiLookupSingleBtn" onclick="aiLookupSingle()">Look Up</button>
+      </div>
+      <div class="ai-result-box" id="aiResultBox"></div>
+      <div class="fr">
+        <div class="ff"><label>Contact Name</label><input type="text" id="e_name" placeholder="Dr. Sarah Johnson"></div>
+        <div class="ff"><label>Organisation</label><input type="text" id="e_org" placeholder="Stanford University"></div>
+      </div>
+      <div class="fr">
+        <div class="ff"><label>Deal Name</label><input type="text" id="e_deal" placeholder="EMA Platform Study"></div>
+        <div class="ff"><label>Value ($)</label><input type="number" id="e_value" placeholder="0"></div>
+      </div>
+      <div class="fr">
+        <div class="ff"><label>Stage</label>
+          <select id="e_stage">
+            <option value="appointmentscheduled">Call Scheduled</option>
+            <option value="qualifiedtobuy">Call Done</option>
+            <option value="presentationscheduled">Quote Sent</option>
+            <option value="decisionmakerboughtin">Negotiating</option>
+            <option value="closedwon">Won</option>
+            <option value="closedlost">Lost</option>
+          </select>
+        </div>
+        <div class="ff"><label>Researcher Type</label>
+          <select id="e_rtype">
+            <option value="unknown">Unknown</option>
+            <option value="phd">PhD Student / Candidate</option>
+            <option value="postdoc">Postdoc</option>
+            <option value="professor">Professor / PI</option>
+            <option value="researcher">Researcher / Scientist</option>
+            <option value="coordinator">Research Coordinator / Lab Manager</option>
+          </select>
+        </div>
+      </div>
+      <div class="ff"><label>Job Title</label><input type="text" id="e_title" placeholder="PhD Candidate, Postdoctoral Fellow..."></div>
+      <div class="ff"><label>Email</label><input type="email" id="e_email" placeholder="contact@university.edu"></div>
+      <div class="ff"><label>Notes</label><textarea id="e_notes" placeholder="Any context about this deal..."></textarea></div>
+      <div class="fa"><button class="fcan" onclick="closeM('editM')">Cancel</button><button class="fpri" onclick="saveDealEdit()">Save Changes</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD DEAL MODAL -->
+<div class="mo" id="addDealM">
+  <div class="md">
+    <div class="md-top"><div class="md-ttl">Add New Deal</div><button class="mclose" onclick="closeM('addDealM')">✕</button></div>
+    <div class="mb">
+      <div class="fr">
+        <div class="ff"><label>Contact Name *</label><input type="text" id="a_name" placeholder="Dr. Sarah Johnson"></div>
+        <div class="ff"><label>Organisation *</label><input type="text" id="a_org" placeholder="Stanford University"></div>
+      </div>
+      <div class="fr">
+        <div class="ff"><label>Deal Name</label><input type="text" id="a_deal" placeholder="EMA Platform - 12 month study"></div>
+        <div class="ff"><label>Value ($)</label><input type="number" id="a_value" placeholder="0"></div>
+      </div>
+      <div class="fr">
+        <div class="ff"><label>Stage</label>
+          <select id="a_stage">
+            <option value="presentationscheduled">Quote Sent</option>
+            <option value="appointmentscheduled">Call Scheduled</option>
+            <option value="qualifiedtobuy">Call Done</option>
+            <option value="decisionmakerboughtin">Negotiating</option>
+            <option value="closedwon">Won</option>
+            <option value="closedlost">Lost</option>
+          </select>
+        </div>
+        <div class="ff"><label>Researcher Type</label>
+          <select id="a_rtype">
+            <option value="unknown">Unknown / Unclassified</option>
+            <option value="phd">PhD Student / Candidate</option>
+            <option value="postdoc">Postdoc</option>
+            <option value="professor">Professor / PI</option>
+            <option value="researcher">Researcher / Scientist</option>
+            <option value="coordinator">Research Coordinator / Lab Manager</option>
+          </select>
+        </div>
+      </div>
+      <div class="fr">
+        <div class="ff"><label>Job Title</label><input type="text" id="a_title" placeholder="PhD Candidate, Professor..."></div>
+        <div class="ff"><label>Email</label><input type="email" id="a_email" placeholder="contact@university.edu"></div>
+      </div>
+      <div class="ff"><label>Notes</label><textarea id="a_notes" placeholder="Context, requirements, study details..."></textarea></div>
+      <div class="fa"><button class="fcan" onclick="closeM('addDealM')">Cancel</button><button class="fpri" onclick="saveNewDeal()">Add Deal</button></div>
+    </div>
+  </div>
+</div>
+
 <script>
-const VERCEL_URL = 'https://neuroux-tracker-1.vercel.app';
+// ═══ STATE ═══
+const DEALS_KEY = 'nx_intel_deals_v1';
+let allDeals = [];
+let editingId = null;
 
-document.getElementById('dateLabel').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-document.getElementById('s_hs').value = localStorage.getItem('nx_hs_tok')||'';
-document.getElementById('s_wk').value = localStorage.getItem('nx_wk_url')||'';
+// ═══ RESEARCHER CLASSIFICATION ═══
+const RTYPE_LABELS = {
+  phd: 'PhD Student', postdoc: 'Postdoc', professor: 'Professor / PI',
+  researcher: 'Researcher', coordinator: 'Coordinator', unknown: 'Unknown'
+};
+const RTYPE_ICONS = { phd:'🎓', postdoc:'🔬', professor:'👨‍🏫', researcher:'🧪', coordinator:'📋', unknown:'❓' };
+const RTYPE_COLORS = { phd:'blu', postdoc:'prp', professor:'grn', researcher:'amb', coordinator:'gold', unknown:'muted' };
 
-function openM(){ document.getElementById('settingsM').classList.add('open'); }
-function closeM(){ document.getElementById('settingsM').classList.remove('open'); }
-document.getElementById('settingsM').addEventListener('click', e => { if(e.target===document.getElementById('settingsM')) closeM(); });
-function saveSettings(){
-  const hs=document.getElementById('s_hs').value.trim(), wk=document.getElementById('s_wk').value.trim();
-  if(!hs||!wk){ alert('Fill in both fields.'); return; }
-  localStorage.setItem('nx_hs_tok', hs); localStorage.setItem('nx_wk_url', wk);
-  closeM(); loadData();
+function classifyFromText(title, name, org, notes) {
+  const text = [title, name, org, notes].join(' ').toLowerCase();
+  if (/\bphd\b|ph\.d|doctoral|doctorate|phd candidate|phd student|d\.phil/.test(text)) return 'phd';
+  if (/postdoc|post-doc|post doc|postdoctoral|research fellow/.test(text)) return 'postdoc';
+  if (/professor|assoc\. prof|asst\. prof|associate prof|assistant prof|\bpi\b|principal investigator|faculty|chair of|head of/.test(text)) return 'professor';
+  if (/research coordinator|lab manager|lab coordinator|study coordinator|clinical coordinator/.test(text)) return 'coordinator';
+  if (/researcher|scientist|research scientist|research associate|research officer/.test(text)) return 'researcher';
+  return 'unknown';
 }
 
-async function hsGet(path){
-  const wk=localStorage.getItem('nx_wk_url')||'', tk=localStorage.getItem('nx_hs_tok')||'';
-  const r = await fetch(wk+'/hubspot'+path, {headers:{'Authorization':'Bearer '+tk}});
-  if(!r.ok) throw new Error('HS '+r.status);
+// ═══ AI LOOKUP (Claude API) ═══
+async function aiClassifySingle(name, org, title) {
+  const key = localStorage.getItem('nx_ai_key');
+  if (!key) return null;
+  try {
+    const prompt = `You are classifying academic researchers for a sales CRM.
+
+Contact: ${name}
+Organisation: ${org}
+Job Title: ${title || 'unknown'}
+
+Classify this person into EXACTLY one of these categories:
+- phd (PhD student, doctoral candidate, graduate student)
+- postdoc (postdoctoral researcher, research fellow)
+- professor (professor, PI, principal investigator, faculty, associate/assistant professor)
+- researcher (research scientist, research associate, senior researcher)
+- coordinator (lab manager, research coordinator, study coordinator)
+- unknown (cannot determine)
+
+Also infer their approximate seniority level: junior, mid, senior
+
+Respond in JSON only, no explanation:
+{"type": "phd", "seniority": "junior", "confidence": "high", "reasoning": "one sentence"}`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 200,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await resp.json();
+    const text = data.content?.[0]?.text || '';
+    const clean = text.replace(/```json|```/g, '').trim();
+    return JSON.parse(clean);
+  } catch(e) { return null; }
+}
+
+async function aiLookupSingle() {
+  const name = document.getElementById('e_name').value.trim();
+  const org = document.getElementById('e_org').value.trim();
+  const title = document.getElementById('e_title').value.trim();
+  if (!name) { alert('Enter a contact name first.'); return; }
+
+  const key = localStorage.getItem('nx_ai_key');
+  if (!key) { alert('Add your Anthropic API key in Settings to use AI lookup.'); openM('settingsM'); return; }
+
+  const btn = document.getElementById('aiLookupSingleBtn');
+  btn.textContent = '…'; btn.disabled = true;
+
+  const result = await aiClassifySingle(name, org, title);
+  btn.textContent = 'Look Up'; btn.disabled = false;
+
+  const box = document.getElementById('aiResultBox');
+  if (result) {
+    document.getElementById('e_rtype').value = result.type || 'unknown';
+    if (result.reasoning) document.getElementById('e_title').value = document.getElementById('e_title').value || result.reasoning;
+    box.style.display = 'block';
+    box.innerHTML = `✦ AI classified as <strong>${RTYPE_LABELS[result.type]||result.type}</strong> (${result.confidence} confidence) — ${result.reasoning}`;
+  } else {
+    box.style.display = 'block';
+    box.style.background = 'var(--redbg)'; box.style.borderColor = 'var(--redbd)'; box.style.color = 'var(--red)';
+    box.textContent = 'Could not classify. Check your API key or fill in manually.';
+  }
+}
+
+async function runAILookup() {
+  const key = localStorage.getItem('nx_ai_key');
+  if (!key) { alert('Add your Anthropic API key in Settings first.'); openM('settingsM'); return; }
+
+  const unknownDeals = allDeals.filter(d => !d._rtype || d._rtype === 'unknown');
+  if (!unknownDeals.length) { alert('All deals already classified!'); return; }
+
+  document.getElementById('aiBar').classList.remove('hidden');
+  document.getElementById('aiLookupBtn').disabled = true;
+
+  let done = 0;
+  for (const deal of unknownDeals) {
+    const name = deal._contact?.name || deal.properties?.dealname || '';
+    const org = deal._contact?.org || '';
+    const title = deal._contact?.title || '';
+
+    const result = await aiClassifySingle(name, org, title);
+    if (result && result.type !== 'unknown') {
+      deal._rtype = result.type;
+      deal._rtypeSource = 'ai';
+      deal._rtypereasoning = result.reasoning;
+    }
+
+    done++;
+    const pct = Math.round((done / unknownDeals.length) * 100);
+    document.getElementById('aiProgFill').style.width = pct + '%';
+    document.getElementById('aiProgPct').textContent = pct + '%';
+    document.getElementById('aiBarText').textContent = `AI classifying contacts… ${done}/${unknownDeals.length} done`;
+
+    // Small delay to avoid rate limits
+    await new Promise(r => setTimeout(r, 300));
+  }
+
+  saveDealsLocal();
+  renderDashboard(allDeals);
+  document.getElementById('aiBar').classList.add('hidden');
+  document.getElementById('aiLookupBtn').disabled = false;
+}
+
+// ═══ HUBSPOT ═══
+async function hsGet(path) {
+  const wk = localStorage.getItem('nx_wk_url') || '', tk = localStorage.getItem('nx_hs_tok') || '';
+  const r = await fetch(wk + '/hubspot' + path, { headers: { 'Authorization': 'Bearer ' + tk } });
+  if (!r.ok) throw new Error('HS ' + r.status);
   return r.json();
 }
 
-let allDeals = [];
+async function loadData() {
+  const hs = localStorage.getItem('nx_hs_tok'), wk = localStorage.getItem('nx_wk_url');
+  if (!hs || !wk) { openM('settingsM'); return; }
 
-async function loadData(){
-  const hs=localStorage.getItem('nx_hs_tok'), wk=localStorage.getItem('nx_wk_url');
-  if(!hs||!wk){ openM(); return; }
-
-  document.getElementById('loadingState').style.display='flex';
-  document.getElementById('dashboard').style.display='none';
-  const btn=document.getElementById('syncBtn');
-  btn.classList.add('syncing'); btn.innerHTML='<span>⟳</span> Syncing…';
+  document.getElementById('loadingState').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+  const btn = document.getElementById('syncBtn');
+  btn.classList.add('syn'); btn.textContent = '⟳ Syncing…';
 
   try {
-    let deals=[], after='';
+    let deals = [], after = '';
     do {
-      const q='?limit=100&properties=dealname,amount,dealstage,closedate,createdate,hs_lastmodifieddate,num_notes,hs_num_target_accounts&associations=contacts'+(after?'&after='+after:'');
-      const d = await hsGet('/crm/v3/objects/deals'+q);
-      deals = deals.concat(d.results||[]);
-      after = d.paging?.next?.after||'';
-    } while(after);
+      const q = '?limit=100&properties=dealname,amount,dealstage,closedate,createdate,hs_lastmodifieddate&associations=contacts' + (after ? '&after=' + after : '');
+      const d = await hsGet('/crm/v3/objects/deals' + q);
+      deals = deals.concat(d.results || []);
+      after = d.paging?.next?.after || '';
+    } while (after);
 
-    // Enrich with contact data (sample first 40 to avoid rate limits)
-    const sample = deals.slice(0,40);
-    for(const deal of sample){
-      const ac = deal.associations?.contacts?.results||[];
-      if(ac.length>0){
-        try{
-          const c = await hsGet('/crm/v3/objects/contacts/'+ac[0].id+'?properties=firstname,lastname,email,company,jobtitle');
-          const cp = c.properties||{};
-          deal._contact = { name:(cp.firstname||'')+' '+(cp.lastname||''), email:cp.email||'', org:cp.company||'', title:cp.jobtitle||'' };
-        }catch(e){}
+    // Load saved local enrichment
+    const saved = loadDealsLocal();
+
+    // Enrich sample with contacts
+    for (const deal of deals.slice(0, 50)) {
+      const ac = deal.associations?.contacts?.results || [];
+      if (ac.length > 0) {
+        try {
+          const c = await hsGet('/crm/v3/objects/contacts/' + ac[0].id + '?properties=firstname,lastname,email,company,jobtitle');
+          const cp = c.properties || {};
+          deal._contact = { name: ((cp.firstname || '') + ' ' + (cp.lastname || '')).trim(), email: cp.email || '', org: cp.company || '', title: cp.jobtitle || '' };
+        } catch(e) {}
+      }
+
+      // Merge saved enrichment
+      const s = saved[deal.id];
+      if (s) {
+        deal._rtype = s.rtype;
+        deal._rtypeSource = s.source;
+        deal._overrides = s.overrides;
+        deal._notes = s.notes;
+        if (s.overrides) {
+          if (s.overrides.name) deal._contact = deal._contact || {};
+          Object.assign(deal._contact || {}, s.overrides.contact || {});
+          if (s.overrides.value) deal.properties.amount = s.overrides.value;
+          if (s.overrides.stage) deal.properties.dealstage = s.overrides.stage;
+          if (s.overrides.dealname) deal.properties.dealname = s.overrides.dealname;
+        }
+      }
+
+      // Auto-classify if not already done
+      if (!deal._rtype || deal._rtype === 'unknown') {
+        const c = deal._contact || {};
+        deal._rtype = classifyFromText(c.title || '', c.name || '', c.org || '', deal.properties?.dealname || '');
+        deal._rtypeSource = 'auto';
+      }
+    }
+
+    // For remaining deals without contacts, auto-classify from deal name
+    for (const deal of deals.slice(50)) {
+      const s = saved[deal.id];
+      if (s) { deal._rtype = s.rtype; deal._rtypeSource = s.source; deal._overrides = s.overrides; deal._notes = s.notes; }
+      if (!deal._rtype || deal._rtype === 'unknown') {
+        deal._rtype = classifyFromText('', '', '', deal.properties?.dealname || '');
+        deal._rtypeSource = 'auto';
       }
     }
 
     allDeals = deals;
     renderDashboard(deals);
-    document.getElementById('loadingState').style.display='none';
-    document.getElementById('dashboard').style.display='block';
-    btn.classList.remove('syncing'); btn.innerHTML='<span>⟳</span> Sync HubSpot';
-  } catch(e){
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    btn.classList.remove('syn'); btn.textContent = '⟳ Sync HubSpot';
+  } catch(e) {
     console.error(e);
-    document.getElementById('loadingState').innerHTML='<div style="text-align:center;padding:60px;"><div style="font-size:24px;margin-bottom:12px;">⚠️</div><div style="font-family:\'Instrument Serif\',serif;font-size:18px;color:var(--soft);margin-bottom:8px;">Could not connect to HubSpot</div><div style="font-size:12px;color:var(--muted);margin-bottom:16px;">Check your credentials in Settings</div><button onclick="openM()" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:13px;cursor:pointer;">Open Settings</button></div>';
-    btn.classList.remove('syncing'); btn.innerHTML='<span>⟳</span> Sync HubSpot';
+    document.getElementById('loadingState').innerHTML = `<div style="text-align:center;padding:60px;"><div style="font-size:24px;margin-bottom:12px;">⚠️</div><div style="font-family:'Instrument Serif',serif;font-size:18px;color:var(--soft);margin-bottom:8px;">Could not connect to HubSpot</div><div style="font-size:12px;color:var(--muted);margin-bottom:16px;">${e.message}</div><button onclick="openM('settingsM')" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:13px;cursor:pointer;font-family:'Geist',sans-serif;">Open Settings</button></div>`;
+    btn.classList.remove('syn'); btn.textContent = '⟳ Sync HubSpot';
   }
 }
 
-const HS_STAGE_MAP = {
-  appointmentscheduled:'Call Scheduled', qualifiedtobuy:'Call Done',
-  presentationscheduled:'Quote Sent', decisionmakerboughtin:'Negotiating',
-  contractsent:'Negotiating', closedwon:'Won', closedlost:'Lost'
-};
+// ═══ LOCAL STORAGE ═══
+function saveDealsLocal() {
+  const map = {};
+  allDeals.forEach(d => {
+    if (d._rtype || d._overrides || d._notes) {
+      map[d.id] = { rtype: d._rtype, source: d._rtypeSource, overrides: d._overrides, notes: d._notes };
+    }
+  });
+  try { localStorage.setItem(DEALS_KEY, JSON.stringify(map)); } catch(e) {}
+}
+function loadDealsLocal() {
+  try { return JSON.parse(localStorage.getItem(DEALS_KEY) || '{}'); } catch(e) { return {}; }
+}
 
-function renderDashboard(deals){
-  const won = deals.filter(d=>d.properties?.dealstage==='closedwon');
-  const lost = deals.filter(d=>d.properties?.dealstage==='closedlost');
-  const active = deals.filter(d=>d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost');
-  const total = won.length+lost.length;
-  const winRate = total>0?Math.round((won.length/total)*100):0;
-  const wonValue = won.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
-  const lostValue = lost.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
-  const activeValue = active.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
-  const avgDeal = won.length>0?Math.round(wonValue/won.length):0;
+// ═══ EDIT DEAL ═══
+function openEditDeal(dealId) {
+  editingId = dealId;
+  const deal = allDeals.find(d => d.id === dealId);
+  if (!deal) return;
+  const p = deal.properties || {}, c = deal._contact || {};
+  document.getElementById('editMTitle').textContent = 'Edit — ' + esc(p.dealname || 'Deal');
+  document.getElementById('e_name').value = c.name || '';
+  document.getElementById('e_org').value = c.org || '';
+  document.getElementById('e_deal').value = p.dealname || '';
+  document.getElementById('e_value').value = p.amount || '';
+  document.getElementById('e_stage').value = p.dealstage || 'presentationscheduled';
+  document.getElementById('e_rtype').value = deal._rtype || 'unknown';
+  document.getElementById('e_title').value = c.title || '';
+  document.getElementById('e_email').value = c.email || '';
+  document.getElementById('e_notes').value = deal._notes || '';
+  document.getElementById('aiResultBox').style.display = 'none';
+  openM('editM');
+}
+function saveDealEdit() {
+  const deal = allDeals.find(d => d.id === editingId);
+  if (!deal) return;
+  deal._contact = deal._contact || {};
+  deal._contact.name = document.getElementById('e_name').value.trim();
+  deal._contact.org = document.getElementById('e_org').value.trim();
+  deal._contact.title = document.getElementById('e_title').value.trim();
+  deal._contact.email = document.getElementById('e_email').value.trim();
+  deal.properties.dealname = document.getElementById('e_deal').value.trim() || deal.properties.dealname;
+  deal.properties.amount = document.getElementById('e_value').value || deal.properties.amount;
+  deal.properties.dealstage = document.getElementById('e_stage').value;
+  deal._rtype = document.getElementById('e_rtype').value;
+  deal._rtypeSource = 'manual';
+  deal._notes = document.getElementById('e_notes').value.trim();
+  deal._overrides = { contact: { name: deal._contact.name, org: deal._contact.org, title: deal._contact.title, email: deal._contact.email }, value: deal.properties.amount, stage: deal.properties.dealstage, dealname: deal.properties.dealname };
+  saveDealsLocal();
+  renderDashboard(allDeals);
+  closeM('editM');
+}
+
+// ═══ ADD DEAL ═══
+function openAddDealM() {
+  ['a_name','a_org','a_deal','a_value','a_title','a_email','a_notes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('a_stage').value = 'presentationscheduled';
+  document.getElementById('a_rtype').value = 'unknown';
+  openM('addDealM');
+}
+function saveNewDeal() {
+  const name = document.getElementById('a_name').value.trim();
+  const org = document.getElementById('a_org').value.trim();
+  if (!name) { alert('Contact name is required.'); return; }
+  const newDeal = {
+    id: 'manual_' + Date.now(),
+    properties: { dealname: document.getElementById('a_deal').value.trim() || name + ' — ' + org, amount: document.getElementById('a_value').value || '0', dealstage: document.getElementById('a_stage').value, createdate: new Date().toISOString(), closedate: null },
+    _contact: { name, org, title: document.getElementById('a_title').value.trim(), email: document.getElementById('a_email').value.trim() },
+    _rtype: document.getElementById('a_rtype').value,
+    _rtypeSource: 'manual',
+    _notes: document.getElementById('a_notes').value.trim(),
+    _manual: true
+  };
+  allDeals.unshift(newDeal);
+  saveDealsLocal();
+  renderDashboard(allDeals);
+  closeM('addDealM');
+}
+
+// ═══ RENDER ═══
+const HS_STAGE_MAP = { appointmentscheduled:'Call Scheduled', qualifiedtobuy:'Call Done', presentationscheduled:'Quote Sent', decisionmakerboughtin:'Negotiating', contractsent:'Negotiating', closedwon:'Won', closedlost:'Lost' };
+const STAGE_COLORS = ['#3060c8','#2050b8','#b07828','#c07010','#1e7a50'];
+
+function renderDashboard(deals) {
+  const won = deals.filter(d => d.properties?.dealstage === 'closedwon');
+  const lost = deals.filter(d => d.properties?.dealstage === 'closedlost');
+  const active = deals.filter(d => d.properties?.dealstage !== 'closedwon' && d.properties?.dealstage !== 'closedlost');
+  const total = won.length + lost.length;
+  const winRate = total > 0 ? Math.round((won.length / total) * 100) : 0;
+  const wonValue = won.reduce((s, d) => s + (parseFloat(d.properties?.amount) || 0), 0);
+  const lostValue = lost.reduce((s, d) => s + (parseFloat(d.properties?.amount) || 0), 0);
+  const activeValue = active.reduce((s, d) => s + (parseFloat(d.properties?.amount) || 0), 0);
+  const avgDeal = won.length > 0 ? Math.round(wonValue / won.length) : 0;
+  const closeTimes = won.filter(d => d.properties?.createdate && d.properties?.closedate).map(d => Math.round((new Date(d.properties.closedate) - new Date(d.properties.createdate)) / 86400000)).filter(d => d > 0 && d < 365);
+  const avgClose = closeTimes.length > 0 ? Math.round(closeTimes.reduce((a, b) => a + b, 0) / closeTimes.length) : 0;
+
+  // Researcher breakdown
+  const rtypes = ['phd','postdoc','professor','researcher','coordinator','unknown'];
+  const rtypeData = rtypes.map(rt => {
+    const rtWon = won.filter(d => d._rtype === rt);
+    const rtLost = lost.filter(d => d._rtype === rt);
+    const rtActive = active.filter(d => d._rtype === rt);
+    const rtTotal = rtWon.length + rtLost.length;
+    const rtRate = rtTotal > 0 ? Math.round((rtWon.length / rtTotal) * 100) : null;
+    const rtValue = rtWon.reduce((s, d) => s + (parseFloat(d.properties?.amount) || 0), 0);
+    const rtAvg = rtWon.length > 0 ? Math.round(rtValue / rtWon.length) : 0;
+    return { rt, won: rtWon.length, lost: rtLost.length, active: rtActive.length, total: rtTotal, rate: rtRate, value: rtValue, avg: rtAvg };
+  }).filter(r => r.won + r.lost + r.active > 0);
+
+  // Best researcher type
+  const bestRtype = rtypeData.filter(r => r.rate !== null && r.total >= 2).sort((a, b) => b.rate - a.rate)[0];
+
+  // Price bands
+  const bands = [{label:'< $1K',min:0,max:1000},{label:'$1K–$3K',min:1000,max:3000},{label:'$3K–$6K',min:3000,max:6000},{label:'$6K–$10K',min:6000,max:10000},{label:'> $10K',min:10000,max:Infinity}];
+  const bandData = bands.map(b => {
+    const bW = won.filter(d => { const v = parseFloat(d.properties?.amount) || 0; return v >= b.min && v < b.max; }).length;
+    const bL = lost.filter(d => { const v = parseFloat(d.properties?.amount) || 0; return v >= b.min && v < b.max; }).length;
+    const bT = bW + bL;
+    return { ...b, won: bW, lost: bL, total: bT, rate: bT > 0 ? Math.round((bW / bT) * 100) : 0 };
+  });
+  const bestBand = bandData.filter(b => b.total > 1).sort((a, b) => b.rate - a.rate)[0] || { label: 'N/A', rate: 0 };
 
   // Stage funnel
   const stages = ['appointmentscheduled','qualifiedtobuy','presentationscheduled','decisionmakerboughtin','contractsent'];
   const stageCounts = {};
-  stages.forEach(s=>stageCounts[s]=active.filter(d=>d.properties?.dealstage===s).length);
-  const stageNames = {appointmentscheduled:'Call Scheduled',qualifiedtobuy:'Call Done',presentationscheduled:'Quote Sent',decisionmakerboughtin:'Negotiating',contractsent:'Contract Sent'};
-  const stageColors = ['#3060c8','#2050b8','#b07828','#c07010','#1e7a50'];
+  stages.forEach(s => stageCounts[s] = active.filter(d => d.properties?.dealstage === s).length);
+  const maxStage = Math.max(...Object.values(stageCounts), 1);
 
-  // Price bands win rates
-  const bands = [{label:'< $1K',min:0,max:1000},{label:'$1K–$3K',min:1000,max:3000},{label:'$3K–$6K',min:3000,max:6000},{label:'$6K–$10K',min:6000,max:10000},{label:'> $10K',min:10000,max:Infinity}];
-  const bandData = bands.map(b=>{
-    const bWon=won.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;
-    const bLost=lost.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;
-    const bTotal=bWon+bLost;
-    return {...b,won:bWon,lost:bLost,total:bTotal,rate:bTotal>0?Math.round((bWon/bTotal)*100):0};
-  });
-  const bestBand = bandData.reduce((best,b)=>b.rate>best.rate&&b.total>1?b:best,{rate:0,label:'N/A'});
-
-  // Days to close
-  const closeTimes = won.filter(d=>d.properties?.createdate&&d.properties?.closedate).map(d=>{
-    return Math.round((new Date(d.properties.closedate)-new Date(d.properties.createdate))/86400000);
-  }).filter(d=>d>0&&d<365);
-  const avgClose = closeTimes.length>0?Math.round(closeTimes.reduce((a,b)=>a+b,0)/closeTimes.length):0;
-
-  // Lost deals sorted by value
-  const topLost = lost.filter(d=>d.properties?.amount).sort((a,b)=>(parseFloat(b.properties.amount)||0)-(parseFloat(a.properties.amount)||0)).slice(0,8);
-
-  // Recent won
-  const recentWon = won.filter(d=>d.properties?.closedate).sort((a,b)=>new Date(b.properties.closedate)-new Date(a.properties.closedate)).slice(0,5);
-
-  // Monthly trend (last 6 months)
+  // Monthly trend
   const now = new Date();
-  const months = Array.from({length:6},(_,i)=>{const d=new Date(now.getFullYear(),now.getMonth()-5+i,1);return{label:d.toLocaleDateString('en-US',{month:'short'}),year:d.getFullYear(),month:d.getMonth()};});
-  const monthlyWon = months.map(m=>won.filter(d=>{if(!d.properties?.closedate)return false;const cd=new Date(d.properties.closedate);return cd.getMonth()===m.month&&cd.getFullYear()===m.year;}).length);
-  const monthlyLost = months.map(m=>lost.filter(d=>{if(!d.properties?.closedate)return false;const cd=new Date(d.properties.closedate);return cd.getMonth()===m.month&&cd.getFullYear()===m.year;}).length);
-  const maxMonth = Math.max(...monthlyWon,...monthlyLost,1);
+  const months = Array.from({length:6},(_,i) => { const d = new Date(now.getFullYear(), now.getMonth()-5+i, 1); return {label:d.toLocaleDateString('en-US',{month:'short'}),year:d.getFullYear(),month:d.getMonth()}; });
+  const mWon = months.map(m => won.filter(d => { if(!d.properties?.closedate)return false; const cd=new Date(d.properties.closedate); return cd.getMonth()===m.month&&cd.getFullYear()===m.year; }).length);
+  const mLost = months.map(m => lost.filter(d => { if(!d.properties?.closedate)return false; const cd=new Date(d.properties.closedate); return cd.getMonth()===m.month&&cd.getFullYear()===m.year; }).length);
+  const maxM = Math.max(...mWon, ...mLost, 1);
 
-  // Insights
-  const insights = generateInsights(won,lost,active,winRate,bestBand,avgClose,avgDeal,lostValue,activeValue,bandData);
+  // Top lost deals
+  const topLost = lost.filter(d => d.properties?.amount).sort((a,b) => (parseFloat(b.properties.amount)||0)-(parseFloat(a.properties.amount)||0)).slice(0, 10);
+  const recentWon = won.filter(d => d.properties?.closedate).sort((a,b) => new Date(b.properties.closedate)-new Date(a.properties.closedate)).slice(0, 8);
 
-  // Ring chart circumference
-  const circ = 2*Math.PI*54;
-  const wonArc = (winRate/100)*circ;
-  const lostArc = ((100-winRate)/100)*circ;
+  const circ = 2 * Math.PI * 54;
+  const wonArc = (winRate / 100) * circ;
 
-  document.getElementById('dashboard').innerHTML = `
-  <div class="fade-in">
+  const insights = generateInsights(won, lost, active, winRate, bestBand, avgClose, avgDeal, lostValue, activeValue, bestRtype);
 
-  <!-- HERO STATS -->
+  const aiClassified = deals.filter(d => d._rtypeSource === 'ai').length;
+  const manualClassified = deals.filter(d => d._rtypeSource === 'manual').length;
+  const unknownCount = deals.filter(d => !d._rtype || d._rtype === 'unknown').length;
+
+  document.getElementById('dashboard').innerHTML = `<div class="fade-in">
+
+  <!-- HERO -->
   <div class="hero">
-    <div class="hstat green">
-      <div class="hstat-label">Win Rate</div>
-      <div class="hstat-val green">${winRate}%</div>
-      <div class="hstat-sub">${won.length} won of ${total} closed</div>
-    </div>
-    <div class="hstat gold">
-      <div class="hstat-label">Revenue Won</div>
-      <div class="hstat-val gold">$${fmtK(wonValue)}</div>
-      <div class="hstat-sub">across ${won.length} deals</div>
-    </div>
-    <div class="hstat red">
-      <div class="hstat-label">Revenue Lost</div>
-      <div class="hstat-val red">$${fmtK(lostValue)}</div>
-      <div class="hstat-sub">${lost.length} deals went cold</div>
-    </div>
-    <div class="hstat blue">
-      <div class="hstat-label">Active Pipeline</div>
-      <div class="hstat-val blue">$${fmtK(activeValue)}</div>
-      <div class="hstat-sub">${active.length} deals in progress</div>
-    </div>
-    <div class="hstat amb">
-      <div class="hstat-label">Avg Deal Size</div>
-      <div class="hstat-val amb">$${fmtK(avgDeal)}</div>
-      <div class="hstat-sub">avg ${avgClose}d to close</div>
-    </div>
+    <div class="hstat green"><div class="hstat-lbl">Win Rate</div><div class="hstat-val green">${winRate}%</div><div class="hstat-sub">${won.length} won of ${total} closed</div></div>
+    <div class="hstat gold"><div class="hstat-lbl">Revenue Won</div><div class="hstat-val gold">$${fmtK(wonValue)}</div><div class="hstat-sub">across ${won.length} deals</div></div>
+    <div class="hstat red"><div class="hstat-lbl">Revenue Lost</div><div class="hstat-val red">$${fmtK(lostValue)}</div><div class="hstat-sub">${lost.length} deals went cold</div></div>
+    <div class="hstat blue"><div class="hstat-lbl">Active Pipeline</div><div class="hstat-val blue">$${fmtK(activeValue)}</div><div class="hstat-sub">${active.length} in progress</div></div>
+    <div class="hstat amb"><div class="hstat-lbl">Avg Deal Size</div><div class="hstat-val amb">$${fmtK(avgDeal)}</div><div class="hstat-sub">avg ${avgClose}d to close</div></div>
   </div>
 
   <!-- AI INSIGHTS -->
   <div class="sec-hd"><div class="sec-ttl">AI Insights</div><div class="sec-line"></div><div class="sec-sub">Based on your real deal data</div></div>
-  <div class="insights">${insights.map(ins=>`
-    <div class="insight ${ins.color}">
-      <div class="insight-icon">${ins.icon}</div>
-      <div class="insight-body"><div class="insight-ttl">${ins.title}</div><div class="insight-txt">${ins.text}</div></div>
-    </div>`).join('')}
+  <div class="insights">${insights.map(i=>`<div class="insight ${i.color}"><div class="ins-icon">${i.icon}</div><div><div class="ins-ttl">${i.title}</div><div class="ins-txt">${i.text}</div></div></div>`).join('')}</div>
+
+  <!-- RESEARCHER BREAKDOWN -->
+  <div class="sec-hd"><div class="sec-ttl">Researcher Breakdown</div><div class="sec-line"></div><div class="sec-sub">${aiClassified} AI · ${manualClassified} manual · ${unknownCount} unknown — <button onclick="runAILookup()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;font-family:'Geist',sans-serif;text-decoration:underline;">✦ Run AI lookup on unknowns</button></div></div>
+  <div class="rtype-grid" style="grid-template-columns:repeat(${Math.min(rtypeData.length,6)},1fr);margin-bottom:16px;">
+    ${rtypeData.map(r=>{
+      const rateColor = r.rate===null?'a':r.rate>=60?'g':r.rate>=35?'a':'r';
+      return`<div class="rtype-card">
+        <div class="rtype-icon">${RTYPE_ICONS[r.rt]}</div>
+        <div class="rtype-name">${RTYPE_LABELS[r.rt]}</div>
+        <div class="rtype-count">${r.won+r.lost+r.active}</div>
+        <div class="rtype-sub">${r.won}W · ${r.lost}L · ${r.active} active</div>
+        ${r.rate!==null?`<div class="rtype-rate ${rateColor}">${r.rate}% win</div>`:`<div class="rtype-rate a">no data</div>`}
+        ${r.avg>0?`<div style="font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--muted);margin-top:3px;">avg $${fmtK(r.avg)}</div>`:''}
+      </div>`;
+    }).join('')}
+  </div>
+  <div class="card" style="margin-bottom:22px;">
+    <div class="card-ttl">Win Rate by Researcher Type <span>Which contacts close best</span></div>
+    <div class="bar-list">
+      ${rtypeData.filter(r=>r.total>0).sort((a,b)=>(b.rate||0)-(a.rate||0)).map(r=>{
+        const col=r.rate===null?'amb':r.rate>=60?'grn':r.rate>=35?'gold':'red';
+        return`<div class="bar-item">
+          <div class="bar-head">
+            <div class="bar-label">${RTYPE_ICONS[r.rt]} ${RTYPE_LABELS[r.rt]} <span style="font-weight:400;color:var(--muted);font-size:11px;">(${r.total} closed)</span></div>
+            <div class="bar-val" style="color:var(--${col==='grn'?'grn':col==='gold'?'gold':col==='red'?'red':'amb'})">${r.rate!==null?r.rate+'%':'—'}</div>
+          </div>
+          <div class="bar-track"><div class="bar-fill ${col}" style="width:${r.rate||0}%"></div></div>
+        </div>`;
+      }).join('')}
+    </div>
   </div>
 
   <!-- WIN RATE + FUNNEL -->
@@ -433,199 +768,164 @@ function renderDashboard(deals){
     <div class="card">
       <div class="card-ttl">Win / Loss Breakdown</div>
       <div class="ring-wrap">
-        <svg class="ring-svg" width="130" height="130" viewBox="0 0 130 130">
-          <circle class="ring-bg" cx="65" cy="65" r="54"/>
-          <circle class="ring-fill grn" cx="65" cy="65" r="54" stroke-dasharray="${wonArc} ${circ}" stroke-dashoffset="0"/>
-          <circle class="ring-fill red" cx="65" cy="65" r="54" stroke-dasharray="${lostArc} ${circ}" stroke-dashoffset="${-wonArc}"/>
+        <svg width="130" height="130" viewBox="0 0 130 130">
+          <circle fill="none" stroke="var(--bg3)" stroke-width="10" cx="65" cy="65" r="54"/>
+          <circle fill="none" stroke="var(--grn)" stroke-width="10" stroke-linecap="round" cx="65" cy="65" r="54" stroke-dasharray="${wonArc} ${circ}" transform="rotate(-90 65 65)"/>
+          <circle fill="none" stroke="var(--red)" stroke-width="10" stroke-linecap="round" cx="65" cy="65" r="54" stroke-dasharray="${((100-winRate)/100)*circ} ${circ}" stroke-dashoffset="${-wonArc}" transform="rotate(-90 65 65)"/>
           <text x="65" y="58" text-anchor="middle" font-family="Instrument Serif,serif" font-size="26" fill="#18181c">${winRate}%</text>
           <text x="65" y="76" text-anchor="middle" font-family="Geist Mono,monospace" font-size="9" fill="#9999a8" letter-spacing="1">WIN RATE</text>
         </svg>
         <div class="ring-legend">
-          <div class="rleg"><span class="rleg-dot" style="background:var(--grn)"></span><span class="rleg-label">Won</span><span class="rleg-val">${won.length} deals</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-label">Lost</span><span class="rleg-val">${lost.length} deals</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--blu)"></span><span class="rleg-label">Active</span><span class="rleg-val">${active.length} deals</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--gold)"></span><span class="rleg-label">Avg close</span><span class="rleg-val">${avgClose} days</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--amb)"></span><span class="rleg-label">Total deals</span><span class="rleg-val">${deals.length}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--grn)"></span><span class="rleg-label">Won</span><span class="rleg-val">${won.length}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-label">Lost</span><span class="rleg-val">${lost.length}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--blu)"></span><span class="rleg-label">Active</span><span class="rleg-val">${active.length}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--gold)"></span><span class="rleg-label">Avg close</span><span class="rleg-val">${avgClose}d</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--amb)"></span><span class="rleg-label">Total</span><span class="rleg-val">${deals.length}</span></div>
         </div>
       </div>
     </div>
     <div class="card">
       <div class="card-ttl">Pipeline Funnel <span>Active deals by stage</span></div>
       <div class="funnel">
-        ${stages.map((s,i)=>{
-          const cnt=stageCounts[s]||0;
-          const maxCnt=Math.max(...Object.values(stageCounts),1);
-          const pct=Math.round((cnt/maxCnt)*100);
-          return`<div class="funnel-stage">
-            <div class="funnel-stage-name">${stageNames[s]}</div>
-            <div class="funnel-bar-wrap">
-              <div class="funnel-bar" style="width:${Math.max(pct,8)}%;background:${stageColors[i]};">
-                <span class="funnel-bar-label">${cnt} deal${cnt!==1?'s':''}</span>
-              </div>
-            </div>
-            <div class="funnel-count">${cnt}</div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>
-  </div>
-
-  <!-- WIN RATE BY PRICE + MONTHLY TREND -->
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-ttl">Win Rate by Price Band <span>Which prices close best</span></div>
-      <div class="price-bands">
-        ${bandData.map(b=>{
-          const col=b.rate>=60?'var(--grn)':b.rate>=40?'var(--gold)':'var(--red)';
-          return`<div class="pband">
-            <div class="pband-label">${b.label}</div>
-            <div class="pband-track">
-              <div class="pband-fill" style="width:${b.rate||0}%;background:${col};">
-                ${b.rate>0?`<span>${b.rate}%</span>`:''}
-              </div>
-            </div>
-            <div class="pband-rate" style="color:${col}">${b.rate}%</div>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-ttl">Monthly Performance <span>Last 6 months</span></div>
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <div>
-          <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--grn);margin-bottom:8px;">Won</div>
-          <div class="bar-list">
-            ${months.map((m,i)=>`<div class="bar-item">
-              <div class="bar-head"><div class="bar-label">${m.label}</div><div class="bar-val">${monthlyWon[i]} deals</div></div>
-              <div class="bar-track"><div class="bar-fill grn" style="width:${maxMonth>0?Math.round((monthlyWon[i]/maxMonth)*100):0}%"></div></div>
-            </div>`).join('')}
-          </div>
-        </div>
-        <div>
-          <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Lost</div>
-          <div class="bar-list">
-            ${months.map((m,i)=>`<div class="bar-item">
-              <div class="bar-head"><div class="bar-label">${m.label}</div><div class="bar-val">${monthlyLost[i]} deals</div></div>
-              <div class="bar-track"><div class="bar-fill red" style="width:${maxMonth>0?Math.round((monthlyLost[i]/maxMonth)*100):0}%"></div></div>
-            </div>`).join('')}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOST DEALS TABLE -->
-  <div class="sec-hd"><div class="sec-ttl">Lost Revenue</div><div class="sec-line"></div><div class="sec-sub">Deals that went cold — sorted by value</div></div>
-  <div class="card" style="margin-bottom:24px;padding:0;overflow:hidden;">
-    ${topLost.length===0?'<div class="no-data">No lost deals found.</div>':`
-    <table class="lost-table">
-      <thead><tr>
-        <th>Deal</th><th>Organisation</th><th>Value</th><th>Stage Lost At</th><th>Days Open</th><th>Closed</th>
-      </tr></thead>
-      <tbody>
-        ${topLost.map(d=>{
-          const p=d.properties||{};
-          const org=d._contact?.org||'—';
-          const val=parseFloat(p.amount)||0;
-          const stage=HS_STAGE_MAP[p.dealstage]||p.dealstage||'—';
-          const created=p.createdate?new Date(p.createdate):null;
-          const closed=p.closedate?new Date(p.closedate):null;
-          const days=created&&closed?Math.round((closed-created)/86400000):'—';
-          const closedStr=closed?closed.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
-          return`<tr>
-            <td>${esc(p.dealname||'Unnamed')}</td>
-            <td>${esc(org)}</td>
-            <td class="red">$${val.toLocaleString()}</td>
-            <td class="mono">${stage}</td>
-            <td class="mono">${days}d</td>
-            <td class="mono" style="color:var(--muted);font-size:10.5px;">${closedStr}</td>
-          </tr>`;
-        }).join('')}
-      </tbody>
-    </table>`}
-  </div>
-
-  <!-- RECENT WINS -->
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-ttl">Recent Wins <span>Last ${recentWon.length} closed deals</span></div>
-      ${recentWon.length===0?'<div class="no-data">No won deals yet.</div>':'<div class="bar-list">'+recentWon.map(d=>{
-        const p=d.properties||{};
-        const val=parseFloat(p.amount)||0;
-        const maxVal=Math.max(...recentWon.map(x=>parseFloat(x.properties?.amount)||0),1);
-        const closed=p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
-        return`<div class="bar-item">
-          <div class="bar-head"><div class="bar-label" style="font-size:11.5px;">${esc(p.dealname||'Deal')}</div><div class="bar-val" style="color:var(--grn);font-weight:600;">$${val.toLocaleString()} <span style="color:var(--dim);font-weight:400;">· ${closed}</span></div></div>
-          <div class="bar-track"><div class="bar-fill grn" style="width:${Math.round((val/maxVal)*100)}%"></div></div>
-        </div>`;
-      }).join('')+'</div>'}
-    </div>
-    <div class="card">
-      <div class="card-ttl">Pipeline Health Score</div>
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        ${[
-          {label:'Follow-up velocity', val: Math.min(100,Math.round((active.filter(d=>{const s=d.properties?.dealstage;return s==='qualifiedtobuy'||s==='presentationscheduled';}).length/Math.max(active.length,1))*200)), color:'grn', desc:'Deals actively progressing'},
-          {label:'Quote conversion', val: winRate, color: winRate>=50?'grn':winRate>=30?'gold':'red', desc:'% of closed deals won'},
-          {label:'Pipeline coverage', val: Math.min(100,Math.round((activeValue/(Math.max(wonValue,1)))*50)), color:'blu', desc:'Active vs closed won value'},
-          {label:'Deal velocity', val: avgClose>0?Math.min(100,Math.round((90/avgClose)*100)):50, color:'amb', desc: avgClose+'d avg to close'},
-        ].map(s=>`<div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-            <span style="font-size:12px;font-weight:500;color:var(--ink2);">${s.label}</span>
-            <span style="font-family:'Geist Mono',monospace;font-size:12px;color:var(--${s.color})">${s.val}%</span>
-          </div>
-          <div class="bar-track" style="height:8px;">
-            <div class="bar-fill ${s.color}" style="width:${s.val}%"></div>
-          </div>
-          <div style="font-size:10.5px;color:var(--muted);margin-top:3px;">${s.desc}</div>
+        ${stages.map((s,i)=>`<div class="funnel-stage">
+          <div class="funnel-name">${{appointmentscheduled:'Call Scheduled',qualifiedtobuy:'Call Done',presentationscheduled:'Quote Sent',decisionmakerboughtin:'Negotiating',contractsent:'Contract Sent'}[s]}</div>
+          <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:${Math.max(Math.round((stageCounts[s]||0)/maxStage*100),6)}%;background:${STAGE_COLORS[i]};"><span class="funnel-bar-lbl">${stageCounts[s]||0} deals</span></div></div>
+          <div class="funnel-cnt">${stageCounts[s]||0}</div>
         </div>`).join('')}
       </div>
     </div>
   </div>
 
-  <div style="text-align:center;padding:24px 0 0;font-family:'Geist Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.08em;">
+  <!-- PRICE BANDS + MONTHLY -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-ttl">Win Rate by Price Band</div>
+      <div class="price-bands">
+        ${bandData.map(b=>{const col=b.rate>=60?'var(--grn)':b.rate>=40?'var(--gold)':'var(--red)';return`<div class="pband"><div class="pband-lbl">${b.label}</div><div class="pband-track"><div class="pband-fill" style="width:${b.rate||0}%;background:${col};">${b.rate>0?`<span>${b.rate}%</span>`:''}</div></div><div class="pband-rate" style="color:${col}">${b.rate}%</div></div>`;}).join('')}
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-ttl">Monthly Performance <span>Last 6 months</span></div>
+      <div style="margin-bottom:14px;">
+        <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--grn);margin-bottom:8px;">Won</div>
+        <div class="bar-list">${months.map((m,i)=>`<div class="bar-item"><div class="bar-head"><div class="bar-label">${m.label}</div><div class="bar-val">${mWon[i]}</div></div><div class="bar-track"><div class="bar-fill grn" style="width:${Math.round((mWon[i]/maxM)*100)}%"></div></div></div>`).join('')}</div>
+      </div>
+      <div>
+        <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Lost</div>
+        <div class="bar-list">${months.map((m,i)=>`<div class="bar-item"><div class="bar-head"><div class="bar-label">${m.label}</div><div class="bar-val">${mLost[i]}</div></div><div class="bar-track"><div class="bar-fill red" style="width:${Math.round((mLost[i]/maxM)*100)}%"></div></div></div>`).join('')}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOST DEALS TABLE -->
+  <div class="sec-hd"><div class="sec-ttl">Lost Revenue</div><div class="sec-line"></div><div class="sec-sub">Click ✏ to edit any deal</div></div>
+  <div class="card" style="margin-bottom:22px;padding:0;overflow:hidden;">
+    ${topLost.length===0?'<div class="no-data">No lost deals found.</div>':`
+    <table class="dtable">
+      <thead><tr><th>Contact</th><th>Organisation</th><th>Researcher Type</th><th>Value</th><th>Stage Lost At</th><th>Days Open</th><th>Edit</th></tr></thead>
+      <tbody>${topLost.map(d=>{
+        const p=d.properties||{}, c=d._contact||{};
+        const val=parseFloat(p.amount)||0;
+        const created=p.createdate?new Date(p.createdate):null, closed=p.closedate?new Date(p.closedate):null;
+        const days=created&&closed?Math.round((closed-created)/86400000):'—';
+        const rtype=d._rtype||'unknown';
+        const src=d._rtypeSource==='ai'?'<span class="ai-badge">AI</span>':d._rtypeSource==='manual'?'<span class="ai-badge" style="color:var(--grn);background:var(--grnbg);border-color:var(--grnbd);">Manual</span>':'';
+        return`<tr>
+          <td>${esc(c.name||p.dealname||'—')}</td>
+          <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
+          <td><span class="rtype-badge ${rtype}">${RTYPE_ICONS[rtype]} ${RTYPE_LABELS[rtype]}</span> ${src}</td>
+          <td class="red">$${val.toLocaleString()}</td>
+          <td class="mono" style="font-size:11px;">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
+          <td class="mono" style="font-size:11px;">${days}d</td>
+          <td><button class="edit-btn" onclick="openEditDeal('${d.id}')">✏ Edit</button></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table>`}
+  </div>
+
+  <!-- RECENT WINS TABLE -->
+  <div class="sec-hd"><div class="sec-ttl">Recent Wins</div><div class="sec-line"></div><div class="sec-sub">Last ${recentWon.length} closed deals</div></div>
+  <div class="card" style="margin-bottom:22px;padding:0;overflow:hidden;">
+    ${recentWon.length===0?'<div class="no-data">No won deals yet.</div>':`
+    <table class="dtable">
+      <thead><tr><th>Contact</th><th>Organisation</th><th>Researcher Type</th><th>Value</th><th>Closed</th><th>Edit</th></tr></thead>
+      <tbody>${recentWon.map(d=>{
+        const p=d.properties||{}, c=d._contact||{};
+        const val=parseFloat(p.amount)||0;
+        const closed=p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
+        const rtype=d._rtype||'unknown';
+        const src=d._rtypeSource==='ai'?'<span class="ai-badge">AI</span>':d._rtypeSource==='manual'?'<span class="ai-badge" style="color:var(--grn);background:var(--grnbg);border-color:var(--grnbd);">Manual</span>':'';
+        return`<tr>
+          <td>${esc(c.name||p.dealname||'—')}</td>
+          <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
+          <td><span class="rtype-badge ${rtype}">${RTYPE_ICONS[rtype]} ${RTYPE_LABELS[rtype]}</span> ${src}</td>
+          <td class="grn">$${val.toLocaleString()}</td>
+          <td class="mono" style="font-size:11px;color:var(--muted);">${closed}</td>
+          <td><button class="edit-btn" onclick="openEditDeal('${d.id}')">✏ Edit</button></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table>`}
+  </div>
+
+  <!-- PIPELINE HEALTH -->
+  <div class="card" style="margin-bottom:22px;">
+    <div class="card-ttl">Pipeline Health Score</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      ${[
+        {label:'Quote conversion',val:winRate,col:winRate>=50?'grn':winRate>=30?'gold':'red',desc:winRate+'% of closed deals won'},
+        {label:'Follow-up velocity',val:Math.min(100,Math.round((active.filter(d=>['qualifiedtobuy','presentationscheduled'].includes(d.properties?.dealstage)).length/Math.max(active.length,1))*200)),col:'grn',desc:'Deals actively progressing'},
+        {label:'Pipeline coverage',val:Math.min(100,Math.round((activeValue/Math.max(wonValue,1))*50)),col:'blu',desc:'$'+fmtK(activeValue)+' active vs $'+fmtK(wonValue)+' won'},
+        {label:'Deal velocity',val:avgClose>0?Math.min(100,Math.round((90/avgClose)*100)):50,col:'amb',desc:avgClose+'d average days to close'},
+      ].map(s=>`<div class="health-item">
+        <div class="health-head"><span class="health-lbl">${s.label}</span><span class="health-pct" style="color:var(--${s.col})">${s.val}%</span></div>
+        <div class="bar-track" style="height:7px;"><div class="bar-fill ${s.col}" style="width:${s.val}%"></div></div>
+        <div class="health-desc">${s.desc}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:20px 0 0;font-family:'Geist Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.06em;">
     Last synced ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})} · ${deals.length} total deals · NeuroUX Deal Intelligence
   </div>
   </div>`;
 }
 
-function generateInsights(won, lost, active, winRate, bestBand, avgClose, avgDeal, lostValue, activeValue, bandData) {
-  const insights = [];
-
-  // Win rate insight
-  if(winRate>=60) insights.push({icon:'🏆',color:'grn',title:'Strong win rate at '+winRate+'%',text:'You\'re closing more than half of all competed deals. Keep the follow-up cadence tight.'});
-  else if(winRate>=40) insights.push({icon:'📈',color:'amb',title:'Win rate of '+winRate+'% has room to grow',text:'Deals are moving but conversion needs attention. Focus on faster follow-up after quote sent.'});
-  else insights.push({icon:'⚠️',color:'red',title:'Win rate of '+winRate+'% is below target',text:'More than half of competed deals are lost. Consider revisiting pricing or follow-up timing.'});
-
-  // Best price band
-  if(bestBand.rate>0) insights.push({icon:'💰',color:'gold',title:bestBand.label+' deals close at '+bestBand.rate+'%',text:'Your sweet spot is the '+bestBand.label+' price range. Prioritise leads in this bracket and use it as anchor pricing.'});
-
-  // Lost revenue
-  if(lostValue>0) insights.push({icon:'🔴',color:'red',title:'$'+fmtK(lostValue)+' in lost revenue to recover',text:'These deals went cold — many could be re-engaged. Consider a re-activation sequence for leads lost in the last 90 days.'});
-
-  // Active pipeline
-  if(activeValue>0) insights.push({icon:'🚀',color:'blu',title:'$'+fmtK(activeValue)+' sitting in active pipeline',text:active.length+' deals are in progress right now. Consistent follow-up in the next 2 weeks could significantly move this number.'});
-
-  // Close time
-  if(avgClose>0) insights.push({icon:'⏱',color:'amb',title:'Average deal takes '+avgClose+' days to close',text:avgClose<=30?'You close fast. Keep response times short to maintain this advantage.':avgClose<=60?'Deals are closing in about 2 months. Faster quotes after calls could shorten this.':'Deals are taking 2+ months. Consider adding urgency triggers like study start deadlines.'});
-
-  // Quote stage stalling
-  const quoteStageLost = lost.filter(d=>d.properties?.dealstage==='presentationscheduled'||d.properties?.dealstage==='contractsent').length;
-  if(quoteStageLost>2) insights.push({icon:'📋',color:'red',title:quoteStageLost+' deals lost after quote was sent',text:'Leads are dropping off after seeing the price. A follow-up call within 3 days of sending a quote could recover these.'});
-
-  // Won deals pattern
-  if(won.length>5) insights.push({icon:'✅',color:'grn',title:'You\'ve closed '+won.length+' deals — look for patterns',text:'Check your recent wins for common researcher types, universities, or products. Double down on what\'s working.'});
-
-  return insights.slice(0,6);
+function generateInsights(won, lost, active, winRate, bestBand, avgClose, avgDeal, lostValue, activeValue, bestRtype) {
+  const ins = [];
+  if (winRate >= 60) ins.push({icon:'🏆',color:'grn',title:'Strong win rate at '+winRate+'%',text:'You\'re closing more than half of all competed deals. Maintain this with consistent follow-up timing.'});
+  else if (winRate >= 40) ins.push({icon:'📈',color:'amb',title:'Win rate of '+winRate+'% has room to grow',text:'Good progress but conversion needs attention. Faster follow-up within 3 days of quoting makes the biggest difference.'});
+  else ins.push({icon:'⚠️',color:'red',title:'Win rate of '+winRate+'% needs attention',text:'More than half of competed deals are being lost. Review pricing, follow-up cadence, and where deals are stalling.'});
+  if (bestBand && bestBand.rate > 0) ins.push({icon:'💰',color:'gold',title:bestBand.label+' deals close at '+bestBand.rate+'%',text:'This is your pricing sweet spot. Anchor quotes in this range and only go outside it with strong justification.'});
+  if (bestRtype) ins.push({icon:RTYPE_ICONS[bestRtype.rt],color:'blu',title:RTYPE_LABELS[bestRtype.rt]+'s close at '+bestRtype.rate+'%',text:'This researcher type converts best for NeuroUX. Prioritise these leads and tailor pitches to their specific study needs.'});
+  if (lostValue > 0) ins.push({icon:'🔴',color:'red',title:'$'+fmtK(lostValue)+' in revenue lost',text:lost.length+' deals went cold. A re-activation email sequence targeting the last 90 days could recover several of these.'});
+  if (activeValue > 0) ins.push({icon:'🚀',color:'grn',title:'$'+fmtK(activeValue)+' in active pipeline',text:active.length+' deals in progress. Consistent follow-up over the next 2 weeks could significantly close this out.'});
+  if (avgClose > 0) ins.push({icon:'⏱',color:'amb',title:'Deals take avg '+avgClose+' days to close',text:avgClose<=30?'Excellent velocity. Short sales cycles mean more throughput.':avgClose<=60?'Reasonable. Faster quote turnaround after calls could shorten this.':'Consider urgency triggers — study start dates, grant deadlines — to accelerate decisions.'});
+  return ins.slice(0, 6);
 }
 
-function fmtK(n){if(n>=1000000)return(n/1000000).toFixed(1)+'M';if(n>=1000)return(n/1000).toFixed(0)+'K';return n.toLocaleString();}
+// ═══ UTILS ═══
+function fmtK(n){if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1000)return(n/1000).toFixed(0)+'K';return n.toLocaleString();}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function openM(id){document.getElementById(id)?.classList.add('open');}
+function closeM(id){document.getElementById(id)?.classList.remove('open');}
+document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+function saveSettings(){
+  const hs=document.getElementById('s_hs').value.trim(), wk=document.getElementById('s_wk').value.trim(), ai=document.getElementById('s_ai').value.trim();
+  if(!hs||!wk){alert('Fill in HubSpot token and Worker URL.');return;}
+  localStorage.setItem('nx_hs_tok',hs); localStorage.setItem('nx_wk_url',wk);
+  if(ai) localStorage.setItem('nx_ai_key',ai);
+  closeM('settingsM'); loadData();
+}
 
-// Auto load
-window.addEventListener('DOMContentLoaded',()=>{
+document.getElementById('dateLabel').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+document.getElementById('s_hs').value = localStorage.getItem('nx_hs_tok')||'';
+document.getElementById('s_wk').value = localStorage.getItem('nx_wk_url')||'';
+document.getElementById('s_ai').value = localStorage.getItem('nx_ai_key')||'';
+
+window.addEventListener('DOMContentLoaded', ()=>{
   const hs=localStorage.getItem('nx_hs_tok'), wk=localStorage.getItem('nx_wk_url');
   if(hs&&wk) loadData();
-  else { document.getElementById('loadingState').style.display='none'; openM(); }
+  else { document.getElementById('loadingState').style.display='none'; openM('settingsM'); }
 });
 </script>
 </body>
