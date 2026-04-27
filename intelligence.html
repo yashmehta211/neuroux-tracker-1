@@ -907,7 +907,13 @@ function confirmReactivate(id){
   const m=loadLocal();m[id]=merged;
   try{localStorage.setItem(DEALS_KEY,JSON.stringify(m));}catch(e){}
   closePanel();renderDash(allDeals);
-}document.querySelectorAll('.snz-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');document.getElementById('am_days').value=days;}
+}
+
+function selectSnz(el,days){
+  document.querySelectorAll('.snz-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('am_days').value=days;
+}
 
 function confirmAction(id,action){
   const note=document.getElementById('am_note')?.value.trim()||'';
@@ -916,31 +922,32 @@ function confirmAction(id,action){
   const local=getLocal(id);
 
   if(action==='won'){
-    deal.properties.dealstage='closedwon';local.status='won';
-    addNote(id,'✅ Marked as Won'+(note?' — '+note:''));
+    deal.properties.dealstage='closedwon'; local.status='won';
   } else if(action==='lost'){
-    deal.properties.dealstage='closedlost';local.status='lost';
-    addNote(id,'❌ Marked as Lost'+(note?' — '+note:''));
+    deal.properties.dealstage='closedlost'; local.status='lost';
   } else if(action==='cold'){
     local.status='cold';
-    addNote(id,'🧊 Marked as Cold'+(note?' — '+note:''));
   } else if(action==='grant'){
     const gdate=document.getElementById('am_gdate')?.value||'';
-    local.status='grant';local.grantDate=gdate;
-    addNote(id,'🎓 Moved to Grant Waiting'+(gdate?' — Expected: '+gdate:'')+(note?' · '+note:''));
+    local.status='grant'; local.grantDate=gdate;
   } else if(action==='followup'){
     deal.properties.hs_lastmodifieddate=new Date().toISOString();
-    const reminderDate=new Date();reminderDate.setDate(reminderDate.getDate()+days);
+    const reminderDate=new Date(); reminderDate.setDate(reminderDate.getDate()+days);
     local.reminderDate=reminderDate.toISOString().split('T')[0];
     local.reminderDays=days;
-    addNote(id,'📞 Follow-up done'+(note?' — '+note:'')+' · Next reminder in '+days+'d');
-  } else if(action==='note'){
-    if(note)addNote(id,note);
   }
 
+  // Add note first so it's included in the merge
+  if(action==='won') addNote(id,'✅ Marked as Won'+(note?' — '+note:''));
+  else if(action==='lost') addNote(id,'❌ Marked as Lost'+(note?' — '+note:''));
+  else if(action==='cold') addNote(id,'🧊 Marked as Cold'+(note?' — '+note:''));
+  else if(action==='grant'){const gdate=document.getElementById('am_gdate')?.value||'';addNote(id,'🎓 Moved to Grant Waiting'+(gdate?' — Expected: '+gdate:'')+(note?' · '+note:''));}
+  else if(action==='followup') addNote(id,'📞 Follow-up done'+(note?' — '+note:'')+' · Next reminder in '+days+'d');
+  else if(action==='note'&&note) addNote(id,note);
+
   // ── KEY FIX: update deal._local in memory so isCold/isGrant work immediately ──
-  const freshNotes = getLocal(id).notes;
-  const merged = {...local, notes: freshNotes};
+  const freshLocal = getLocal(id); // re-read after addNote wrote notes
+  const merged = {...freshLocal, ...local, notes: freshLocal.notes};
   deal._local = merged;
 
   // Save to localStorage
