@@ -17,63 +17,152 @@
   --blu:#1848a8;--blubg:rgba(24,72,168,0.06);--blubd:rgba(24,72,168,0.18);
   --amb:#a05808;--ambbg:rgba(160,88,8,0.06);--ambbd:rgba(160,88,8,0.18);
   --sh1:0 1px 4px rgba(22,22,26,0.06),0 1px 2px rgba(22,22,26,0.04);
-  --sh2:0 4px 24px rgba(22,22,26,0.09);--sh3:0 20px 64px rgba(22,22,26,0.13);
+  --sh2:0 4px 24px rgba(22,22,26,0.09);--sh3:0 20px 64px rgba(22,22,26,0.16);
 }
 html,body{min-height:100%;}
 body{background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif;font-size:13px;-webkit-font-smoothing:antialiased;}
 
 /* ── HEADER ── */
-.hdr{background:var(--bg2);border-bottom:1px solid var(--line);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:50;box-shadow:var(--sh1);}
+.hdr{background:var(--bg2);border-bottom:1px solid var(--line);padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:60;box-shadow:var(--sh1);}
 .hdr-l{display:flex;align-items:center;gap:14px;}
-.logo{width:34px;height:34px;background:linear-gradient(135deg,var(--gold),var(--gold2));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:grid;place-items:center;flex-shrink:0;}
-.logo-i{width:14px;height:14px;background:#fff;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
-.logo-text{display:flex;flex-direction:column;gap:1px;}
-.logo-name{font-weight:700;font-size:14px;letter-spacing:0.05em;color:var(--ink);}
-.logo-sub{font-family:'Geist Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
-.hdr-div{width:1px;height:22px;background:var(--line);}
-.hdr-title{font-family:'Instrument Serif',serif;font-size:18px;color:var(--soft);font-style:italic;}
-.hdr-r{display:flex;align-items:center;gap:8px;}
-.hdr-ts{font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.05em;}
-.btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:8px;padding:7px 15px;font-family:'Geist',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.15s;white-space:nowrap;width:auto;}
-.btn-dark{background:var(--ink);color:#fff;} .btn-dark:hover{background:var(--ink2);}
-.btn-dark.loading{background:var(--gold);width:auto;}
-.btn-light{background:var(--bg3);border:1px solid var(--line);color:var(--soft);} .btn-light:hover{background:var(--bg4);color:var(--ink);}
-.btn-gold{background:var(--gold);color:#fff;border:none;} .btn-gold:hover{background:var(--gold2);}
+.logo{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--gold2));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:grid;place-items:center;flex-shrink:0;}
+.logo-i{width:13px;height:13px;background:#fff;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.logo-text .ln{font-weight:700;font-size:14px;letter-spacing:0.05em;}
+.logo-text .ls{font-family:'Geist Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
+.hdr-div{width:1px;height:20px;background:var(--line);}
+.hdr-title{font-family:'Instrument Serif',serif;font-size:17px;color:var(--soft);font-style:italic;}
+.hdr-r{display:flex;align-items:center;gap:7px;}
+.hdr-ts{font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--muted);}
+.btn{display:inline-flex;align-items:center;gap:5px;border:none;border-radius:7px;padding:6px 13px;font-family:'Geist',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.btn-dk{background:var(--ink);color:#fff;} .btn-dk:hover{background:var(--ink2);} .btn-dk.syn{background:var(--gold);}
+.btn-lt{background:var(--bg3);border:1px solid var(--line);color:var(--soft);} .btn-lt:hover{background:var(--bg4);color:var(--ink);}
 
 /* ── MODALS ── */
-.mo{display:none;position:fixed;inset:0;background:rgba(22,22,26,0.45);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px);}
+.mo{display:none;position:fixed;inset:0;background:rgba(22,22,26,0.4);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px);}
 .mo.open{display:flex;}
-.md{background:var(--bg2);border:1px solid var(--line);border-radius:14px;width:100%;max-width:460px;max-height:88vh;overflow-y:auto;box-shadow:var(--sh3);animation:mi 0.2s ease both;}
-.md-h{padding:20px 24px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
-.md-t{font-family:'Instrument Serif',serif;font-size:19px;color:var(--ink);}
-.mcls{background:var(--bg3);border:1px solid var(--line);border-radius:6px;font-size:14px;cursor:pointer;color:var(--muted);padding:3px 8px;transition:all 0.12s;}
+.md{background:var(--bg2);border:1px solid var(--line);border-radius:13px;width:100%;max-width:420px;max-height:86vh;overflow-y:auto;box-shadow:var(--sh3);animation:mi 0.18s ease both;}
+.md-h{padding:18px 22px 13px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.md-t{font-family:'Instrument Serif',serif;font-size:18px;color:var(--ink);}
+.mcls{background:var(--bg3);border:1px solid var(--line);border-radius:5px;font-size:13px;cursor:pointer;color:var(--muted);padding:2px 7px;}
 .mcls:hover{background:var(--bg4);color:var(--ink);}
-.mb{padding:18px 24px 24px;}
-.ff{margin-bottom:12px;}
-.ff label{display:block;font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
-.ff input{width:100%;background:var(--bg3);border:1.5px solid var(--line);border-radius:8px;padding:9px 12px;font-family:'Geist Mono',monospace;font-size:12px;color:var(--ink);outline:none;transition:all 0.15s;}
-.ff input:focus{border-color:var(--gold);background:var(--bg2);box-shadow:0 0 0 3px var(--goldbg);}
-.mfa{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
-.fpri{background:var(--gold);color:#fff;border:none;border-radius:8px;padding:9px 22px;font-family:'Geist',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s;} .fpri:hover{background:var(--gold2);}
-.fcan{background:none;border:1.5px solid var(--line);color:var(--soft);border-radius:8px;padding:9px 16px;font-family:'Geist',sans-serif;font-size:13px;cursor:pointer;transition:all 0.15s;} .fcan:hover{background:var(--bg3);}
+.mb{padding:16px 22px 22px;}
+.ff{margin-bottom:11px;}
+.ff label{display:block;font-family:'Geist Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.ff input,.ff select,.ff textarea{width:100%;background:var(--bg3);border:1.5px solid var(--line);border-radius:7px;padding:8px 11px;font-family:'Geist',sans-serif;font-size:13px;color:var(--ink);outline:none;transition:all 0.14s;}
+.ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--gold);background:var(--bg2);box-shadow:0 0 0 3px var(--goldbg);}
+.ff textarea{resize:vertical;min-height:60px;line-height:1.6;}
+.mfa{display:flex;gap:7px;justify-content:flex-end;margin-top:14px;padding-top:13px;border-top:1px solid var(--line);}
+.fpri{background:var(--gold);color:#fff;border:none;border-radius:7px;padding:8px 20px;font-family:'Geist',sans-serif;font-size:13px;font-weight:600;cursor:pointer;} .fpri:hover{background:var(--gold2);}
+.fcan{background:none;border:1.5px solid var(--line);color:var(--soft);border-radius:7px;padding:8px 14px;font-family:'Geist',sans-serif;font-size:13px;cursor:pointer;} .fcan:hover{background:var(--bg3);}
+.snz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:8px;}
+.snz-opt{background:var(--bg3);border:1.5px solid var(--line);border-radius:6px;padding:7px 4px;font-family:'Geist Mono',monospace;font-size:10px;color:var(--soft);cursor:pointer;text-align:center;transition:all 0.12s;}
+.snz-opt:hover,.snz-opt.sel{background:var(--gold);color:#fff;border-color:var(--gold);}
 
-/* ── PAGE ── */
-.wrap{max-width:1280px;margin:0 auto;padding:32px 40px 72px;}
+/* ── DEAL SIDE PANEL ── */
+.panel-overlay{display:none;position:fixed;inset:0;background:rgba(22,22,26,0.25);z-index:150;backdrop-filter:blur(2px);}
+.panel-overlay.open{display:block;}
+.panel{position:fixed;top:0;right:-480px;width:460px;height:100vh;background:var(--bg2);border-left:1px solid var(--line);box-shadow:var(--sh3);z-index:151;display:flex;flex-direction:column;transition:right 0.28s cubic-bezier(0.4,0,0.2,1);overflow:hidden;}
+.panel.open{right:0;}
+.panel-hd{padding:18px 22px 14px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0;}
+.panel-name{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);line-height:1.2;}
+.panel-org{font-size:12px;color:var(--muted);margin-top:3px;}
+.panel-cls{background:var(--bg3);border:1px solid var(--line);border-radius:6px;font-size:13px;cursor:pointer;color:var(--muted);padding:4px 9px;flex-shrink:0;margin-left:12px;margin-top:2px;transition:all 0.12s;}
+.panel-cls:hover{background:var(--bg4);color:var(--ink);}
+.panel-body{flex:1;overflow-y:auto;padding:16px 22px;}
+.panel-body::-webkit-scrollbar{width:3px;} .panel-body::-webkit-scrollbar-thumb{background:var(--line2);}
+.pstat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.pstat{background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:10px 12px;}
+.pstat-l{font-family:'Geist Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.pstat-v{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);line-height:1;}
+.panel-sec{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+.note-item{display:flex;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:12px;}
+.note-item:last-child{border-bottom:none;}
+.note-d{font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--muted);flex-shrink:0;width:70px;}
+.note-t{color:var(--soft);line-height:1.5;}
+.email-draft{background:var(--bg3);border:1.5px solid var(--line);border-radius:9px;padding:13px;}
+.email-draft.loading{opacity:0.5;}
+.email-s{font-weight:600;font-size:12.5px;color:var(--ink);padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:8px;outline:none;}
+.email-b{font-size:12px;color:var(--soft);line-height:1.8;white-space:pre-wrap;outline:none;min-height:100px;}
+.panel-actions{padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;background:var(--bg2);}
+.pa-btn{background:var(--bg3);border:1px solid var(--line);border-radius:7px;padding:7px 13px;font-family:'Geist',sans-serif;font-size:11.5px;font-weight:500;color:var(--soft);cursor:pointer;transition:all 0.12s;white-space:nowrap;}
+.pa-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+.pa-btn.grn{color:var(--grn);border-color:var(--grnbd);background:var(--grnbg);} .pa-btn.grn:hover{background:var(--grn);color:#fff;}
+.pa-btn.red{color:var(--red);border-color:var(--redbd);background:var(--redbg);} .pa-btn.red:hover{background:var(--red);color:#fff;}
+.pa-btn.gold{color:var(--gold);border-color:var(--goldbd);background:var(--goldbg);} .pa-btn.gold:hover{background:var(--gold);color:#fff;}
+.copy-btn{background:var(--gold);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Geist',sans-serif;transition:all 0.12s;} .copy-btn:hover{background:var(--gold2);}
+.copy-btn.done{background:var(--grn);}
 
-/* ── AI BRIEF ── */
-.brief{background:linear-gradient(135deg,#fffbf2 0%,#fdf6e3 60%,#fef9ec 100%);border:1.5px solid var(--goldbd);border-radius:14px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden;box-shadow:var(--sh2);}
-.brief::after{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;border-radius:50%;background:rgba(168,112,32,0.06);}
-.brief::before{content:'';position:absolute;bottom:-50px;left:80px;width:160px;height:160px;border-radius:50%;background:rgba(168,112,32,0.04);}
-.brief-label{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
-.brief-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s ease-in-out infinite;}
-.brief-text{font-family:'Instrument Serif',serif;font-size:19px;line-height:1.68;color:var(--ink);position:relative;z-index:1;max-width:940px;}
-.brief-text.loading{color:var(--muted);font-style:italic;font-size:15px;}
-.brief-meta{margin-top:14px;font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:0.05em;position:relative;z-index:1;display:flex;align-items:center;gap:0;}
-.brief-regen{background:none;border:1px solid var(--goldbd);border-radius:6px;padding:4px 12px;font-family:'Geist',sans-serif;font-size:11px;color:var(--gold);cursor:pointer;transition:all 0.15s;margin-left:12px;}
-.brief-regen:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
-/* ── INSIGHT CARDS ── */
-.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px;}
-.insight{background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:10px;padding:14px 16px;box-shadow:var(--sh1);display:flex;gap:10px;transition:all 0.15s;cursor:pointer;}
+/* ── AI CHAT ── */
+.chat-bubble{position:fixed;bottom:24px;right:24px;z-index:100;}
+.chat-fab{width:52px;height:52px;border-radius:50%;background:var(--ink);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh3);transition:all 0.18s;font-size:20px;}
+.chat-fab:hover{background:var(--gold);transform:scale(1.06);}
+.chat-fab .notif-dot{position:absolute;top:2px;right:2px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--bg2);display:none;}
+.chat-win{position:fixed;bottom:88px;right:24px;width:380px;height:520px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh3);display:none;flex-direction:column;overflow:hidden;animation:mi 0.2s ease both;z-index:100;}
+.chat-win.open{display:flex;}
+.chat-hd{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--bg2);}
+.chat-hd-icon{width:32px;height:32px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.chat-hd-text .ct{font-weight:600;font-size:13px;color:var(--ink);}
+.chat-hd-text .cs{font-size:11px;color:var(--muted);}
+.chat-cls{background:none;border:none;font-size:16px;color:var(--muted);cursor:pointer;margin-left:auto;padding:2px 5px;transition:all 0.12s;border-radius:4px;}
+.chat-cls:hover{background:var(--bg3);color:var(--ink);}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.chat-msgs::-webkit-scrollbar{width:3px;} .chat-msgs::-webkit-scrollbar-thumb{background:var(--line2);}
+.msg{display:flex;flex-direction:column;gap:3px;animation:fu 0.18s ease both;}
+.msg.user{align-items:flex-end;}
+.msg.bot{align-items:flex-start;}
+.msg-bubble{max-width:88%;padding:9px 13px;border-radius:12px;font-size:12.5px;line-height:1.6;}
+.msg.user .msg-bubble{background:var(--ink);color:#fff;border-radius:12px 12px 3px 12px;}
+.msg.bot .msg-bubble{background:var(--bg3);color:var(--ink);border-radius:12px 12px 12px 3px;border:1px solid var(--line);}
+.msg.bot .msg-bubble.loading{color:var(--muted);font-style:italic;}
+.msg-deals{display:flex;flex-direction:column;gap:5px;max-width:100%;margin-top:4px;}
+.msg-deal-card{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;transition:all 0.12s;border-left:3px solid var(--gold);}
+.msg-deal-card:hover{border-color:var(--gold);box-shadow:var(--sh1);background:var(--goldbg);}
+.msg-deal-name{font-weight:600;font-size:12px;color:var(--ink);}
+.msg-deal-meta{font-size:11px;color:var(--muted);margin-top:2px;font-family:'Geist Mono',monospace;}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:5px;padding:0 14px 10px;}
+.sug{background:var(--bg3);border:1px solid var(--line);border-radius:20px;padding:5px 11px;font-size:11px;color:var(--soft);cursor:pointer;transition:all 0.12s;white-space:nowrap;}
+.sug:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
+.chat-inp-row{padding:12px 14px;border-top:1px solid var(--line);display:flex;gap:7px;background:var(--bg2);}
+.chat-inp{flex:1;background:var(--bg3);border:1.5px solid var(--line);border-radius:8px;padding:8px 12px;font-family:'Geist',sans-serif;font-size:12.5px;color:var(--ink);outline:none;transition:all 0.14s;resize:none;height:38px;}
+.chat-inp:focus{border-color:var(--gold);background:var(--bg2);}
+.chat-send{background:var(--ink);border:none;border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.14s;flex-shrink:0;font-size:14px;}
+.chat-send:hover{background:var(--gold);}
+
+/* ── FOLLOW-UP TODAY ── */
+.fut-section{margin-bottom:24px;}
+.fut-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.fut-title{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
+.fut-count{background:var(--red);color:#fff;font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;}
+.fut-line{flex:1;height:1px;background:var(--line);}
+.fut-empty{background:var(--grnbg);border:1px solid var(--grnbd);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--grn);display:flex;align-items:center;gap:8px;}
+.fut-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;}
+.fut-card{background:var(--bg2);border:1.5px solid var(--redbd);border-radius:10px;padding:13px 15px;cursor:pointer;transition:all 0.15s;box-shadow:var(--sh1);position:relative;overflow:hidden;}
+.fut-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);}
+.fut-card:hover{box-shadow:var(--sh2);transform:translateY(-1px);border-color:var(--red);}
+.fut-card-name{font-weight:600;font-size:13px;color:var(--ink);margin-bottom:2px;}
+.fut-card-org{font-size:11px;color:var(--muted);margin-bottom:8px;}
+.fut-card-row{display:flex;align-items:center;justify-content:space-between;}
+.fut-card-val{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);}
+.fut-card-stage{font-size:10.5px;color:var(--soft);background:var(--bg3);border:1px solid var(--line);border-radius:4px;padding:2px 7px;}
+.fut-card-note{font-size:11px;color:var(--muted);margin-top:7px;padding-top:7px;border-top:1px solid var(--line);font-style:italic;}
+
+/* ── MAIN CONTENT ── */
+.wrap{max-width:1280px;margin:0 auto;padding:28px 36px 100px;}
+
+/* ── BRIEF ── */
+.brief{background:linear-gradient(135deg,#fffbf2,#fdf6e3,#fef9ec);border:1.5px solid var(--goldbd);border-radius:14px;padding:26px 30px;margin-bottom:20px;position:relative;overflow:hidden;box-shadow:var(--sh2);}
+.brief::after{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(168,112,32,0.06);}
+.brief-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.brief-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s ease-in-out infinite;}
+.brief-text{font-family:'Instrument Serif',serif;font-size:18px;line-height:1.68;color:var(--ink);position:relative;z-index:1;max-width:920px;}
+.brief-text.loading{color:var(--muted);font-style:italic;font-size:14px;}
+.brief-meta{margin-top:12px;font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted);display:flex;align-items:center;gap:0;position:relative;z-index:1;}
+.regen-btn{background:none;border:1px solid var(--goldbd);border-radius:5px;padding:3px 10px;font-size:10.5px;color:var(--gold);cursor:pointer;margin-left:10px;font-family:'Geist',sans-serif;transition:all 0.12s;}
+.regen-btn:hover{background:var(--gold);color:#fff;}
+
+/* ── INSIGHTS ── */
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:24px;}
+.insight{background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:10px;padding:13px 15px;box-shadow:var(--sh1);display:flex;gap:9px;transition:all 0.15s;cursor:pointer;}
 .insight:hover{box-shadow:var(--sh2);transform:translateY(-1px);}
 .insight.active-ins{box-shadow:var(--sh2);transform:translateY(-1px);}
 .insight.gold{border-left-color:var(--gold);} .insight.gold.active-ins{background:var(--goldbg);}
@@ -81,251 +170,272 @@ body{background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif;font-s
 .insight.red{border-left-color:var(--red);} .insight.red.active-ins{background:var(--redbg);}
 .insight.blu{border-left-color:var(--blu);} .insight.blu.active-ins{background:var(--blubg);}
 .insight.amb{border-left-color:var(--amb);} .insight.amb.active-ins{background:var(--ambbg);}
-.ins-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
-.ins-ttl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.4;}
-.ins-txt{font-size:11px;color:var(--soft);line-height:1.6;}
-.ins-hint{font-size:9.5px;color:var(--dim);margin-top:5px;font-family:'Geist Mono',monospace;letter-spacing:0.04em;}
+.ins-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.ins-ttl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:2px;line-height:1.4;}
+.ins-txt{font-size:11px;color:var(--soft);line-height:1.55;}
+.ins-hint{font-size:9px;color:var(--dim);margin-top:4px;font-family:'Geist Mono',monospace;}
 
-/* ── REVENUE HERO ── */
-.rev-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
-.rh-card{border-radius:12px;padding:24px 26px;position:relative;overflow:hidden;transition:all 0.18s;cursor:default;}
-.rh-card:hover{transform:translateY(-2px);box-shadow:var(--sh2);}
-.rh-card.won{background:var(--grn);} .rh-card.lost{background:var(--red);} .rh-card.pipe{background:var(--bg2);border:1px solid var(--line);box-shadow:var(--sh1);}
-.rh-card::after{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.08);}
-.rh-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;}
-.rh-card.won .rh-lbl,.rh-card.lost .rh-lbl{color:rgba(255,255,255,0.6);}
-.rh-card.pipe .rh-lbl{color:var(--muted);}
-.rh-val{font-family:'Instrument Serif',serif;font-size:48px;line-height:1;letter-spacing:-0.02em;margin-bottom:6px;}
-.rh-card.won .rh-val,.rh-card.lost .rh-val{color:#fff;}
-.rh-card.pipe .rh-val{color:var(--blu);}
+/* ── HERO ── */
+.rev-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-bottom:13px;}
+.rh{border-radius:12px;padding:22px 24px;position:relative;overflow:hidden;transition:all 0.18s;}
+.rh:hover{transform:translateY(-1px);box-shadow:var(--sh2);}
+.rh::after{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.08);}
+.rh.won{background:var(--grn);} .rh.lost{background:var(--red);} .rh.pipe{background:var(--bg2);border:1px solid var(--line);box-shadow:var(--sh1);}
+.rh-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:9px;}
+.rh.won .rh-lbl,.rh.lost .rh-lbl{color:rgba(255,255,255,0.6);} .rh.pipe .rh-lbl{color:var(--muted);}
+.rh-val{font-family:'Instrument Serif',serif;font-size:44px;line-height:1;letter-spacing:-0.02em;margin-bottom:5px;}
+.rh.won .rh-val,.rh.lost .rh-val{color:#fff;} .rh.pipe .rh-val{color:var(--blu);}
 .rh-sub{font-size:12px;}
-.rh-card.won .rh-sub,.rh-card.lost .rh-sub{color:rgba(255,255,255,0.65);}
-.rh-card.pipe .rh-sub{color:var(--muted);}
-.rh-rate{font-family:'Geist Mono',monospace;font-size:13px;font-weight:500;margin-top:8px;padding:4px 10px;border-radius:20px;display:inline-block;}
-.rh-card.won .rh-rate{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);}
-.rh-card.lost .rh-rate{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);}
-.rh-card.pipe .rh-rate{background:var(--blubg);color:var(--blu);border:1px solid var(--blubd);}
+.rh.won .rh-sub,.rh.lost .rh-sub{color:rgba(255,255,255,0.65);} .rh.pipe .rh-sub{color:var(--muted);}
+.rh-rate{font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;margin-top:8px;padding:3px 9px;border-radius:20px;display:inline-block;}
+.rh.won .rh-rate{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);}
+.rh.lost .rh-rate{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);}
+.rh.pipe .rh-rate{background:var(--blubg);color:var(--blu);border:1px solid var(--blubd);}
 
-/* ── SECONDARY STATS ── */
-.sec-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
-.ss{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--sh1);}
-.ss-lbl{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
-.ss-val{font-family:'Instrument Serif',serif;font-size:26px;color:var(--ink);line-height:1;margin-bottom:3px;}
+/* ── SEC STATS ── */
+.sec-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px;}
+.ss{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:15px 17px;box-shadow:var(--sh1);}
+.ss-lbl{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.ss-val{font-family:'Instrument Serif',serif;font-size:24px;color:var(--ink);line-height:1;margin-bottom:2px;}
 .ss-sub{font-size:11px;color:var(--muted);}
 
-/* ── SECTION ── */
-.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;}
-.sh-t{font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);}
-.sh-s{font-size:12px;color:var(--muted);}
+/* ── SECTION HEADER ── */
+.sh{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;}
+.sh-t{font-family:'Instrument Serif',serif;font-size:19px;color:var(--ink);}
+.sh-s{font-size:11.5px;color:var(--muted);}
 .sh-line{flex:1;height:1px;background:var(--line);}
 
-/* ── GRID ── */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;}
-.g13{display:grid;grid-template-columns:1fr 1.8fr;gap:16px;margin-bottom:24px;}
+/* ── CARDS ── */
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:var(--sh1);}
+.ct{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:13px;display:flex;align-items:center;justify-content:space-between;}
 
-/* ── CARD ── */
-.card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:var(--sh1);}
-.ct{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;}
-.ct span{color:var(--dim);}
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:22px;}
+.g13{display:grid;grid-template-columns:1fr 1.8fr;gap:15px;margin-bottom:22px;}
 
-/* ── WHERE MONEY IS STUCK ── */
-.stage-list{display:flex;flex-direction:column;gap:8px;}
-.stage-item{display:flex;flex-direction:column;gap:4px;cursor:pointer;padding:8px 10px;border-radius:8px;transition:all 0.12s;border:1px solid transparent;}
+/* ── STAGE ── */
+.stage-list{display:flex;flex-direction:column;gap:7px;}
+.stage-item{padding:9px 10px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all 0.12s;}
 .stage-item:hover{background:var(--bg3);border-color:var(--line);}
 .stage-item.active{background:var(--goldbg);border-color:var(--goldbd);}
-.stage-top{display:flex;justify-content:space-between;align-items:center;}
+.stage-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
 .stage-name{font-size:12.5px;font-weight:500;color:var(--ink2);}
-.stage-meta{display:flex;align-items:center;gap:10px;}
 .stage-val{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);}
 .stage-cnt{font-size:11px;color:var(--muted);}
 .stage-track{background:var(--bg3);border-radius:3px;height:5px;overflow:hidden;}
 .stage-fill{height:100%;border-radius:3px;transition:width 0.8s ease;}
-.stage-hint{font-size:10px;color:var(--muted);margin-top:2px;display:none;}
-.stage-item.active .stage-hint{display:block;color:var(--gold);}
 
-/* ── WIN RATE RING ── */
-.ring-wrap{display:flex;align-items:center;gap:22px;}
-.rleg{display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:8px;}
+/* ── WIN RATE ── */
+.ring-wrap{display:flex;align-items:center;gap:20px;}
+.rleg{display:flex;align-items:center;gap:7px;font-size:12px;margin-bottom:8px;}
 .rleg:last-child{margin-bottom:0;}
-.rleg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.rleg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .rleg-lbl{color:var(--soft);flex:1;}
-.rleg-v{font-family:'Geist Mono',monospace;font-size:12.5px;font-weight:500;color:var(--ink);}
+.rleg-v{font-family:'Geist Mono',monospace;font-size:12px;font-weight:500;color:var(--ink);}
 
-/* ── MONTHLY BARS ── */
-.month-chart{display:flex;align-items:flex-end;gap:6px;height:80px;padding-top:4px;}
-.month-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
-.month-bars{display:flex;gap:2px;align-items:flex-end;flex:1;width:100%;}
-.mbar{flex:1;border-radius:3px 3px 0 0;transition:height 0.8s ease;min-height:2px;cursor:pointer;}
-.mbar:hover{opacity:0.8;}
-.month-lbl{font-family:'Geist Mono',monospace;font-size:8.5px;color:var(--muted);letter-spacing:0.04em;}
-.month-legend{display:flex;gap:14px;margin-top:10px;}
-.ml-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
-.ml-dot{width:7px;height:7px;border-radius:2px;}
-
-/* ── ACTION REQUIRED TABLE ── */
-.action-table{width:100%;border-collapse:collapse;}
-.action-table th{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:0 12px 10px;text-align:left;border-bottom:1px solid var(--line);}
-.action-table td{padding:10px 12px;font-size:12.5px;border-bottom:1px solid var(--line);vertical-align:middle;}
-.action-table tr:last-child td{border-bottom:none;}
-.action-table tr:hover td{background:var(--bg3);}
-.urgency{font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:10px;white-space:nowrap;}
-.urgency.critical{color:var(--red);background:var(--redbg);border:1px solid var(--redbd);}
+/* ── DEAL TABLES ── */
+.dtable{width:100%;border-collapse:collapse;}
+.dtable th{font-family:'Geist Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:0 10px 9px;text-align:left;border-bottom:1px solid var(--line);}
+.dtable td{padding:9px 10px;font-size:12px;border-bottom:1px solid var(--line);vertical-align:middle;}
+.dtable tr:last-child td{border-bottom:none;}
+.dtable tr:hover td{background:var(--bg3);cursor:pointer;}
+.d-name{font-weight:500;color:var(--ink);}
+.d-org{font-size:10.5px;color:var(--muted);margin-top:1px;}
+.d-val{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;}
+/* Dropdown action */
+.action-wrap{position:relative;}
+.action-dd-btn{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--soft);cursor:pointer;transition:all 0.12s;white-space:nowrap;font-family:'Geist',sans-serif;display:flex;align-items:center;gap:4px;}
+.action-dd-btn:hover{background:var(--bg4);color:var(--ink);}
+.action-dd{position:absolute;right:0;top:calc(100% + 4px);background:var(--bg2);border:1px solid var(--line);border-radius:9px;box-shadow:var(--sh3);z-index:50;min-width:180px;overflow:hidden;display:none;animation:fu 0.14s ease both;}
+.action-dd.open{display:block;}
+.dd-item{padding:9px 14px;font-size:12.5px;cursor:pointer;transition:all 0.1s;display:flex;align-items:center;gap:8px;color:var(--ink2);}
+.dd-item:hover{background:var(--bg3);}
+.dd-item.grn{color:var(--grn);} .dd-item.red{color:var(--red);} .dd-item.gold{color:var(--gold);} .dd-item.muted{color:var(--muted);}
+.dd-sep{height:1px;background:var(--line);margin:3px 0;}
+/* Urgency */
+.urgency{font-family:'Geist Mono',monospace;font-size:9px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;border-radius:10px;white-space:nowrap;}
+.urgency.crit{color:var(--red);background:var(--redbg);border:1px solid var(--redbd);}
 .urgency.high{color:var(--amb);background:var(--ambbg);border:1px solid var(--ambbd);}
-.urgency.medium{color:var(--gold);background:var(--goldbg);border:1px solid var(--goldbd);}
-.deal-name{font-weight:500;color:var(--ink);font-size:12.5px;}
-.deal-org{font-size:11px;color:var(--muted);margin-top:1px;}
-.deal-val{font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;}
-.days-badge{font-family:'Geist Mono',monospace;font-size:11px;color:var(--soft);}
+.urgency.med{color:var(--gold);background:var(--goldbg);border:1px solid var(--goldbd);}
 
-/* ── LOST DEALS ── */
-.lost-table{width:100%;border-collapse:collapse;}
-.lost-table th{font-family:'Geist Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:0 12px 10px;text-align:left;border-bottom:1px solid var(--line);}
-.lost-table td{padding:9px 12px;font-size:12px;color:var(--soft);border-bottom:1px solid var(--line);vertical-align:middle;}
-.lost-table td:first-child{color:var(--ink);font-weight:500;}
-.lost-table tr:last-child td{border-bottom:none;}
-.lost-table tr:hover td{background:var(--bg3);}
-
-/* ── DRILL PANEL ── */
-.drill{display:none;background:var(--bg2);border:1.5px solid var(--goldbd);border-radius:12px;overflow:hidden;margin-bottom:24px;box-shadow:var(--sh2);animation:fu 0.22s ease both;}
+/* ── DRILL ── */
+.drill{display:none;background:var(--bg2);border:1.5px solid var(--goldbd);border-radius:12px;overflow:hidden;margin-bottom:22px;box-shadow:var(--sh2);animation:fu 0.2s ease both;}
 .drill.open{display:block;}
-.drill-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--goldbg);border-bottom:1px solid var(--goldbd);}
-.drill-ttl{font-family:'Instrument Serif',serif;font-size:16px;color:var(--ink);}
-.drill-cls{background:none;border:1px solid var(--goldbd);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--gold);cursor:pointer;font-family:'Geist',sans-serif;transition:all 0.12s;}
+.drill-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--goldbg);border-bottom:1px solid var(--goldbd);}
+.drill-ttl{font-family:'Instrument Serif',serif;font-size:15px;color:var(--ink);}
+.drill-cls{background:none;border:1px solid var(--goldbd);border-radius:5px;padding:3px 9px;font-size:11px;color:var(--gold);cursor:pointer;font-family:'Geist',sans-serif;transition:all 0.12s;}
 .drill-cls:hover{background:var(--gold);color:#fff;}
-.drill-body{overflow-x:auto;}
 
-/* ── LOADING / EMPTY ── */
+/* ── MONTHLY ── */
+.month-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.month-lbl{font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);width:26px;flex-shrink:0;}
+.month-bars{flex:1;display:flex;flex-direction:column;gap:3px;}
+.mbar-wrap{display:flex;align-items:center;gap:5px;}
+.mbar{height:14px;border-radius:3px;display:flex;align-items:center;padding:0 6px;min-width:2px;transition:width 0.8s ease;}
+.mbar span{font-family:'Geist Mono',monospace;font-size:9px;white-space:nowrap;}
+
+/* ── EMPTY / LOADING ── */
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px;text-align:center;}
-.spinner{width:38px;height:38px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:18px;}
-.loading-t{font-family:'Instrument Serif',serif;font-size:22px;color:var(--soft);margin-bottom:6px;}
+.spinner{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:16px;}
+.loading-t{font-family:'Instrument Serif',serif;font-size:20px;color:var(--soft);margin-bottom:5px;}
 .loading-s{font-size:12px;color:var(--muted);}
-.no-data{text-align:center;padding:32px;color:var(--muted);font-size:13px;}
+.no-data{text-align:center;padding:28px;color:var(--muted);font-size:13px;}
 
 @keyframes spin{to{transform:rotate(360deg);}}
-@keyframes mi{from{opacity:0;transform:scale(0.975) translateY(5px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes mi{from{opacity:0;transform:scale(0.975) translateY(4px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes fu{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-l">
     <div class="logo"><div class="logo-i"></div></div>
-    <div class="logo-text">
-      <div class="logo-name">NEUROUX</div>
-      <div class="logo-sub">Founder Intelligence</div>
-    </div>
+    <div class="logo-text"><div class="ln">NEUROUX</div><div class="ls">Founder Intelligence</div></div>
     <div class="hdr-div"></div>
     <div class="hdr-title">Revenue Dashboard</div>
   </div>
   <div class="hdr-r">
-    <div class="hdr-ts" id="tsLabel"></div>
-    <a href="index.html" class="btn btn-light" style="text-decoration:none;">← CRM</a>
-    <button class="btn btn-dark" id="syncBtn" onclick="loadData()" style="min-width:auto;width:auto;">⟳ Sync</button>
-    <button class="btn btn-light" onclick="openM('settingsM')">⚙</button>
+    <div class="hdr-ts" id="tsLbl"></div>
+    <a href="index.html" class="btn btn-lt" style="text-decoration:none;">← CRM</a>
+    <button class="btn btn-dk" id="syncBtn" onclick="loadData()">⟳ Sync</button>
+    <button class="btn btn-lt" onclick="openM('settingsM')">⚙</button>
   </div>
 </div>
 
+<!-- MAIN -->
 <div class="wrap" id="mainWrap">
   <div class="loading" id="loadState">
     <div class="spinner"></div>
-    <div class="loading-t">Loading your revenue data…</div>
+    <div class="loading-t">Loading revenue data…</div>
     <div class="loading-s">Connecting to HubSpot</div>
   </div>
   <div id="dash" style="display:none;"></div>
 </div>
 
+<!-- DEAL SIDE PANEL -->
+<div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
+<div class="panel" id="dealPanel">
+  <div class="panel-hd">
+    <div>
+      <div class="panel-name" id="panelName">—</div>
+      <div class="panel-org" id="panelOrg">—</div>
+    </div>
+    <button class="panel-cls" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body" id="panelBody"></div>
+  <div class="panel-actions" id="panelActions"></div>
+</div>
+
+<!-- AI CHAT -->
+<div class="chat-bubble">
+  <button class="chat-fab" onclick="toggleChat()" id="chatFab">✦<span class="notif-dot" id="chatDot"></span></button>
+</div>
+<div class="chat-win" id="chatWin">
+  <div class="chat-hd">
+    <div class="chat-hd-icon">✦</div>
+    <div class="chat-hd-text"><div class="ct">Pipeline Assistant</div><div class="cs">Ask anything about your deals</div></div>
+    <button class="chat-cls" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="msg bot"><div class="msg-bubble">Hi! I have full access to your deal data. Ask me anything — like "show deals stuck after quote" or "which deals are overdue this week" or "how should I follow up with someone who hasn't replied in 3 weeks?"</div></div>
+  </div>
+  <div class="chat-suggestions" id="chatSugs">
+    <div class="sug" onclick="askSug(this)">No response after quote</div>
+    <div class="sug" onclick="askSug(this)">Biggest deals at risk</div>
+    <div class="sug" onclick="askSug(this)">Why are we losing deals?</div>
+    <div class="sug" onclick="askSug(this)">What to focus on this week</div>
+  </div>
+  <div class="chat-inp-row">
+    <input class="chat-inp" id="chatInp" placeholder="Ask about your pipeline…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}">
+    <button class="chat-send" onclick="sendChat()">↑</button>
+  </div>
+</div>
+
 <!-- SETTINGS -->
 <div class="mo" id="settingsM">
   <div class="md">
-    <div class="md-h"><div class="md-t">Connect HubSpot</div><button class="mcls" onclick="closeM('settingsM')">✕</button></div>
+    <div class="md-h"><div class="md-t">Settings</div><button class="mcls" onclick="closeM('settingsM')">✕</button></div>
     <div class="mb">
-      <p style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6;">Credentials stored in your browser only — never transmitted.</p>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Credentials stored in your browser only.</p>
       <div class="ff"><label>HubSpot API Token</label><input type="password" id="s_hs" placeholder="pat-na2-..."></div>
       <div class="ff"><label>Cloudflare Worker URL</label><input type="text" id="s_wk" placeholder="https://your-worker.workers.dev"></div>
-      <div class="ff"><label>Anthropic API Key (for AI brief)</label><input type="password" id="s_ai" placeholder="sk-ant-..."></div>
+      <div class="ff"><label>Anthropic API Key</label><input type="password" id="s_ai" placeholder="sk-ant-..."></div>
       <div class="mfa"><button class="fcan" onclick="closeM('settingsM')">Cancel</button><button class="fpri" onclick="saveSettings()">Save & Sync</button></div>
     </div>
   </div>
 </div>
 
+<!-- ACTION MODAL -->
+<div class="mo" id="actionM">
+  <div class="md">
+    <div class="md-h"><div class="md-t" id="actionMTitle">Update Deal</div><button class="mcls" onclick="closeM('actionM')">✕</button></div>
+    <div class="mb" id="actionMBody"></div>
+  </div>
+</div>
+
 <script>
+// ═══ CONFIG ═══
 const HS_STAGE_MAP={appointmentscheduled:'Call Scheduled',qualifiedtobuy:'Call Done',presentationscheduled:'Quote Sent',decisionmakerboughtin:'Negotiating',contractsent:'Contract Sent',closedwon:'Won',closedlost:'Lost'};
 const STAGE_ORDER=['appointmentscheduled','qualifiedtobuy','presentationscheduled','decisionmakerboughtin','contractsent'];
 const STAGE_COLORS=['#2050b8','#1848a8','#a87020','#a05808','#1a7248'];
 const FOLLOWUP_DAYS={appointmentscheduled:0,qualifiedtobuy:3,presentationscheduled:3,decisionmakerboughtin:5,contractsent:5};
+const DEALS_KEY='nx_intel_deals_v2';
 
-let allDeals=[], drillDeals=[], activeStage=null;
+let allDeals=[], _insightFilters=[], activeStage=null, activePanelId=null, chatOpen=false;
 
-// ── INIT ──
+// ═══ LOCAL DEAL STORAGE ═══
+function saveLocal(){const map={};allDeals.forEach(d=>{if(d._local)map[d.id]=d._local;});try{localStorage.setItem(DEALS_KEY,JSON.stringify(map));}catch(e){}}
+function loadLocal(){try{return JSON.parse(localStorage.getItem(DEALS_KEY)||'{}');}catch(e){return{};}}
+function getLocal(id){const m=loadLocal();return m[id]||{notes:[],status:null,reminderDays:null,reminderDate:null};}
+function setLocal(id,data){const m=loadLocal();m[id]={...m[id],...data};try{localStorage.setItem(DEALS_KEY,JSON.stringify(m));}catch(e){}}
+function addNote(id,text){const l=getLocal(id);l.notes=l.notes||[];l.notes.push({date:tod(),text});setLocal(id,l);}
+
+// ═══ INIT ═══
 document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('tsLabel').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('tsLbl').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'long',day:'numeric',year:'numeric'});
   document.getElementById('s_hs').value=localStorage.getItem('nx_hs_tok')||'';
   document.getElementById('s_wk').value=localStorage.getItem('nx_wk_url')||'';
   document.getElementById('s_ai').value=localStorage.getItem('nx_ai_key')||'';
   const hs=localStorage.getItem('nx_hs_tok'),wk=localStorage.getItem('nx_wk_url');
-  if(hs&&wk)loadData(); else{document.getElementById('loadState').style.display='none';openM('settingsM');}
+  if(hs&&wk)loadData();else{document.getElementById('loadState').style.display='none';openM('settingsM');}
+  document.addEventListener('click',e=>{if(!e.target.closest('.action-wrap'))document.querySelectorAll('.action-dd.open').forEach(d=>d.classList.remove('open'));});
 });
 
-// ── HUBSPOT ──
-async function hsGet(path){
-  const wk=localStorage.getItem('nx_wk_url')||'',tk=localStorage.getItem('nx_hs_tok')||'';
-  const r=await fetch(wk+'/hubspot'+path,{headers:{'Authorization':'Bearer '+tk}});
-  if(!r.ok)throw new Error('HubSpot error '+r.status);
-  return r.json();
-}
+// ═══ HUBSPOT ═══
+async function hsGet(path){const wk=localStorage.getItem('nx_wk_url')||'',tk=localStorage.getItem('nx_hs_tok')||'';const r=await fetch(wk+'/hubspot'+path,{headers:{'Authorization':'Bearer '+tk}});if(!r.ok)throw new Error('HubSpot '+r.status);return r.json();}
 
 async function loadData(){
   const hs=localStorage.getItem('nx_hs_tok'),wk=localStorage.getItem('nx_wk_url');
   if(!hs||!wk){openM('settingsM');return;}
   document.getElementById('loadState').style.display='flex';
   document.getElementById('dash').style.display='none';
-  const btn=document.getElementById('syncBtn');
-  btn.classList.add('loading');btn.textContent='⟳ Syncing…';
-
+  const btn=document.getElementById('syncBtn');btn.classList.add('syn');btn.textContent='⟳ Syncing…';
   try{
     let deals=[],after='';
-    do{
-      const q='?limit=100&properties=dealname,amount,dealstage,closedate,createdate,hs_lastmodifieddate&associations=contacts'+(after?'&after='+after:'');
-      const d=await hsGet('/crm/v3/objects/deals'+q);
-      deals=deals.concat(d.results||[]);
-      after=d.paging?.next?.after||'';
-    }while(after);
-
-    // Enrich top 60 with contact names
-    for(const deal of deals.slice(0,60)){
-      const ac=deal.associations?.contacts?.results||[];
-      if(ac.length>0){
-        try{
-          const c=await hsGet('/crm/v3/objects/contacts/'+ac[0].id+'?properties=firstname,lastname,email,company');
-          const cp=c.properties||{};
-          deal._contact={name:((cp.firstname||'')+' '+(cp.lastname||'')).trim(),org:cp.company||'',email:cp.email||''};
-        }catch(e){}
-      }
-    }
-
+    do{const q='?limit=100&properties=dealname,amount,dealstage,closedate,createdate,hs_lastmodifieddate&associations=contacts'+(after?'&after='+after:'');const d=await hsGet('/crm/v3/objects/deals'+q);deals=deals.concat(d.results||[]);after=d.paging?.next?.after||'';}while(after);
+    for(const deal of deals.slice(0,60)){const ac=deal.associations?.contacts?.results||[];if(ac.length>0){try{const c=await hsGet('/crm/v3/objects/contacts/'+ac[0].id+'?properties=firstname,lastname,email,company');const cp=c.properties||{};deal._contact={name:((cp.firstname||'')+' '+(cp.lastname||'')).trim(),org:cp.company||'',email:cp.email||''};}catch(e){}}}
+    // Merge local overrides
+    const local=loadLocal();
+    deals.forEach(d=>{if(local[d.id]){d._local=local[d.id];if(d._local.status)d.properties.dealstage=d._local.status==='won'?'closedwon':d._local.status==='lost'?'closedlost':d.properties.dealstage;}else{d._local=getLocal(d.id);}});
     allDeals=deals;
     renderDash(deals);
     document.getElementById('loadState').style.display='none';
     document.getElementById('dash').style.display='block';
-    btn.classList.remove('loading');btn.textContent='⟳ Sync';
-
-    // Generate AI brief after render
+    btn.classList.remove('syn');btn.textContent='⟳ Sync';
     generateBrief(deals);
   }catch(e){
     console.error(e);
-    document.getElementById('loadState').innerHTML=`<div style="text-align:center;padding:60px;"><div style="font-size:28px;margin-bottom:14px;">⚠️</div><div style="font-family:'Instrument Serif',serif;font-size:20px;color:var(--soft);margin-bottom:8px;">Connection failed</div><div style="font-size:12px;color:var(--muted);margin-bottom:16px;">${e.message}</div><button onclick="openM('settingsM')" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:13px;cursor:pointer;font-family:'Geist',sans-serif;font-weight:600;">Open Settings</button></div>`;
-    btn.classList.remove('loading');btn.textContent='⟳ Sync';
+    document.getElementById('loadState').innerHTML=`<div style="text-align:center;padding:60px;"><div style="font-size:26px;margin-bottom:12px;">⚠️</div><div style="font-family:'Instrument Serif',serif;font-size:19px;color:var(--soft);margin-bottom:8px;">Connection failed</div><div style="font-size:12px;color:var(--muted);margin-bottom:14px;">${e.message}</div><button onclick="openM('settingsM')" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:13px;cursor:pointer;font-family:'Geist',sans-serif;font-weight:600;">Open Settings</button></div>`;
+    btn.classList.remove('syn');btn.textContent='⟳ Sync';
   }
 }
 
-// ── AI BRIEF ──
+// ═══ AI BRIEF ═══
 async function generateBrief(deals){
-  const key=localStorage.getItem('nx_ai_key'),wk=localStorage.getItem('nx_wk_url');
-  if(!key||!wk)return;
-
+  const key=localStorage.getItem('nx_ai_key'),wk=localStorage.getItem('nx_wk_url');if(!key||!wk)return;
   const won=deals.filter(d=>d.properties?.dealstage==='closedwon');
   const lost=deals.filter(d=>d.properties?.dealstage==='closedlost');
   const active=deals.filter(d=>d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost');
@@ -333,63 +443,18 @@ async function generateBrief(deals){
   const lostVal=lost.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
   const pipeVal=active.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
   const winRate=won.length+lost.length>0?Math.round((won.length/(won.length+lost.length))*100):0;
-
-  // Find most stuck stage
-  let maxStageVal=0,maxStageName='';
-  STAGE_ORDER.forEach(s=>{const v=active.filter(d=>d.properties?.dealstage===s).reduce((sum,d)=>sum+(parseFloat(d.properties?.amount)||0),0);if(v>maxStageVal){maxStageVal=v;maxStageName=HS_STAGE_MAP[s]||s;}});
-
-  // Overdue count
   const today=new Date();
-  const overdue=active.filter(d=>{
-    const s=d.properties?.dealstage;const daysRule=FOLLOWUP_DAYS[s];if(daysRule===undefined)return false;
-    const lm=d.properties?.hs_lastmodifieddate?new Date(d.properties.hs_lastmodifieddate):null;
-    if(!lm)return false;
-    return Math.floor((today-lm)/86400000)>daysRule;
-  });
-
-  // Last 30 days won
-  const thirtyDaysAgo=new Date(today-30*86400000);
-  const recentWon=won.filter(d=>d.properties?.closedate&&new Date(d.properties.closedate)>thirtyDaysAgo);
-  const recentWonVal=recentWon.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
-
-  const prompt=`You are a business intelligence analyst summarising NeuroUX's sales pipeline for the founders. Write a single paragraph of 3-4 sentences that reads like a confident analyst briefing. Be specific with numbers. No bullet points. No headers. No fluff.
-
-Data:
-- Win rate: ${winRate}%
-- Revenue won (all time): $${wonVal.toLocaleString()} across ${won.length} deals
-- Revenue won (last 30 days): $${recentWonVal.toLocaleString()} across ${recentWon.length} deals
-- Revenue lost (all time): $${lostVal.toLocaleString()} across ${lost.length} deals
-- Active pipeline: $${pipeVal.toLocaleString()} across ${active.length} deals
-- Most stuck stage: ${maxStageName} ($${maxStageVal.toLocaleString()})
-- Overdue follow-ups: ${overdue.length} deals worth $${overdue.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0).toLocaleString()}
-- Total deals tracked: ${deals.length}
-
-Write the paragraph now. Start directly with the insight, not with "NeuroUX" or "The company".`;
-
+  const overdue=active.filter(d=>{const s=d.properties?.dealstage;const r=FOLLOWUP_DAYS[s];if(r===undefined)return false;const lm=d.properties?.hs_lastmodifieddate?new Date(d.properties.hs_lastmodifieddate):null;return lm&&Math.floor((today-lm)/86400000)>r;});
+  let maxSV=0,maxSN='';STAGE_ORDER.forEach(s=>{const v=active.filter(d=>d.properties?.dealstage===s).reduce((sum,d)=>sum+(parseFloat(d.properties?.amount)||0),0);if(v>maxSV){maxSV=v;maxSN=HS_STAGE_MAP[s]||s;}});
+  const thirtyAgo=new Date(today-30*86400000);const rWon=won.filter(d=>d.properties?.closedate&&new Date(d.properties.closedate)>thirtyAgo);const rWonVal=rWon.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
   try{
-    const resp=await fetch(wk+'/claude',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        apiKey:key,
-        model:'claude-haiku-4-5-20251001',
-        max_tokens:220,
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    const data=await resp.json();
-    const text=data.content?.[0]?.text||'';
-    if(text){
-      document.getElementById('briefText').textContent=text;
-      document.getElementById('briefText').classList.remove('loading');
-      document.getElementById('briefMeta').textContent='Generated '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' · Powered by Claude';
-    }
-  }catch(e){
-    document.getElementById('briefText').textContent='Could not generate brief. Check your Anthropic API key in Settings.';
-  }
+    const resp=await fetch(wk+'/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apiKey:key,model:'claude-haiku-4-5-20251001',max_tokens:250,messages:[{role:'user',content:`You are a business intelligence analyst briefing NeuroUX founders. Write a single paragraph of 3-4 sentences. Be specific with numbers. No bullet points. Start directly with insight.\n\nData:\n- Win rate: ${winRate}%\n- Revenue won all time: $${wonVal.toLocaleString()} (${won.length} deals)\n- Revenue won last 30 days: $${rWonVal.toLocaleString()} (${rWon.length} deals)\n- Revenue lost: $${lostVal.toLocaleString()} (${lost.length} deals)\n- Active pipeline: $${pipeVal.toLocaleString()} (${active.length} deals)\n- Biggest bottleneck stage: ${maxSN} ($${maxSV.toLocaleString()})\n- Overdue follow-ups: ${overdue.length} deals worth $${overdue.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0).toLocaleString()}\n- Total deals: ${deals.length}`}]})});
+    const data=await resp.json();const text=data.content?.[0]?.text||'';
+    if(text){document.getElementById('briefTxt').textContent=text;document.getElementById('briefTxt').classList.remove('loading');document.getElementById('briefMeta').textContent='Generated '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' · Powered by Claude';}
+  }catch(e){document.getElementById('briefTxt').textContent='Could not generate brief — check your API key in Settings.';}
 }
 
-// ── RENDER ──
+// ═══ RENDER DASHBOARD ═══
 function renderDash(deals){
   const won=deals.filter(d=>d.properties?.dealstage==='closedwon');
   const lost=deals.filter(d=>d.properties?.dealstage==='closedlost');
@@ -399,138 +464,108 @@ function renderDash(deals){
   const pipeVal=active.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
   const total=won.length+lost.length;
   const winRate=total>0?Math.round((won.length/total)*100):0;
-  const circ=2*Math.PI*52;
-  const wonArc=(winRate/100)*circ;
-
-  // Avg deal size & close time
+  const circ=2*Math.PI*52;const wonArc=(winRate/100)*circ;
   const avgDeal=won.length>0?Math.round(wonVal/won.length):0;
   const closeTimes=won.filter(d=>d.properties?.createdate&&d.properties?.closedate).map(d=>Math.round((new Date(d.properties.closedate)-new Date(d.properties.createdate))/86400000)).filter(d=>d>0&&d<400);
   const avgClose=closeTimes.length?Math.round(closeTimes.reduce((a,b)=>a+b,0)/closeTimes.length):0;
 
-  // Stage money map
-  const stageData=STAGE_ORDER.map((s,i)=>{
-    const sDeals=active.filter(d=>d.properties?.dealstage===s);
-    const sVal=sDeals.reduce((sum,d)=>sum+(parseFloat(d.properties?.amount)||0),0);
-    return{stage:s,name:HS_STAGE_MAP[s]||s,deals:sDeals,value:sVal,count:sDeals.length,color:STAGE_COLORS[i]};
-  }).filter(s=>s.count>0);
+  // Follow-up today
+  const today=new Date();const todayStr=tod();
+  const futDeals=active.filter(d=>{const l=d._local||{};return l.reminderDate===todayStr;});
+  // Also add genuinely overdue for today
+  const overdueDeals=active.filter(d=>{const s=d.properties?.dealstage;const r=FOLLOWUP_DAYS[s];if(r===undefined)return false;const lm=d.properties?.hs_lastmodifieddate?new Date(d.properties.hs_lastmodifieddate):null;if(!lm)return false;const daysOld=Math.floor((today-lm)/86400000);return daysOld>r;});
+  const allActionToday=[...new Map([...futDeals,...overdueDeals].map(d=>[d.id,d])).values()];
+
+  // Stage data
+  const stageData=STAGE_ORDER.map((s,i)=>{const sD=active.filter(d=>d.properties?.dealstage===s);const sV=sD.reduce((sum,d)=>sum+(parseFloat(d.properties?.amount)||0),0);return{stage:s,name:HS_STAGE_MAP[s]||s,deals:sD,value:sV,count:sD.length,color:STAGE_COLORS[i]};}).filter(s=>s.count>0);
   const maxStageVal=Math.max(...stageData.map(s=>s.value),1);
 
-  // Overdue deals (action required)
-  const today=new Date();
-  const actionDeals=active.map(d=>{
-    const s=d.properties?.dealstage;
-    const rule=FOLLOWUP_DAYS[s];if(rule===undefined)return null;
-    const lm=d.properties?.hs_lastmodifieddate?new Date(d.properties.hs_lastmodifieddate):null;
-    if(!lm)return null;
-    const daysOld=Math.floor((today-lm)/86400000);
-    const daysOverdue=daysOld-rule;
-    if(daysOverdue<0)return null;
-    return{...d,_daysOverdue:daysOverdue,_daysOld:daysOld};
-  }).filter(Boolean).sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0));
-
-  // Monthly trend (6 months)
+  // Monthly
   const months=Array.from({length:6},(_,i)=>{const d=new Date(today.getFullYear(),today.getMonth()-5+i,1);return{label:d.toLocaleDateString('en-US',{month:'short'}),y:d.getFullYear(),m:d.getMonth()};});
   const mWon=months.map(m=>won.filter(d=>{if(!d.properties?.closedate)return false;const cd=new Date(d.properties.closedate);return cd.getMonth()===m.m&&cd.getFullYear()===m.y;}).reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0));
   const mLost=months.map(m=>lost.filter(d=>{if(!d.properties?.closedate)return false;const cd=new Date(d.properties.closedate);return cd.getMonth()===m.m&&cd.getFullYear()===m.y;}).reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0));
   const maxM=Math.max(...mWon,...mLost,1);
 
-  // Top lost deals
-  const topLost=lost.filter(d=>d.properties?.amount).sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0)).slice(0,10);
-
-  // Recent wins
-  const recentWon=won.filter(d=>d.properties?.closedate).sort((a,b)=>new Date(b.properties.closedate)-new Date(a.properties.closedate)).slice(0,6);
-
   // Insights
-  let insightFilters = [];
-  const insightCards = generateInsights(won, lost, active, winRate, wonVal, lostVal, pipeVal, avgClose, actionDeals, insightFilters);
-  _insightFilters = insightFilters;
+  const insightFilters=[];
+  const insightCards=buildInsights(won,lost,active,winRate,wonVal,lostVal,pipeVal,avgClose,overdueDeals,insightFilters);
+  _insightFilters=insightFilters;
 
+  // Action deals (overdue)
+  const actionDeals=overdueDeals.map(d=>{const s=d.properties?.dealstage;const r=FOLLOWUP_DAYS[s]||0;const lm=d.properties?.hs_lastmodifieddate?new Date(d.properties.hs_lastmodifieddate):null;const daysOld=lm?Math.floor((today-lm)/86400000):0;return{...d,_daysOverdue:daysOld-r};}).sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0));
+
+  const topLost=lost.filter(d=>d.properties?.amount).sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0)).slice(0,10);
+  const recentWon=won.filter(d=>d.properties?.closedate).sort((a,b)=>new Date(b.properties.closedate)-new Date(a.properties.closedate)).slice(0,8);
   const hasAI=!!localStorage.getItem('nx_ai_key');
 
   document.getElementById('dash').innerHTML=`
 
-  <!-- AI BRIEF -->
+  <!-- BRIEF -->
   <div class="brief">
-    <div class="brief-label"><span class="brief-dot"></span>${hasAI?'AI Founder Brief':'Revenue Summary'}<button class="brief-regen" onclick="generateBrief(allDeals)" ${!hasAI?'disabled title="Add Anthropic API key in Settings"':''}>↺ Regenerate</button></div>
-    <div class="brief-text ${hasAI?'loading':''}" id="briefText">${hasAI?'Analysing your pipeline data…':'Add your Anthropic API key in Settings to get an AI-generated narrative brief each time you open this dashboard.'}</div>
-    <div class="brief-meta" id="briefMeta">${hasAI?'':'Connect AI in Settings → Anthropic API Key'}</div>
+    <div class="brief-lbl"><span class="brief-dot"></span>${hasAI?'AI Founder Brief':'Revenue Summary'}<button class="regen-btn" onclick="generateBrief(allDeals)" ${!hasAI?'disabled':''}>↺ Regenerate</button></div>
+    <div class="brief-text ${hasAI?'loading':''}" id="briefTxt">${hasAI?'Analysing your pipeline…':'Add your Anthropic API key in Settings to get an AI narrative brief.'}</div>
+    <div class="brief-meta" id="briefMeta">${hasAI?'':'Settings → Anthropic API Key'}</div>
   </div>
 
-  <!-- INSIGHT CARDS -->
-  <div class="insights" id="insightsGrid">${insightCards.map((ins,i)=>`<div class="insight ${ins.color}" onclick="drillInsight(${i})" id="ins_${i}"><div class="ins-icon">${ins.icon}</div><div><div class="ins-ttl">${ins.title}</div><div class="ins-txt">${ins.text}</div><div class="ins-hint">Click to see deals →</div></div></div>`).join('')}</div>
+  <!-- INSIGHTS -->
+  <div class="insights">${insightCards.map((ins,i)=>`<div class="insight ${ins.color}" onclick="drillInsight(${i})" id="ins_${i}"><div class="ins-icon">${ins.icon}</div><div><div class="ins-ttl">${ins.title}</div><div class="ins-txt">${ins.text}</div><div class="ins-hint">Click to see deals →</div></div></div>`).join('')}</div>
+
+  <!-- FOLLOW-UP TODAY -->
+  <div class="fut-section">
+    <div class="fut-header">
+      <div class="fut-title">Follow-up For Today</div>
+      ${allActionToday.length>0?`<div class="fut-count">${allActionToday.length}</div>`:''}
+      <div class="fut-line"></div>
+    </div>
+    ${allActionToday.length===0
+      ?'<div class="fut-empty">✅ You\'re all caught up — no follow-ups due today.</div>'
+      :`<div class="fut-cards">${allActionToday.map(d=>{const p=d.properties||{},c=d._contact||{},l=d._local||{};const lastNote=l.notes?.slice(-1)[0];return`<div class="fut-card" onclick="openPanel('${d.id}')"><div class="fut-card-name">${esc(c.name||p.dealname||'—')}</div><div class="fut-card-org">${esc(c.org||'—')}</div><div class="fut-card-row"><span class="fut-card-val">$${(parseFloat(p.amount)||0).toLocaleString()}</span><span class="fut-card-stage">${HS_STAGE_MAP[p.dealstage]||'—'}</span></div>${lastNote?`<div class="fut-card-note">"${esc(lastNote.text)}"</div>`:''}</div>`;}).join('')}</div>`}
+  </div>
 
   <!-- REVENUE HERO -->
   <div class="rev-hero">
-    <div class="rh-card won">
-      <div class="rh-lbl">Revenue Won</div>
-      <div class="rh-val">$${fmtK(wonVal)}</div>
-      <div class="rh-sub">${won.length} deals closed</div>
-      <div class="rh-rate">${winRate}% win rate</div>
-    </div>
-    <div class="rh-card pipe">
-      <div class="rh-lbl">Active Pipeline</div>
-      <div class="rh-val">$${fmtK(pipeVal)}</div>
-      <div class="rh-sub">${active.length} deals in progress</div>
-      <div class="rh-rate">${actionDeals.length} need action now</div>
-    </div>
-    <div class="rh-card lost">
-      <div class="rh-lbl">Revenue Lost</div>
-      <div class="rh-val">$${fmtK(lostVal)}</div>
-      <div class="rh-sub">${lost.length} deals went cold</div>
-      <div class="rh-rate">${total>0?Math.round((lost.length/total)*100):0}% loss rate</div>
-    </div>
+    <div class="rh won"><div class="rh-lbl">Revenue Won</div><div class="rh-val">$${fmtK(wonVal)}</div><div class="rh-sub">${won.length} deals closed</div><div class="rh-rate">${winRate}% win rate</div></div>
+    <div class="rh pipe"><div class="rh-lbl">Active Pipeline</div><div class="rh-val">$${fmtK(pipeVal)}</div><div class="rh-sub">${active.length} deals in progress</div><div class="rh-rate">${actionDeals.length} need action</div></div>
+    <div class="rh lost"><div class="rh-lbl">Revenue Lost</div><div class="rh-val">$${fmtK(lostVal)}</div><div class="rh-sub">${lost.length} deals went cold</div><div class="rh-rate">${total>0?Math.round((lost.length/total)*100):0}% loss rate</div></div>
   </div>
 
-  <!-- SECONDARY STATS -->
+  <!-- SEC STATS -->
   <div class="sec-stats">
-    <div class="ss"><div class="ss-lbl">Total Deals Tracked</div><div class="ss-val">${deals.length}</div><div class="ss-sub">across all stages</div></div>
-    <div class="ss"><div class="ss-lbl">Avg Deal Size (Won)</div><div class="ss-val">$${fmtK(avgDeal)}</div><div class="ss-sub">per closed deal</div></div>
-    <div class="ss"><div class="ss-lbl">Avg Days to Close</div><div class="ss-val">${avgClose}</div><div class="ss-sub">from first contact to won</div></div>
-    <div class="ss"><div class="ss-lbl">Overdue Follow-ups</div><div class="ss-val" style="color:var(--red)">${actionDeals.length}</div><div class="ss-sub">$${fmtK(actionDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0))} at risk</div></div>
+    <div class="ss"><div class="ss-lbl">Total Deals</div><div class="ss-val">${deals.length}</div><div class="ss-sub">all stages</div></div>
+    <div class="ss"><div class="ss-lbl">Avg Deal Won</div><div class="ss-val">$${fmtK(avgDeal)}</div><div class="ss-sub">per closed deal</div></div>
+    <div class="ss"><div class="ss-lbl">Avg Days to Close</div><div class="ss-val">${avgClose}</div><div class="ss-sub">first contact → won</div></div>
+    <div class="ss"><div class="ss-lbl">Overdue Now</div><div class="ss-val" style="color:var(--red)">${actionDeals.length}</div><div class="ss-sub">$${fmtK(actionDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0))} at risk</div></div>
   </div>
 
-  <!-- DRILL DOWN -->
-  <div class="drill" id="drillWrap">
-    <div class="drill-hd"><div class="drill-ttl" id="drillTitle">Deals</div><button class="drill-cls" onclick="closeDrill()">✕ Close</button></div>
-    <div class="drill-body" id="drillBody"></div>
-  </div>
+  <!-- DRILL -->
+  <div class="drill" id="drillWrap"><div class="drill-hd"><div class="drill-ttl" id="drillTitle">Deals</div><button class="drill-cls" onclick="closeDrill()">✕ Close</button></div><div id="drillBody" style="overflow-x:auto;"></div></div>
 
-  <!-- WHERE MONEY IS STUCK + WIN RATE -->
-  <div class="sh"><div class="sh-t">Where Money is Stuck</div><div class="sh-line"></div><div class="sh-s">Click any stage to see the deals</div></div>
+  <!-- STAGE + WIN RATE -->
+  <div class="sh"><div class="sh-t">Where Money is Stuck</div><div class="sh-line"></div><div class="sh-s">Click any stage to see deals</div></div>
   <div class="g13">
     <div class="card">
-      <div class="ct">Pipeline by Stage <span>Active deals only</span></div>
+      <div class="ct">Pipeline by Stage</div>
       <div class="stage-list">
-        ${stageData.length===0?'<div class="no-data" style="padding:20px 0;">No active deals</div>':stageData.map(s=>`
-          <div class="stage-item" id="stage_${s.stage}" onclick="drillStage('${s.stage}')">
-            <div class="stage-top">
-              <div class="stage-name">${s.name}</div>
-              <div class="stage-meta">
-                <div class="stage-val">$${fmtK(s.value)}</div>
-                <div class="stage-cnt">${s.count} deal${s.count!==1?'s':''}</div>
-              </div>
-            </div>
-            <div class="stage-track"><div class="stage-fill" style="width:${Math.round((s.value/maxStageVal)*100)}%;background:${s.color};"></div></div>
-            <div class="stage-hint">↓ Showing ${s.count} deal${s.count!==1?'s':''} in this stage</div>
-          </div>`).join('')}
+        ${stageData.length===0?'<div class="no-data" style="padding:16px 0;">No active deals</div>':stageData.map(s=>`<div class="stage-item" id="stg_${s.stage}" onclick="drillStage('${s.stage}')"><div class="stage-top"><div class="stage-name">${s.name}</div><div style="display:flex;align-items:center;gap:8px;"><div class="stage-val">$${fmtK(s.value)}</div><div class="stage-cnt">${s.count} deal${s.count!==1?'s':''}</div></div></div><div class="stage-track"><div class="stage-fill" style="width:${Math.round((s.value/maxStageVal)*100)}%;background:${s.color};"></div></div></div>`).join('')}
       </div>
     </div>
     <div class="card">
       <div class="ct">Win Rate Breakdown</div>
       <div class="ring-wrap">
-        <svg width="120" height="120" viewBox="0 0 120 120" style="flex-shrink:0;">
-          <circle fill="none" stroke="var(--bg3)" stroke-width="10" cx="60" cy="60" r="52"/>
-          <circle fill="none" stroke="var(--grn)" stroke-width="10" stroke-linecap="round" cx="60" cy="60" r="52" stroke-dasharray="${wonArc} ${circ}" transform="rotate(-90 60 60)"/>
-          <circle fill="none" stroke="var(--red)" stroke-width="10" stroke-linecap="round" cx="60" cy="60" r="52" stroke-dasharray="${((100-winRate)/100)*circ} ${circ}" stroke-dashoffset="${-wonArc}" transform="rotate(-90 60 60)"/>
-          <text x="60" y="54" text-anchor="middle" font-family="Instrument Serif,serif" font-size="24" fill="#16161a">${winRate}%</text>
-          <text x="60" y="70" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#96969f" letter-spacing="1">WIN RATE</text>
+        <svg width="115" height="115" viewBox="0 0 115 115" style="flex-shrink:0;">
+          <circle fill="none" stroke="var(--bg3)" stroke-width="10" cx="57.5" cy="57.5" r="52"/>
+          <circle fill="none" stroke="var(--grn)" stroke-width="10" stroke-linecap="round" cx="57.5" cy="57.5" r="52" stroke-dasharray="${wonArc} ${circ}" transform="rotate(-90 57.5 57.5)"/>
+          <circle fill="none" stroke="var(--red)" stroke-width="10" stroke-linecap="round" cx="57.5" cy="57.5" r="52" stroke-dasharray="${((100-winRate)/100)*circ} ${circ}" stroke-dashoffset="${-wonArc}" transform="rotate(-90 57.5 57.5)"/>
+          <text x="57.5" y="51" text-anchor="middle" font-family="Instrument Serif,serif" font-size="22" fill="#16161a">${winRate}%</text>
+          <text x="57.5" y="67" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#96969f" letter-spacing="1">WIN RATE</text>
         </svg>
         <div style="flex:1;">
-          <div class="rleg"><span class="rleg-dot" style="background:var(--grn)"></span><span class="rleg-lbl">Won deals</span><span class="rleg-v">${won.length} · $${fmtK(wonVal)}</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-lbl">Lost deals</span><span class="rleg-v">${lost.length} · $${fmtK(lostVal)}</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--blu)"></span><span class="rleg-lbl">Active deals</span><span class="rleg-v">${active.length} · $${fmtK(pipeVal)}</span></div>
-          <div class="rleg" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line)"><span class="rleg-dot" style="background:var(--gold)"></span><span class="rleg-lbl">Avg deal size</span><span class="rleg-v">$${fmtK(avgDeal)}</span></div>
-          <div class="rleg"><span class="rleg-dot" style="background:var(--amb)"></span><span class="rleg-lbl">Avg close time</span><span class="rleg-v">${avgClose} days</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--grn)"></span><span class="rleg-lbl">Won</span><span class="rleg-v">${won.length} · $${fmtK(wonVal)}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-lbl">Lost</span><span class="rleg-v">${lost.length} · $${fmtK(lostVal)}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--blu)"></span><span class="rleg-lbl">Active</span><span class="rleg-v">${active.length} · $${fmtK(pipeVal)}</span></div>
+          <div style="height:1px;background:var(--line);margin:9px 0;"></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--gold)"></span><span class="rleg-lbl">Avg deal</span><span class="rleg-v">$${fmtK(avgDeal)}</span></div>
+          <div class="rleg"><span class="rleg-dot" style="background:var(--amb)"></span><span class="rleg-lbl">Avg close</span><span class="rleg-v">${avgClose} days</span></div>
           <div class="rleg"><span class="rleg-dot" style="background:var(--red)"></span><span class="rleg-lbl">Overdue</span><span class="rleg-v" style="color:var(--red)">${actionDeals.length} deals</span></div>
         </div>
       </div>
@@ -538,201 +573,334 @@ function renderDash(deals){
   </div>
 
   <!-- MONTHLY TREND -->
-  <div class="sh"><div class="sh-t">Monthly Revenue Trend</div><div class="sh-line"></div><div class="sh-s">Last 6 months · Won vs Lost</div></div>
-  <div class="card" style="margin-bottom:24px;">
+  <div class="sh"><div class="sh-t">Monthly Trend</div><div class="sh-line"></div><div class="sh-s">Won vs lost revenue last 6 months</div></div>
+  <div class="card" style="margin-bottom:22px;">
     <div class="ct">Revenue Closed by Month</div>
-    <div style="display:flex;flex-direction:column;gap:8px;">
-      ${months.map((m,i)=>{
-        const wv=mWon[i],lv=mLost[i],total=wv+lv;
-        const wPct=maxM>0?Math.round((wv/maxM)*100):0;
-        const lPct=maxM>0?Math.round((lv/maxM)*100):0;
-        return`<div style="display:flex;align-items:center;gap:12px;">
-          <div style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);width:28px;flex-shrink:0;">${m.label}</div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
-            ${wv>0?`<div style="display:flex;align-items:center;gap:6px;"><div style="background:var(--grn);height:16px;border-radius:3px;width:${Math.max(wPct,1)}%;display:flex;align-items:center;padding:0 6px;"><span style="font-family:'Geist Mono',monospace;font-size:9px;color:rgba(255,255,255,0.9);white-space:nowrap;">$${fmtK(wv)}</span></div></div>`:''}
-            ${lv>0?`<div style="display:flex;align-items:center;gap:6px;"><div style="background:var(--redbg);border:1px solid var(--redbd);height:16px;border-radius:3px;width:${Math.max(lPct,1)}%;display:flex;align-items:center;padding:0 6px;"><span style="font-family:'Geist Mono',monospace;font-size:9px;color:var(--red);white-space:nowrap;">-$${fmtK(lv)}</span></div></div>`:''}
-            ${total===0?`<div style="height:16px;display:flex;align-items:center;"><span style="font-size:10px;color:var(--dim);">No closed deals</span></div>`:''}
-          </div>
-          ${total>0?`<div style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);width:50px;text-align:right;flex-shrink:0;">${wv>0&&lv>0?'+$'+fmtK(wv-lv):wv>0?'$'+fmtK(wv):'-$'+fmtK(lv)}</div>`:''}
-        </div>`;
-      }).join('')}
-    </div>
-    <div style="display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);">
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:var(--grn);"></div>Won revenue</div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:var(--redbg);border:1px solid var(--redbd);"></div>Lost revenue</div>
+    ${months.map((m,i)=>{const wv=mWon[i],lv=mLost[i];const wp=maxM>0?Math.round((wv/maxM)*100):0;const lp=maxM>0?Math.round((lv/maxM)*100):0;return`<div class="month-row"><div class="month-lbl">${m.label}</div><div class="month-bars">${wv>0?`<div class="mbar-wrap"><div class="mbar" style="width:${Math.max(wp,2)}%;background:var(--grn);"><span style="color:rgba(255,255,255,0.9);">$${fmtK(wv)}</span></div></div>`:''} ${lv>0?`<div class="mbar-wrap"><div class="mbar" style="width:${Math.max(lp,2)}%;background:var(--redbg);border:1px solid var(--redbd);"><span style="color:var(--red);">-$${fmtK(lv)}</span></div></div>`:''} ${wv===0&&lv===0?`<div style="font-size:10px;color:var(--dim);padding:4px 0;">No closed deals</div>`:''}</div></div>`;}).join('')}
+    <div style="display:flex;gap:14px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:var(--grn);"></div>Won</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:var(--redbg);border:1px solid var(--redbd);"></div>Lost</div>
     </div>
   </div>
 
-  <!-- ACTION REQUIRED -->
-  <div class="sh"><div class="sh-t">Action Required Now</div><div class="sh-line"></div><div class="sh-s">${actionDeals.length} deals overdue · $${fmtK(actionDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0))} at risk</div></div>
-  <div class="card" style="margin-bottom:24px;padding:0;overflow:hidden;">
-    ${actionDeals.length===0?'<div class="no-data">All deals are on track — no overdue follow-ups.</div>':`
-    <table class="action-table">
-      <thead><tr><th>Deal</th><th>Stage</th><th>Value</th><th>Overdue By</th><th>Urgency</th></tr></thead>
-      <tbody>${actionDeals.slice(0,15).map(d=>{
-        const p=d.properties||{},c=d._contact||{};
-        const val=parseFloat(p.amount)||0;
-        const urgency=d._daysOverdue>7?'critical':d._daysOverdue>3?'high':'medium';
-        const urgencyLabel=urgency==='critical'?'Critical':urgency==='high'?'High':'Follow Up';
-        return`<tr>
-          <td><div class="deal-name">${esc(c.name||p.dealname||'—')}</div><div class="deal-org">${esc(c.org||p.dealname||'')}</div></td>
-          <td style="font-size:11.5px;color:var(--soft);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
-          <td class="deal-val" style="color:var(--gold);">$${val.toLocaleString()}</td>
-          <td class="days-badge">${d._daysOverdue}d overdue</td>
-          <td><span class="urgency ${urgency}">${urgencyLabel}</span></td>
-        </tr>`;
-      }).join('')}</tbody>
+  <!-- ACTION TABLE -->
+  <div class="sh"><div class="sh-t">Action Required</div><div class="sh-line"></div><div class="sh-s">${actionDeals.length} overdue · click row for details · dropdown to update</div></div>
+  <div class="card" style="margin-bottom:22px;padding:0;overflow:visible;">
+    ${actionDeals.length===0?'<div class="no-data">All deals on track.</div>':`
+    <table class="dtable">
+      <thead><tr><th>Deal</th><th>Stage</th><th>Value</th><th>Overdue</th><th>Urgency</th><th>Action</th></tr></thead>
+      <tbody>${actionDeals.slice(0,15).map(d=>dealRow(d,'action')).join('')}</tbody>
     </table>`}
   </div>
 
-  <!-- WON vs LOST SIDE BY SIDE -->
+  <!-- WON + LOST TABLES -->
   <div class="g2">
     <div>
-      <div class="sh" style="margin-bottom:12px;"><div class="sh-t">Recent Wins</div><div class="sh-line"></div><div class="sh-s">Last ${recentWon.length} closed</div></div>
-      <div class="card" style="padding:0;overflow:hidden;">
-        ${recentWon.length===0?'<div class="no-data">No won deals yet.</div>':`
-        <table class="lost-table">
-          <thead><tr><th>Contact</th><th>Value</th><th>Closed</th></tr></thead>
-          <tbody>${recentWon.map(d=>{
-            const p=d.properties||{},c=d._contact||{};
-            const val=parseFloat(p.amount)||0;
-            const closed=p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
-            return`<tr>
-              <td><div>${esc(c.name||p.dealname||'—')}</div><div style="font-size:10.5px;color:var(--muted);">${esc(c.org||'')}</div></td>
-              <td style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--grn);">$${val.toLocaleString()}</td>
-              <td style="font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--muted);">${closed}</td>
-            </tr>`;
-          }).join('')}</tbody>
-        </table>`}
+      <div class="sh" style="margin-bottom:10px;"><div class="sh-t">Recent Wins</div><div class="sh-line"></div></div>
+      <div class="card" style="padding:0;overflow:visible;">
+        ${recentWon.length===0?'<div class="no-data">No won deals.</div>':`<table class="dtable"><thead><tr><th>Contact</th><th>Value</th><th>Closed</th><th>Action</th></tr></thead><tbody>${recentWon.map(d=>dealRowSimple(d,'won')).join('')}</tbody></table>`}
       </div>
     </div>
     <div>
-      <div class="sh" style="margin-bottom:12px;"><div class="sh-t">Biggest Losses</div><div class="sh-line"></div><div class="sh-s">Sorted by value</div></div>
-      <div class="card" style="padding:0;overflow:hidden;">
-        ${topLost.length===0?'<div class="no-data">No lost deals.</div>':`
-        <table class="lost-table">
-          <thead><tr><th>Contact</th><th>Value</th><th>Lost At Stage</th></tr></thead>
-          <tbody>${topLost.map(d=>{
-            const p=d.properties||{},c=d._contact||{};
-            const val=parseFloat(p.amount)||0;
-            return`<tr>
-              <td><div>${esc(c.name||p.dealname||'—')}</div><div style="font-size:10.5px;color:var(--muted);">${esc(c.org||'')}</div></td>
-              <td style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--red);">$${val.toLocaleString()}</td>
-              <td style="font-size:11px;color:var(--muted);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
-            </tr>`;
-          }).join('')}</tbody>
-        </table>`}
+      <div class="sh" style="margin-bottom:10px;"><div class="sh-t">Biggest Losses</div><div class="sh-line"></div></div>
+      <div class="card" style="padding:0;overflow:visible;">
+        ${topLost.length===0?'<div class="no-data">No lost deals.</div>':`<table class="dtable"><thead><tr><th>Contact</th><th>Value</th><th>Lost At</th><th>Action</th></tr></thead><tbody>${topLost.map(d=>dealRowSimple(d,'lost')).join('')}</tbody></table>`}
       </div>
     </div>
   </div>
 
-  <div style="text-align:center;padding:20px 0 0;font-family:'Geist Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.06em;">
-    ${deals.length} deals · synced ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})} · NeuroUX Founder Intelligence
-  </div>`;
+  <div style="text-align:center;padding:16px 0 0;font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--dim);letter-spacing:0.06em;">${deals.length} deals · synced ${new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})} · NeuroUX Founder Intelligence</div>`;
 }
 
-// ── INSIGHTS ──
-function generateInsights(won, lost, active, winRate, wonVal, lostVal, pipeVal, avgClose, actionDeals, filters){
+// ═══ DEAL ROW HTML ═══
+function dealRow(d, type){
+  const p=d.properties||{},c=d._contact||{};
+  const val=parseFloat(p.amount)||0;
+  const urg=d._daysOverdue>7?'crit':d._daysOverdue>3?'high':'med';
+  const urgLabel=urg==='crit'?'Critical':urg==='high'?'High':'Due';
+  return`<tr onclick="openPanel('${d.id}')">
+    <td><div class="d-name">${esc(c.name||p.dealname||'—')}</div><div class="d-org">${esc(c.org||p.dealname||'')}</div></td>
+    <td style="font-size:11.5px;color:var(--soft);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
+    <td class="d-val" style="color:var(--gold);">$${val.toLocaleString()}</td>
+    <td style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--red);">${d._daysOverdue}d overdue</td>
+    <td><span class="urgency ${urg}">${urgLabel}</span></td>
+    <td onclick="event.stopPropagation();">${actionDropdown(d.id)}</td>
+  </tr>`;
+}
+function dealRowSimple(d, type){
+  const p=d.properties||{},c=d._contact||{};
+  const val=parseFloat(p.amount)||0;
+  const col=type==='won'?'var(--grn)':'var(--red)';
+  const meta=type==='won'?(p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—'):(HS_STAGE_MAP[p.dealstage]||'—');
+  return`<tr onclick="openPanel('${d.id}')">
+    <td><div class="d-name">${esc(c.name||p.dealname||'—')}</div><div class="d-org">${esc(c.org||'')}</div></td>
+    <td class="d-val" style="color:${col};">$${val.toLocaleString()}</td>
+    <td style="font-size:11px;color:var(--muted);">${meta}</td>
+    <td onclick="event.stopPropagation();">${actionDropdown(d.id)}</td>
+  </tr>`;
+}
+function actionDropdown(id){
+  return`<div class="action-wrap">
+    <button class="action-dd-btn" onclick="toggleDD('${id}')">Actions ▾</button>
+    <div class="action-dd" id="dd_${id}">
+      <div class="dd-item grn" onclick="dealAction('${id}','won')">✅ Mark as Won</div>
+      <div class="dd-item red" onclick="dealAction('${id}','lost')">❌ Mark as Lost</div>
+      <div class="dd-item muted" onclick="dealAction('${id}','cold')">🧊 Mark as Cold</div>
+      <div class="dd-sep"></div>
+      <div class="dd-item gold" onclick="dealAction('${id}','followup')">📞 Follow-up Done</div>
+      <div class="dd-item" onclick="dealAction('${id}','note')">📝 Add Note</div>
+      <div class="dd-sep"></div>
+      <div class="dd-item" onclick="openPanel('${id}')">👁 View Details</div>
+    </div>
+  </div>`;
+}
+function toggleDD(id){const dd=document.getElementById('dd_'+id);document.querySelectorAll('.action-dd.open').forEach(d=>{if(d!==dd)d.classList.remove('open');});dd?.classList.toggle('open');}
+
+// ═══ DEAL ACTIONS ═══
+function dealAction(id, action){
+  document.querySelectorAll('.action-dd.open').forEach(d=>d.classList.remove('open'));
+  const deal=allDeals.find(d=>d.id===id);if(!deal)return;
+  const p=deal.properties||{},c=deal._contact||{};
+  const name=c.name||p.dealname||'This deal';
+
+  if(action==='won'){
+    document.getElementById('actionMTitle').textContent='Mark as Won — '+name;
+    document.getElementById('actionMBody').innerHTML=`<div class="ff"><label>Add a note (optional)</label><textarea id="am_note" placeholder="e.g. Signed contract, start date confirmed..."></textarea></div><div class="mfa"><button class="fcan" onclick="closeM('actionM')">Cancel</button><button class="fpri" onclick="confirmAction('${id}','won')">Confirm Won ✅</button></div>`;
+    openM('actionM');
+  } else if(action==='lost'){
+    document.getElementById('actionMTitle').textContent='Mark as Lost — '+name;
+    document.getElementById('actionMBody').innerHTML=`<div class="ff"><label>Why was this lost? (optional)</label><textarea id="am_note" placeholder="e.g. Budget constraints, went with competitor..."></textarea></div><div class="mfa"><button class="fcan" onclick="closeM('actionM')">Cancel</button><button class="fpri" style="background:var(--red);" onclick="confirmAction('${id}','lost')">Confirm Lost ❌</button></div>`;
+    openM('actionM');
+  } else if(action==='cold'){
+    document.getElementById('actionMTitle').textContent='Mark as Cold — '+name;
+    document.getElementById('actionMBody').innerHTML=`<div class="ff"><label>Note (optional)</label><textarea id="am_note" placeholder="e.g. No response after 3 follow-ups..."></textarea></div><div class="mfa"><button class="fcan" onclick="closeM('actionM')">Cancel</button><button class="fpri" style="background:var(--muted);" onclick="confirmAction('${id}','cold')">Mark Cold 🧊</button></div>`;
+    openM('actionM');
+  } else if(action==='followup'){
+    document.getElementById('actionMTitle').textContent='Follow-up Done — '+name;
+    document.getElementById('actionMBody').innerHTML=`
+      <div class="ff"><label>What happened?</label><textarea id="am_note" placeholder="e.g. Called, sent updated quote, awaiting response..."></textarea></div>
+      <div class="ff"><label>Remind me again in</label>
+        <div class="snz-grid">
+          <div class="snz-opt" onclick="selectSnz(this,1)">1d</div>
+          <div class="snz-opt" onclick="selectSnz(this,3)">3d</div>
+          <div class="snz-opt" onclick="selectSnz(this,5)">5d</div>
+          <div class="snz-opt" onclick="selectSnz(this,7)">7d</div>
+          <div class="snz-opt" onclick="selectSnz(this,14)">14d</div>
+        </div>
+        <input type="hidden" id="am_days" value="3">
+      </div>
+      <div class="mfa"><button class="fcan" onclick="closeM('actionM')">Cancel</button><button class="fpri" onclick="confirmAction('${id}','followup')">Confirm & Reset Timer ✓</button></div>`;
+    openM('actionM');
+  } else if(action==='note'){
+    document.getElementById('actionMTitle').textContent='Add Note — '+name;
+    document.getElementById('actionMBody').innerHTML=`<div class="ff"><label>Note</label><textarea id="am_note" placeholder="Any update, context, or reminder..."></textarea></div><div class="mfa"><button class="fcan" onclick="closeM('actionM')">Cancel</button><button class="fpri" onclick="confirmAction('${id}','note')">Save Note</button></div>`;
+    openM('actionM');
+  }
+}
+
+function selectSnz(el,days){document.querySelectorAll('.snz-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');document.getElementById('am_days').value=days;}
+
+function confirmAction(id,action){
+  const note=document.getElementById('am_note')?.value.trim()||'';
+  const days=parseInt(document.getElementById('am_days')?.value||3);
+  const deal=allDeals.find(d=>d.id===id);if(!deal)return;
+  const local=getLocal(id);
+
+  if(action==='won'){
+    deal.properties.dealstage='closedwon';local.status='won';
+    addNote(id,'✅ Marked as Won'+(note?' — '+note:''));
+  } else if(action==='lost'){
+    deal.properties.dealstage='closedlost';local.status='lost';
+    addNote(id,'❌ Marked as Lost'+(note?' — '+note:''));
+  } else if(action==='cold'){
+    local.status='cold';
+    addNote(id,'🧊 Marked as Cold'+(note?' — '+note:''));
+  } else if(action==='followup'){
+    // Reset timer — set hs_lastmodifieddate to today
+    deal.properties.hs_lastmodifieddate=new Date().toISOString();
+    const reminderDate=new Date();reminderDate.setDate(reminderDate.getDate()+days);
+    local.reminderDate=reminderDate.toISOString().split('T')[0];
+    local.reminderDays=days;
+    addNote(id,'📞 Follow-up done'+(note?' — '+note:'')+' · Next reminder in '+days+'d');
+  } else if(action==='note'){
+    if(note)addNote(id,note);
+  }
+
+  // Save
+  const m=loadLocal();m[id]={...m[id],...local,notes:getLocal(id).notes};try{localStorage.setItem(DEALS_KEY,JSON.stringify(m));}catch(e){}
+  closeM('actionM');
+  renderDash(allDeals);
+  if(activePanelId===id)openPanel(id);
+}
+
+// ═══ DEAL PANEL ═══
+async function openPanel(id){
+  activePanelId=id;
+  const deal=allDeals.find(d=>d.id===id);if(!deal)return;
+  const p=deal.properties||{},c=deal._contact||{},l=getLocal(id);
+  const val=parseFloat(p.amount)||0;
+  const lm=p.hs_lastmodifieddate?new Date(p.hs_lastmodifieddate):null;
+  const daysAgo=lm?Math.floor((new Date()-lm)/86400000):null;
+  const notes=l.notes||[];
+
+  document.getElementById('panelName').textContent=c.name||p.dealname||'—';
+  document.getElementById('panelOrg').textContent=c.org||'—';
+
+  // Body
+  document.getElementById('panelBody').innerHTML=`
+    <div class="pstat-grid">
+      <div class="pstat"><div class="pstat-l">Value</div><div class="pstat-v" style="color:var(--gold);">$${val.toLocaleString()}</div></div>
+      <div class="pstat"><div class="pstat-l">Stage</div><div class="pstat-v" style="font-size:14px;">${HS_STAGE_MAP[p.dealstage]||'—'}</div></div>
+      <div class="pstat"><div class="pstat-l">Last Activity</div><div class="pstat-v" style="font-size:14px;${daysAgo>5?'color:var(--red)':''}">${daysAgo===0?'Today':daysAgo===1?'Yesterday':daysAgo!==null?daysAgo+'d ago':'—'}</div></div>
+      <div class="pstat"><div class="pstat-l">Next Reminder</div><div class="pstat-v" style="font-size:14px;">${l.reminderDate||'Not set'}</div></div>
+    </div>
+    ${c.email?`<div style="font-size:12px;color:var(--muted);margin-bottom:14px;">📧 <a href="mailto:${c.email}" style="color:var(--blu);text-decoration:none;">${c.email}</a></div>`:''}
+    ${p.dealname&&c.name?`<div style="font-size:11.5px;color:var(--muted);margin-bottom:14px;">Deal: ${esc(p.dealname)}</div>`:''}
+    <div class="panel-sec">Activity Log</div>
+    ${notes.length===0?'<div style="font-size:12px;color:var(--muted);padding:8px 0;">No activity logged yet.</div>':notes.slice().reverse().map(n=>`<div class="note-item"><div class="note-d">${n.date}</div><div class="note-t">${esc(n.text)}</div></div>`).join('')}
+    <div class="panel-sec" style="margin-top:16px;">AI Follow-up Email <span id="emailStatus">Generating…</span></div>
+    <div class="email-draft loading" id="emailDraft">
+      <div class="email-s" id="emailSubj" contenteditable="true">Generating…</div>
+      <div class="email-b" id="emailBody" contenteditable="true">Please wait…</div>
+    </div>
+    <div style="display:flex;gap:6px;margin-top:8px;">
+      <button class="copy-btn" id="copyEmailBtn" onclick="copyEmail()">Copy Email</button>
+    </div>`;
+
+  // Actions
+  document.getElementById('panelActions').innerHTML=`
+    <button class="pa-btn grn" onclick="dealAction('${id}','followup')">📞 Follow-up Done</button>
+    <button class="pa-btn" onclick="dealAction('${id}','note')">📝 Add Note</button>
+    <button class="pa-btn grn" onclick="dealAction('${id}','won')">✅ Won</button>
+    <button class="pa-btn red" onclick="dealAction('${id}','lost')">❌ Lost</button>
+    <button class="pa-btn" onclick="dealAction('${id}','cold')">🧊 Cold</button>`;
+
+  document.getElementById('panelOverlay').classList.add('open');
+  document.getElementById('dealPanel').classList.add('open');
+
+  // Generate email
+  generatePanelEmail(deal);
+}
+
+async function generatePanelEmail(deal){
+  const key=localStorage.getItem('nx_ai_key'),wk=localStorage.getItem('nx_wk_url');
+  const p=deal.properties||{},c=deal._contact||{},l=getLocal(deal.id);
+  const notes=l.notes||[];
+  const firstName=c.name?c.name.split(' ')[0]:'there';
+
+  if(!key||!wk){
+    // Fallback template
+    const subj=`NeuroUX — Following up on ${p.dealname||'your enquiry'}`;
+    const body=`Hi ${firstName},\n\nI hope you are doing well. I wanted to follow up on where things stand with NeuroUX.\n\nPlease do not hesitate to reach out if you have any questions or if timing has changed.\n\nLooking forward to hearing from you.\n\nBest,\nAnunay Raj\nCo-Founder, NeuroUX\nanunay.raj@getneuroux.com`;
+    document.getElementById('emailSubj').textContent=subj;
+    document.getElementById('emailBody').textContent=body;
+    document.getElementById('emailDraft').classList.remove('loading');
+    document.getElementById('emailStatus').textContent='Template';
+    return;
+  }
+
+  try{
+    const resp=await fetch(wk+'/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apiKey:key,model:'claude-haiku-4-5-20251001',max_tokens:300,messages:[{role:'user',content:`Write a short, professional follow-up email for NeuroUX sales.\n\nContact: ${c.name||'Unknown'}\nOrg: ${c.org||'Unknown'}\nEmail: ${c.email||'—'}\nDeal: ${p.dealname||'—'}\nValue: $${parseFloat(p.amount)||0}\nStage: ${HS_STAGE_MAP[p.dealstage]||'Unknown'}\nLast notes: ${notes.slice(-2).map(n=>n.text).join('; ')||'None'}\n\nWrite email from Anunay Raj, Co-Founder NeuroUX (anunay.raj@getneuroux.com). Keep it under 100 words. Natural, warm, not pushy.\n\nRespond in this exact format:\nSUBJECT: [subject line]\nBODY:\n[email body]`}]})});
+    const data=await resp.json();const text=data.content?.[0]?.text||'';
+    const subjMatch=text.match(/SUBJECT:\s*(.+)/);const bodyMatch=text.match(/BODY:\n([\s\S]+)/);
+    if(subjMatch&&bodyMatch){document.getElementById('emailSubj').textContent=subjMatch[1].trim();document.getElementById('emailBody').textContent=bodyMatch[1].trim();}
+    document.getElementById('emailDraft').classList.remove('loading');
+    document.getElementById('emailStatus').textContent='AI Generated';
+  }catch(e){document.getElementById('emailStatus').textContent='Template';}
+}
+
+function copyEmail(){
+  const s=document.getElementById('emailSubj')?.textContent||'';const b=document.getElementById('emailBody')?.textContent||'';
+  navigator.clipboard.writeText('Subject: '+s+'\n\n'+b).then(()=>{const btn=document.getElementById('copyEmailBtn');btn.textContent='Copied ✓';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy Email';btn.classList.remove('done');},2000);});
+}
+function closePanel(){document.getElementById('panelOverlay').classList.remove('open');document.getElementById('dealPanel').classList.remove('open');activePanelId=null;}
+
+// ═══ AI CHAT ═══
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatWin').classList.toggle('open',chatOpen);if(chatOpen)document.getElementById('chatInp').focus();}
+function askSug(el){document.getElementById('chatInp').value=el.textContent;document.getElementById('chatSugs').style.display='none';sendChat();}
+async function sendChat(){
+  const inp=document.getElementById('chatInp');const q=inp.value.trim();if(!q)return;
+  inp.value='';addChatMsg(q,'user');
+  const loadId=addChatMsg('Thinking…','bot',true);
+
+  const key=localStorage.getItem('nx_ai_key'),wk=localStorage.getItem('nx_wk_url');
+  if(!key||!wk){updateChatMsg(loadId,'Add your Anthropic API key in Settings to use the AI assistant.');return;}
+
+  // Build deal context (summarised)
+  const dealSummary=allDeals.slice(0,100).map(d=>{const p=d.properties||{},c=d._contact||{};return`${c.name||p.dealname||'Unknown'} | ${c.org||'—'} | $${parseFloat(p.amount)||0} | ${HS_STAGE_MAP[p.dealstage]||p.dealstage} | modified: ${p.hs_lastmodifieddate?p.hs_lastmodifieddate.split('T')[0]:'—'}`;}).join('\n');
+
+  try{
+    const resp=await fetch(wk+'/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apiKey:key,model:'claude-haiku-4-5-20251001',max_tokens:500,messages:[{role:'user',content:`You are a sales intelligence assistant for NeuroUX with access to their full deal pipeline. Answer the user's question directly.\n\nPipeline data (top 100 deals):\n${dealSummary}\n\nIf the user asks to FIND or SHOW deals, respond with:\nANSWER: [brief explanation]\nDEALS: [comma-separated list of exact deal names from the data]\n\nIf it's a general question, just answer naturally.\n\nUser question: ${q}`}]})});
+    const data=await resp.json();const text=data.content?.[0]?.text||'';
+    const dealMatch=text.match(/DEALS:\s*(.+)/s);const answerMatch=text.match(/ANSWER:\s*(.+?)(?=\nDEALS:|$)/s);
+    if(dealMatch){
+      const answerText=answerMatch?answerMatch[1].trim():text.replace(/DEALS:.+/s,'').trim();
+      const dealNames=dealMatch[1].split(',').map(n=>n.trim()).filter(Boolean);
+      const matchedDeals=dealNames.map(name=>allDeals.find(d=>{const p=d.properties||{},c=d._contact||{};return (c.name||'').toLowerCase().includes(name.toLowerCase())||(p.dealname||'').toLowerCase().includes(name.toLowerCase());})).filter(Boolean).slice(0,8);
+      updateChatMsg(loadId,answerText,matchedDeals);
+    }else{updateChatMsg(loadId,text);}
+  }catch(e){updateChatMsg(loadId,'Sorry, something went wrong. Check your API key in Settings.');}
+}
+
+function addChatMsg(text,role,loading=false){
+  const id='msg_'+Date.now();const el=document.createElement('div');el.className='msg '+role;el.id=id;
+  el.innerHTML=`<div class="msg-bubble${loading?' loading':''}">${esc(text)}</div>`;
+  document.getElementById('chatMsgs').appendChild(el);
+  document.getElementById('chatMsgs').scrollTop=9999;
+  return id;
+}
+function updateChatMsg(id,text,deals=[]){
+  const el=document.getElementById(id);if(!el)return;
+  let html=`<div class="msg-bubble">${esc(text)}</div>`;
+  if(deals.length>0){html+=`<div class="msg-deals">${deals.map(d=>{const p=d.properties||{},c=d._contact||{};const val=parseFloat(p.amount)||0;return`<div class="msg-deal-card" onclick="openPanel('${d.id}');toggleChat()"><div class="msg-deal-name">${esc(c.name||p.dealname||'—')}</div><div class="msg-deal-meta">$${val.toLocaleString()} · ${HS_STAGE_MAP[p.dealstage]||'—'} · ${esc(c.org||'')}</div></div>`;}).join('')}</div>`;}
+  el.innerHTML=html;document.getElementById('chatMsgs').scrollTop=9999;
+}
+
+// ═══ INSIGHTS ═══
+function buildInsights(won,lost,active,winRate,wonVal,lostVal,pipeVal,avgClose,overdueDeals,filters){
   const ins=[];
-
-  // Win rate
-  if(winRate>=60){ins.push({icon:'🏆',color:'grn',title:'Strong win rate at '+winRate+'%',text:'Closing more than half of all competed deals. Consistent follow-up timing is the key driver.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
-  else if(winRate>=40){ins.push({icon:'📈',color:'amb',title:'Win rate of '+winRate+'% has room to grow',text:'Good progress, but faster follow-up within 3 days of quoting makes the biggest difference.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
-  else{ins.push({icon:'⚠️',color:'red',title:'Win rate of '+winRate+'% needs attention',text:'More than half of competed deals are being lost. Review pricing and follow-up cadence urgently.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
-
-  // Price band
-  const bands=[{label:'< $1K',min:0,max:1000},{label:'$1K–$3K',min:1000,max:3000},{label:'$3K–$6K',min:3000,max:6000},{label:'$6K–$10K',min:6000,max:10000},{label:'> $10K',min:10000,max:Infinity}];
-  const bestBand=bands.map(b=>{const bW=won.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;const bL=lost.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;const bT=bW+bL;return{...b,won:bW,lost:bL,total:bT,rate:bT>0?Math.round((bW/bT)*100):0};}).filter(b=>b.total>1).sort((a,b)=>b.rate-a.rate)[0];
-  if(bestBand&&bestBand.rate>0){ins.push({icon:'💰',color:'gold',title:bestBand.label+' deals close at '+bestBand.rate+'%',text:'This is your pricing sweet spot. Anchor quotes in this range and only go outside it with strong justification.'});const bd=[...won,...lost].filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=bestBand.min&&v<bestBand.max;});filters.push({label:'Deals in '+bestBand.label,deals:bd});}
-
-  // Lost revenue
-  if(lostVal>0){ins.push({icon:'🔴',color:'red',title:'$'+fmtK(lostVal)+' in revenue lost',text:lost.length+' deals went cold. A re-activation sequence targeting the last 90 days could recover several.'});filters.push({label:'Lost Deals',deals:lost.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});}
-
-  // Active pipeline
-  if(pipeVal>0){ins.push({icon:'🚀',color:'grn',title:'$'+fmtK(pipeVal)+' in active pipeline',text:active.length+' deals in progress. Consistent follow-up over the next 2 weeks could significantly move this.'});filters.push({label:'Active Pipeline',deals:active.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});}
-
-  // Action required
-  if(actionDeals.length>0){const atRisk=actionDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);ins.push({icon:'⚡',color:'amb',title:actionDeals.length+' deals need follow-up now',text:'$'+fmtK(atRisk)+' at risk from overdue follow-ups. These should be contacted this week without fail.'});filters.push({label:'Overdue Follow-ups',deals:actionDeals});}
-
-  // Avg close time
-  if(avgClose>0){ins.push({icon:'⏱',color:'blu',title:'Deals take avg '+avgClose+' days to close',text:avgClose<=30?'Excellent velocity — short sales cycles mean more throughput.':avgClose<=60?'Reasonable. Faster quotes after calls could shorten this.':'Consider urgency triggers — grant deadlines, study start dates — to accelerate decisions.'});filters.push({label:'Won Deals by Close Time',deals:won.filter(d=>d.properties?.createdate&&d.properties?.closedate).sort((a,b)=>Math.round((new Date(b.properties.closedate)-new Date(b.properties.createdate))/86400000)-Math.round((new Date(a.properties.closedate)-new Date(a.properties.createdate))/86400000))});}
-
+  if(winRate>=60){ins.push({icon:'🏆',color:'grn',title:'Strong win rate at '+winRate+'%',text:'Closing more than half of all competed deals.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
+  else if(winRate>=40){ins.push({icon:'📈',color:'amb',title:'Win rate of '+winRate+'% has room to grow',text:'Faster follow-up within 3 days of quoting is the biggest lever.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
+  else{ins.push({icon:'⚠️',color:'red',title:'Win rate of '+winRate+'% needs attention',text:'More than half of competed deals are being lost.'});filters.push({label:'All Closed Deals',deals:[...won,...lost]});}
+  const bands=[{label:'<$1K',min:0,max:1000},{label:'$1K–3K',min:1000,max:3000},{label:'$3K–6K',min:3000,max:6000},{label:'$6K–10K',min:6000,max:10000},{label:'>$10K',min:10000,max:Infinity}];
+  const best=bands.map(b=>{const bW=won.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;const bL=lost.filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=b.min&&v<b.max;}).length;const bT=bW+bL;return{...b,rate:bT>0?Math.round((bW/bT)*100):0,total:bT};}).filter(b=>b.total>1).sort((a,b)=>b.rate-a.rate)[0];
+  if(best&&best.rate>0){ins.push({icon:'💰',color:'gold',title:best.label+' deals close at '+best.rate+'%',text:'This is your pricing sweet spot. Anchor quotes in this range.'});filters.push({label:'Deals in '+best.label,deals:[...won,...lost].filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=best.min&&v<best.max;})});}
+  if(lostVal>0){ins.push({icon:'🔴',color:'red',title:'$'+fmtK(lostVal)+' in revenue lost',text:lost.length+' deals went cold. Re-activation could recover several.'});filters.push({label:'Lost Deals',deals:lost.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});}
+  if(pipeVal>0){ins.push({icon:'🚀',color:'grn',title:'$'+fmtK(pipeVal)+' in active pipeline',text:active.length+' deals in progress. Consistent follow-up is key.'});filters.push({label:'Active Pipeline',deals:active.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});}
+  if(overdueDeals.length>0){const atRisk=overdueDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);ins.push({icon:'⚡',color:'amb',title:overdueDeals.length+' deals need follow-up now',text:'$'+fmtK(atRisk)+' at risk from overdue follow-ups.'});filters.push({label:'Overdue Follow-ups',deals:overdueDeals});}
+  if(avgClose>0){ins.push({icon:'⏱',color:'blu',title:'Avg '+avgClose+' days to close a deal',text:avgClose<=30?'Excellent velocity.':avgClose<=60?'Faster quotes after calls could help.':'Use urgency triggers — grant deadlines, study start dates.'});filters.push({label:'Won Deals',deals:won.sort((a,b)=>new Date(b.properties?.closedate||0)-new Date(a.properties?.closedate||0))});}
   return ins.slice(0,6);
 }
 
-// ── INSIGHT DRILL DOWN ──
-let _insightFilters=[];
+// ═══ DRILL-DOWN ═══
 function drillInsight(idx){
-  const filter=_insightFilters[idx];if(!filter)return;
+  const f=_insightFilters[idx];if(!f)return;
   document.querySelectorAll('.insight').forEach((el,i)=>el.classList.toggle('active-ins',i===idx));
-  const deals=filter.deals;
-  document.getElementById('drillTitle').textContent=filter.label+' — '+deals.length+' deal'+(deals.length!==1?'s':'');
-  if(!deals.length){document.getElementById('drillBody').innerHTML='<div class="no-data">No deals match this insight.</div>';}
-  else{document.getElementById('drillBody').innerHTML=`<table class="lost-table"><thead><tr><th>Contact</th><th>Organisation</th><th>Value</th><th>Stage</th><th>Last Activity</th></tr></thead><tbody>${deals.map(d=>{const p=d.properties||{},c=d._contact||{};const val=parseFloat(p.amount)||0;const lm=p.hs_lastmodifieddate?new Date(p.hs_lastmodifieddate):p.closedate?new Date(p.closedate):null;const today=new Date();const dAgo=lm?Math.floor((today-lm)/86400000):null;const lmStr=dAgo===0?'Today':dAgo===1?'Yesterday':dAgo!==null?dAgo+'d ago':'—';const stageName=HS_STAGE_MAP[p.dealstage]||'—';const valCol=p.dealstage==='closedwon'?'var(--grn)':p.dealstage==='closedlost'?'var(--red)':'var(--gold)';return`<tr><td><div style="font-weight:500;color:var(--ink);">${esc(c.name||p.dealname||'—')}</div></td><td>${esc(c.org||'—')}</td><td style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:${valCol};">$${val.toLocaleString()}</td><td style="font-size:11.5px;color:var(--soft);">${stageName}</td><td style="font-family:'Geist Mono',monospace;font-size:11px;color:${dAgo>5?'var(--red)':'var(--muted)'};">${lmStr}</td></tr>`;}).join('')}</tbody></table>`;}
-  const wrap=document.getElementById('drillWrap');wrap.classList.add('open');
-  setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+  showDrill(f.label,f.deals);
 }
 function drillStage(stage){
-  // Toggle
   if(activeStage===stage){closeDrill();return;}
   activeStage=stage;
-
-  // Update visual
-  document.querySelectorAll('.stage-item').forEach(el=>{
-    el.classList.toggle('active',el.id==='stage_'+stage);
-  });
-
+  document.querySelectorAll('.stage-item').forEach(el=>el.classList.toggle('active',el.id==='stg_'+stage));
   const deals=allDeals.filter(d=>d.properties?.dealstage===stage);
-  const stageName=HS_STAGE_MAP[stage]||stage;
-  const totalVal=deals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
-
-  document.getElementById('drillTitle').textContent=stageName+' — '+deals.length+' deal'+(deals.length!==1?'s':'')+' · $'+totalVal.toLocaleString();
-
-  if(!deals.length){
-    document.getElementById('drillBody').innerHTML='<div class="no-data">No deals in this stage.</div>';
-  }else{
-    document.getElementById('drillBody').innerHTML=`<table class="lost-table">
-      <thead><tr><th>Contact</th><th>Organisation</th><th>Value</th><th>Last Activity</th></tr></thead>
-      <tbody>${deals.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0)).map(d=>{
-        const p=d.properties||{},c=d._contact||{};
-        const val=parseFloat(p.amount)||0;
-        const lm=p.hs_lastmodifieddate?new Date(p.hs_lastmodifieddate):null;
-        const today=new Date();
-        const daysAgo=lm?Math.floor((today-lm)/86400000):null;
-        const lmStr=daysAgo===0?'Today':daysAgo===1?'Yesterday':daysAgo!==null?daysAgo+'d ago':'—';
-        return`<tr>
-          <td><div style="font-weight:500;color:var(--ink);">${esc(c.name||p.dealname||'—')}</div></td>
-          <td>${esc(c.org||'—')}</td>
-          <td style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);">$${val.toLocaleString()}</td>
-          <td style="font-family:'Geist Mono',monospace;font-size:11px;color:${daysAgo>5?'var(--red)':'var(--muted)'};">${lmStr}</td>
-        </tr>`;
-      }).join('')}</tbody>
-    </table>`;
-  }
-
-  const wrap=document.getElementById('drillWrap');
-  wrap.classList.add('open');
-  setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+  showDrill(HS_STAGE_MAP[stage]+' — '+deals.length+' deals · $'+deals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0).toLocaleString(),deals);
 }
-
-function closeDrill(){
-  activeStage=null;
-  document.getElementById('drillWrap').classList.remove('open');
-  document.querySelectorAll('.stage-item').forEach(el=>el.classList.remove('active'));
+function showDrill(title,deals){
+  document.getElementById('drillTitle').textContent=title;
+  const today=new Date();
+  document.getElementById('drillBody').innerHTML=deals.length===0?'<div class="no-data">No deals.</div>':`<table class="dtable"><thead><tr><th>Contact</th><th>Org</th><th>Value</th><th>Stage</th><th>Last Activity</th><th>Action</th></tr></thead><tbody>${deals.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0)).map(d=>{const p=d.properties||{},c=d._contact||{};const val=parseFloat(p.amount)||0;const lm=p.hs_lastmodifieddate?new Date(p.hs_lastmodifieddate):null;const dAgo=lm?Math.floor((today-lm)/86400000):null;return`<tr onclick="openPanel('${d.id}')"><td><div class="d-name">${esc(c.name||p.dealname||'—')}</div></td><td style="font-size:11.5px;">${esc(c.org||'—')}</td><td class="d-val" style="color:var(--gold);">$${val.toLocaleString()}</td><td style="font-size:11px;color:var(--soft);">${HS_STAGE_MAP[p.dealstage]||'—'}</td><td style="font-family:'Geist Mono',monospace;font-size:11px;color:${dAgo>5?'var(--red)':'var(--muted)'};">${dAgo===0?'Today':dAgo===1?'Yesterday':dAgo!==null?dAgo+'d ago':'—'}</td><td onclick="event.stopPropagation();">${actionDropdown(d.id)}</td></tr>`;}).join('')}</tbody></table>`;
+  document.getElementById('drillWrap').classList.add('open');
+  setTimeout(()=>document.getElementById('drillWrap').scrollIntoView({behavior:'smooth',block:'nearest'}),50);
 }
+function closeDrill(){activeStage=null;document.getElementById('drillWrap').classList.remove('open');document.querySelectorAll('.insight').forEach(el=>el.classList.remove('active-ins'));document.querySelectorAll('.stage-item').forEach(el=>el.classList.remove('active'));}
 
-// ── SETTINGS ──
-function saveSettings(){
-  const hs=document.getElementById('s_hs').value.trim(),wk=document.getElementById('s_wk').value.trim(),ai=document.getElementById('s_ai').value.trim();
-  if(!hs||!wk){alert('Fill in HubSpot token and Worker URL.');return;}
-  localStorage.setItem('nx_hs_tok',hs);localStorage.setItem('nx_wk_url',wk);
-  if(ai)localStorage.setItem('nx_ai_key',ai);
-  closeM('settingsM');loadData();
-}
+// ═══ SETTINGS ═══
+function saveSettings(){const hs=document.getElementById('s_hs').value.trim(),wk=document.getElementById('s_wk').value.trim(),ai=document.getElementById('s_ai').value.trim();if(!hs||!wk){alert('Fill in HubSpot token and Worker URL.');return;}localStorage.setItem('nx_hs_tok',hs);localStorage.setItem('nx_wk_url',wk);if(ai)localStorage.setItem('nx_ai_key',ai);closeM('settingsM');loadData();}
 
-// ── UTILS ──
+// ═══ UTILS ═══
 function fmtK(n){if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1000)return Math.round(n/1000)+'K';return n.toLocaleString();}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function tod(){return new Date().toISOString().split('T')[0];}
 function openM(id){document.getElementById(id)?.classList.add('open');}
 function closeM(id){document.getElementById(id)?.classList.remove('open');}
 document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
