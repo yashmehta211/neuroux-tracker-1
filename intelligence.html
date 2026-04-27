@@ -155,12 +155,26 @@ body{background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif;font-s
 
 /* INSIGHTS */
 .insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
-.insight{background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:10px;padding:14px 16px;box-shadow:var(--sh1);display:flex;gap:10px;transition:all 0.15s;}
-.insight:hover{box-shadow:var(--sh2);transform:translateY(-1px);}
-.insight.gold{border-left-color:var(--gold);} .insight.grn{border-left-color:var(--grn);} .insight.red{border-left-color:var(--red);} .insight.blu{border-left-color:var(--blu);} .insight.amb{border-left-color:var(--amb);} .insight.prp{border-left-color:var(--prp);}
+.insight{background:var(--bg2);border:1px solid var(--line);border-left:3px solid;border-radius:10px;padding:14px 16px;box-shadow:var(--sh1);display:flex;gap:10px;transition:all 0.15s;cursor:pointer;position:relative;}
+.insight:hover{box-shadow:var(--sh2);transform:translateY(-1px);border-color:var(--line2);}
+.insight.active-ins{box-shadow:var(--sh2);transform:translateY(-1px);}
+.insight.gold{border-left-color:var(--gold);} .insight.gold.active-ins{background:var(--goldbg);}
+.insight.grn{border-left-color:var(--grn);} .insight.grn.active-ins{background:var(--grnbg);}
+.insight.red{border-left-color:var(--red);} .insight.red.active-ins{background:var(--redbg);}
+.insight.blu{border-left-color:var(--blu);} .insight.blu.active-ins{background:var(--blubg);}
+.insight.amb{border-left-color:var(--amb);} .insight.amb.active-ins{background:var(--ambbg);}
+.insight.prp{border-left-color:var(--prp);} .insight.prp.active-ins{background:var(--prpbg);}
 .ins-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
 .ins-ttl{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.4;}
 .ins-txt{font-size:11px;color:var(--soft);line-height:1.6;}
+.ins-click-hint{font-size:9.5px;color:var(--dim);margin-top:5px;font-family:'Geist Mono',monospace;letter-spacing:0.04em;}
+/* INSIGHT DRILL-DOWN TABLE */
+.drill-table-wrap{background:var(--bg2);border:1.5px solid var(--goldbd);border-radius:12px;padding:0;margin-bottom:22px;overflow:hidden;box-shadow:var(--sh2);animation:fadeUp 0.25s ease both;display:none;}
+.drill-table-wrap.open{display:block;}
+.drill-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--goldbg);}
+.drill-title{font-family:'Instrument Serif',serif;font-size:16px;color:var(--ink);}
+.drill-close{background:none;border:1px solid var(--goldbd);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--gold);cursor:pointer;font-family:'Geist',sans-serif;transition:all 0.12s;}
+.drill-close:hover{background:var(--gold);color:#fff;}
 
 /* DEAL TABLE */
 .dtable{width:100%;border-collapse:collapse;}
@@ -379,41 +393,44 @@ function classifyFromText(title, name, org, notes) {
 // ═══ AI LOOKUP (Claude API) ═══
 async function aiClassifySingle(name, org, title) {
   const key = localStorage.getItem('nx_ai_key');
-  if (!key) return null;
+  const wk = localStorage.getItem('nx_wk_url');
+  if (!key || !wk) return null;
   try {
     const prompt = `You are classifying academic researchers for a sales CRM.
 
-Contact: ${name}
-Organisation: ${org}
-Job Title: ${title || 'unknown'}
+Contact: ${name || 'Unknown'}
+Organisation: ${org || 'Unknown'}
+Job Title: ${title || 'not provided'}
 
-Classify this person into EXACTLY one of these categories:
-- phd (PhD student, doctoral candidate, graduate student)
-- postdoc (postdoctoral researcher, research fellow)
-- professor (professor, PI, principal investigator, faculty, associate/assistant professor)
-- researcher (research scientist, research associate, senior researcher)
-- coordinator (lab manager, research coordinator, study coordinator)
-- unknown (cannot determine)
+Based on the name, organisation, and any title clues, classify this person into EXACTLY one category:
+- phd (PhD student, doctoral candidate, graduate student doing their doctorate)
+- postdoc (postdoctoral researcher, research fellow, post-doctoral associate)
+- professor (professor, PI, principal investigator, faculty member, associate/assistant professor, lecturer)
+- researcher (research scientist, research associate, senior researcher, staff scientist)
+- coordinator (lab manager, research coordinator, study coordinator, clinical coordinator)
+- unknown (genuinely cannot determine from the information given)
 
-Also infer their approximate seniority level: junior, mid, senior
+Use context clues: universities often have PhD students, hospitals have coordinators, named labs suggest PIs.
 
-Respond in JSON only, no explanation:
-{"type": "phd", "seniority": "junior", "confidence": "high", "reasoning": "one sentence"}`;
+Respond in JSON only, no markdown, no explanation:
+{"type":"phd","confidence":"high","reasoning":"one short sentence"}`;
 
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch(wk + '/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 200,
+        apiKey: key,
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 150,
         messages: [{ role: 'user', content: prompt }]
       })
     });
+    if (!resp.ok) throw new Error('Worker returned ' + resp.status);
     const data = await resp.json();
     const text = data.content?.[0]?.text || '';
     const clean = text.replace(/```json|```/g, '').trim();
     return JSON.parse(clean);
-  } catch(e) { return null; }
+  } catch(e) { console.error('AI classify error:', e); return null; }
 }
 
 async function aiLookupSingle() {
@@ -730,7 +747,16 @@ function renderDashboard(deals) {
 
   <!-- AI INSIGHTS -->
   <div class="sec-hd"><div class="sec-ttl">AI Insights</div><div class="sec-line"></div><div class="sec-sub">Based on your real deal data</div></div>
-  <div class="insights">${insights.map(i=>`<div class="insight ${i.color}"><div class="ins-icon">${i.icon}</div><div><div class="ins-ttl">${i.title}</div><div class="ins-txt">${i.text}</div></div></div>`).join('')}</div>
+  <div class="insights">${insights.map((i,idx)=>`<div class="insight ${i.color}" onclick="drillInsight(${idx})" id="ins_${idx}"><div class="ins-icon">${i.icon}</div><div><div class="ins-ttl">${i.title}</div><div class="ins-txt">${i.text}</div><div class="ins-click-hint">Click to see deals →</div></div></div>`).join('')}</div>
+
+  <!-- DRILL DOWN TABLE -->
+  <div class="drill-table-wrap" id="drillWrap">
+    <div class="drill-header">
+      <div class="drill-title" id="drillTitle">Deals</div>
+      <button class="drill-close" onclick="closeDrill()">✕ Close</button>
+    </div>
+    <div id="drillBody" style="overflow-x:auto;"></div>
+  </div>
 
   <!-- RESEARCHER BREAKDOWN -->
   <div class="sec-hd"><div class="sec-ttl">Researcher Breakdown</div><div class="sec-line"></div><div class="sec-sub">${aiClassified} AI · ${manualClassified} manual · ${unknownCount} unknown — <button onclick="runAILookup()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;font-family:'Geist',sans-serif;text-decoration:underline;">✦ Run AI lookup on unknowns</button></div></div>
@@ -892,18 +918,101 @@ function renderDashboard(deals) {
 
 function generateInsights(won, lost, active, winRate, bestBand, avgClose, avgDeal, lostValue, activeValue, bestRtype) {
   const ins = [];
+  insightFilters = [];
+
+  // 1. Win rate
   if (winRate >= 60) ins.push({icon:'🏆',color:'grn',title:'Strong win rate at '+winRate+'%',text:'You\'re closing more than half of all competed deals. Maintain this with consistent follow-up timing.'});
   else if (winRate >= 40) ins.push({icon:'📈',color:'amb',title:'Win rate of '+winRate+'% has room to grow',text:'Good progress but conversion needs attention. Faster follow-up within 3 days of quoting makes the biggest difference.'});
   else ins.push({icon:'⚠️',color:'red',title:'Win rate of '+winRate+'% needs attention',text:'More than half of competed deals are being lost. Review pricing, follow-up cadence, and where deals are stalling.'});
-  if (bestBand && bestBand.rate > 0) ins.push({icon:'💰',color:'gold',title:bestBand.label+' deals close at '+bestBand.rate+'%',text:'This is your pricing sweet spot. Anchor quotes in this range and only go outside it with strong justification.'});
-  if (bestRtype) ins.push({icon:RTYPE_ICONS[bestRtype.rt],color:'blu',title:RTYPE_LABELS[bestRtype.rt]+'s close at '+bestRtype.rate+'%',text:'This researcher type converts best for NeuroUX. Prioritise these leads and tailor pitches to their specific study needs.'});
-  if (lostValue > 0) ins.push({icon:'🔴',color:'red',title:'$'+fmtK(lostValue)+' in revenue lost',text:lost.length+' deals went cold. A re-activation email sequence targeting the last 90 days could recover several of these.'});
-  if (activeValue > 0) ins.push({icon:'🚀',color:'grn',title:'$'+fmtK(activeValue)+' in active pipeline',text:active.length+' deals in progress. Consistent follow-up over the next 2 weeks could significantly close this out.'});
-  if (avgClose > 0) ins.push({icon:'⏱',color:'amb',title:'Deals take avg '+avgClose+' days to close',text:avgClose<=30?'Excellent velocity. Short sales cycles mean more throughput.':avgClose<=60?'Reasonable. Faster quote turnaround after calls could shorten this.':'Consider urgency triggers — study start dates, grant deadlines — to accelerate decisions.'});
-  return ins.slice(0, 6);
+  insightFilters.push({label:'All Closed Deals', deals:[...won,...lost]});
+
+  // 2. Best price band
+  if (bestBand && bestBand.rate > 0) {
+    ins.push({icon:'💰',color:'gold',title:bestBand.label+' deals close at '+bestBand.rate+'%',text:'This is your pricing sweet spot. Anchor quotes in this range and only go outside it with strong justification.'});
+    const bandDeals = [...won,...lost].filter(d=>{const v=parseFloat(d.properties?.amount)||0;return v>=bestBand.min&&v<bestBand.max;});
+    insightFilters.push({label:'Deals in '+bestBand.label+' range', deals:bandDeals});
+  }
+
+  // 3. Best researcher type
+  if (bestRtype) {
+    ins.push({icon:RTYPE_ICONS[bestRtype.rt],color:'blu',title:RTYPE_LABELS[bestRtype.rt]+'s close at '+bestRtype.rate+'%',text:'This researcher type converts best for NeuroUX. Prioritise these leads and tailor pitches to their specific study needs.'});
+    insightFilters.push({label:RTYPE_LABELS[bestRtype.rt]+' deals', deals:[...won,...lost,...active].filter(d=>d._rtype===bestRtype.rt)});
+  }
+
+  // 4. Lost revenue
+  if (lostValue > 0) {
+    ins.push({icon:'🔴',color:'red',title:'$'+fmtK(lostValue)+' in revenue lost',text:lost.length+' deals went cold. A re-activation email sequence targeting the last 90 days could recover several of these.'});
+    insightFilters.push({label:'Lost Deals', deals:lost.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});
+  }
+
+  // 5. Active pipeline
+  if (activeValue > 0) {
+    ins.push({icon:'🚀',color:'grn',title:'$'+fmtK(activeValue)+' in active pipeline',text:active.length+' deals in progress. Consistent follow-up over the next 2 weeks could significantly close this out.'});
+    insightFilters.push({label:'Active Pipeline Deals', deals:active.sort((a,b)=>(parseFloat(b.properties?.amount)||0)-(parseFloat(a.properties?.amount)||0))});
+  }
+
+  // 6. Avg close time
+  if (avgClose > 0) {
+    ins.push({icon:'⏱',color:'amb',title:'Deals take avg '+avgClose+' days to close',text:avgClose<=30?'Excellent velocity. Short sales cycles mean more throughput.':avgClose<=60?'Reasonable. Faster quote turnaround after calls could shorten this.':'Consider urgency triggers — study start dates, grant deadlines — to accelerate decisions.'});
+    // Show won deals sorted by days to close
+    const withTime = won.filter(d=>d.properties?.createdate&&d.properties?.closedate).map(d=>({...d,_days:Math.round((new Date(d.properties.closedate)-new Date(d.properties.createdate))/86400000)})).sort((a,b)=>b._days-a._days);
+    insightFilters.push({label:'Won Deals by Days to Close', deals:withTime});
+  }
+
+  return ins.slice(0,6);
 }
 
-// ═══ UTILS ═══
+// ═══ INSIGHT DRILL-DOWN ═══
+let insightFilters = []; // populated during renderDashboard
+
+function drillInsight(idx) {
+  const filter = insightFilters[idx];
+  if (!filter) return;
+
+  // Toggle active state
+  document.querySelectorAll('.insight').forEach((el,i) => el.classList.toggle('active-ins', i===idx));
+
+  const deals = filter.deals;
+  const wrap = document.getElementById('drillWrap');
+  const title = document.getElementById('drillTitle');
+  const body = document.getElementById('drillBody');
+
+  title.textContent = filter.label + ' — ' + deals.length + ' deal' + (deals.length!==1?'s':'');
+
+  if (!deals.length) {
+    body.innerHTML = '<div class="no-data">No deals match this insight.</div>';
+  } else {
+    body.innerHTML = `<table class="dtable">
+      <thead><tr><th>Contact</th><th>Organisation</th><th>Type</th><th>Value</th><th>Stage</th><th>Last Modified</th><th>Edit</th></tr></thead>
+      <tbody>${deals.map(d=>{
+        const p=d.properties||{}, c=d._contact||{};
+        const val=parseFloat(p.amount)||0;
+        const mod=p.hs_lastmodifieddate?new Date(p.hs_lastmodifieddate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):(p.closedate?new Date(p.closedate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—');
+        const rtype=d._rtype||'unknown';
+        const stageName=HS_STAGE_MAP[p.dealstage]||p.dealstage||'—';
+        const valColor=p.dealstage==='closedwon'?'grn':p.dealstage==='closedlost'?'red':'gold';
+        return`<tr>
+          <td>${esc(c.name||p.dealname||'—')}<div style="font-size:10px;color:var(--muted);margin-top:1px;">${esc(p.dealname||'')}</div></td>
+          <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
+          <td><span class="rtype-badge ${rtype}">${RTYPE_ICONS[rtype]} ${RTYPE_LABELS[rtype]}</span></td>
+          <td class="${valColor}">$${val.toLocaleString()}</td>
+          <td class="mono" style="font-size:11px;">${stageName}</td>
+          <td class="mono" style="font-size:10.5px;color:var(--muted);">${mod}</td>
+          <td><button class="edit-btn" onclick="openEditDeal('${d.id}')">✏</button></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table>`;
+  }
+
+  wrap.classList.add('open');
+  // Scroll to drill table
+  setTimeout(()=>wrap.scrollIntoView({behavior:'smooth', block:'start'}), 50);
+}
+
+function closeDrill() {
+  document.getElementById('drillWrap').classList.remove('open');
+  document.querySelectorAll('.insight').forEach(el=>el.classList.remove('active-ins'));
+}
 function fmtK(n){if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1000)return(n/1000).toFixed(0)+'K';return n.toLocaleString();}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function openM(id){document.getElementById(id)?.classList.add('open');}
