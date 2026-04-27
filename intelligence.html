@@ -378,7 +378,13 @@ body{background:var(--bg);color:var(--ink);font-family:'Geist',sans-serif;font-s
 
 <script>
 // ═══ CONFIG ═══
-const HS_STAGE_MAP={appointmentscheduled:'Call Scheduled',qualifiedtobuy:'Call Done',presentationscheduled:'Quote Sent',decisionmakerboughtin:'Negotiating',contractsent:'Contract Sent',closedwon:'Won',closedlost:'Lost'};
+const HS_STAGE_MAP={appointmentscheduled:'Call Scheduled',qualifiedtobuy:'Call Done',presentationscheduled:'Quote Sent',decisionmakerboughtin:'Negotiating',contractsent:'Contract Sent',closedwon:'Won',closedlost:'Lost',awaitinggrantdecision:'Awaiting Grant Decision'};
+const HS_GRANT_STAGES=['awaitinggrantdecision','awaiting_grant_decision','grant_decision','grantdecision']; // HubSpot stage IDs for grant
+const HS_COLD_STAGES=['cold','unqualified','closedlost_cold']; // HubSpot stage IDs for cold
+
+// Also check by stage name pattern
+function isHSGrantStage(stage){return stage&&(HS_GRANT_STAGES.includes(stage)||stage.toLowerCase().includes('grant'));}
+function isHSColdStage(stage){return stage&&(HS_COLD_STAGES.includes(stage)||stage.toLowerCase().includes('cold')||stage.toLowerCase().includes('unqualified'));}
 const STAGE_ORDER=['appointmentscheduled','qualifiedtobuy','presentationscheduled','decisionmakerboughtin','contractsent'];
 const STAGE_COLORS=['#2050b8','#1848a8','#a87020','#a05808','#1a7248'];
 const FOLLOWUP_DAYS={appointmentscheduled:0,qualifiedtobuy:3,presentationscheduled:3,decisionmakerboughtin:5,contractsent:5};
@@ -438,7 +444,7 @@ async function generateBrief(deals){
   const key=localStorage.getItem('nx_ai_key'),wk=localStorage.getItem('nx_wk_url');if(!key||!wk)return;
   const won=deals.filter(d=>d.properties?.dealstage==='closedwon');
   const lost=deals.filter(d=>d.properties?.dealstage==='closedlost');
-  const active=deals.filter(d=>d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost');
+  const active=deals.filter(d=>isActiveForDash(d));
   const wonVal=won.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
   const lostVal=lost.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
   const pipeVal=active.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
@@ -455,9 +461,88 @@ async function generateBrief(deals){
 }
 
 // ═══ DEAL STATUS HELPERS ═══
-function isCold(d){return d._local?.status==='cold';}
-function isGrant(d){return d._local?.status==='grant';}
-function isActiveForDash(d){return d.properties?.dealstage!=='closedwon'&&d.properties?.dealstage!=='closedlost'&&!isCold(d)&&!isGrant(d);}
+function isCold(d){return d._local?.status==='cold'||isHSColdStage(d.properties?.dealstage);}
+function isGrant(d){return d._local?.status==='grant'||isHSGrantStage(d.properties?.dealstage);}
+function isActiveForDash(d){
+  const stage=d.properties?.dealstage;
+  if(stage==='closedwon'||stage==='closedlost')return false;
+  if(isCold(d)||isGrant(d))return false;
+  return true;
+}
+
+// ═══ GRANT + COLD SECTION RENDERERS ═══
+function renderGrantSection(grantDeals){
+  if(!grantDeals.length) return '';
+  const total = grantDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const rows = grantDeals.map(d=>{
+    const p=d.properties||{},c=d._contact||{},l=d._local||{};
+    const val=parseFloat(p.amount)||0;
+    const fromHS=isHSGrantStage(p.dealstage);
+    const srcBadge=fromHS
+      ?'<span style="font-family:\'Geist Mono\',monospace;font-size:8.5px;padding:2px 7px;border-radius:10px;background:#fff3e0;color:#e65100;border:1px solid #ffcc80;">HubSpot</span>'
+      :'<span style="font-family:\'Geist Mono\',monospace;font-size:8.5px;padding:2px 7px;border-radius:10px;background:#f5f3ff;color:#7040c0;border:1px solid #c4b5fd;">Manual</span>';
+    return`<tr onclick="openPanel('${d.id}')">
+      <td><div class="d-name">${esc(c.name||p.dealname||'—')}</div><div class="d-org">${esc(c.org||'')}</div></td>
+      <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
+      <td class="d-val" style="color:#7040c0;">$${val.toLocaleString()}</td>
+      <td style="font-size:11px;color:var(--soft);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
+      <td style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);">${l.grantDate||'—'}</td>
+      <td>${srcBadge}</td>
+      <td onclick="event.stopPropagation();">${actionDropdown(d.id)}</td>
+    </tr>`;
+  }).join('');
+  return`<div class="fut-section">
+    <div class="fut-header">
+      <div class="fut-title" style="color:#7040c0;">🎓 Awaiting Grant Decision</div>
+      <div class="fut-count" style="background:#7040c0;">${grantDeals.length}</div>
+      <div class="fut-line"></div>
+      <div style="font-size:11.5px;color:var(--muted);">$${fmtK(total)} on hold</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid #c4b5fd;border-radius:10px;overflow:hidden;box-shadow:var(--sh1);">
+      <table class="dtable">
+        <thead><tr><th>Contact</th><th>Organisation</th><th>Value</th><th>Stage</th><th>Expected Decision</th><th>Source</th><th>Action</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function renderColdSection(coldDeals){
+  if(!coldDeals.length) return '';
+  const total = coldDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0);
+  const rows = coldDeals.map(d=>{
+    const p=d.properties||{},c=d._contact||{},l=d._local||{};
+    const val=parseFloat(p.amount)||0;
+    const fromHS=isHSColdStage(p.dealstage);
+    const lastNote=l.notes?.slice(-1)[0];
+    const srcBadge=fromHS
+      ?'<span style="font-family:\'Geist Mono\',monospace;font-size:8.5px;padding:2px 7px;border-radius:10px;background:#fff3e0;color:#e65100;border:1px solid #ffcc80;">HubSpot</span>'
+      :'<span style="font-family:\'Geist Mono\',monospace;font-size:8.5px;padding:2px 7px;border-radius:10px;background:var(--bg3);color:var(--muted);border:1px solid var(--line2);">Manual</span>';
+    return`<tr onclick="openPanel('${d.id}')">
+      <td><div class="d-name">${esc(c.name||p.dealname||'—')}</div><div class="d-org">${esc(c.org||'')}</div></td>
+      <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
+      <td class="d-val" style="color:var(--muted);">$${val.toLocaleString()}</td>
+      <td style="font-size:11px;color:var(--soft);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
+      <td style="font-size:11px;color:var(--muted);">${lastNote?lastNote.date+' · '+lastNote.text.substring(0,45):'—'}</td>
+      <td>${srcBadge}</td>
+      <td onclick="event.stopPropagation();">${actionDropdown(d.id)}</td>
+    </tr>`;
+  }).join('');
+  return`<div class="fut-section">
+    <div class="fut-header">
+      <div class="fut-title" style="color:var(--muted);">🧊 Cold Deals</div>
+      <div class="fut-count" style="background:var(--muted);">${coldDeals.length}</div>
+      <div class="fut-line"></div>
+      <div style="font-size:11.5px;color:var(--muted);">$${fmtK(total)} paused</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--line2);border-radius:10px;overflow:hidden;box-shadow:var(--sh1);">
+      <table class="dtable">
+        <thead><tr><th>Contact</th><th>Organisation</th><th>Value</th><th>Stage</th><th>Last Note</th><th>Source</th><th>Action</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
 
 // ═══ RENDER DASHBOARD ═══
 function renderDash(deals){
@@ -529,33 +614,9 @@ function renderDash(deals){
       :`<div class="fut-cards">${allActionToday.map(d=>{const p=d.properties||{},c=d._contact||{},l=d._local||{};const lastNote=l.notes?.slice(-1)[0];return`<div class="fut-card" onclick="openPanel('${d.id}')"><div class="fut-card-name">${esc(c.name||p.dealname||'—')}</div><div class="fut-card-org">${esc(c.org||'—')}</div><div class="fut-card-row"><span class="fut-card-val">$${(parseFloat(p.amount)||0).toLocaleString()}</span><span class="fut-card-stage">${HS_STAGE_MAP[p.dealstage]||'—'}</span></div>${lastNote?`<div class="fut-card-note">"${esc(lastNote.text)}"</div>`:''}</div>`;}).join('')}</div>`}
   </div>
 
-  <!-- GRANT WAITING SECTION -->
-  ${grantDeals.length>0?`
-  <div class="fut-section">
-    <div class="fut-header">
-      <div class="fut-title" style="color:#7040c0;">🎓 Waiting for Grant Decision</div>
-      <div class="fut-count" style="background:#7040c0;">${grantDeals.length}</div>
-      <div class="fut-line"></div>
-      <div style="font-size:11.5px;color:var(--muted);">$${fmtK(grantDeals.reduce((s,d)=>s+(parseFloat(d.properties?.amount)||0),0))} on hold</div>
-    </div>
-    <div style="background:var(--bg2);border:1px solid #c4b5fd;border-radius:10px;overflow:hidden;box-shadow:var(--sh1);">
-      <table class="dtable">
-        <thead><tr><th>Contact</th><th>Organisation</th><th>Value</th><th>Stage</th><th>Expected Decision</th><th>Action</th></tr></thead>
-        <tbody>${grantDeals.map(d=>{
-          const p=d.properties||{},c=d._contact||{},l=d._local||{};
-          const val=parseFloat(p.amount)||0;
-          return`<tr onclick="openPanel('${d.id}')">
-            <td><div class="d-name">${esc(c.name||p.dealname||'—')}</div><div class="d-org">${esc(c.org||'')}</div></td>
-            <td style="font-size:11.5px;">${esc(c.org||'—')}</td>
-            <td class="d-val" style="color:#7040c0;">$${val.toLocaleString()}</td>
-            <td style="font-size:11.5px;color:var(--soft);">${HS_STAGE_MAP[p.dealstage]||'—'}</td>
-            <td style="font-family:'Geist Mono',monospace;font-size:11px;color:var(--muted);">${l.grantDate||'Not set'}</td>
-            <td onclick="event.stopPropagation();">${actionDropdown(d.id)}</td>
-          </tr>`;
-        }).join('')}</tbody>
-      </table>
-    </div>
-  </div>`:''}
+  <!-- GRANT + COLD SECTIONS -->
+  ${renderGrantSection(grantDeals)}
+  ${renderColdSection(coldDeals)}
 
   <!-- REVENUE HERO -->
   <div class="rev-hero">
